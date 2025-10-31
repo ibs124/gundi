@@ -27,11 +27,22 @@
     --header-height: 60px;
     --sidebar-width: 60px;
     --sidebar-width-expanded: 230px;
+
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: var(--bg-dark-color);
+    color: var(--text-color);
+
+    
 }
 
 .app__header {}
 
-.app__workspace {}
+.app__workspace {
+    background-color: var(--bg-dark-color);
+    color: var(--text-muted-color);
+}
 
 .app__main {}
 
