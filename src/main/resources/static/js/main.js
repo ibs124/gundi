@@ -1,9 +1,20 @@
 const CLICK = "click";
+const APP = ".app";
+const APP_SIDEBAR_EXPANDED = "app--sidebar-expanded";
 
 main();
 
 function main() {
-   injectIcons();
+    injectIcons();
+    setSidebarToggleBtn();
+}
+
+function setSidebarToggleBtn() {
+    const app = document.querySelector(APP);
+    const buttons = document.querySelectorAll(".app__sidebar-toggle");
+
+    buttons.forEach(btn =>
+        btn.addEventListener(CLICK, () => app.classList.toggle(APP_SIDEBAR_EXPANDED)));
 }
 
 function injectIcons() {
