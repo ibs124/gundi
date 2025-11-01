@@ -25,9 +25,15 @@
     --alert-info-color: oklch(0.5 0.05 260);
 
     --header-height: 60px;
-    --sidebar-width: 300px;
-    --sidebar-width-expanded: 230px;
+    --sidebar-collapsed-width: 200px;
+    --sidebar-expanded-width: 350px;
     --padding: 0.5rem;
+
+    /* Beakpoints - symbolic variables */
+    --bp-mobile: 480px;
+    --bp-min-sidebar-visibility-width: var(--sidebar-collapsed-width) + var(--bp-mobile);
+    --bp-min-sidebar-hover-width: var(--sidebar-expanded-width) + var(--sidebar-collapsed-width);
+    --bp-min-sidebar-expand-width: var(--sidebar-expanded-width) + var(--bp-mobile);
 
     height: 100vh;
     width: 100vw;
@@ -40,7 +46,7 @@
         "header header"
         "sidebar workspace";
     grid-template-rows: var(--header-height) 1fr;
-    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-columns: var(--sidebar-collapsed-width) 1fr;
 }
 
 .app__header {
