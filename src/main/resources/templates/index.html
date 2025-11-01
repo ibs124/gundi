@@ -5,9 +5,9 @@
 
 <body>
     <div class="app">
-        <header th:replace="~{fragments/header}"></header>
-        <div th:replace="~{fragments/sidebar}"></div>
-        <div th:replace="~{fragments/workspace}"></div>
+        <header th:replace="~{fragments/header :: header}"></header>
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+        <div th:replace="~{fragments/workspace :: workspace}"></div>
     </div>
 </body>
 
