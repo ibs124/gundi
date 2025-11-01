@@ -7,3 +7,31 @@
     height: 1.5rem;
     width: 1.5rem;
 }
+
+.btn {
+    height: inherit;
+    width: inherit;
+    padding: 0.3rem;
+    font-size: inherit;
+    background: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 0.3rem;
+}
+
+.btn:hover {
+    background-color: var(--text-color);
+    color: var(--bg-dark-color);
+}
+
+.btn__icon {
+    order: 1;
+}
+
+.btn__label {
+    order: 2;
+}
