@@ -63,8 +63,13 @@
     grid-area: sidebar;
     overflow: hidden auto;
     padding: var(--padding);
+    z-index: 10;
+    transition: width .5s;
 }
 
+.app__sidebar:hover {
+    width: var(--sidebar-expanded-width);
+}
 
 .app__workspace {
     grid-area: workspace;
@@ -72,4 +77,6 @@
     padding: var(--padding);
     background-color: var(--bg-color);
     color: var(--text-muted-color);
+    border-radius: 15px;
+    z-index: 1;
 }
