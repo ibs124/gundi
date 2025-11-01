@@ -7,7 +7,7 @@ function main() {
 }
 
 function injectIcons() {
-    fetch("../icons/icons.svg")
+    fetch("../assets/icons.svg")
         .then(res => res.text())
         .then(data => {
             const div = document.createElement("div");
