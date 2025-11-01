@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="app (title, content)">
+
+<head th:replace="~{fragments/head :: head(title=${title})}"></head>
+
+<body>
+    <div class="app">
+        <header th:replace="~{fragments/header :: header}"></header>
+        <sidebar th:replace="~{fragments/sidebar :: sidebar}"></sidebar>
+        <div th:replace="~{fragments/workspace :: workspace(content=${content})}"></div>
+    </div>
+</body>
+
+</html>
