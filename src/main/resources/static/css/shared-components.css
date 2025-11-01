@@ -35,3 +35,14 @@
 .btn__label {
     order: 2;
 }
+
+.list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.list__item {
+    width: 100%;
+}
