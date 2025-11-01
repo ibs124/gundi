@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:replace="~{fragments/head::head(title='Gundi - Home')}"></head>
+<head th:replace="~{fragments/head :: head(title='Gundi - Home')}"></head>
 
 <body>
     <div class="app">
         <header th:replace="~{fragments/header}"></header>
         <div th:replace="~{fragments/sidebar}"></div>
-        <div th:replace="~{fragments/workspace}"></div>
+        <div th:replace="~{fragments/workspace :: workspace(content=${null})}"></div>
     </div>
 </body>
 
