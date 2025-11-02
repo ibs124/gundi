@@ -12,6 +12,24 @@ function main() {
     });
 
     setSidebarToggleBtn();
+
+    setDropdownButtons();
+}
+
+function setDropdownButtons() {
+    const buttons = document.querySelectorAll(".dropdown__btn");
+    const active = "dropdown--active";
+    const latched = "dropdown--latched";
+
+    buttons.forEach(btn => btn.addEventListener(CLICK, () => {
+        const focusedElement = btn.parentElement;
+
+        focusedElement.classList.toggle(active)
+
+        getSiblings(focusedElement)
+            .filter(sibling => !sibling.classList.contains(latched))
+            .forEach(sibling => sibling.classList.remove(active));
+    }));
 }
 
 function setSidebarToggleBtn() {
@@ -52,4 +70,8 @@ function injectIcons() {
         .catch(err => {
             console.error("Failed to load icons.svg:", err);
         });
+}
+
+function getSiblings(element) {
+    return Array.from(element.parentNode.children).filter(child => child !== element);
 }
