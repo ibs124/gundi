@@ -12,6 +12,8 @@ function main() {
     setSidebarToggleBtn();
 
     setDropdownButtons();
+
+    setClassToggleButtonFor("app--dark-mode", APP, ".app__dark-mode-toggle");
 }
 
 function setDOMContentLoadedEventListener() {
@@ -74,6 +76,16 @@ function injectIcons() {
         .catch(err => {
             console.error("Failed to load icons.svg:", err);
         });
+}
+
+function setClassToggleButtonFor(clazz, hostElemetSelector, buttonSelector) {
+    document.querySelectorAll(buttonSelector)
+        .forEach(button => button.addEventListener(CLICK, () =>
+            toggleClassForSelector(clazz, hostElemetSelector)))
+}
+
+function toggleClassForSelector(clazz, hostElemetSelector) {
+    document.querySelectorAll(hostElemetSelector).forEach(x => x.classList.toggle(clazz));
 }
 
 function getSiblings(element) {
