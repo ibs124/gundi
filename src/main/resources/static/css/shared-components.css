@@ -41,6 +41,23 @@
     margin-left: auto;
 }
 
+.btn--logo {
+    color: var(--primary-color);
+}
+
+.btn--logo:hover {
+    color: var(--primary-color);
+}
+
+.btn--logo .btn__icon {
+    height: 2rem;
+    width: 2rem;
+}
+
+.btn--logo .btn__label {
+    font-size: 1.7rem;
+}
+
 .list {
     width: 100%;
     display: flex;
