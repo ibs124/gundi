@@ -178,7 +178,7 @@
                 </button>
                 <ul class="dropdown__content sidebar__dropdown-content">
                     <li class="list__item">
-                        <button class="btn app__default-settings-btn">
+                        <button class="btn app__default-settings-toggle">
                             <svg class="btn__icon icon">
                                 <use href="#default-settings"></use>
                             </svg>
@@ -195,6 +195,31 @@
                                 <use href="#toggle-left"></use>
                             </svg>
                         </button>
+                    </li>
+                    <li class="list__item dropdown">
+                        <button class="btn dropdown__btn">
+                            <svg class="btn__icon icon">
+                                <use href="#language"></use>
+                            </svg>
+                            <span class="btn__label sidebar__detail">Language</span>
+                            <svg class="btn__indicator dropdown__indicator icon sidebar__detail">
+                                <use href="#chevron-right"></use>
+                            </svg>
+                        </button>
+                        <ul class="dropdown__content list sidebar__dropdown-content">
+                            <li class="list__item">
+                                <a class="btn" href="">
+                                    <div class="icon btn__icon">БГ</div>
+                                    <div class="btn__label sidebar__detail">Български</div>
+                                </a>
+                            </li>
+                            <li class="list__item">
+                                <a class="btn" href="">
+                                    <div class="icon btn__icon">EN</div>
+                                    <div class="btn__label sidebar__detail">English</div>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
