@@ -112,3 +112,32 @@
         width: var(--sidebar-width-expanded);
     }
 }
+
+@media (max-width: 542px) {
+    .app {
+        grid-template-areas:
+            "header"
+            "workspace";
+        grid-template-columns: 1fr;
+    }
+
+    .app__sidebar {
+        display: none;
+    }
+
+    .app--sidebar-expanded {
+        grid-template-areas:
+            "header"
+            "sidebar";
+    }
+
+    .app--sidebar-expanded .app__sidebar {
+        display: unset;
+        width: 100%;
+
+    }
+
+    .app--sidebar-expanded .app__workspace {
+        display: none;
+    }
+}
