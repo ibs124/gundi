@@ -36,6 +36,11 @@
     order: 2;
 }
 
+.btn__indicator {
+    order: 3;
+    margin-left: auto;
+}
+
 .list {
     width: 100%;
     display: flex;
