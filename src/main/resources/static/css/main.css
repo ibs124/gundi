@@ -98,6 +98,14 @@
     color: var(--primary-color);
 }
 
+.app__footer {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--bg-light-color);
+    border: solid 1px var(--border-color);
+    border-radius: 10px;
+}
+
 @media (min-width: 292px) {
     .app__sidebar:hover {
         width: var(--sidebar-expanded-width);
