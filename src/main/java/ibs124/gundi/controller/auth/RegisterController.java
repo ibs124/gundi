@@ -43,7 +43,7 @@ public class RegisterController extends AbstractController {
             return super.redirect(Routes.REGISTER);
         }
 
-        return super.redirect(Routes.REGISTER);
+        return super.redirect(Routes.REGISTER + "-success");
     }
 
 }
