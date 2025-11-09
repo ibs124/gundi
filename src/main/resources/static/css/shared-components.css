@@ -123,7 +123,7 @@
     padding: 1rem;
     background: var(--bg-light-color);
     color: var(--text-color);
-    border: 1px solid var(--border-muted-color);
+    border: 1px solid var(--text-color);
     border-radius: 10px;
     overflow: hidden;
     display: flex;
@@ -145,4 +145,15 @@
 .form__input {
     border-radius: 8px;
     padding: 0.3rem;
+    border: 1px solid var(--text-color);
+    font-size: 1rem;
+}
+
+.form__submit-btn {
+    width: 100%;
+    text-align: center;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    justify-content: center;
 }

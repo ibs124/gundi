@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/app :: app(title='Sign up', content=~{::content})}">
 
 <div th:fragment="content">
-    <h2>Sign up</h2>
     <form class="form" th:action="@{/auth/register}" method="POST">
         <div class="form__group">
             <label class="form__label" for="email">Email</label>
@@ -20,8 +19,8 @@
             <label class="form__label" for="password">Password</label>
             <input class="form__input" type="password" placeholder="Password" name="password">
         </div>
-        <button class="btn" type="submit">
-            <div class="btn__label">Submit</div>
+        <button class="btn form__submit-btn" type="submit">
+            <div class="btn__label">Sign up</div>
         </button>
     </form>
 </div>
