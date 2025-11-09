@@ -66,7 +66,7 @@
 .app__workspace {
     grid-area: workspace;
     overflow: hidden auto;
-    padding: var(--padding);
+    padding: 2rem;
     background-color: var(--bg-color);
     color: var(--text-muted-color);
     border-radius: 15px;
@@ -74,6 +74,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+.app__footer {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--bg-light-color);
+    border: solid 1px var(--border-color);
+    border-radius: 10px;
 }
 
 .app--dark-mode {
@@ -96,14 +106,6 @@
 .app--dark-mode .app__dark-mode-indicator {
     transform: rotate(180deg);
     color: var(--primary-color);
-}
-
-.app__footer {
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--bg-light-color);
-    border: solid 1px var(--border-color);
-    border-radius: 10px;
 }
 
 @media (min-width: 292px) {

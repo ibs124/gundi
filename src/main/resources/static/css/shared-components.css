@@ -120,26 +120,27 @@
 .form {
     height: fit-content;
     width: fit-content;
+    min-width: 400px;
     padding: 1rem;
     background: var(--bg-light-color);
     color: var(--text-color);
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    font-size: 1.2rem;
+    gap: 1.5rem;
 }
 
 .form__group {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
 .form__label {
-    color: var(--text-color);
+   font-size: 0.9rem; 
 }
 
 .form__input {
@@ -150,8 +151,8 @@
 }
 
 .form__submit-btn {
+    margin-top: 0.5rem;
     width: 100%;
-    text-align: center;
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
     border-radius: 10px;

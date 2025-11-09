@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <div class="app__workspace" th:fragment="workspace(content)">
-    <main class="workspace__main">
+    <main class="app__main">
         <th:block th:if="${content != null}">
             <th:block th:replace="${content}"></th:block>
         </th:block>
