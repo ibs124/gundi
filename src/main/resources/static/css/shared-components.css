@@ -116,3 +116,33 @@
     outline: none;
     background: none;
 }
+
+.form {
+    height: fit-content;
+    width: fit-content;
+    padding: 1rem;
+    background: var(--bg-light-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-muted-color);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.2rem;
+}
+
+.form__group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.form__label {
+    color: var(--text-color);
+}
+
+.form__input {
+    border-radius: 8px;
+    padding: 0.3rem;
+}
