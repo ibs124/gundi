@@ -6,7 +6,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 @Entity
-public class UserRole {
+public class UserRole extends AbstractAuditableDomainModel {
 
     private UserRoleType type;
 

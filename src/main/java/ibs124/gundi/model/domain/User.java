@@ -1,10 +1,14 @@
 package ibs124.gundi.model.domain;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class User extends AbstractAuditableDomainModel {
 
+    private Set<UserRole> roles;
     private String username;
     private String password;
     private String fullName;
@@ -12,6 +16,15 @@ public class User extends AbstractAuditableDomainModel {
 
     public User() {
         super();
+    }
+
+    @ManyToMany
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 
     public String getUsername() {
