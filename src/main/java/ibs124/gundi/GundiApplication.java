@@ -9,5 +9,4 @@ public class GundiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GundiApplication.class, args);
 	}
-
 }
