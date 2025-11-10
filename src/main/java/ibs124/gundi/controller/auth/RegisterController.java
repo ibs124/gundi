@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.controller.AbstractController;
-import ibs124.gundi.model.api.RegisterBindingModel;
+import ibs124.gundi.model.api.RegisterApiRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,7 +24,7 @@ public class RegisterController extends AbstractController {
     public String registerGet(Model model) {
         if (!model.containsAttribute(BINDING_MODEL)) {
             model.addAttribute(BINDING_MODEL,
-                    new RegisterBindingModel(null, null, null, null));
+                    new RegisterApiRequest(null, null, null, null));
         }
 
         return Templates.REGISTER;
@@ -32,7 +32,7 @@ public class RegisterController extends AbstractController {
 
     @PostMapping
     public String registerPost(
-            RegisterBindingModel bindingModel,
+            RegisterApiRequest bindingModel,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
 
