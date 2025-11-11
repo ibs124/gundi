@@ -1,0 +1,30 @@
+package ibs124.gundi.validation.constraint;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import ibs124.gundi.constant.message.UserMessages;
+import ibs124.gundi.constant.Regexes;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
+@NotBlank(message = UserMessages.EMAIL_BLANK)
+@Pattern(regexp = Regexes.EMAIL, message = UserMessages.EMAIL_ERROR)
+@Documented
+@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.TYPE_PARAMETER,
+        ElementType.PARAMETER })
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = {})
+public @interface ValidEmail {
+
+    String message() default UserMessages.EMAIL_ERROR;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+}
