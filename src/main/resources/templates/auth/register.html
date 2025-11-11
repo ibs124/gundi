@@ -16,7 +16,10 @@
         <div class="form__group">
             <label class="form__label" for="fullname">Full name</label>
             <input class="form__input" type="fullname" placeholder="Full name" name="fullName" th:field="*{fullName}">
-            <small class="form__error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></small>
+            <!-- <small class="form__error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></small> -->
+            <small class="form__error" th:if="${#fields.hasErrors('fullName')}">
+                <pre th:errors="*{fullName}"></pre>
+            </small>
         </div>
         <div class="form__group">
             <label class="from__label" for="username">Username</label>
