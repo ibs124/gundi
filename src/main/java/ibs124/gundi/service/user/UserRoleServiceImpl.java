@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import ibs124.gundi.exception.ResourceCreatingException;
 import ibs124.gundi.mapper.UserRoleMapper;
 import ibs124.gundi.model.domain.UserRole;
 import ibs124.gundi.model.dto.UserRoleDto;
@@ -23,14 +24,22 @@ class UserRoleServiceImpl implements UserRoleService {
     }
 
     public List<UserRoleDto> initializeUserRoles() {
-        this.roleRepository.deleteAll();
+        try {
+            this.roleRepository.deleteAll();
 
-        List<UserRole> roles = Arrays.stream(UserRoleType.values())
-                .map(x -> new UserRole(x))
-                .toList();
+            List<UserRole> roles = Arrays.stream(UserRoleType.values())
+                    .map(x -> new UserRole(x))
+                    .toList();
 
-        roles = this.roleRepository.saveAll(roles);
+            if (roles == null) {
+                throw new ResourceCreatingException();
+            }
 
-        return this.roleMapper.toServiceModelAll(roles);
+            roles = this.roleRepository.saveAll(roles);
+
+            return this.roleMapper.toServiceModelAll(roles);
+        } catch (Exception e) {
+            throw new ResourceCreatingException(e);
+        }
     }
 }
