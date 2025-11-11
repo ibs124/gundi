@@ -1,11 +1,11 @@
-package ibs124.gundi.configuration;
+package ibs124.gundi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-class ApplicationBeanConfiguration {
+class ApplicationBeanConfig {
 
     @Bean
     LocalValidatorFactoryBean localValidatorFactoryBean() {

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/app :: app(title='Sign up', content=~{::content})}">
 
 <div th:fragment="content">
-    <form class="form" th:action="@{/users/register}" method="POST" th:object="${bindingModel}">
+    <form class="form" th:action="@{${routes.register}}" method="POST" th:object="${bindingModel}">
         <div class="form__group">
             <label class="form__label" for="email">Email address</label>
             <input class="form__input" type="email" placeholder="Email address" name="email" th:field="*{email}">

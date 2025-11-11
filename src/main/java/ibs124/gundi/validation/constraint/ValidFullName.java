@@ -6,8 +6,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import ibs124.gundi.constant.Regexes;
-import ibs124.gundi.constant.message.UserMessages;
+import ibs124.gundi.config.Regexes;
+import ibs124.gundi.config.message.UserMessages;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.constraints.NotBlank;

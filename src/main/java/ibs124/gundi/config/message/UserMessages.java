@@ -1,4 +1,4 @@
-package ibs124.gundi.constant.message;
+package ibs124.gundi.config.message;
 
 public abstract class UserMessages {
 

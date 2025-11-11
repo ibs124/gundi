@@ -1,4 +1,4 @@
-package ibs124.gundi.constant.thymeleaf;
+package ibs124.gundi.config.thymeleaf;
 
 public class Templates {
 

@@ -5,7 +5,7 @@
     <nav>
         <ul class="list">
             <li class="list__item">
-                <a class="btn" href="/">
+                <a class="btn" th:href="@{${routes.index}}">
                     <svg class="btn__icon icon">
                         <use href="#home"></use>
                     </svg>
@@ -238,20 +238,20 @@
     </nav>
     <div class="sidebar__auth-menu">
         <div class="sidebar__auth-guest-menu">
-            <a class="btn" href="">
+            <a class="btn" th:href="@{${routes.login}}">
                 <svg class="btn__icon icon">
                     <use href="#sign-in"></use>
                 </svg>
                 <span class="btn__label sidebar__detail">Sign In</span>
             </a>
-            <a class="btn" th:href="@{/users/register}">
+            <a class="btn" th:href="@{${routes.register}}">
                 <svg class="btn__icon icon">
                     <use href="#sign-up"></use>
                 </svg>
                 <span class="btn__label sidebar__detail">Sign Up</span>
             </a>
         </div>
-        <a class="btn" href="">
+        <a class="btn" th:href="@{${routes.logout}}">
             <svg class="btn__icon icon">
                 <use href="#sign-out"></use>
             </svg>

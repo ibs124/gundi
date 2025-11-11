@@ -1,4 +1,4 @@
-package ibs124.gundi.constant;
+package ibs124.gundi.config;
 
 public abstract class Regexes {
 

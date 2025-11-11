@@ -1,15 +1,15 @@
 package ibs124.gundi.controller.user;
 
-import static ibs124.gundi.constant.thymeleaf.Attributes.BINDING_MODEL;
-import static ibs124.gundi.constant.thymeleaf.Attributes.BINDING_RESULT;
+import static ibs124.gundi.config.thymeleaf.Attributes.BINDING_MODEL;
+import static ibs124.gundi.config.thymeleaf.Attributes.BINDING_RESULT;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ibs124.gundi.constant.Routes;
-import ibs124.gundi.constant.thymeleaf.Templates;
+import ibs124.gundi.config.Routes;
+import ibs124.gundi.config.thymeleaf.Templates;
 import ibs124.gundi.controller.AbstractController;
 import ibs124.gundi.model.api.RegisterApiRequest;
 import jakarta.validation.Valid;
