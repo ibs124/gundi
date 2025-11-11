@@ -1,8 +1,6 @@
-package ibs124.gundi.service.impl;
+package ibs124.gundi.service.user;
 
 import org.springframework.stereotype.Service;
-
-import ibs124.gundi.service.UserService;
 
 @Service
 class UserServiceImpl implements UserService {
