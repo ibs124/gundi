@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import ibs124.gundi.validation.constraint.ValidEmail;
+import ibs124.gundi.validation.constraint.ValidPassword;
 import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -59,6 +60,8 @@ public class User extends AbstractAuditableDomainModel {
         this.email = email;
     }
 
+    @ValidPassword
+    @Column(nullable = false)
     public String getPassword() {
         return password;
     }
