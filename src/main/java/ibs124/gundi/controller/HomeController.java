@@ -3,15 +3,15 @@ package ibs124.gundi.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ibs124.gundi.config.Routes;
-import ibs124.gundi.config.thymeleaf.Templates;
+import ibs124.gundi.config.RoutesConfig;
+import ibs124.gundi.config.thymeleaf.TemplatesConfig;
 
 @Controller
 public class HomeController {
 
-    @GetMapping(Routes.INDEX)
+    @GetMapping(RoutesConfig.INDEX)
     public String getIndex() {
-        return Templates.INDEX;
+        return TemplatesConfig.INDEX;
     }
 
 }

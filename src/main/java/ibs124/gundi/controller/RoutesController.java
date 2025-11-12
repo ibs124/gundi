@@ -5,13 +5,13 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import ibs124.gundi.config.thymeleaf.Attributes;
+import ibs124.gundi.config.thymeleaf.AttributesConfig;
 
 @ControllerAdvice
 public class RoutesController {
 
-    @ModelAttribute(Attributes.ROUTES)
+    @ModelAttribute(AttributesConfig.ROUTES)
     public Map<String, String> globalRoutes() {
-        return Attributes.ROUTES_MAP;
+        return AttributesConfig.ROUTES_MAP;
     }
 }

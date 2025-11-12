@@ -1,6 +1,6 @@
 package ibs124.gundi.config.message;
 
-public abstract class UserMessages {
+public abstract class UserMessagesConfig {
 
     private static final String BLANK = "must not be blank!";
     private static final String EMAIL = "Email ";

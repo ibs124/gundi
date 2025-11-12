@@ -1,6 +1,6 @@
 package ibs124.gundi.config;
 
-public abstract class Regexes {
+public abstract class RegexConfig {
 
     public static final String EMAIL = "^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$";
 
