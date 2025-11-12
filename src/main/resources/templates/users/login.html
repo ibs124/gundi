@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/app :: app(title='Sign in', content=~{::content})}">
+
+<div th:fragment="content">
+    <form class="form" th:action="@{${routes.login}}" method="POST">
+        <div class="form__group">
+            <label class="form__label" for="email">Email or Username</label>
+            <input class="form__input" type="text" placeholder="Email address" name="email" th:field="*{email}">
+        </div>
+        <div class="form__group">
+            <label class="form__label" for="password">Password</label>
+            <input class="form__input" type="password" placeholder="Password" name="password" th:field="*{password}">
+        </div>
+        <button class="btn form__submit-btn" type="submit">
+            <div class="btn__label">Sign in</div>
+        </button>
+    </form>
+</div>
+
+</html>
