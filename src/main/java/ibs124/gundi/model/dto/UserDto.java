@@ -6,10 +6,8 @@ import java.util.Set;
 import ibs124.gundi.validation.constraint.ValidEmail;
 import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
-@NotNull
 public record UserDto(
         @PositiveOrZero long id,
         Instant createdAt,

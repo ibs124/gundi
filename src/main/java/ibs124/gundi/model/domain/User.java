@@ -29,13 +29,13 @@ public class User extends AbstractAuditableDomainModel {
     }
 
     @Transient
-    UserRole removeRole(UserRole role) {
+    public UserRole removeRole(UserRole role) {
         this.getRoles().remove(role);
         return role;
     }
 
     @Transient
-    UserRole addRole(UserRole role) {
+    public UserRole addRole(UserRole role) {
         this.getRoles().add(role);
         return role;
     }

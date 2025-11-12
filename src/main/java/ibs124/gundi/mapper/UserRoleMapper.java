@@ -1,19 +1,18 @@
 package ibs124.gundi.mapper;
 
-import java.util.List;
+import java.util.Set;
 
 import ibs124.gundi.model.domain.UserRole;
 import ibs124.gundi.model.dto.UserRoleDto;
 
 public interface UserRoleMapper {
 
-    UserRoleDto toServiceModel(UserRole src); 
+    UserRoleDto toServiceModel(UserRole src);
 
-    UserRole toDomainModel(UserRoleDto src); 
+    UserRole toDomainModel(UserRoleDto src);
 
-    List<UserRoleDto> toServiceModelAll(List<UserRole> src); 
+    Set<UserRoleDto> toServiceModelAll(Set<UserRole> src);
 
-    List<UserRole> toDomainModelAll(List<UserRoleDto> src); 
+    Set<UserRole> toDomainModelAll(Set<UserRoleDto> src);
 
 }
-
