@@ -7,14 +7,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import ibs124.gundi.config.RegexConfig;
-import ibs124.gundi.config.message.UserMessagesConfig;
+import ibs124.gundi.config.message.ErrorMessageConfig;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-@NotBlank(message = UserMessagesConfig.EMAIL_BLANK)
-@Pattern(regexp = RegexConfig.EMAIL, message = UserMessagesConfig.EMAIL_ERROR)
+@NotBlank(message = ErrorMessageConfig.BLANK_FIELD)
+@Pattern(regexp = RegexConfig.EMAIL, message = ErrorMessageConfig.EMAIL)
 @Documented
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.TYPE_PARAMETER,
         ElementType.PARAMETER })
@@ -22,7 +22,7 @@ import jakarta.validation.constraints.Pattern;
 @Constraint(validatedBy = {})
 public @interface ValidEmail {
 
-    String message() default UserMessagesConfig.EMAIL_ERROR;
+    String message() default ErrorMessageConfig.EMAIL;
 
     Class<?>[] groups() default {};
 

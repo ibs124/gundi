@@ -1,6 +1,6 @@
 package ibs124.gundi.config.thymeleaf;
 
-public class TemplatesConfig {
+public class TemplateConfig {
 
     private static final String USERS = "/users";
 

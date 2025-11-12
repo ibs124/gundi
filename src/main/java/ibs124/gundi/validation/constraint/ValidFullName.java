@@ -7,21 +7,21 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import ibs124.gundi.config.RegexConfig;
-import ibs124.gundi.config.message.UserMessagesConfig;
+import ibs124.gundi.config.message.ErrorMessageConfig;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-@NotBlank(message = UserMessagesConfig.FULL_NAME_BLANK)
-@Pattern(regexp = RegexConfig.FULL_NAME, message = UserMessagesConfig.FULL_NAME_ERROR)
+@NotBlank(message = ErrorMessageConfig.BLANK_FIELD)
+@Pattern(regexp = RegexConfig.FULL_NAME, message = ErrorMessageConfig.FULL_NAME_ERROR)
 @Documented
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
 public @interface ValidFullName {
 
-    String message() default UserMessagesConfig.FULL_NAME_ERROR;
+    String message() default ErrorMessageConfig.FULL_NAME_ERROR;
 
     Class<?>[] groups() default {};
 

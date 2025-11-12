@@ -1,13 +1,12 @@
 package ibs124.gundi.model.api;
 
 import ibs124.gundi.validation.constraint.ValidEmail;
-import ibs124.gundi.validation.constraint.ValidFullName;
 import ibs124.gundi.validation.constraint.ValidPassword;
 import ibs124.gundi.validation.constraint.ValidUsername;
 
-public record RegisterApiRequest(
+public record RegisterRequest(
         @ValidEmail String email,
         @ValidPassword String password,
-        @ValidFullName String fullName,
+        String fullName,
         @ValidUsername String username) {
 }

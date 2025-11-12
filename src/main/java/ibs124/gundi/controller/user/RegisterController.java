@@ -1,17 +1,17 @@
 package ibs124.gundi.controller.user;
 
-import static ibs124.gundi.config.thymeleaf.AttributesConfig.BINDING_MODEL;
-import static ibs124.gundi.config.thymeleaf.AttributesConfig.BINDING_RESULT;
+import static ibs124.gundi.config.thymeleaf.AttributeConfig.BINDING_MODEL;
+import static ibs124.gundi.config.thymeleaf.AttributeConfig.BINDING_RESULT;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ibs124.gundi.config.RoutesConfig;
-import ibs124.gundi.config.thymeleaf.TemplatesConfig;
+import ibs124.gundi.config.RouteConfig;
+import ibs124.gundi.config.thymeleaf.TemplateConfig;
 import ibs124.gundi.controller.AbstractController;
-import ibs124.gundi.model.api.RegisterApiRequest;
+import ibs124.gundi.model.api.RegisterRequest;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(RoutesConfig.REGISTER)
+@RequestMapping(RouteConfig.REGISTER)
 public class RegisterController extends AbstractController {
 
     @GetMapping
     public String registerGet(Model model) {
         if (!model.containsAttribute(BINDING_MODEL)) {
             model.addAttribute(BINDING_MODEL,
-                    new RegisterApiRequest(null, null, null, null));
+                    new RegisterRequest(null, null, null, null));
         }
 
-        return TemplatesConfig.REGISTER;
+        return TemplateConfig.REGISTER;
     }
 
     @PostMapping
     public String registerPost(
-            @Valid RegisterApiRequest bindingModel,
+            @Valid RegisterRequest bindingModel,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
 
@@ -42,14 +42,14 @@ public class RegisterController extends AbstractController {
             redirectAttributes
                     .addFlashAttribute(BINDING_MODEL, bindingModel)
                     .addFlashAttribute(BINDING_RESULT, bindingResult);
-            return super.getRedirectUrl(RoutesConfig.REGISTER);
+            return super.getRedirectUrl(RouteConfig.REGISTER);
         }
 
-        return super.getRedirectUrl(RoutesConfig.REGISTER + RoutesConfig.SUCCESS);
+        return super.getRedirectUrl(RouteConfig.REGISTER + RouteConfig.SUCCESS);
     }
 
-    @GetMapping(RoutesConfig.SUCCESS)
+    @GetMapping(RouteConfig.SUCCESS)
     public String registerSuccess() {
-        return TemplatesConfig.REGISTER_SUCCESS;
+        return TemplateConfig.REGISTER_SUCCESS;
     }
 }

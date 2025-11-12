@@ -1,6 +1,6 @@
 package ibs124.gundi.config;
 
-public abstract class RoutesConfig {
+public abstract class RouteConfig {
 
     public static final String CREATE = "/create";
 
