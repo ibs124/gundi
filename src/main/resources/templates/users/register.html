@@ -6,12 +6,16 @@
         <div class="form__group">
             <label class="form__label" for="email">Email address</label>
             <input class="form__input" type="email" placeholder="Email address" name="email" th:field="*{email}">
-            <small class="form__error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+             <small class="form__error" th:if="${#fields.hasErrors('email')}">
+                <pre th:errors="*{email}"></pre>
+            </small>
         </div>
         <div class="form__group">
             <label class="form__label" for="password">Password</label>
             <input class="form__input" type="password" placeholder="Password" name="password" th:field="*{password}">
-            <small class="form__error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+             <small class="form__error" th:if="${#fields.hasErrors('password')}">
+                <pre th:errors="*{password}"></pre>
+            </small>
         </div>
         <div class="form__group">
             <label class="form__label" for="fullname">Full name</label>

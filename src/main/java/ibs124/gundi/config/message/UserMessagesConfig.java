@@ -14,23 +14,30 @@ public abstract class UserMessagesConfig {
 
     public static final String PASSWORD_BLANK = PASSWORD + BLANK;
 
-    public static final String PASSWORD_ERROR = PASSWORD + "must be between 3 and 20 characters long.";
+    public static final String PASSWORD_ERROR = """
+            Password must contain at least:
+            - Five characters
+            - One uppercase letter (A–Z)
+            - One lowercase letter (a–z)
+            - One digit (0–9)
+            - One special character (e.g. !, @, #, $, %)
+                                    """;;
 
     public static final String USERNAME_BLANK = USERNAME + BLANK;
 
     public static final String USERNAME_ERROR = """
-            Username must be between 3 and 20 characters long!
+            Username must be between three and twenty characters long.
             Allowed characters:
-                - Lowercased letters (a - z)
-                - Digits (0 - 9)
+                - Lowercased letters (a-z)
+                - Digits (0-9)
                 - Underscores (_)
                 """;
 
     public static final String FULL_NAME_BLANK = FULL_NAME + BLANK;
 
     public static final String FULL_NAME_ERROR = """
-            Full name msut be between 1 and 4 words!
-            Each word must be between 3 annd 16 characters long!
-            Only lowercased and uppercased letters allowed!
+            Full name msut be between one and four words.
+            Each word must be between three sixteen eharacters long.
+            Only lowercased and uppercased letters allowed.
                     """;
 }
