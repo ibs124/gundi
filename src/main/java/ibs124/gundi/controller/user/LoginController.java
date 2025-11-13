@@ -21,9 +21,9 @@ class LoginController {
     }
 
     @PostMapping(RouteConfig.ERROR)
-    public String loginError(@ModelAttribute(AttributeConfig.EMAIL) String email, Model model) {
+    public String loginError(@ModelAttribute(AttributeConfig.USERNAME) String username, Model model) {
         model
-                .addAttribute(AttributeConfig.EMAIL, email)
+                .addAttribute(AttributeConfig.USERNAME, username)
                 .addAttribute(AttributeConfig.SUCCESS, false);
 
         return TemplateConfig.LOGIN;

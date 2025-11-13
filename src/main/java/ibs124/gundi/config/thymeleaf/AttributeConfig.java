@@ -8,6 +8,8 @@ public abstract class AttributeConfig {
 
     public static final String EMAIL = "email";
 
+    public static final String USERNAME = "username";
+
     public static final String SUCCESS = "success";
 
     public static final String VIEW_MODEL = "viewModel";
