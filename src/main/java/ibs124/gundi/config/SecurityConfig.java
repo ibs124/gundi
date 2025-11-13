@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import ibs124.gundi.model.enumm.UserRoleType;
+
 @EnableWebSecurity
 @Configuration
 class SecurityConfig {
@@ -20,7 +22,18 @@ class SecurityConfig {
                         .requestMatchers(
                                 PathRequest.toStaticResources().atCommonLocations())
                         .permitAll()
-                        .requestMatchers(RouteConfig.GUESTS).permitAll()
+
+                        .requestMatchers(RouteConfig.GUEST_ROUTES_GROUP).permitAll()
+
+                        .requestMatchers(RouteConfig.USER_ROUTES_GROUP)
+                        .hasRole(UserRoleType.USER.name())
+
+                        .requestMatchers(RouteConfig.ADMIN_ROUTES_GROUP)
+                        .hasRole(UserRoleType.ADMIN.name())
+
+                        .requestMatchers(RouteConfig.ROOT_ROUTES_GROUP)
+                        .hasRole(UserRoleType.ROOT.name())
+
                         .anyRequest().authenticated())
                 .build();
     }
