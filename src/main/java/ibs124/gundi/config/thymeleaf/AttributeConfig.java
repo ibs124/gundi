@@ -6,6 +6,10 @@ import ibs124.gundi.config.RouteConfig;
 
 public abstract class AttributeConfig {
 
+    public static final String EMAIL = "email";
+
+    public static final String USERNAME = "username";
+
     public static final String SUCCESS = "success";
 
     public static final String VIEW_MODEL = "viewModel";
@@ -20,7 +24,7 @@ public abstract class AttributeConfig {
     public static final Map<String, String> ROUTES_MAP = Map.of(
             "index", RouteConfig.INDEX,
             "register", RouteConfig.REGISTER,
-            "register.success", RouteConfig.REGISTER_SUCCESS,
+            "registerSuccess", RouteConfig.REGISTER_SUCCESS,
             "login", RouteConfig.LOGIN,
             "logout", RouteConfig.LOGOUT);
 }

@@ -9,4 +9,7 @@ public class TemplateConfig {
     public static final String REGISTER = USERS + "/register";
 
     public static final String REGISTER_SUCCESS = REGISTER + "-success";
+
+    public static final String LOGIN = USERS + "/login";
+
 }

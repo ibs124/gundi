@@ -1,5 +1,6 @@
 package ibs124.gundi.service.user;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.exception.ResourceCreatingException;
@@ -19,12 +20,14 @@ class RegisterServiceImpl implements RegisterService {
     private final UserRepository userRepository;
     private final UserRoleRepository roleRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public RegisterServiceImpl(UserRepository userRepository, UserRoleRepository roleRepository,
-            UserMapper userMapper) {
+            UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -36,6 +39,10 @@ class RegisterServiceImpl implements RegisterService {
                     .getReferenceById(UserRoleType.USER.ordinal() + 1L);
 
             user.addRole(userRole);
+
+            user.setPassword(
+                    this.passwordEncoder
+                            .encode(user.getPassword()));
 
             user = this.userRepository.save(user);
 
