@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import ibs124.gundi.config.thymeleaf.TemplateConfig;
 import ibs124.gundi.model.enumm.UserRoleType;
 
 @EnableWebSecurity
@@ -18,7 +19,7 @@ class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .authorizeHttpRequests(request -> request
+                .authorizeHttpRequests(x -> x
                         .requestMatchers(
                                 PathRequest.toStaticResources().atCommonLocations())
                         .permitAll()
@@ -35,6 +36,12 @@ class SecurityConfig {
                         .hasRole(UserRoleType.ROOT.name())
 
                         .anyRequest().authenticated())
+
+                .formLogin(x -> x
+                        .loginPage(TemplateConfig.LOGIN)
+                        .defaultSuccessUrl(RouteConfig.INDEX)
+                        .failureForwardUrl(RouteConfig.LOGIN_ERROR))
+
                 .build();
     }
 

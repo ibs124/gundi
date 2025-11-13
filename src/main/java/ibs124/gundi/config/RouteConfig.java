@@ -22,6 +22,8 @@ public abstract class RouteConfig {
 
     public static final String LOGIN = AUTH + "/sign-in";
 
+    public static final String LOGIN_ERROR = LOGIN + ERROR;
+
     public static final String LOGOUT = AUTH + "/sign-out";
 
     public static final String USERS = INDEX + "users";
