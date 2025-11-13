@@ -16,6 +16,8 @@ import ibs124.gundi.model.enumm.UserRoleType;
 @Configuration
 class SecurityConfig {
 
+    private final String jsessionid = "JSESSIONID";
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -41,6 +43,12 @@ class SecurityConfig {
                         .loginPage(TemplateConfig.LOGIN)
                         .defaultSuccessUrl(RouteConfig.INDEX)
                         .failureForwardUrl(RouteConfig.LOGIN_ERROR))
+
+                .logout(x -> x
+                        .logoutUrl(RouteConfig.LOGOUT)
+                        .logoutSuccessUrl(RouteConfig.INDEX)
+                        .invalidateHttpSession(true)
+                        .deleteCookies(jsessionid))
 
                 .build();
     }
