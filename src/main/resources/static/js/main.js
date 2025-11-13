@@ -66,7 +66,7 @@ function updateSidebar(app) {
 }
 
 function injectIcons() {
-    fetch("../assets/icons.svg")
+    fetch("../images/icons.svg")
         .then(res => res.text())
         .then(data => {
             const div = document.createElement("div");

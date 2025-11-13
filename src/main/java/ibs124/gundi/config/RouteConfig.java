@@ -12,14 +12,20 @@ public abstract class RouteConfig {
 
     public static final String INDEX = "/";
 
-    public static final String USERS = "/users";
+    public static final String AUTH = INDEX + "auth";
 
-    public static final String REGISTER = USERS + "/sign-up";
+    public static final String REGISTER = AUTH + "/sign-up";
 
     public static final String REGISTER_SUCCESS = REGISTER + SUCCESS;
 
-    public static final String LOGIN = USERS + "/sign-in";
+    public static final String LOGIN = AUTH + "/sign-in";
 
-    public static final String LOGOUT = USERS + "/sign-out";
+    public static final String LOGOUT = AUTH + "/sign-out";
+
+    public static final String USERS = INDEX + "users";
+
+    public static final String[] GUESTS = {
+            INDEX, REGISTER, REGISTER_SUCCESS, LOGIN, LOGOUT,
+    };
 
 }
