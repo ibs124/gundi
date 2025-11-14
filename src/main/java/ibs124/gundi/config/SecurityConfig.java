@@ -1,5 +1,7 @@
 package ibs124.gundi.config;
 
+import static ibs124.gundi.config.RouteConfig.*;
+
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,7 @@ import ibs124.gundi.model.enumm.UserRoleType;
 class SecurityConfig {
 
     private final String jsessionid = "JSESSIONID";
+    private final String subroutesMatcher = "/**";
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -25,29 +28,32 @@ class SecurityConfig {
                                 PathRequest.toStaticResources().atCommonLocations())
                         .permitAll()
 
-                        .requestMatchers(RouteConfig.GUEST_ROUTES_GROUP).permitAll()
+                        .requestMatchers(
+                                INDEX,
+                                AUTH + this.subroutesMatcher)
+                        .permitAll()
 
-                        .requestMatchers(RouteConfig.USER_ROUTES_GROUP)
+                        .requestMatchers(USERS + this.subroutesMatcher)
                         .hasRole(UserRoleType.USER.name())
 
-                        .requestMatchers(RouteConfig.ADMIN_ROUTES_GROUP)
+                        .requestMatchers(ADMINS + this.subroutesMatcher)
                         .hasRole(UserRoleType.ADMIN.name())
 
-                        .requestMatchers(RouteConfig.ROOT_ROUTES_GROUP)
+                        .requestMatchers(ROOT + this.subroutesMatcher)
                         .hasRole(UserRoleType.ROOT.name())
 
                         .anyRequest().authenticated())
 
                 .formLogin(x -> x
-                        .loginPage(RouteConfig.LOGIN)
-                        .defaultSuccessUrl(RouteConfig.INDEX)
-                        .failureForwardUrl(RouteConfig.LOGIN_ERROR))
+                        .loginPage(LOGIN)
+                        .defaultSuccessUrl(INDEX)
+                        .failureForwardUrl(LOGIN_ERROR))
 
                 .logout(x -> x
-                        .logoutUrl(RouteConfig.LOGOUT)
-                        .logoutSuccessUrl(RouteConfig.INDEX)
+                        .logoutUrl(LOGOUT)
+                        .logoutSuccessUrl(INDEX)
                         .invalidateHttpSession(true)
-                        .deleteCookies(jsessionid))
+                        .deleteCookies(this.jsessionid))
 
                 .build();
     }

@@ -24,7 +24,6 @@ public abstract class AttributeConfig {
     public static final Map<String, String> ROUTES_MAP = Map.of(
             "index", RouteConfig.INDEX,
             "register", RouteConfig.REGISTER,
-            "registerSuccess", RouteConfig.REGISTER_SUCCESS,
             "login", RouteConfig.LOGIN,
             "logout", RouteConfig.LOGOUT);
 }
