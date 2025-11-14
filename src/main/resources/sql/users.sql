@@ -1,10 +1,10 @@
 INSERT INTO user_roles (id,type) VALUES (1,'ROOT'),(2,'ADMIN'),(3,'USER');
 
 INSERT INTO users (id,username,email,full_name,password) VALUES
-(1,'aegon','aegon.targaryen@example.com','Aegon Targaryen','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
-(2,'tywin','tywin.lannister@example.com','Tywin Lannister','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
-(3,'ned','ned.stark@example.com','Eddard Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
-(4,'arya','arya.stark@example.com','Arya Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
+(1,'rob','rob.stark@example.com','Robb Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
+(2,'ned','ned.stark@example.com','Eddard Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
+(3,'robert','robert.baratheon@example.com','Robert Baratheon','$2ai$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
+(4,'jon_arryn','jon.arryn@westeros.example','Jon Arryn','$2ai$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (5,'jon','jon.snow@example.com','Jon Snow','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (6,'daenerys','daenerys.targaryen@example.com','Daenerys Targaryen','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (7,'bran','bran.stark@example.com','Bran Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
@@ -23,17 +23,17 @@ INSERT INTO users (id,username,email,full_name,password) VALUES
 (20,'missandei','missandei@example.com','Missandei','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K');
 
 INSERT INTO users_roles(user_id,role_id) VALUES 
-(1,1),(1,2),(1,3),(2,2),(2,3),(3,2),(3,3),(4,3),(5,3),(6,3),(7,3),(8,3),(9,3),
+(1,1),(1,2),(1,3),(2,2),(2,3),(3,2),(3,3),(4,2),(4,3),(5,3),(6,3),(7,3),(8,3),(9,3),
 (10,3),(11,3),(12,3),(13,3),(14,3),(15,3),(16,3),(17,3),(18,3),(19,3),(20,3);
 
 INSERT INTO users (id,username,email,full_name,password) VALUES
-(21,'robert','robert.baratheon@example.com','Robert Baratheon','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
+(21,'tywin','tywin.lannister@example.com','Tywin Lannister','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (22,'stannis','stannis.baratheon@example.com','Stannis Baratheon','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (23,'renly','renly.baratheon@example.com','Renly Baratheon','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (24,'joffrey','joffrey.baratheon@example.com','Joffrey Baratheon','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (25,'tyrion','tyrion.lannister@example.com','Tyrion Lannister','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (26,'catelyn','catelyn.tully@example.com','Catelyn Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
-(27,'rob','rob.stark@example.com','Robb Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
+(27,'aegon','aegon.targaryen@example.com','Aegon Targaryen','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (28,'rickon','rickon.stark@example.com','Rickon Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (29,'eddard','eddard.stark@example.com','Eddard Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (30,'lyanna','lyanna.stark@example.com','Lyanna Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
@@ -124,7 +124,7 @@ INSERT INTO users (id,username,email,full_name,password) VALUES
 (97,'sam3','sam3.tarly@example.com','Samwell Tarly III','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (98,'shae2','shae2@example.com','Shae II','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
 (99,'ellaria2','ellaria2.sand@example.com','Ellaria Sand II','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K'),
-(100,'tyene2','tyene2.sand@example.com','Tyene Sand II','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K');
+(100,'arya','arya.stark@example.com','Arya Stark','$2a$12$rsH4xQP6BT.9f508L9Qiru2OtjvVfmYw16p/bD3VYHtacjH0Vyz5K');
 
 INSERT INTO users_roles (user_id,role_id) VALUES
 (81,3),(82,3),(83,3),(84,3),(85,3),(86,3),(87,3),(88,3),(89,3),(90,3),
