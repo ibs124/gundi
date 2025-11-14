@@ -2,16 +2,14 @@ package ibs124.gundi.config.thymeleaf;
 
 public class TemplateConfig {
 
-    private static final String USERS = "/users";
-
     public static final String INDEX = "index";
 
-    public static final String REGISTER = USERS + "/register";
-
+    private static final String AUTH = "/auth";
+    public static final String REGISTER = AUTH + "/register";
     public static final String REGISTER_SUCCESS = REGISTER + "-success";
+    public static final String LOGIN = AUTH + "/login";
 
-    public static final String LOGIN = USERS + "/login";
-
+    private static final String USERS = "/users";
     public static final String USERS_ME = USERS + "/me";
 
 }
