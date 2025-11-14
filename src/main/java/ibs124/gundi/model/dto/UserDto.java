@@ -13,8 +13,8 @@ public record UserDto(
         Instant createdAt,
         Instant updatedAt,
         Set<@Valid UserRoleDto> roles,
-        @ValidEmail String email,
-        @ValidUsername String username) {
+        @ValidUsername String username,
+        @ValidEmail String email) {
 
     public UserDto {
         roles = Set.copyOf(roles);

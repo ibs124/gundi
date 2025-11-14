@@ -1,4 +1,4 @@
-package ibs124.gundi.security;
+package ibs124.gundi.model.dto;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -12,10 +12,11 @@ public class UserDetailsImpl implements UserDetails, CredentialsContainer {
     private Collection<? extends GrantedAuthority> authorities;
     private String username;
     private String password;
-    private String email;
+    private Long id;
     private Instant createdAt;
     private Instant updatedAt;
-    private Long id;
+    private String email;
+    private String fullName;
 
     @Override
     public void eraseCredentials() {
@@ -24,7 +25,7 @@ public class UserDetailsImpl implements UserDetails, CredentialsContainer {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        return authorities;
     }
 
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
@@ -49,12 +50,12 @@ public class UserDetailsImpl implements UserDetails, CredentialsContainer {
         this.password = passowrd;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getId() {
+        return id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Instant getCreatedAt() {
@@ -73,11 +74,19 @@ public class UserDetailsImpl implements UserDetails, CredentialsContainer {
         this.updatedAt = updatedAt;
     }
 
-    public Long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

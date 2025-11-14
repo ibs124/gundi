@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.mapper.UserMapper;
+import ibs124.gundi.model.dto.UserDetailsImpl;
 import ibs124.gundi.repository.UserRepository;
-import ibs124.gundi.security.UserDetailsImpl;
 
 @Service
 class UserReadingServiceImpl implements UserReadingService {

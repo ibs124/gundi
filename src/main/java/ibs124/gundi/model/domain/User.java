@@ -20,10 +20,10 @@ import jakarta.persistence.Transient;
 public class User extends AbstractAuditableDomainModel {
 
     private Set<UserRole> roles = new HashSet<>();
-    private String email;
-    private String password;
-    private String fullName;
     private String username;
+    private String password;
+    private String email;
+    private String fullName;
 
     public User() {
         super();

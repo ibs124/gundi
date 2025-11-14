@@ -1,11 +1,9 @@
-package ibs124.gundi.security;
+package ibs124.gundi.service.user;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import ibs124.gundi.service.user.UserReadingService;
 
 @Service
 class UserDetailsServiceImpl implements UserDetailsService {

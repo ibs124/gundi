@@ -5,8 +5,8 @@ import ibs124.gundi.validation.constraint.ValidPassword;
 import ibs124.gundi.validation.constraint.ValidUsername;
 
 public record RegisterRequest(
-        @ValidEmail String email,
+        @ValidUsername String username,
         @ValidPassword String password,
-        String fullName,
-        @ValidUsername String username) {
+        @ValidEmail String email,
+        String fullName) {
 }
