@@ -8,4 +8,6 @@ public interface UserReadingService {
 
     Optional<UserDetailsImpl> findByUsernameOrEmail(String usernameOrEmail);
 
+    boolean existsByUsername(String username);
+
 }

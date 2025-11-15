@@ -26,4 +26,9 @@ class UserReadingServiceImpl implements UserReadingService {
                 .map(x -> this.userMapper.toSecurityModel(x));
     }
 
+    @Override
+    public boolean existsByUsername(String username) {
+        return this.userRepository.existsByUsername(username);
+    }
+
 }
