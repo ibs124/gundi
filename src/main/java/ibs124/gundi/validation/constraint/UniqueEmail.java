@@ -17,7 +17,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = { UniqueEmailValidator.class })
 public @interface UniqueEmail {
 
-    String message() default ErrorMessageConfig.USERNAME_TAKEN;
+    String message() default ErrorMessageConfig.EMAIL_TAKEN;
 
     Class<?>[] groups() default {};
 
