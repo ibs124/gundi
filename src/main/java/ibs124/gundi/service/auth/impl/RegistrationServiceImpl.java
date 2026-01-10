@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth;
+package ibs124.gundi.service.auth.impl;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -8,6 +8,10 @@ import ibs124.gundi.exception.ResourceCreatingException;
 import ibs124.gundi.model.dto.EmailCreateDTO;
 import ibs124.gundi.model.dto.RegisterDTO;
 import ibs124.gundi.model.dto.RegisterResponseDTO;
+import ibs124.gundi.service.auth.AuthTokenCreatingService;
+import ibs124.gundi.service.auth.EmailCreatingService;
+import ibs124.gundi.service.auth.RegistrationService;
+import ibs124.gundi.service.auth.UserCreatingService;
 import jakarta.transaction.Transactional;
 
 @Service

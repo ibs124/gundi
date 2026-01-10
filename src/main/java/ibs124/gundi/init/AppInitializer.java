@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.config.RouteConfig;
+import ibs124.gundi.service.auth.RoleInitService;
 import ibs124.gundi.util.AppUtils;
 
 @Component
@@ -15,13 +16,18 @@ class AppInitializer implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(AppInitializer.class);
 
     private final PropertyConfig propertyConfig;
+    private final RoleInitService roleInitService;
 
-    public AppInitializer(PropertyConfig propertyConfig) {
+    public AppInitializer(
+            PropertyConfig propertyConfig,
+            RoleInitService roleInitService) {
         this.propertyConfig = propertyConfig;
+        this.roleInitService = roleInitService;
     }
 
     @Override
     public void run(String... args) {
+        log.info("{}", this.roleInitService.init());
 
         log.info("{}", propertyConfig);
 

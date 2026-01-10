@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth;
+package ibs124.gundi.service.auth.impl;
 
 import org.springframework.stereotype.Service;
 
@@ -10,6 +10,7 @@ import ibs124.gundi.model.dto.EmailCreateDTO;
 import ibs124.gundi.model.dto.EmailDTO;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.UserRepository;
+import ibs124.gundi.service.auth.EmailCreatingService;
 
 @Service
 class EmailCreatingServiceImpl implements EmailCreatingService {

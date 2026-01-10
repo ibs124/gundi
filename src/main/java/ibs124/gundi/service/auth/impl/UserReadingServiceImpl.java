@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth;
+package ibs124.gundi.service.auth.impl;
 
 import java.util.Optional;
 
@@ -12,6 +12,7 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.UserRepository;
+import ibs124.gundi.service.auth.UserReadingService;
 
 @Service
 class UserReadingServiceImpl implements UserReadingService, UserDetailsService {

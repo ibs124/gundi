@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth;
+package ibs124.gundi.service.auth.impl;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -13,6 +13,7 @@ import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
+import ibs124.gundi.service.auth.AuthTokenCreatingService;
 
 @Service
 class AuthTokenCreatingServiceImpl implements AuthTokenCreatingService {

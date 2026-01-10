@@ -1,5 +1,6 @@
 package ibs124.gundi.mapper;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -11,11 +12,7 @@ public interface RoleMapper {
 
     RoleDTO toServiceModel(Role src);
 
-    Set<RoleDTO> toServiceModelAll(Set<Role> src);
-
-    Role toDomainModel(RoleDTO src);
-
-    Set<Role> toDomainModelAll(Set<RoleDTO> src);
+    List<RoleDTO> toServiceModelAll(List<Role> src);
 
     GrantedAuthority toSecurityModel(Role src);
 
