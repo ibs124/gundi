@@ -1,0 +1,12 @@
+{
+    "users": {
+        "password": "aaaaaa",
+        "emailSuffix": "@gmail.com",
+        "roles": {
+            "root": 1,
+            "admins": [
+
+            ]
+        }
+    }
+}
