@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import ibs124.gundi.model.domain.Email;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.repository.EmailRepository;
@@ -20,22 +18,17 @@ class EmailSeeder {
         this.emailRepository = emailRepository;
     }
 
-    public List<Email> seedPrimaryEmails(
-            List<User> users, JsonNode node) {
-        String suffix = node.at("/emailSuffix").asText();
-
+    public List<Email> seedPrimaryEmails(List<User> users) {
         List<Email> emails = users
                 .stream()
-                .map(x -> this.createPrimaryEmailByUserAndSuffixAndVerifiedAt(x, suffix))
+                .map(x -> this.createPrimaryEmailByUser(x))
                 .toList();
 
         return this.emailRepository.saveAll(emails);
     }
 
-    private Email createPrimaryEmailByUserAndSuffixAndVerifiedAt(
-            User user, String suffix) {
-
-        String name = user.getUsername().concat(suffix);
+    private Email createPrimaryEmailByUser(User user) {
+        String name = user.getUsername().concat(Config.PRIMARY_EMAIL_SUFFIX);
         Email email = new Email();
         email.setUser(user);
         email.setName(name);

@@ -1,5 +1,6 @@
 package ibs124.gundi.service.seed.impl;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,8 +8,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.databind.JsonNode;
 
 import ibs124.gundi.model.domain.Role;
 import ibs124.gundi.model.domain.User;
@@ -32,24 +31,21 @@ class UserSeeder {
         this.roleRepository = roleRepository;
     }
 
-    public List<User> seedUsers(JsonNode rootNode) {
-        String password = rootNode.at("/password").asText();
-        String encodedPassword = this.passwordEncoder.encode(password);
+    public List<User> seedUsers() {
+        String password = this.passwordEncoder.encode(Config.DEFAULT_USER_PASSWORD);
 
-        List<User> users = rootNode
-                .at("/names")
-                .valueStream()
-                .map(x -> x.asText())
-                .distinct()
-                .map(x -> this.createByFullNameAndPassword(x, encodedPassword))
+        List<User> users = Arrays
+                .stream(Config.USER_NAMES)
+                .map(x -> this.createByFullNameAndPassword(x, password))
                 .toList();
 
-        users = this.createRolesByUsers(users, rootNode);
+        users = this.createRolesByUsers(users);
 
         return this.userRepository.saveAll(users);
+
     }
 
-    private List<User> createRolesByUsers(List<User> users, JsonNode node) {
+    private List<User> createRolesByUsers(List<User> users) {
         HashSet<Role> rootRoles = new HashSet<>(
                 this.roleRepository.findAll());
 
@@ -65,18 +61,13 @@ class UserSeeder {
 
         users.get(0).setRoles(rootRoles);
 
-        int adminEnd = node.at("/adminCount").asInt() + 1;
-        User currentUser;
-
         for (int i = 1; i < users.size(); i++) {
-            currentUser = users.get(i);
-
-            if (i < adminEnd) {
-                currentUser.setRoles(adminRoles);
+            if (i < Config.ADMINS_COUNT + 1) {
+                users.get(i).setRoles(adminRoles);
                 continue;
             }
 
-            currentUser.setRoles(userRoles);
+            users.get(i).setRoles(userRoles);
         }
 
         return users;
@@ -91,4 +82,5 @@ class UserSeeder {
         user.setEnabled(true);
         return user;
     }
+
 }
