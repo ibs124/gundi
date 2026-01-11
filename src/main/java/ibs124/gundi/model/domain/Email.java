@@ -11,7 +11,7 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
-@Table(name = "emails", uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "is_primary" }))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "is_primary" }))
 public class Email extends AbstractDomainModel {
 
     private User user;

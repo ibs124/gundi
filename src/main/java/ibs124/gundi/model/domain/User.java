@@ -9,14 +9,10 @@ import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 @Entity
-@Table(name = "users")
 public class User extends AbstractAuditableDomainModel {
 
     private Set<Role> roles;
@@ -41,7 +37,6 @@ public class User extends AbstractAuditableDomainModel {
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles_map", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
     }

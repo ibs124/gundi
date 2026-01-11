@@ -4,10 +4,8 @@ import ibs124.gundi.model.enumm.RoleName;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "roles")
 public class Role extends AbstractDomainModel {
 
     private RoleName name;
