@@ -11,20 +11,14 @@ import ibs124.gundi.service.seed.DataSeedingService;
 class DataSeedingServiceImpl implements DataSeedingService {
 
     private final UserSeeder userSeeder;
-    private final EmailSeeder emailSeeder;
 
-    public DataSeedingServiceImpl(
-            UserSeeder userSeeder,
-            EmailSeeder emailSeeder) {
+    public DataSeedingServiceImpl(UserSeeder userSeeder) {
         this.userSeeder = userSeeder;
-        this.emailSeeder = emailSeeder;
     }
 
     @Override
     public void seedTestData() {
         List<User> users = this.userSeeder.seedUsers();
-
-        this.emailSeeder.seedPrimaryEmails(users);
 
     }
 

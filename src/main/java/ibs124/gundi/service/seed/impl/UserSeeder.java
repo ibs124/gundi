@@ -1,5 +1,6 @@
 package ibs124.gundi.service.seed.impl;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -75,11 +76,19 @@ class UserSeeder {
 
     private User createByFullNameAndPassword(String fullName, String password) {
         String username = fullName.toLowerCase().replaceAll(" ", "_");
+        String email = username.concat(Config.PRIMARY_EMAIL_SUFFIX);
+        Instant now = Instant.now();
+        
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setFullName(fullName);
-        user.setEnabled(true);
+        user.setPrimaryEmail(email);
+
+        user.addEmail(email);
+        user.getEmail(email).setLastVerifiedAt(now);
+        user.setLastVerifiedAt(now);
+        user.setIsEnabled(true);
         return user;
     }
 

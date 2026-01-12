@@ -38,13 +38,13 @@ class VerificationServiceImpl implements VerificationService {
 
             User user = token.getOwner();
 
-            user.setEnabled(true);
+            user.setIsEnabled(true);
 
             user = this.userRepository.save(user);
 
             this.tokenRepository.delete(token);
 
-            return user.isEnabled();
+            return user.getIsEnabled();
         } catch (Exception e) {
             throw new ResourceUpdatingException();
         }

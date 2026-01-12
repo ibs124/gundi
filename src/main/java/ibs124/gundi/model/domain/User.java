@@ -1,29 +1,39 @@
 package ibs124.gundi.model.domain;
 
-import java.util.HashSet;
+import java.time.Instant;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
-import ibs124.gundi.config.JpaConfig;
+import ibs124.gundi.validation.constraint.ValidEmail;
 import ibs124.gundi.validation.constraint.ValidPassword;
 import ibs124.gundi.validation.constraint.ValidUsername;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.MapKey;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
 public class User extends AbstractAuditableDomainModel {
 
+    private Map<String, Email> emails;
     private Set<Role> roles;
     private String username;
     private String password;
     private String fullName;
-    private boolean enabled;
+    private String primaryEmail;
+    private Boolean isEnabled;
+    private Instant lastVerifiedAt;
 
     public User() {
         super();
-        this.setRoles(new HashSet<>());
+        this.setEmails(new LinkedHashMap<>());
+        this.setRoles(new LinkedHashSet<>());
     }
 
     @Transient
@@ -34,6 +44,32 @@ public class User extends AbstractAuditableDomainModel {
     @Transient
     public boolean remove(Role x) {
         return this.getRoles().remove(x);
+    }
+
+    @Transient
+    public Email addEmail(String email) {
+        return this.getEmails()
+                .put(email, new Email(this, email));
+    }
+
+    @Transient
+    public Email removeEmail(String email) {
+        return this.getEmails().remove(email);
+    }
+
+    @Transient
+    public Email getEmail(String email) {
+        return this.getEmails().get(email);
+    }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @MapKey(name = "name")
+    public Map<String, Email> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(Map<String, Email> emails) {
+        this.emails = emails;
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -73,13 +109,30 @@ public class User extends AbstractAuditableDomainModel {
         this.username = username;
     }
 
-    @Column(nullable = false, columnDefinition = JpaConfig.COLUMN_BOOLEAN)
-    public boolean isEnabled() {
-        return enabled;
+    @ValidEmail
+    @Column(nullable = false, unique = true)
+    public String getPrimaryEmail() {
+        return primaryEmail;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setPrimaryEmail(String primaryEmail) {
+        this.primaryEmail = primaryEmail;
+    }
+
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean enabled) {
+        this.isEnabled = enabled;
+    }
+
+    public Instant getLastVerifiedAt() {
+        return lastVerifiedAt;
+    }
+
+    public void setLastVerifiedAt(Instant lastVerifiedAt) {
+        this.lastVerifiedAt = lastVerifiedAt;
     }
 
 }

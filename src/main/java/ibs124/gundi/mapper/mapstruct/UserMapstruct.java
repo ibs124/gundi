@@ -6,6 +6,7 @@ import org.mapstruct.Mapping;
 import ibs124.gundi.config.MapperConfig;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.mapper.RoleMapper;
+import ibs124.gundi.model.api.RegisterRequest;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.dto.UserCreateDTO;
 import ibs124.gundi.model.dto.UserDetailsDTO;
@@ -16,19 +17,7 @@ interface UserMapstruct extends UserMapper {
     @Mapping(source = "roles", target = "authorities")
     UserDetailsDTO toSecurityModel(User x);
 
-    @Override
-    default User toDomainModel(UserCreateDTO src) {
-        if (src == null) {
-            return null;
-        }
-
-        User user = new User();
-
-        user.setPassword(src.password());
-        user.setFullName(src.fullName());
-        user.setUsername(src.username());
-
-        return user;
-    }
+    @Mapping(source = "email", target = "primaryEmail")
+    UserCreateDTO toServiceModel(RegisterRequest src);
 
 }

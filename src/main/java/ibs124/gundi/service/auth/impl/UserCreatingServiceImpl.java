@@ -33,6 +33,8 @@ class UserCreatingServiceImpl implements UserCreatingService {
         user.setPassword(this.passwordEncoder
                 .encode(dto.password()));
 
+        user.addEmail(dto.primaryEmail());
+
         user = this.userRepository.save(user);
 
         return this.userMapper.toServiceModel(user);

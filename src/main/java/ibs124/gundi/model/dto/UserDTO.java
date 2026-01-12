@@ -2,6 +2,7 @@ package ibs124.gundi.model.dto;
 
 import java.util.Set;
 
+import ibs124.gundi.validation.constraint.ValidEmail;
 import ibs124.gundi.validation.constraint.ValidFullName;
 import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.validation.Valid;
@@ -14,7 +15,8 @@ public record UserDTO(
         boolean enabled,
         Set<@Valid RoleDTO> roles,
         @ValidUsername String username,
-        @ValidFullName String fullName) {
+        @ValidFullName String fullName,
+        @ValidEmail String primaryEmail) {
 
     public UserDTO {
         roles = Set.copyOf(roles);

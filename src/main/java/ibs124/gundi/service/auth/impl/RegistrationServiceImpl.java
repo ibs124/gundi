@@ -5,11 +5,10 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.exception.ResourceCreatingException;
-import ibs124.gundi.model.dto.EmailCreateDTO;
-import ibs124.gundi.model.dto.RegisterDTO;
 import ibs124.gundi.model.dto.RegisterResponseDTO;
+import ibs124.gundi.model.dto.UserCreateDTO;
+import ibs124.gundi.model.dto.UserDTO;
 import ibs124.gundi.service.auth.AuthTokenCreatingService;
-import ibs124.gundi.service.auth.EmailCreatingService;
 import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.service.auth.UserCreatingService;
 import jakarta.transaction.Transactional;
@@ -18,40 +17,30 @@ import jakarta.transaction.Transactional;
 class RegistrationServiceImpl implements RegistrationService {
 
     private final UserCreatingService userCreatingService;
-    private final EmailCreatingService emailCreatingService;
     private final AuthTokenCreatingService tokenCreatingService;
     private final ApplicationEventPublisher eventPublisher;
 
-    public RegistrationServiceImpl(
-            UserCreatingService userCreatingService,
-            EmailCreatingService emailCreatingService,
-            AuthTokenCreatingService tokenCreatingService,
-            ApplicationEventPublisher eventPublisher) {
+    public RegistrationServiceImpl(UserCreatingService userCreatingService,
+            AuthTokenCreatingService tokenCreatingService, ApplicationEventPublisher eventPublisher) {
         this.userCreatingService = userCreatingService;
-        this.emailCreatingService = emailCreatingService;
         this.tokenCreatingService = tokenCreatingService;
         this.eventPublisher = eventPublisher;
     }
 
     @Override
     @Transactional
-    public RegisterResponseDTO register(RegisterDTO request, String appUrl) {
+    public RegisterResponseDTO register(UserCreateDTO request, String appUrl) {
         try {
-            long userID = this.userCreatingService
-                    .create(request)
-                    .id();
-
-            String email = this.emailCreatingService
-                    .create(new EmailCreateDTO(userID, request.email(), true))
-                    .name();
+            UserDTO user = this.userCreatingService
+                    .create(request);
 
             String token = this.tokenCreatingService
-                    .createByUserId(userID);
+                    .createByUserId(user.id());
 
             this.eventPublisher
-                    .publishEvent(new UserVerificationEvent(token, email, appUrl));
+                    .publishEvent(new UserVerificationEvent(token, user.primaryEmail(), appUrl));
 
-            RegisterResponseDTO response = new RegisterResponseDTO(email, token);
+            RegisterResponseDTO response = new RegisterResponseDTO(user.primaryEmail(), token);
 
             return response;
         } catch (Exception e) {
