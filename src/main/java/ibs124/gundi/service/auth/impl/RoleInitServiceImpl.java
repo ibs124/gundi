@@ -29,7 +29,7 @@ class RoleInitServiceImpl implements RoleInitService {
         List<Role> roles = this.roleRepository.findAll();
 
         if (roles.size() == RoleName.values().length) {
-            return this.roleMapper.toServiceModelAll(roles);
+            return this.roleMapper.mapToApplicationModelAll(roles);
         }
 
         this.roleRepository.deleteAll();
@@ -42,7 +42,7 @@ class RoleInitServiceImpl implements RoleInitService {
 
         roles = this.roleRepository.saveAll(roles);
 
-        return this.roleMapper.toServiceModelAll(roles);
+        return this.roleMapper.mapToApplicationModelAll(roles);
     }
 
     private List<Role> createFromEnum() {

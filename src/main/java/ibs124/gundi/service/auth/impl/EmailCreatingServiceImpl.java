@@ -33,13 +33,13 @@ class EmailCreatingServiceImpl implements EmailCreatingService {
                 .orElseThrow(() -> new ResourceReadingException());
 
         Email email = this.emailMapper
-                .toDomainModel(dto);
+                .mapToDomainModel(dto);
 
         email.setUser(user);
 
         email = this.emailRepository.save(email);
 
-        return this.emailMapper.toServiceModel(email);
+        return this.emailMapper.mapToApplicationModel(email);
     }
 
 }

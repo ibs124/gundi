@@ -12,7 +12,7 @@ import ibs124.gundi.model.domain.Role;
 public interface RoleMapstruct extends RoleMapper {
 
     @Override
-    default GrantedAuthority toSecurityModel(Role src) {
+    default GrantedAuthority mapToInfrastructureModel(Role src) {
         return src == null ? null : new SimpleGrantedAuthority("ROLE_" + src.getName());
     }
 }

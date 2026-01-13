@@ -60,7 +60,7 @@ public class RegisterController {
 
         this.registerService
                 .register(
-                        this.userMapper.toServiceModel(bindingModel),
+                        this.userMapper.mapToApplicationModel(bindingModel),
                         RouteUtils.getContextUrl(httpServletRequest));
 
         return RouteUtils.getRedirectUrl(REGISTER + SUCCESS);

@@ -38,7 +38,7 @@ class UserReadingServiceImpl implements UserReadingService, UserDetailsService {
                 : this.userRepository.findByUsername(username);
 
         return userOptional
-                .map(x -> this.userMapper.toSecurityModel(x))
+                .map(x -> this.userMapper.mapToInfrastructureModel(x))
                 .orElseThrow(() -> new UsernameNotFoundException(MessageConfig.USER_NOT_FOUND));
     }
 

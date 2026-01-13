@@ -9,12 +9,12 @@ import ibs124.gundi.model.presentation.RegisterRequest;
 
 public interface UserMapper {
 
-    RegisterDTO toServiceModel(RegisterRequest src);
+    RegisterDTO mapToApplicationModel(RegisterRequest src);
 
-    UserDTO toServiceModel(User src);
+    UserDTO mapToApplicationModel(User src);
 
-    UserDetailsDTO toSecurityModel(User src);
+    UserDetailsDTO mapToInfrastructureModel(User src);
 
-    User toDomainModel(UserCreateDTO dto);
+    User mapToDomainModel(UserCreateDTO dto);
 
 }

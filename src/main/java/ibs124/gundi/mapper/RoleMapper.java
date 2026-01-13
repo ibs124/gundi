@@ -10,11 +10,11 @@ import ibs124.gundi.model.domain.Role;
 
 public interface RoleMapper {
 
-    RoleDTO toServiceModel(Role src);
+    RoleDTO mapToApplicationModel(Role src);
 
-    List<RoleDTO> toServiceModelAll(List<Role> src);
+    List<RoleDTO> mapToApplicationModelAll(List<Role> src);
 
-    GrantedAuthority toSecurityModel(Role src);
+    GrantedAuthority mapToInfrastructureModel(Role src);
 
-    Set<GrantedAuthority> toSecurityModelAll(Set<Role> src);
+    Set<GrantedAuthority> mapToInfrastructureModelAll(Set<Role> src);
 }

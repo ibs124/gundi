@@ -14,10 +14,10 @@ import ibs124.gundi.model.domain.User;
 interface UserMapstruct extends UserMapper {
 
     @Mapping(source = "roles", target = "authorities")
-    UserDetailsDTO toSecurityModel(User x);
+    UserDetailsDTO mapToInfrastructureModel(User x);
 
     @Override
-    default User toDomainModel(UserCreateDTO src) {
+    default User mapToDomainModel(UserCreateDTO src) {
         if (src == null) {
             return null;
         }

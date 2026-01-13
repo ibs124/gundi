@@ -28,14 +28,14 @@ class UserCreatingServiceImpl implements UserCreatingService {
 
     @Override
     public UserDTO create(UserCreateDTO dto) {
-        User user = this.userMapper.toDomainModel(dto);
+        User user = this.userMapper.mapToDomainModel(dto);
 
         user.setPassword(this.passwordEncoder
                 .encode(dto.password()));
 
         user = this.userRepository.save(user);
 
-        return this.userMapper.toServiceModel(user);
+        return this.userMapper.mapToApplicationModel(user);
     }
 
 }

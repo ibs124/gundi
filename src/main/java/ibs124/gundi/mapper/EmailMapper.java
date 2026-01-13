@@ -6,7 +6,7 @@ import ibs124.gundi.model.domain.Email;
 
 public interface EmailMapper {
 
-    Email toDomainModel(EmailCreateDTO src);
+    Email mapToDomainModel(EmailCreateDTO src);
 
-    EmailDTO toServiceModel(Email src);
+    EmailDTO mapToApplicationModel(Email src);
 }
