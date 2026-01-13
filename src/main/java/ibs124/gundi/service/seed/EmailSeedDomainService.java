@@ -32,7 +32,7 @@ public class EmailSeedDomainService {
         String name = user.getUsername().concat(SeedConfig.PRIMARY_EMAIL_SUFFIX);
         Email email = new Email();
         email.setUser(user);
-        email.setName(name);
+        email.setEmailAddress(name);
         email.setVerifiedAt(Instant.now());
         email.setPrimary(true);
 

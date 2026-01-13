@@ -1,9 +1,9 @@
 package ibs124.gundi.service.auth.domain;
 
-import ibs124.gundi.model.application.EmailCreateDTO;
-import ibs124.gundi.model.application.EmailDTO;
+import ibs124.gundi.model.domain.Email;
+import ibs124.gundi.model.domain.User;
 public interface EmailCreateDomainService {
 
-    EmailDTO create(EmailCreateDTO dto);
+    Email createPrymaryEmailByUser(User user, String emailAddress);
 
 }

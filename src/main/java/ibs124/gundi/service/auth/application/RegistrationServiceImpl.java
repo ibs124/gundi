@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.exception.ResourceCreatingException;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.application.EmailCreateDTO;
 import ibs124.gundi.model.application.RegisterDTO;
 import ibs124.gundi.model.application.RegisterResponseDTO;
 import ibs124.gundi.model.domain.User;
@@ -45,8 +44,8 @@ class RegistrationServiceImpl implements RegistrationService {
                     .create(this.userMapper.mapToDomainModel(request));
 
             String email = this.emailCreatingService
-                    .create(new EmailCreateDTO(user.getId(), request.email(), true))
-                    .name();
+                    .createPrymaryEmailByUser(user, request.emailAddress())
+                    .getEmailAddress();
 
             String token = this.tokenCreatingService
                     .createByUserId(user.getId());

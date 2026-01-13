@@ -15,12 +15,18 @@ import jakarta.validation.constraints.PastOrPresent;
 public class Email extends AbstractDomainModel {
 
     private User user;
-    private String name;
+    private String emailAddress;
     private Instant verifiedAt;
     private Boolean primary;
 
     public Email() {
         super();
+    }
+
+    public Email(User user, String emailAddress) {
+        this();
+        this.setUser(user);
+        this.setEmailAddress(emailAddress);
     }
 
     @ManyToOne(optional = false)
@@ -34,12 +40,12 @@ public class Email extends AbstractDomainModel {
 
     @ValidEmail
     @Column(nullable = false, unique = true)
-    public String getName() {
-        return name;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmailAddress(String name) {
+        this.emailAddress = name;
     }
 
     @PastOrPresent

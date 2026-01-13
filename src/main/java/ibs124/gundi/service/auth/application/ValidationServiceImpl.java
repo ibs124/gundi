@@ -20,7 +20,7 @@ class ValidationServiceImpl implements ValidationService {
 
     @Override
     public boolean isEmailUnique(String name) {
-        return !this.emailRepository.existsByName(name);
+        return !this.emailRepository.existsByEmailAddress(name);
     }
 
     @Override

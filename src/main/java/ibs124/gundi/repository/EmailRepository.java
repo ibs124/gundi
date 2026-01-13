@@ -10,7 +10,7 @@ import ibs124.gundi.model.domain.Email;
 @Repository
 public interface EmailRepository extends JpaRepository<Email, Long> {
 
-    boolean existsByName(String email);
+    boolean existsByEmailAddress(String email);
 
-    Optional<Email> findByNameAndPrimaryTrueAndVerifiedAtIsNotNull(String name);
+    Optional<Email> findByEmailAddressAndPrimaryTrueAndVerifiedAtIsNotNull(String name);
 }

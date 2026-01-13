@@ -32,7 +32,7 @@ class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> userOptional = username.contains("@")
                 ? this.emailRepository
-                        .findByNameAndPrimaryTrueAndVerifiedAtIsNotNull(username)
+                        .findByEmailAddressAndPrimaryTrueAndVerifiedAtIsNotNull(username)
                         .map(x -> x.getUser())
                 : this.userRepository.findByUsername(username);
 

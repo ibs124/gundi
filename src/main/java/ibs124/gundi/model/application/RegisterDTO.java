@@ -9,6 +9,6 @@ import ibs124.gundi.validation.constraint.ValidUsername;
 public record RegisterDTO(
         @UniqueUsername @ValidUsername String username,
         @ValidPassword String password,
-        @UniqueEmail @ValidEmail String email,
+        @UniqueEmail @ValidEmail String emailAddress,
         String fullName) implements UserCreateDTO {
 }
