@@ -23,12 +23,9 @@ class RegistrationServiceImpl implements RegistrationService {
     private final TokenCreateDomainService tokenCreatingService;
     private final ApplicationEventPublisher eventPublisher;
 
-    public RegistrationServiceImpl(
-            UserCreateDomainService userCreatingService,
-            EmailCreateDomainService emailCreatingService,
-            TokenCreateDomainService tokenCreatingService,
-            ApplicationEventPublisher eventPublisher,
-            UserMapper userMapper) {
+    public RegistrationServiceImpl(UserMapper userMapper, UserCreateDomainService userCreatingService,
+            EmailCreateDomainService emailCreatingService, TokenCreateDomainService tokenCreatingService,
+            ApplicationEventPublisher eventPublisher) {
         this.userMapper = userMapper;
         this.userCreatingService = userCreatingService;
         this.emailCreatingService = emailCreatingService;
@@ -47,13 +44,17 @@ class RegistrationServiceImpl implements RegistrationService {
                     .createPrymaryEmailByUser(user, request.emailAddress())
                     .getEmailAddress();
 
-            String token = this.tokenCreatingService
-                    .createByUserId(user.getId());
+            String verificationToken = this.tokenCreatingService
+                    .createByUser(user)
+                    .getValue();
+
+            var event = new UserVerificationEvent(verificationToken, email, appUrl);
 
             this.eventPublisher
-                    .publishEvent(new UserVerificationEvent(token, email, appUrl));
+                    .publishEvent(event);
 
-            RegisterResponseDTO response = new RegisterResponseDTO(email, token);
+            RegisterResponseDTO response = new RegisterResponseDTO(
+                    email, verificationToken);
 
             return response;
         } catch (Exception e) {
