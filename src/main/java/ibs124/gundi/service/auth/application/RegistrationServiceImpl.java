@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.application;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -8,24 +8,23 @@ import ibs124.gundi.exception.ResourceCreatingException;
 import ibs124.gundi.model.application.EmailCreateDTO;
 import ibs124.gundi.model.application.RegisterDTO;
 import ibs124.gundi.model.application.RegisterResponseDTO;
-import ibs124.gundi.service.auth.AuthTokenCreatingService;
-import ibs124.gundi.service.auth.EmailCreatingService;
-import ibs124.gundi.service.auth.RegistrationService;
-import ibs124.gundi.service.auth.UserCreatingService;
+import ibs124.gundi.service.auth.domain.EmailCreateDomainService;
+import ibs124.gundi.service.auth.domain.TokenCreateDomainService;
+import ibs124.gundi.service.auth.domain.UserCreateDomainService;
 import jakarta.transaction.Transactional;
 
 @Service
 class RegistrationServiceImpl implements RegistrationService {
 
-    private final UserCreatingService userCreatingService;
-    private final EmailCreatingService emailCreatingService;
-    private final AuthTokenCreatingService tokenCreatingService;
+    private final UserCreateDomainService userCreatingService;
+    private final EmailCreateDomainService emailCreatingService;
+    private final TokenCreateDomainService tokenCreatingService;
     private final ApplicationEventPublisher eventPublisher;
 
     public RegistrationServiceImpl(
-            UserCreatingService userCreatingService,
-            EmailCreatingService emailCreatingService,
-            AuthTokenCreatingService tokenCreatingService,
+            UserCreateDomainService userCreatingService,
+            EmailCreateDomainService emailCreatingService,
+            TokenCreateDomainService tokenCreatingService,
             ApplicationEventPublisher eventPublisher) {
         this.userCreatingService = userCreatingService;
         this.emailCreatingService = emailCreatingService;

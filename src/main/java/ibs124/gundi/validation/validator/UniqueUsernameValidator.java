@@ -2,7 +2,7 @@ package ibs124.gundi.validation.validator;
 
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.service.auth.UserReadingService;
+import ibs124.gundi.service.auth.application.ValidationService;
 import ibs124.gundi.validation.constraint.UniqueUsername;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -10,15 +10,15 @@ import jakarta.validation.ConstraintValidatorContext;
 @Component
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {
 
-    private final UserReadingService userService;
+    private final ValidationService service;
 
-    public UniqueUsernameValidator(UserReadingService userService) {
-        this.userService = userService;
+    public UniqueUsernameValidator(ValidationService userService) {
+        this.service = userService;
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return !this.userService.existsByUsername(value);
+        return this.service.isUsernameUnique(value);
     }
 
 }

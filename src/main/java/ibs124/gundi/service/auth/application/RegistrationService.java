@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth;
+package ibs124.gundi.service.auth.application;
 
 import ibs124.gundi.model.application.RegisterDTO;
 import ibs124.gundi.model.application.RegisterResponseDTO;

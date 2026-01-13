@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.application;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +10,6 @@ import ibs124.gundi.model.application.RoleDTO;
 import ibs124.gundi.model.domain.Role;
 import ibs124.gundi.model.enumm.RoleName;
 import ibs124.gundi.repository.RoleRepository;
-import ibs124.gundi.service.auth.RoleInitService;
 
 @Service
 class RoleInitServiceImpl implements RoleInitService {

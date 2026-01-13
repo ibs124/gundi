@@ -2,7 +2,7 @@ package ibs124.gundi.validation.validator;
 
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.service.auth.EmailReadingService;
+import ibs124.gundi.service.auth.application.ValidationService;
 import ibs124.gundi.validation.constraint.UniqueEmail;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -10,15 +10,15 @@ import jakarta.validation.ConstraintValidatorContext;
 @Component
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
 
-    private final EmailReadingService readingService;
+    private final ValidationService validationService;
 
-    public UniqueEmailValidator(EmailReadingService readingService) {
-        this.readingService = readingService;
+    public UniqueEmailValidator(ValidationService validationService) {
+        this.validationService = validationService;
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return !this.readingService.existsByName(value);
+        return this.validationService.isEmailUnique(value);
     }
 
 }

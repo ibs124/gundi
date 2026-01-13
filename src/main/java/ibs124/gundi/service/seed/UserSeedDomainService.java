@@ -1,4 +1,4 @@
-package ibs124.gundi.service.domain.seed;
+package ibs124.gundi.service.seed;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.infrastructure;
 
 import java.io.UnsupportedEncodingException;
 
@@ -6,8 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.model.application.EmailVerificationSendDTO;
-import ibs124.gundi.service.auth.EmailSendingService;
+import ibs124.gundi.model.infrastructure.EmailVerificationSendDTO;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 

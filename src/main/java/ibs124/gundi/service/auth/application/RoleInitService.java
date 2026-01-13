@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth;
+package ibs124.gundi.service.auth.application;
 
 import java.util.List;
 

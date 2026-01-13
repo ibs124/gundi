@@ -3,8 +3,8 @@ package ibs124.gundi.mapper;
 import ibs124.gundi.model.application.RegisterDTO;
 import ibs124.gundi.model.application.UserCreateDTO;
 import ibs124.gundi.model.application.UserDTO;
-import ibs124.gundi.model.application.UserDetailsDTO;
 import ibs124.gundi.model.domain.User;
+import ibs124.gundi.model.infrastructure.UserDetailsDTO;
 import ibs124.gundi.model.presentation.RegisterRequest;
 
 public interface UserMapper {

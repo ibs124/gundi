@@ -1,4 +1,4 @@
-package ibs124.gundi.model.application;
+package ibs124.gundi.model.infrastructure;
 
 import org.springframework.lang.NonNull;
 

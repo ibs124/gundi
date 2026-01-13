@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ibs124.gundi.config.thymeleaf.TemplateConfig;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.presentation.RegisterRequest;
-import ibs124.gundi.service.auth.RegistrationService;
+import ibs124.gundi.service.auth.application.RegistrationService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

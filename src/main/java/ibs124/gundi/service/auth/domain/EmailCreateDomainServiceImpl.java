@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.domain;
 
 import org.springframework.stereotype.Service;
 
@@ -10,16 +10,15 @@ import ibs124.gundi.model.domain.Email;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.UserRepository;
-import ibs124.gundi.service.auth.EmailCreatingService;
 
 @Service
-class EmailCreatingServiceImpl implements EmailCreatingService {
+class EmailCreateDomainServiceImpl implements EmailCreateDomainService {
 
     private final EmailRepository emailRepository;
     private final UserRepository userRepository;
     private final EmailMapper emailMapper;
 
-    public EmailCreatingServiceImpl(EmailRepository emailRepository, UserRepository userRepository,
+    public EmailCreateDomainServiceImpl(EmailRepository emailRepository, UserRepository userRepository,
             EmailMapper emailMapper) {
         this.emailRepository = emailRepository;
         this.userRepository = userRepository;

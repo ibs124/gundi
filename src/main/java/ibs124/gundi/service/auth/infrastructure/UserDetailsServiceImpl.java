@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.infrastructure;
 
 import java.util.Optional;
 
@@ -12,16 +12,15 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.UserRepository;
-import ibs124.gundi.service.auth.UserReadingService;
 
 @Service
-class UserReadingServiceImpl implements UserReadingService, UserDetailsService {
+class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final EmailRepository emailRepository;
 
-    public UserReadingServiceImpl(
+    public UserDetailsServiceImpl(
             UserRepository userRepository,
             UserMapper userMapper, EmailRepository emailRepository) {
         this.userRepository = userRepository;
@@ -40,11 +39,6 @@ class UserReadingServiceImpl implements UserReadingService, UserDetailsService {
         return userOptional
                 .map(x -> this.userMapper.mapToInfrastructureModel(x))
                 .orElseThrow(() -> new UsernameNotFoundException(MessageConfig.USER_NOT_FOUND));
-    }
-
-    @Override
-    public boolean existsByUsername(String username) {
-        return this.userRepository.existsByUsername(username);
     }
 
 }
