@@ -1,9 +1,8 @@
 package ibs124.gundi.service.auth.domain;
 
-import ibs124.gundi.model.application.UserCreateDTO;
-import ibs124.gundi.model.application.UserDTO;
+import ibs124.gundi.model.domain.User;
 
 public interface UserCreateDomainService {
 
-    UserDTO create(UserCreateDTO dto);
+    User create(User user);
 }
