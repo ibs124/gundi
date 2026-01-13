@@ -1,21 +1,22 @@
-package ibs124.gundi.service.seed.impl;
+package ibs124.gundi.service.application.seed;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.domain.User;
-import ibs124.gundi.service.seed.DataSeedingService;
+import ibs124.gundi.service.domain.seed.EmailSeedDomainService;
+import ibs124.gundi.service.domain.seed.UserSeedDomainService;
 
 @Service
 class DataSeedingServiceImpl implements DataSeedingService {
 
-    private final UserSeeder userSeeder;
-    private final EmailSeeder emailSeeder;
+    private final UserSeedDomainService userSeeder;
+    private final EmailSeedDomainService emailSeeder;
 
     public DataSeedingServiceImpl(
-            UserSeeder userSeeder,
-            EmailSeeder emailSeeder) {
+            UserSeedDomainService userSeeder,
+            EmailSeedDomainService emailSeeder) {
         this.userSeeder = userSeeder;
         this.emailSeeder = emailSeeder;
     }

@@ -1,4 +1,4 @@
-package ibs124.gundi.service.seed.impl;
+package ibs124.gundi.service.domain.seed;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -7,22 +7,23 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import ibs124.gundi.config.SeedConfig;
 import ibs124.gundi.model.domain.Role;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.enumm.RoleName;
 import ibs124.gundi.repository.RoleRepository;
 import ibs124.gundi.repository.UserRepository;
 
-@Component
-class UserSeeder {
+@Service
+public class UserSeedDomainService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-    public UserSeeder(
+    public UserSeedDomainService(
             PasswordEncoder passwordEncoder,
             UserRepository userRepository,
             RoleRepository roleRepository) {
@@ -32,10 +33,10 @@ class UserSeeder {
     }
 
     public List<User> seedUsers() {
-        String password = this.passwordEncoder.encode(Config.DEFAULT_USER_PASSWORD);
+        String password = this.passwordEncoder.encode(SeedConfig.DEFAULT_USER_PASSWORD);
 
         List<User> users = Arrays
-                .stream(Config.USER_NAMES)
+                .stream(SeedConfig.USER_NAMES)
                 .map(x -> this.createByFullNameAndPassword(x, password))
                 .toList();
 
@@ -62,7 +63,7 @@ class UserSeeder {
         users.get(0).setRoles(rootRoles);
 
         for (int i = 1; i < users.size(); i++) {
-            if (i < Config.ADMINS_COUNT + 1) {
+            if (i < SeedConfig.ADMINS_COUNT + 1) {
                 users.get(i).setRoles(adminRoles);
                 continue;
             }

@@ -1,20 +1,21 @@
-package ibs124.gundi.service.seed.impl;
+package ibs124.gundi.service.domain.seed;
 
 import java.time.Instant;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import ibs124.gundi.config.SeedConfig;
 import ibs124.gundi.model.domain.Email;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.repository.EmailRepository;
 
-@Component
-class EmailSeeder {
+@Service
+public class EmailSeedDomainService {
 
     private final EmailRepository emailRepository;
 
-    public EmailSeeder(EmailRepository emailRepository) {
+    public EmailSeedDomainService(EmailRepository emailRepository) {
         this.emailRepository = emailRepository;
     }
 
@@ -28,7 +29,7 @@ class EmailSeeder {
     }
 
     private Email createPrimaryEmailByUser(User user) {
-        String name = user.getUsername().concat(Config.PRIMARY_EMAIL_SUFFIX);
+        String name = user.getUsername().concat(SeedConfig.PRIMARY_EMAIL_SUFFIX);
         Email email = new Email();
         email.setUser(user);
         email.setName(name);

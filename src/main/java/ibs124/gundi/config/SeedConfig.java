@@ -1,6 +1,6 @@
-package ibs124.gundi.service.seed.impl;
+package ibs124.gundi.config;
 
-abstract class Config {
+public abstract class SeedConfig {
 
     public static final String PRIMARY_EMAIL_SUFFIX = "@gmail.com";
 

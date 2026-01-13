@@ -1,4 +1,4 @@
-package ibs124.gundi.service.seed;
+package ibs124.gundi.service.application.seed;
 
 public interface DataSeedingService {
 
