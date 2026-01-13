@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.exception.ResourceCreatingException;
-import ibs124.gundi.model.dto.EmailCreateDTO;
-import ibs124.gundi.model.dto.RegisterDTO;
-import ibs124.gundi.model.dto.RegisterResponseDTO;
+import ibs124.gundi.model.application.EmailCreateDTO;
+import ibs124.gundi.model.application.RegisterDTO;
+import ibs124.gundi.model.application.RegisterResponseDTO;
 import ibs124.gundi.service.auth.AuthTokenCreatingService;
 import ibs124.gundi.service.auth.EmailCreatingService;
 import ibs124.gundi.service.auth.RegistrationService;

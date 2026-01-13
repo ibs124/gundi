@@ -5,8 +5,8 @@ import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import ibs124.gundi.model.application.RoleDTO;
 import ibs124.gundi.model.domain.Role;
-import ibs124.gundi.model.dto.RoleDTO;
 
 public interface RoleMapper {
 

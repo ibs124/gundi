@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.mapper.RoleMapper;
+import ibs124.gundi.model.application.RoleDTO;
 import ibs124.gundi.model.domain.Role;
-import ibs124.gundi.model.dto.RoleDTO;
 import ibs124.gundi.model.enumm.RoleName;
 import ibs124.gundi.repository.RoleRepository;
 import ibs124.gundi.service.auth.RoleInitService;

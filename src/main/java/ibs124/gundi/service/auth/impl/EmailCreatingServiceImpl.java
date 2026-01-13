@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.exception.ResourceReadingException;
 import ibs124.gundi.mapper.EmailMapper;
+import ibs124.gundi.model.application.EmailCreateDTO;
+import ibs124.gundi.model.application.EmailDTO;
 import ibs124.gundi.model.domain.Email;
 import ibs124.gundi.model.domain.User;
-import ibs124.gundi.model.dto.EmailCreateDTO;
-import ibs124.gundi.model.dto.EmailDTO;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.service.auth.EmailCreatingService;

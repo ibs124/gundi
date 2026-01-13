@@ -4,9 +4,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.mapper.UserMapper;
+import ibs124.gundi.model.application.UserCreateDTO;
+import ibs124.gundi.model.application.UserDTO;
 import ibs124.gundi.model.domain.User;
-import ibs124.gundi.model.dto.UserCreateDTO;
-import ibs124.gundi.model.dto.UserDTO;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.service.auth.UserCreatingService;
 

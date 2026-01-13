@@ -1,4 +1,4 @@
-package ibs124.gundi.model.dto;
+package ibs124.gundi.model.application;
 
 import java.time.Instant;
 import java.util.Collection;

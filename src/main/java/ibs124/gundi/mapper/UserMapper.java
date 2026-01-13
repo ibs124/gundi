@@ -1,11 +1,11 @@
 package ibs124.gundi.mapper;
 
-import ibs124.gundi.model.api.RegisterRequest;
+import ibs124.gundi.model.application.RegisterDTO;
+import ibs124.gundi.model.application.UserCreateDTO;
+import ibs124.gundi.model.application.UserDTO;
+import ibs124.gundi.model.application.UserDetailsDTO;
 import ibs124.gundi.model.domain.User;
-import ibs124.gundi.model.dto.RegisterDTO;
-import ibs124.gundi.model.dto.UserCreateDTO;
-import ibs124.gundi.model.dto.UserDTO;
-import ibs124.gundi.model.dto.UserDetailsDTO;
+import ibs124.gundi.model.presentation.RegisterRequest;
 
 public interface UserMapper {
 

@@ -2,7 +2,7 @@ package ibs124.gundi.service.auth;
 
 import java.util.List;
 
-import ibs124.gundi.model.dto.RoleDTO;
+import ibs124.gundi.model.application.RoleDTO;
 
 public interface RoleInitService {
 
