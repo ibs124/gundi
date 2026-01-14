@@ -1,8 +1,8 @@
-package ibs124.gundi.service.auth.domain;
+package ibs124.gundi.service.auth.component;
 
 import ibs124.gundi.model.domain.Email;
 import ibs124.gundi.model.domain.User;
-public interface EmailCreateDomainService {
+public interface EmailCreator {
 
     Email createPrymaryEmailByUser(User user, String emailAddress);
 

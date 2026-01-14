@@ -1,21 +1,21 @@
-package ibs124.gundi.service.seed;
+package ibs124.gundi.service.seed.component;
 
 import java.time.Instant;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import ibs124.gundi.config.SeedConfig;
 import ibs124.gundi.model.domain.Email;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.repository.EmailRepository;
 
-@Service
-public class EmailSeedDomainService {
+@Component
+public class EmailSeeder {
 
     private final EmailRepository emailRepository;
 
-    public EmailSeedDomainService(EmailRepository emailRepository) {
+    public EmailSeeder(EmailRepository emailRepository) {
         this.emailRepository = emailRepository;
     }
 

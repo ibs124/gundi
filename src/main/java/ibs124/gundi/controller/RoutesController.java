@@ -12,7 +12,8 @@ import ibs124.gundi.util.AppUtils;
 @ControllerAdvice
 class RoutesController {
 
-    private final Map<String, String> routes = AppUtils.mapConstants(RouteConfig.class);
+    private final Map<String, String> routes = AppUtils
+            .mapConstants(RouteConfig.class);
 
     @ModelAttribute(AttributeConfig.ROUTES)
     public Map<String, String> globalRoutes() {

@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.application;
+package ibs124.gundi.service.auth;
 
 public interface ValidationService {
 

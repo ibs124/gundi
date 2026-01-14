@@ -1,9 +1,10 @@
-package ibs124.gundi.service.auth.application;
+package ibs124.gundi.service.auth.impl;
 
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.UserRepository;
+import ibs124.gundi.service.auth.ValidationService;
 
 @Service
 class ValidationServiceImpl implements ValidationService {

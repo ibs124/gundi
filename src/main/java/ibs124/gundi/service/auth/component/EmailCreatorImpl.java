@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.domain;
+package ibs124.gundi.service.auth.component;
 
 import org.springframework.stereotype.Service;
 
@@ -7,17 +7,18 @@ import ibs124.gundi.model.domain.User;
 import ibs124.gundi.repository.EmailRepository;
 
 @Service
-class EmailCreateDomainServiceImpl implements EmailCreateDomainService {
+class EmailCreatorImpl implements EmailCreator {
 
     private final EmailRepository emailRepository;
 
-    public EmailCreateDomainServiceImpl(EmailRepository emailRepository) {
+    public EmailCreatorImpl(EmailRepository emailRepository) {
         this.emailRepository = emailRepository;
     }
 
     @Override
     public Email createPrymaryEmailByUser(User user, String emailAddress) {
         Email email = new Email(user, emailAddress);
+        email.setPrimary(true);
         return this.emailRepository.save(email);
     }
 

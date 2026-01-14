@@ -1,9 +1,9 @@
-package ibs124.gundi.service.auth.domain;
+package ibs124.gundi.service.auth.component;
 
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 
-public interface TokenCreateDomainService {
+public interface VerificationTokenCreator {
 
     VerificationToken createByUser(User user);
 

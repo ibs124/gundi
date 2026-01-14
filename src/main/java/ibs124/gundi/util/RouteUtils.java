@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public abstract class RouteUtils {
 
-    public static final String getContextUrl(HttpServletRequest request) {
+    public static final String getAppUrl(HttpServletRequest request) {
         return String.format(CONTEXT_URL_FORMAT,
                 request.getScheme(),
                 request.getServerName(),

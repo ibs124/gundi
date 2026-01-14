@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.application;
+package ibs124.gundi.service.auth.impl;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -9,27 +9,31 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDTO;
 import ibs124.gundi.model.application.RegisterResponseDTO;
 import ibs124.gundi.model.domain.User;
-import ibs124.gundi.service.auth.domain.EmailCreateDomainService;
-import ibs124.gundi.service.auth.domain.TokenCreateDomainService;
-import ibs124.gundi.service.auth.domain.UserCreateDomainService;
+import ibs124.gundi.service.auth.RegistrationService;
+import ibs124.gundi.service.auth.component.EmailCreator;
+import ibs124.gundi.service.auth.component.UserCreator;
+import ibs124.gundi.service.auth.component.VerificationTokenCreator;
 import jakarta.transaction.Transactional;
 
 @Service
 class RegistrationServiceImpl implements RegistrationService {
 
     private final UserMapper userMapper;
-    private final UserCreateDomainService userCreatingService;
-    private final EmailCreateDomainService emailCreatingService;
-    private final TokenCreateDomainService tokenCreatingService;
+    private final UserCreator userCreator;
+    private final EmailCreator emailCreator;
+    private final VerificationTokenCreator tokenCreator;
     private final ApplicationEventPublisher eventPublisher;
 
-    public RegistrationServiceImpl(UserMapper userMapper, UserCreateDomainService userCreatingService,
-            EmailCreateDomainService emailCreatingService, TokenCreateDomainService tokenCreatingService,
+    public RegistrationServiceImpl(
+            UserMapper userMapper,
+            UserCreator userCreatingService,
+            EmailCreator emailCreatingService,
+            VerificationTokenCreator tokenCreatingService,
             ApplicationEventPublisher eventPublisher) {
         this.userMapper = userMapper;
-        this.userCreatingService = userCreatingService;
-        this.emailCreatingService = emailCreatingService;
-        this.tokenCreatingService = tokenCreatingService;
+        this.userCreator = userCreatingService;
+        this.emailCreator = emailCreatingService;
+        this.tokenCreator = tokenCreatingService;
         this.eventPublisher = eventPublisher;
     }
 
@@ -37,14 +41,16 @@ class RegistrationServiceImpl implements RegistrationService {
     @Transactional
     public RegisterResponseDTO register(RegisterDTO request, String appUrl) {
         try {
-            User user = this.userCreatingService
-                    .create(this.userMapper.mapToDomainModel(request));
+            User user = this.userMapper
+                    .mapToDomainModel(request);
 
-            String email = this.emailCreatingService
+            user = this.userCreator.create(user);
+
+            String email = this.emailCreator
                     .createPrymaryEmailByUser(user, request.emailAddress())
                     .getEmailAddress();
 
-            String verificationToken = this.tokenCreatingService
+            String verificationToken = this.tokenCreator
                     .createByUser(user)
                     .getValue();
 

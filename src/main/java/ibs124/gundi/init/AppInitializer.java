@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.config.RouteConfig;
-import ibs124.gundi.service.auth.application.RoleInitService;
+import ibs124.gundi.service.auth.RoleInitService;
 import ibs124.gundi.service.seed.DataSeedingService;
 import ibs124.gundi.util.AppUtils;
 

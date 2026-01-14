@@ -5,16 +5,18 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.domain.User;
+import ibs124.gundi.service.seed.component.EmailSeeder;
+import ibs124.gundi.service.seed.component.UserSeeder;
 
 @Service
 class DataSeedingServiceImpl implements DataSeedingService {
 
-    private final UserSeedDomainService userSeeder;
-    private final EmailSeedDomainService emailSeeder;
+    private final UserSeeder userSeeder;
+    private final EmailSeeder emailSeeder;
 
     public DataSeedingServiceImpl(
-            UserSeedDomainService userSeeder,
-            EmailSeedDomainService emailSeeder) {
+            UserSeeder userSeeder,
+            EmailSeeder emailSeeder) {
         this.userSeeder = userSeeder;
         this.emailSeeder = emailSeeder;
     }

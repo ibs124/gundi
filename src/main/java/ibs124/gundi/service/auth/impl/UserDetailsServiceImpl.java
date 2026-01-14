@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.infrastructure;
+package ibs124.gundi.service.auth.impl;
 
 import java.util.Optional;
 

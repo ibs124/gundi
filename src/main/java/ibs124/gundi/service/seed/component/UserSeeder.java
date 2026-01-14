@@ -1,4 +1,4 @@
-package ibs124.gundi.service.seed;
+package ibs124.gundi.service.seed.component;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import ibs124.gundi.config.SeedConfig;
 import ibs124.gundi.model.domain.Role;
@@ -16,14 +16,14 @@ import ibs124.gundi.model.enumm.RoleName;
 import ibs124.gundi.repository.RoleRepository;
 import ibs124.gundi.repository.UserRepository;
 
-@Service
-public class UserSeedDomainService {
+@Component
+public class UserSeeder {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-    public UserSeedDomainService(
+    public UserSeeder(
             PasswordEncoder passwordEncoder,
             UserRepository userRepository,
             RoleRepository roleRepository) {

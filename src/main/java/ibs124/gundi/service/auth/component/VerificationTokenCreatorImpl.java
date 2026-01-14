@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.domain;
+package ibs124.gundi.service.auth.component;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -12,12 +12,12 @@ import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.VerificationTokenRepository;
 
 @Service
-class TokenCreateDomainServiceImpl implements TokenCreateDomainService {
+class VerificationTokenCreatorImpl implements VerificationTokenCreator {
 
     private final VerificationTokenRepository tokenRepository;
     private final PropertyConfig config;
 
-    public TokenCreateDomainServiceImpl(
+    public VerificationTokenCreatorImpl(
             VerificationTokenRepository tokenRepository,
             PropertyConfig config) {
         this.tokenRepository = tokenRepository;
@@ -49,5 +49,4 @@ class TokenCreateDomainServiceImpl implements TokenCreateDomainService {
 
         return value;
     }
-
 }
