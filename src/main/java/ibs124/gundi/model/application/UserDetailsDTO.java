@@ -15,7 +15,7 @@ public class UserDetailsDTO implements UserDetails, CredentialsContainer {
     private Long id;
     private Instant createdAt;
     private Instant updatedAt;
-    private String email;
+    private String primaryEmail;
     private String fullName;
 
     @Override
@@ -74,12 +74,12 @@ public class UserDetailsDTO implements UserDetails, CredentialsContainer {
         this.updatedAt = updatedAt;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPrimaryEmail() {
+        return primaryEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPrimaryEmail(String email) {
+        this.primaryEmail = email;
     }
 
     public String getFullName() {

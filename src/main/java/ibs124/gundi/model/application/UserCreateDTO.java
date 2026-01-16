@@ -11,6 +11,6 @@ import jakarta.validation.constraints.NotNull;
 public record UserCreateDTO(
         @UniqueUsername @ValidUsername String username,
         @ValidPassword String password,
-        @UniqueEmail @ValidEmail String emailAddress,
+        @UniqueEmail @ValidEmail String primaryEmail,
         String fullName) {
 }

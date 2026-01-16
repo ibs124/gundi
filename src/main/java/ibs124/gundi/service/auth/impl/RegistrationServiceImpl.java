@@ -47,7 +47,7 @@ class RegistrationServiceImpl implements RegistrationService {
             user = this.userCreator.create(user);
 
             String email = this.emailCreator
-                    .createPrymaryEmailByUser(user, request.user().emailAddress())
+                    .createPrymaryEmailByUser(user, request.user().primaryEmail())
                     .getEmailAddress();
 
             String verificationToken = this.tokenCreator
