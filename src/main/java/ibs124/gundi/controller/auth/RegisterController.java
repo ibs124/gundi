@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import ibs124.gundi.config.thymeleaf.TemplateConfig;
 import ibs124.gundi.mapper.UserMapper;
+import ibs124.gundi.model.application.RegisterDTO;
 import ibs124.gundi.model.presentation.RegisterRequest;
 import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.util.RouteUtils;
@@ -58,10 +59,11 @@ public class RegisterController {
             return RouteUtils.getRedirectUrl(REGISTER);
         }
 
-        this.registerService
-                .register(
-                        this.userMapper.mapToApplicationModel(bindingModel),
-                        RouteUtils.getAppUrl(httpServletRequest));
+        RegisterDTO request = new RegisterDTO(
+                this.userMapper.mapToApplicationModel(bindingModel),
+                RouteUtils.getAppUrl(httpServletRequest));
+
+        this.registerService.register(request);
 
         return RouteUtils.getRedirectUrl(REGISTER + SUCCESS);
     }

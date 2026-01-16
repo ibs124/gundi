@@ -39,22 +39,23 @@ class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     @Transactional
-    public RegisterResponseDTO register(RegisterDTO request, String appUrl) {
+    public RegisterResponseDTO register(RegisterDTO request) {
         try {
             User user = this.userMapper
-                    .mapToDomainModel(request);
+                    .mapToDomainModel(request.user());
 
             user = this.userCreator.create(user);
 
             String email = this.emailCreator
-                    .createPrymaryEmailByUser(user, request.emailAddress())
+                    .createPrymaryEmailByUser(user, request.user().emailAddress())
                     .getEmailAddress();
 
             String verificationToken = this.tokenCreator
                     .createByUser(user)
                     .getValue();
 
-            var event = new UserVerificationEvent(verificationToken, email, appUrl);
+            var event = new UserVerificationEvent(
+                    verificationToken, email, request.appURL());
 
             this.eventPublisher
                     .publishEvent(event);
