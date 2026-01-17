@@ -6,18 +6,14 @@ import ibs124.gundi.validation.constraint.ValidEmail;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "is_primary" }))
 public class Email extends AbstractDomainModel {
 
     private User user;
     private String emailAddress;
-    private Instant verifiedAt;
-    private Boolean primary;
+    private Instant lastVerifiedAt;
 
     public Email() {
         super();
@@ -49,21 +45,12 @@ public class Email extends AbstractDomainModel {
     }
 
     @PastOrPresent
-    public Instant getVerifiedAt() {
-        return verifiedAt;
+    public Instant getLastVerifiedAt() {
+        return lastVerifiedAt;
     }
 
-    public void setVerifiedAt(Instant verifiedAt) {
-        this.verifiedAt = verifiedAt;
-    }
-
-    @Column(name = "is_primary")
-    public Boolean isPrimary() {
-        return this.primary == null ? false : this.primary;
-    }
-
-    public void setPrimary(Boolean primary) {
-        this.primary = primary;
+    public void setLastVerifiedAt(Instant verifiedAt) {
+        this.lastVerifiedAt = verifiedAt;
     }
 
 }

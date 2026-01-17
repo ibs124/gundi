@@ -29,12 +29,12 @@ public class EmailSeeder {
     }
 
     private Email createPrimaryEmailByUser(User user) {
-        String name = user.getUsername().concat(SeedConfig.PRIMARY_EMAIL_SUFFIX);
-        Email email = new Email();
-        email.setUser(user);
-        email.setEmailAddress(name);
-        email.setVerifiedAt(Instant.now());
-        email.setPrimary(true);
+        String emailAddress = user
+                .getUsername().concat(SeedConfig.PRIMARY_EMAIL_SUFFIX);
+
+        Email email = new Email(user, emailAddress);
+
+        email.setLastVerifiedAt(Instant.now());
 
         return email;
     }
