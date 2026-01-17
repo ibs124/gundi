@@ -42,7 +42,7 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
 
         User user = token.getOwner();
 
-        user.setEnabled(true);
+        user.setIsEnabled(true);
 
         user = this.userRepository.save(user);
 

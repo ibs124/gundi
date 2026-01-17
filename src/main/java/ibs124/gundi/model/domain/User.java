@@ -1,15 +1,17 @@
 package ibs124.gundi.model.domain;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-import ibs124.gundi.config.JpaConfig;
+import ibs124.gundi.validation.constraint.ValidEmail;
 import ibs124.gundi.validation.constraint.ValidPassword;
 import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class User extends AbstractAuditableDomainModel {
@@ -18,7 +20,9 @@ public class User extends AbstractAuditableDomainModel {
     private String username;
     private String password;
     private String fullName;
-    private boolean enabled;
+    private String primaryEmail;
+    private Boolean isEnabled;
+    private Instant lastVerifiedAt;
 
     public User() {
         super();
@@ -62,13 +66,31 @@ public class User extends AbstractAuditableDomainModel {
         this.username = username;
     }
 
-    @Column(nullable = false, columnDefinition = JpaConfig.COLUMN_BOOLEAN)
-    public boolean isEnabled() {
-        return enabled;
+    @ValidEmail
+    @Column(nullable = false, unique = true)
+    public String getPrimaryEmail() {
+        return primaryEmail;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setPrimaryEmail(String primaryEmail) {
+        this.primaryEmail = primaryEmail;
+    }
+
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    @PastOrPresent
+    public Instant getLastVerifiedAt() {
+        return lastVerifiedAt;
+    }
+
+    public void setLastVerifiedAt(Instant lastVerifiedAt) {
+        this.lastVerifiedAt = lastVerifiedAt;
     }
 
 }
