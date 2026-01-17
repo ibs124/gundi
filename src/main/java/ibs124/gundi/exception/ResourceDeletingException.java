@@ -1,6 +1,6 @@
 package ibs124.gundi.exception;
 
-public class ResourceDeletingException extends RuntimeException {
+public class ResourceDeletingException extends AbstractException {
 
     public ResourceDeletingException() {
     }

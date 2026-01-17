@@ -9,7 +9,7 @@ import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.config.RouteConfig;
 import ibs124.gundi.service.auth.RoleInitService;
 import ibs124.gundi.service.seed.DataSeedingService;
-import ibs124.gundi.util.AppUtils;
+import ibs124.gundi.util.Application;
 
 @Component
 class AppInitializer implements CommandLineRunner {
@@ -31,13 +31,13 @@ class AppInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        log.info("{}", this.roleInitService.init());
+        log.info("{}", this.roleInitService.initializeRoles());
 
         this.dataSeedingService.seedTestData();
 
         log.info("{}", propertyConfig);
 
-        log.info("{}", AppUtils.mapConstants(RouteConfig.class));
+        log.info("{}", Application.mapConstants(RouteConfig.class));
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class AppUtils {
+public abstract class Application {
 
     public static final Map<String, String> mapConstants(Class<?> clazz) {
         return Stream

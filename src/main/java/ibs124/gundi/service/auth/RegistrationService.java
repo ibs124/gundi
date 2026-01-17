@@ -1,10 +1,9 @@
 package ibs124.gundi.service.auth;
 
-import ibs124.gundi.model.application.RegisterDTO;
-import ibs124.gundi.model.application.RegisterResponseDTO;
+import ibs124.gundi.model.application.RegisterDto;
 
 public interface RegistrationService {
 
-    RegisterResponseDTO register(RegisterDTO request);
+    Long registerUser(RegisterDto request);
 
 }

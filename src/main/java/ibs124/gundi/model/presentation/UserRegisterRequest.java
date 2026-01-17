@@ -5,8 +5,10 @@ import ibs124.gundi.validation.constraint.UniqueUsername;
 import ibs124.gundi.validation.constraint.ValidEmail;
 import ibs124.gundi.validation.constraint.ValidPassword;
 import ibs124.gundi.validation.constraint.ValidUsername;
+import jakarta.validation.constraints.NotNull;
 
-public record RegisterRequest(
+@NotNull
+public record UserRegisterRequest(
         @UniqueUsername @ValidUsername String username,
         @ValidPassword String password,
         @UniqueEmail @ValidEmail String email,

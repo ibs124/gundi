@@ -7,7 +7,7 @@ import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserDetailsDTO implements UserDetails, CredentialsContainer {
+public class UserDetailsDto implements UserDetails, CredentialsContainer {
 
     private Collection<? extends GrantedAuthority> authorities;
     private String username;

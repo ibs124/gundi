@@ -6,9 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @NotNull
-public record EmailCreateDTO(
-        @Positive long userId,
-        @ValidEmail @UniqueEmail String name,
-        boolean primary) {
-
+public record EmailCreateDto(
+        @NotNull @Positive Long userId,
+        @UniqueEmail @ValidEmail String emailAddress) {
 }

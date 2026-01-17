@@ -10,7 +10,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Transient;
 
 @Entity
 public class User extends AbstractAuditableDomainModel {
@@ -24,16 +23,6 @@ public class User extends AbstractAuditableDomainModel {
     public User() {
         super();
         this.setRoles(new HashSet<>());
-    }
-
-    @Transient
-    public boolean add(Role x) {
-        return this.getRoles().add(x);
-    }
-
-    @Transient
-    public boolean remove(Role x) {
-        return this.getRoles().remove(x);
     }
 
     @ManyToMany(fetch = FetchType.EAGER)

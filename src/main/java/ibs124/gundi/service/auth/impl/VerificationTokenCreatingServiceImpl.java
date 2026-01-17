@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.component;
+package ibs124.gundi.service.auth.impl;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -9,29 +9,41 @@ import org.springframework.stereotype.Service;
 import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
+import ibs124.gundi.model.enumm.VerificationType;
+import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
+import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 
 @Service
-class VerificationTokenCreatorImpl implements VerificationTokenCreator {
+class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingService {
 
     private final VerificationTokenRepository tokenRepository;
+    private final UserRepository userRepository;
     private final PropertyConfig config;
 
-    public VerificationTokenCreatorImpl(
+    public VerificationTokenCreatingServiceImpl(
             VerificationTokenRepository tokenRepository,
-            PropertyConfig config) {
+            UserRepository userRepository,
+            PropertyConfig propertyConfig) {
         this.tokenRepository = tokenRepository;
-        this.config = config;
+        this.userRepository = userRepository;
+        this.config = propertyConfig;
     }
 
     @Override
-    public VerificationToken createByUser(User user) {
+    public String createNewUserVerificationTokenByUserId(Long userId) {
+        User user = this.userRepository.getReferenceById(userId);
+
         VerificationToken token = new VerificationToken();
+
         token.setOwner(user);
-        token.setValue(this.getValue());
+        token.setType(VerificationType.NEW_USER);
+        token.setValue(this.getValueByType(token.getType()));
         token.setExpiresAt(this.getExpiration());
 
-        return this.tokenRepository.save(token);
+        token = this.tokenRepository.save(token);
+
+        return token.getValue();
     }
 
     private Instant getExpiration() {
@@ -40,7 +52,7 @@ class VerificationTokenCreatorImpl implements VerificationTokenCreator {
                 .plus(this.config.tokenExpirationMinutes(), ChronoUnit.MINUTES);
     }
 
-    private String getValue() {
+    private String getValueByType(VerificationType type) {
         String value = UUID.randomUUID().toString();
 
         while (this.tokenRepository.existsByValue(value)) {
@@ -49,4 +61,5 @@ class VerificationTokenCreatorImpl implements VerificationTokenCreator {
 
         return value;
     }
+
 }

@@ -1,4 +1,4 @@
-package ibs124.gundi.service.seed.component;
+package ibs124.gundi.service.seed;
 
 import java.time.Instant;
 import java.util.List;

@@ -1,12 +1,13 @@
 package ibs124.gundi.model.application;
 
 import ibs124.gundi.validation.constraint.ValidEmail;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @NotNull
-public record RegisterResponseDTO(
+public record VerificationSendDto(
         @ValidEmail String email,
-        @NotBlank String verificationToken) {
+        String appUrl,
+        @PositiveOrZero Long userId) {
 
 }

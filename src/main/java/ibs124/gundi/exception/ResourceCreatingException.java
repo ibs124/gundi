@@ -1,6 +1,6 @@
 package ibs124.gundi.exception;
 
-public class ResourceCreatingException extends RuntimeException {
+public class ResourceCreatingException extends AbstractException {
 
     public ResourceCreatingException() {
     }

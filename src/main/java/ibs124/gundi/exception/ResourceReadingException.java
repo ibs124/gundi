@@ -1,6 +1,6 @@
 package ibs124.gundi.exception;
 
-public class ResourceReadingException extends RuntimeException {
+public class ResourceReadingException extends AbstractException {
 
     public ResourceReadingException() {
     }

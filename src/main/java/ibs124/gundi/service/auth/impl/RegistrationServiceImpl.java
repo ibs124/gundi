@@ -1,72 +1,52 @@
 package ibs124.gundi.service.auth.impl;
 
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.exception.ResourceCreatingException;
-import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.application.RegisterDTO;
-import ibs124.gundi.model.application.RegisterResponseDTO;
-import ibs124.gundi.model.domain.User;
+import ibs124.gundi.model.application.EmailCreateDto;
+import ibs124.gundi.model.application.RegisterDto;
+import ibs124.gundi.model.application.VerificationSendDto;
+import ibs124.gundi.service.auth.EmailCreatingService;
 import ibs124.gundi.service.auth.RegistrationService;
-import ibs124.gundi.service.auth.component.EmailCreator;
-import ibs124.gundi.service.auth.component.UserCreator;
-import ibs124.gundi.service.auth.component.VerificationTokenCreator;
+import ibs124.gundi.service.auth.UserCreatingService;
+import ibs124.gundi.service.auth.VerificationSendingService;
 import jakarta.transaction.Transactional;
 
 @Service
 class RegistrationServiceImpl implements RegistrationService {
 
-    private final UserMapper userMapper;
-    private final UserCreator userCreator;
-    private final EmailCreator emailCreator;
-    private final VerificationTokenCreator tokenCreator;
-    private final ApplicationEventPublisher eventPublisher;
+    private final UserCreatingService userCreatingService;
+    private final EmailCreatingService emailCreatingService;
+    private final VerificationSendingService verificationSendingService;
 
     public RegistrationServiceImpl(
-            UserMapper userMapper,
-            UserCreator userCreatingService,
-            EmailCreator emailCreatingService,
-            VerificationTokenCreator tokenCreatingService,
-            ApplicationEventPublisher eventPublisher) {
-        this.userMapper = userMapper;
-        this.userCreator = userCreatingService;
-        this.emailCreator = emailCreatingService;
-        this.tokenCreator = tokenCreatingService;
-        this.eventPublisher = eventPublisher;
+            UserCreatingService userService,
+            EmailCreatingService emailCreatingService,
+            VerificationSendingService verificationService) {
+        this.userCreatingService = userService;
+        this.emailCreatingService = emailCreatingService;
+        this.verificationSendingService = verificationService;
     }
 
     @Override
     @Transactional
-    public RegisterResponseDTO register(RegisterDTO request) {
+    public Long registerUser(RegisterDto request) {
         try {
-            User user = this.userMapper
-                    .mapToDomainModel(request.user());
+            Long userId = this.userCreatingService
+                    .createUser(request.user());
 
-            user = this.userCreator.create(user);
+            String email = request.user().primaryEmail();
 
-            String email = this.emailCreator
-                    .createPrymaryEmailByUser(user, request.user().primaryEmail())
-                    .getEmailAddress();
+            this.emailCreatingService
+                    .createPrimaryEmail(new EmailCreateDto(userId, email));
 
-            String verificationToken = this.tokenCreator
-                    .createByUser(user)
-                    .getValue();
+            this.verificationSendingService
+                    .sendNewUserVerification(
+                            new VerificationSendDto(email, request.appUrl(), userId));
 
-            var event = new UserVerificationEvent(
-                    verificationToken, email, request.appURL());
-
-            this.eventPublisher
-                    .publishEvent(event);
-
-            RegisterResponseDTO response = new RegisterResponseDTO(
-                    email, verificationToken);
-
-            return response;
+            return userId;
         } catch (Exception e) {
             throw new ResourceCreatingException(e);
         }
     }
-
 }

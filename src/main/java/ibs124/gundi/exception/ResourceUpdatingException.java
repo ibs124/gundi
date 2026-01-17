@@ -1,6 +1,6 @@
 package ibs124.gundi.exception;
 
-public class ResourceUpdatingException extends RuntimeException {
+public class ResourceUpdatingException extends AbstractException {
 
     public ResourceUpdatingException() {
     }

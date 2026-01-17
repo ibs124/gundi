@@ -1,20 +1,17 @@
 package ibs124.gundi.mapper;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import ibs124.gundi.model.application.RoleDTO;
 import ibs124.gundi.model.domain.Role;
+import ibs124.gundi.model.enumm.RoleName;
 
 public interface RoleMapper {
 
-    RoleDTO mapToApplicationModel(Role src);
-
-    List<RoleDTO> mapToApplicationModelAll(List<Role> src);
-
     GrantedAuthority mapToInfrastructureModel(Role src);
 
-    Set<GrantedAuthority> mapToInfrastructureModelAll(Set<Role> src);
+    RoleName mapToEnum(Role role);
+
+    List<RoleName> mapToEnumAll(List<Role> role);
 }

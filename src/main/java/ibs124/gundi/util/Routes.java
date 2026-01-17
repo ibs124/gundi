@@ -6,7 +6,7 @@ import static ibs124.gundi.config.RouteConfig.REDIRECT_FORMAT;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public abstract class RouteUtils {
+public abstract class Routes {
 
     public static final String getAppUrl(HttpServletRequest request) {
         return String.format(CONTEXT_URL_FORMAT,

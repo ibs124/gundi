@@ -2,7 +2,7 @@ package ibs124.gundi.model.application;
 
 import org.springframework.lang.NonNull;
 
-public record EmailVerificationSendDTO(
+public record EmailVerificationSendDto(
         @NonNull String from,
         @NonNull String displayName,
         @NonNull String to,

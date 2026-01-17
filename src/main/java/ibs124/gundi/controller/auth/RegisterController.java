@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import ibs124.gundi.config.thymeleaf.TemplateConfig;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.application.RegisterDTO;
-import ibs124.gundi.model.presentation.RegisterRequest;
+import ibs124.gundi.model.application.RegisterDto;
+import ibs124.gundi.model.presentation.UserRegisterRequest;
 import ibs124.gundi.service.auth.RegistrationService;
-import ibs124.gundi.util.RouteUtils;
+import ibs124.gundi.util.Routes;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -39,7 +39,7 @@ public class RegisterController {
     public String registerGet(Model model) {
         if (!model.containsAttribute(BINDING_MODEL)) {
             model.addAttribute(BINDING_MODEL,
-                    new RegisterRequest(null, null, null, null));
+                    new UserRegisterRequest(null, null, null, null));
         }
 
         return TemplateConfig.REGISTER;
@@ -47,7 +47,7 @@ public class RegisterController {
 
     @PostMapping
     public String registerPost(
-            @Valid RegisterRequest bindingModel,
+            @Valid UserRegisterRequest bindingModel,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes,
             HttpServletRequest httpServletRequest) {
@@ -56,16 +56,16 @@ public class RegisterController {
             redirectAttributes
                     .addFlashAttribute(BINDING_MODEL, bindingModel)
                     .addFlashAttribute(BINDING_RESULT, bindingResult);
-            return RouteUtils.getRedirectUrl(REGISTER);
+            return Routes.getRedirectUrl(REGISTER);
         }
 
-        RegisterDTO request = new RegisterDTO(
-                this.userMapper.mapToApplicationModel(bindingModel),
-                RouteUtils.getAppUrl(httpServletRequest));
+        this.registerService
+                .registerUser(
+                        new RegisterDto(
+                                this.userMapper.mapToApplicationModel(bindingModel),
+                                Routes.getAppUrl(httpServletRequest)));
 
-        this.registerService.register(request);
-
-        return RouteUtils.getRedirectUrl(REGISTER + SUCCESS);
+        return Routes.getRedirectUrl(REGISTER + SUCCESS);
     }
 
     @GetMapping(SUCCESS)

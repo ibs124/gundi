@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/app :: app(title='Home', content=~{::content})}">
 
-<section th:fragment="content" sec:authorize="isAuthenticated()" th:object="${#authentication.principal}">
-    <div class="card">
+<section th:fragment="content" sec:authorize="isAuthenticated()">
+    <div class="card" th:object="${viewModel}">
         <p th:text="*{username}"></p>
         <p th:text="*{fullName}"></p>
-        <p th:text="*{email}"></p>
+        <p th:text="*{primaryEmail}"></p>
     </div>
 </section>
 

@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ibs124.gundi.config.RouteConfig;
 import ibs124.gundi.config.thymeleaf.AttributeConfig;
-import ibs124.gundi.util.AppUtils;
+import ibs124.gundi.util.Application;
 
 @ControllerAdvice
 class RoutesController {
 
-    private final Map<String, String> routes = AppUtils
+    private final Map<String, String> routes = Application
             .mapConstants(RouteConfig.class);
 
     @ModelAttribute(AttributeConfig.ROUTES)
