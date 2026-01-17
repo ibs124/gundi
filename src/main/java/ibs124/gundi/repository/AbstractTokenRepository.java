@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import ibs124.gundi.model.domain.AbstractToken;
+import jakarta.validation.Valid;
 
 import java.time.Instant;
 
@@ -15,7 +16,7 @@ public interface AbstractTokenRepository<T extends AbstractToken<?>>
 
     Optional<T> findByOwnerId(long id);
 
-    Optional<T> findByValueAndExpiresAtBefore(String value, Instant expiresAt);
+    Optional<@Valid T> findByValueAndExpiresAtBefore(String value, Instant expiresAt);
 
     boolean existsByValue(String value);
 
