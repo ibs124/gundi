@@ -8,7 +8,7 @@ import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.service.auth.UserCreatingService;
-import ibs124.gundi.service.auth.verification.VerificationSendingService;
+import ibs124.gundi.service.auth.VerificationSendingService;
 import jakarta.transaction.Transactional;
 
 @Service

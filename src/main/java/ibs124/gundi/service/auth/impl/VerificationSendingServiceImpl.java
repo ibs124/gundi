@@ -1,10 +1,12 @@
-package ibs124.gundi.service.auth.verification;
+package ibs124.gundi.service.auth.impl;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.model.application.VerificationSendDto;
+import ibs124.gundi.service.auth.VerificationSendingService;
+import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import jakarta.transaction.Transactional;
 
 @Service

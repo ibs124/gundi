@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.verification;
+package ibs124.gundi.service.auth.impl;
 
 import java.time.Instant;
 import java.util.List;
@@ -15,6 +15,7 @@ import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.RoleRepository;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
+import ibs124.gundi.service.auth.VerificationService;
 import ibs124.gundi.util.Users;
 import jakarta.transaction.Transactional;
 

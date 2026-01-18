@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.verification;
+package ibs124.gundi.service.auth;
 
 import ibs124.gundi.model.application.VerificationSendDto;
 
