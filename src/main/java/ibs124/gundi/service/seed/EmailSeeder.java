@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.config.SeedConfig;
+import ibs124.gundi.constant.Seedings;
 import ibs124.gundi.model.domain.Email;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.repository.EmailRepository;
@@ -30,7 +30,7 @@ public class EmailSeeder {
 
     private Email createPrimaryEmailByUser(User user) {
         String emailAddress = user
-                .getUsername().concat(SeedConfig.PRIMARY_EMAIL_SUFFIX);
+                .getUsername().concat(Seedings.PRIMARY_EMAIL_SUFFIX);
 
         Email email = new Email(user, emailAddress);
 

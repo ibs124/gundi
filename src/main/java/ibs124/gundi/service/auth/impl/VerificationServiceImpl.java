@@ -16,7 +16,7 @@ import ibs124.gundi.repository.RoleRepository;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationService;
-import ibs124.gundi.util.Users;
+import ibs124.gundi.utility.Users;
 import jakarta.transaction.Transactional;
 
 @Service

@@ -1,6 +1,7 @@
-package ibs124.gundi.config;
+package ibs124.gundi.configuration;
 
-import static ibs124.gundi.config.RouteConfig.*;
+import static ibs124.gundi.constant.Routes.*;
+import static ibs124.gundi.constant.CommonConstants.SUBROUTE_MATCHER;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -11,14 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import ibs124.gundi.constant.CommonConstants;
 import ibs124.gundi.model.enumm.RoleName;
 
 @EnableWebSecurity
 @Configuration
 class SecurityConfig {
-
-    private final String jsessionid = "JSESSIONID";
-    private final String subroutesMatcher = "/**";
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -30,16 +29,16 @@ class SecurityConfig {
 
                         .requestMatchers(
                                 INDEX,
-                                AUTH + this.subroutesMatcher)
+                                AUTH + SUBROUTE_MATCHER)
                         .permitAll()
 
-                        .requestMatchers(USERS + this.subroutesMatcher)
+                        .requestMatchers(USERS + SUBROUTE_MATCHER)
                         .hasRole(RoleName.USER.name())
 
-                        .requestMatchers(ADMINS + this.subroutesMatcher)
+                        .requestMatchers(ADMINS + SUBROUTE_MATCHER)
                         .hasRole(RoleName.ADMIN.name())
 
-                        .requestMatchers(ROOT + this.subroutesMatcher)
+                        .requestMatchers(ROOT + SUBROUTE_MATCHER)
                         .hasRole(RoleName.ROOT.name())
 
                         .anyRequest().authenticated())
@@ -53,7 +52,7 @@ class SecurityConfig {
                         .logoutUrl(LOGOUT)
                         .logoutSuccessUrl(INDEX)
                         .invalidateHttpSession(true)
-                        .deleteCookies(this.jsessionid))
+                        .deleteCookies(CommonConstants.JSESSIONID))
 
                 .build();
     }

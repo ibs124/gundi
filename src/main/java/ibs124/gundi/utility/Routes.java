@@ -1,15 +1,13 @@
-package ibs124.gundi.util;
+package ibs124.gundi.utility;
 
-import static ibs124.gundi.config.RouteConfig.CONTEXT_URL_FORMAT;
-import static ibs124.gundi.config.RouteConfig.FORWARD_FORMAT;
-import static ibs124.gundi.config.RouteConfig.REDIRECT_FORMAT;
+import static ibs124.gundi.constant.Formats.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 public abstract class Routes {
 
     public static final String getAppUrl(HttpServletRequest request) {
-        return String.format(CONTEXT_URL_FORMAT,
+        return String.format(CONTEXT_URL,
                 request.getScheme(),
                 request.getServerName(),
                 request.getServerPort(),
@@ -17,15 +15,17 @@ public abstract class Routes {
     }
 
     public static final String getRedirectUrl(String route) {
-        return REDIRECT_FORMAT + route;
+        return REDIRECT_URL + route;
     }
 
     public static final String getRedirectUrlHere(String route) {
-        return route == null || route.length() < 1 ? REDIRECT_FORMAT : REDIRECT_FORMAT + route.substring(1);
+        return route == null || route.length() < 1
+                ? REDIRECT_URL
+                : REDIRECT_URL + route.substring(1);
     }
 
     public static final String getForwardUrl(String route) {
-        return FORWARD_FORMAT + route;
+        return FORWARD_URL + route;
     }
 
 }

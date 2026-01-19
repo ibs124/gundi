@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import ibs124.gundi.config.MessageConfig;
+import ibs124.gundi.constant.Messages;
 import ibs124.gundi.validation.validator.UniqueEmailValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -17,7 +17,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = { UniqueEmailValidator.class })
 public @interface UniqueEmail {
 
-    String message() default MessageConfig.EMAIL_TAKEN;
+    String message() default Messages.EMAIL_TAKEN;
 
     Class<?>[] groups() default {};
 

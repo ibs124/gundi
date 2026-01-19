@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.config.MessageConfig;
+import ibs124.gundi.constant.Messages;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.repository.UserRepository;
 
@@ -25,7 +25,7 @@ class UserDetailsServiceImpl implements UserDetailsService {
         return this.userRepository
                 .findByUsernameOrPrimaryEmail(username, username)
                 .map(x -> this.userMapper.mapToInfrastructureModel(x))
-                .orElseThrow(() -> new UsernameNotFoundException(MessageConfig.USER_NOT_FOUND));
+                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND));
     }
 
 }

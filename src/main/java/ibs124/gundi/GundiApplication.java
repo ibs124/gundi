@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import ibs124.gundi.config.PropertyConfig;
+import ibs124.gundi.configuration.PropertyConfig;
 
 @SpringBootApplication
 @EnableConfigurationProperties(PropertyConfig.class)

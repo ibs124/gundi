@@ -6,15 +6,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import ibs124.gundi.config.MessageConfig;
-import ibs124.gundi.config.ValidationConfig;
+import ibs124.gundi.constant.Messages;
+import ibs124.gundi.constant.Regexes;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-@NotBlank(message = MessageConfig.BLANK_FIELD)
-@Pattern(regexp = ValidationConfig.USERNAME_REGEX, message = MessageConfig.USERNAME_FORMAT_ERROR)
+@NotBlank(message = Messages.BLANK_FIELD)
+@Pattern(regexp = Regexes.USERNAME, message = Messages.USERNAME_FORMAT_ERROR)
 @Documented
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.TYPE_PARAMETER,
         ElementType.PARAMETER })
@@ -22,7 +22,7 @@ import jakarta.validation.constraints.Pattern;
 @Constraint(validatedBy = {})
 public @interface ValidUsername {
 
-    String message() default MessageConfig.USERNAME_FORMAT_ERROR;
+    String message() default Messages.USERNAME_FORMAT_ERROR;
 
     Class<?>[] groups() default {};
 

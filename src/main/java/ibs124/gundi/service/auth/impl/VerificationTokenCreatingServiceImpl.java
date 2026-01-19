@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.config.PropertyConfig;
+import ibs124.gundi.configuration.PropertyConfig;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.model.enumm.VerificationType;

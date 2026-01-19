@@ -1,4 +1,4 @@
-package ibs124.gundi.util;
+package ibs124.gundi.utility;
 
 import java.util.List;
 import java.util.Set;

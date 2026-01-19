@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import ibs124.gundi.config.MessageConfig;
+import ibs124.gundi.constant.Messages;
 import ibs124.gundi.validation.validator.UniqueUsernameValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -17,7 +17,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = { UniqueUsernameValidator.class })
 public @interface UniqueUsername {
 
-    String message() default MessageConfig.USERNAME_TAKEN;
+    String message() default Messages.USERNAME_TAKEN;
 
     Class<?>[] groups() default {};
 

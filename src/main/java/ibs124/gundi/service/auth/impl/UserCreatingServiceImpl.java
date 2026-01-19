@@ -1,7 +1,5 @@
 package ibs124.gundi.service.auth.impl;
 
-import java.util.HashSet;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

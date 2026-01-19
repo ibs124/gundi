@@ -1,21 +1,21 @@
 package ibs124.gundi.controller.auth;
 
-import static ibs124.gundi.config.RouteConfig.REGISTER;
-import static ibs124.gundi.config.RouteConfig.SUCCESS;
-import static ibs124.gundi.config.thymeleaf.AttributeConfig.BINDING_MODEL;
-import static ibs124.gundi.config.thymeleaf.AttributeConfig.BINDING_RESULT;
+import static ibs124.gundi.constant.Routes.REGISTER;
+import static ibs124.gundi.constant.Routes.SUCCESS;
+import static ibs124.gundi.constant.ThymeleafAttributes.BINDING_MODEL;
+import static ibs124.gundi.constant.ThymeleafAttributes.BINDING_RESULT;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ibs124.gundi.config.thymeleaf.TemplateConfig;
+import ibs124.gundi.constant.Templates;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDto;
 import ibs124.gundi.model.presentation.UserRegisterRequest;
 import ibs124.gundi.service.auth.RegistrationService;
-import ibs124.gundi.util.Routes;
+import ibs124.gundi.utility.Routes;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -42,7 +42,7 @@ public class RegisterController {
                     new UserRegisterRequest(null, null, null, null));
         }
 
-        return TemplateConfig.REGISTER;
+        return Templates.REGISTER;
     }
 
     @PostMapping
@@ -70,6 +70,6 @@ public class RegisterController {
 
     @GetMapping(SUCCESS)
     public String registerSuccess() {
-        return TemplateConfig.REGISTER_SUCCESS;
+        return Templates.REGISTER_SUCCESS;
     }
 }

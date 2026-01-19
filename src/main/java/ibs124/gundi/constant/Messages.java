@@ -1,6 +1,6 @@
-package ibs124.gundi.config;
+package ibs124.gundi.constant;
 
-public abstract class MessageConfig {
+public abstract class Messages {
 
     public static final String BLANK_FIELD = "This field is required.";
 

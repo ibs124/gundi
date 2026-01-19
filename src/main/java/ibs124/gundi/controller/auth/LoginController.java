@@ -7,26 +7,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ibs124.gundi.config.RouteConfig;
-import ibs124.gundi.config.thymeleaf.AttributeConfig;
-import ibs124.gundi.config.thymeleaf.TemplateConfig;
+import ibs124.gundi.constant.Routes;
+import ibs124.gundi.constant.Templates;
+import ibs124.gundi.constant.ThymeleafAttributes;
 
 @Controller
-@RequestMapping(RouteConfig.LOGIN)
+@RequestMapping(Routes.LOGIN)
 class LoginController {
 
     @GetMapping
     public String getMethodName() {
-        return TemplateConfig.LOGIN;
+        return Templates.LOGIN;
     }
 
-    @PostMapping(RouteConfig.ERROR)
-    public String loginError(@ModelAttribute(AttributeConfig.USERNAME) String username, Model model) {
+    @PostMapping(Routes.ERROR)
+    public String loginError(@ModelAttribute(ThymeleafAttributes.USERNAME) String username, Model model) {
         model
-                .addAttribute(AttributeConfig.USERNAME, username)
-                .addAttribute(AttributeConfig.SUCCESS, false);
+                .addAttribute(ThymeleafAttributes.USERNAME, username)
+                .addAttribute(ThymeleafAttributes.SUCCESS, false);
 
-        return TemplateConfig.LOGIN;
+        return Templates.LOGIN;
     }
 
 }

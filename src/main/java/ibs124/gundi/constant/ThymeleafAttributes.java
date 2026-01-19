@@ -1,6 +1,6 @@
-package ibs124.gundi.config.thymeleaf;
+package ibs124.gundi.constant;
 
-public abstract class AttributeConfig {
+public abstract class ThymeleafAttributes {
 
     public static final String EMAIL = "email";
 

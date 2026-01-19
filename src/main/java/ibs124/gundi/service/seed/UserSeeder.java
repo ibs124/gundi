@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.config.SeedConfig;
+import ibs124.gundi.constant.Seedings;
 import ibs124.gundi.model.domain.Role;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.enumm.RoleName;
@@ -34,10 +34,10 @@ public class UserSeeder {
     }
 
     public List<User> seedUsers() {
-        String password = this.passwordEncoder.encode(SeedConfig.DEFAULT_USER_PASSWORD);
+        String password = this.passwordEncoder.encode(Seedings.DEFAULT_USER_PASSWORD);
 
         List<User> users = Arrays
-                .stream(SeedConfig.USER_NAMES)
+                .stream(Seedings.USER_NAMES)
                 .map(x -> this.createByFullNameAndPassword(x, password))
                 .toList();
 
@@ -64,7 +64,7 @@ public class UserSeeder {
         users.get(0).setRoles(rootRoles);
 
         for (int i = 1; i < users.size(); i++) {
-            if (i < SeedConfig.ADMINS_COUNT + 1) {
+            if (i < Seedings.ADMINS_COUNT + 1) {
                 users.get(i).setRoles(adminRoles);
                 continue;
             }
@@ -77,7 +77,7 @@ public class UserSeeder {
 
     private User createByFullNameAndPassword(String fullName, String password) {
         String username = fullName.toLowerCase().replaceAll(" ", "_");
-        String primaryEmail = username.concat(SeedConfig.PRIMARY_EMAIL_SUFFIX);
+        String primaryEmail = username.concat(Seedings.PRIMARY_EMAIL_SUFFIX);
 
         User user = new User();
         user.setUsername(username);

@@ -4,17 +4,20 @@ import org.mapstruct.Mapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import ibs124.gundi.config.MapperConfig;
+import ibs124.gundi.constant.Mappers;
 import ibs124.gundi.mapper.RoleMapper;
 import ibs124.gundi.model.domain.Role;
 import ibs124.gundi.model.enumm.RoleName;
 
-@Mapper(componentModel = MapperConfig.MAPSTRUCT_COMPONENT_MODEL)
+@Mapper(componentModel = Mappers.COMPONENT_MODEL)
 public interface RoleMapstruct extends RoleMapper {
 
     @Override
     default GrantedAuthority mapToInfrastructureModel(Role src) {
-        return src == null ? null : new SimpleGrantedAuthority("ROLE_" + src.getName());
+        return src == null
+                ? null
+                : new SimpleGrantedAuthority(
+                        Mappers.ROLE_TO_AUTHORITY_PREFIX + src.getName());
     }
 
     @Override

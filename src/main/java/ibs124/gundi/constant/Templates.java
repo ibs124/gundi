@@ -1,6 +1,6 @@
-package ibs124.gundi.config.thymeleaf;
+package ibs124.gundi.constant;
 
-public class TemplateConfig {
+public class Templates {
 
     public static final String INDEX = "index";
 

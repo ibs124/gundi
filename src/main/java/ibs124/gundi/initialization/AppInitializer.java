@@ -1,15 +1,17 @@
-package ibs124.gundi.init;
+package ibs124.gundi.initialization;
+
+import static ibs124.gundi.constant.Formats.LOGGING;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.config.PropertyConfig;
-import ibs124.gundi.config.RouteConfig;
+import ibs124.gundi.configuration.PropertyConfig;
+import ibs124.gundi.constant.Routes;
 import ibs124.gundi.service.auth.RoleInitService;
 import ibs124.gundi.service.seed.DataSeedingService;
-import ibs124.gundi.util.Application;
+import ibs124.gundi.utility.Application;
 
 @Component
 class AppInitializer implements CommandLineRunner {
@@ -31,13 +33,13 @@ class AppInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        log.info("{}", this.roleInitService.initializeRoles());
+        log.info(LOGGING, this.roleInitService.initializeRoles());
 
         this.dataSeedingService.seedTestData();
 
-        log.info("{}", propertyConfig);
+        log.info(LOGGING, propertyConfig);
 
-        log.info("{}", Application.mapConstants(RouteConfig.class));
+        log.info(LOGGING, Application.mapConstants(Routes.class));
     }
 
 }
