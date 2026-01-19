@@ -5,7 +5,6 @@ import java.time.Instant;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import ibs124.gundi.config.JpaConfig;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 
@@ -20,7 +19,7 @@ public abstract class AbstractAuditableDomainModel extends AbstractDomainModel {
     }
 
     @CreatedDate
-    @Column(nullable = false, updatable = false, columnDefinition = JpaConfig.COULUMN_CREATED_AT)
+    @Column(nullable = false, updatable = false)
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -30,7 +29,6 @@ public abstract class AbstractAuditableDomainModel extends AbstractDomainModel {
     }
 
     @LastModifiedDate
-    @Column(columnDefinition = JpaConfig.COULUMN_UPDATED_AT)
     public Instant getUpdatedAt() {
         return updatedAt;
     }

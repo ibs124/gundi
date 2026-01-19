@@ -6,13 +6,13 @@ public class UserVerificationEvent extends ApplicationEvent {
 
     private final String token;
     private final String email;
-    private final String contextUrl;
+    private final String appUrl;
 
     public UserVerificationEvent(String token, String email, String appUrl) {
         super(token);
         this.token = token;
         this.email = email;
-        this.contextUrl = appUrl;
+        this.appUrl = appUrl;
     }
 
     public String getToken() {
@@ -23,8 +23,8 @@ public class UserVerificationEvent extends ApplicationEvent {
         return email;
     }
 
-    public String getContextUrl() {
-        return contextUrl;
+    public String getAppUrl() {
+        return appUrl;
     }
 
 }
