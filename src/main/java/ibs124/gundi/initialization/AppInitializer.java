@@ -16,11 +16,10 @@ import ibs124.gundi.utility.Application;
 @Component
 class AppInitializer implements CommandLineRunner {
 
-    private static final Logger log = LoggerFactory.getLogger(AppInitializer.class);
-
     private final PropertyConfig propertyConfig;
     private final RoleInitService roleInitService;
     private final DataSeedingService dataSeedingService;
+    private final Logger logger;
 
     public AppInitializer(
             PropertyConfig propertyConfig,
@@ -29,17 +28,19 @@ class AppInitializer implements CommandLineRunner {
         this.propertyConfig = propertyConfig;
         this.roleInitService = roleInitService;
         this.dataSeedingService = dataSeedingService;
+
+        this.logger = LoggerFactory.getLogger(AppInitializer.class);
     }
 
     @Override
     public void run(String... args) {
-        log.info(LOGGING, this.roleInitService.initializeRoles());
+        this.logger.info(LOGGING, this.roleInitService.initializeRoles());
 
         this.dataSeedingService.seedTestData();
 
-        log.info(LOGGING, propertyConfig);
+        this.logger.info(LOGGING, propertyConfig);
 
-        log.info(LOGGING, Application.mapConstants(Routes.class));
+        this.logger.info(LOGGING, Application.mapConstants(Routes.class));
     }
 
 }
