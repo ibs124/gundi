@@ -30,7 +30,7 @@ class EmailSendingServiceImpl implements EmailSendingService {
             helper.setFrom(dto.from(), dto.displayName());
             helper.setTo(dto.to());
             helper.setSubject(dto.subject());
-            helper.setText(dto.text(), true);
+            helper.setText(dto.text(), dto.isHtml());
 
             this.javaMailSender.send(message);
         } catch (MessagingException | UnsupportedEncodingException e) {
