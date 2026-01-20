@@ -1,12 +1,10 @@
 package ibs124.gundi.service.auth.impl;
 
 import java.time.Instant;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.domain.Email;
-import ibs124.gundi.model.domain.Role;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.model.enumm.RoleName;
@@ -16,7 +14,6 @@ import ibs124.gundi.repository.RoleRepository;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationService;
-import ibs124.gundi.utility.Users;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -53,12 +50,12 @@ class VerificationServiceImpl implements VerificationService {
 
         this.tokenRepository.delete(token);
 
-        List<Role> roles = this.roleRepository
-                .findByNameIn(RoleName.USER);
-
-        Users.addRoles(user, roles);
+        user.addRoles(
+                this.roleRepository
+                        .findByNameIn(RoleName.USER));
 
         user.setIsEnabled(true);
+
         user.setLastVerifiedAt(Instant.now());
 
         user = this.userRepository.save(user);

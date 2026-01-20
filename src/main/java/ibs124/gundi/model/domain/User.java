@@ -1,6 +1,8 @@
 package ibs124.gundi.model.domain;
 
+import java.beans.Transient;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +30,20 @@ public class User extends AbstractAuditableDomainModel {
         super();
         this.setRoles(new HashSet<>());
     }
+
+    // Utilities
+
+    @Transient
+    public boolean addRoles(Collection<? extends Role> roles) {
+        return this.getRoles().addAll(roles);
+    }
+
+    @Transient
+    public boolean removeRoles(Collection<? extends Role> roles) {
+        return this.getRoles().removeAll(roles);
+    }
+
+    // Getters and setters + JPA configuration
 
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<Role> getRoles() {
