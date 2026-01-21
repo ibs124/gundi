@@ -1,17 +1,34 @@
-<div class="email">
-    <div class="email__logo"></div>
-    <h2 class="email__headline">Help us protect your account</h2>
-    <p class="email__info">
-        Before you finish creating your account, we need to verify your identity.
-        On the verification page enter the following code.
-    </p>
-    <div class="email__verification-token"></div>
-    <p class="email__warning">
-        Your verification code expires after 15 minutes.
-    </p>
-    <p class="email__warning">
-        You must confirm your email within 3 days of signing up. If you do not confirm
-        your email in this timeframe, your account will be deleted and you will need to
-        sign up again.
-    </p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style th:utext="${inlineCss}"></style>
+</head>
+
+<body>
+    <div class="email">
+        <div class="email__logo">
+        </div>
+        <h2 class="email__headline">Help us protect your account</h2>
+        <p class="email__info">
+            Before you finish creating your account, we need to verify your identity.
+            On the verification page enter the following code.
+        </p>
+        <div class="email__verification-token">
+            <th:block th:utext="${verificationToken}">123456</th:block>
+        </div>
+        <p class="email__warning">
+            Your verification code expires after 15 minutes.
+        </p>
+        <p class="email__warning">
+            You must confirm your email within 3 days of signing up. If you do not confirm
+            your email in this timeframe, your account will be deleted and you will need to
+            sign up again.
+        </p>
+    </div>
+</body>
+
+</html>

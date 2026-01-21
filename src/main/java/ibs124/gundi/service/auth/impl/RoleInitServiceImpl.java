@@ -9,10 +9,10 @@ import ibs124.gundi.mapper.RoleMapper;
 import ibs124.gundi.model.domain.Role;
 import ibs124.gundi.model.enumm.RoleName;
 import ibs124.gundi.repository.RoleRepository;
-import ibs124.gundi.service.auth.RoleInitService;
+import ibs124.gundi.service.auth.RoleInitializingService;
 
 @Service
-class RoleInitServiceImpl implements RoleInitService {
+class RoleInitServiceImpl implements RoleInitializingService {
 
     private final RoleRepository roleRepository;
     private final RoleMapper roleMapper;

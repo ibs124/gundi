@@ -1,4 +1,4 @@
-package ibs124.gundi.service.seed;
+package ibs124.gundi.service.test.impl;
 
 import java.time.Instant;
 import java.util.Arrays;

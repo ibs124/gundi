@@ -4,7 +4,7 @@ import java.util.List;
 
 import ibs124.gundi.model.enumm.RoleName;
 
-public interface RoleInitService {
+public interface RoleInitializingService {
 
     List<RoleName> initializeRoles();
 

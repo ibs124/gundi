@@ -9,25 +9,25 @@ import org.springframework.stereotype.Component;
 
 import ibs124.gundi.configuration.PropertyConfig;
 import ibs124.gundi.constant.Routes;
-import ibs124.gundi.service.auth.RoleInitService;
-import ibs124.gundi.service.seed.DataSeedingService;
+import ibs124.gundi.service.auth.RoleInitializingService;
+import ibs124.gundi.service.test.TestingContextInitializingService;
 import ibs124.gundi.utility.Application;
 
 @Component
 class AppInitializer implements CommandLineRunner {
 
     private final PropertyConfig propertyConfig;
-    private final RoleInitService roleInitService;
-    private final DataSeedingService dataSeedingService;
+    private final RoleInitializingService roleInitService;
+    private final TestingContextInitializingService testingContextInitializingService;
     private final Logger logger;
 
     public AppInitializer(
             PropertyConfig propertyConfig,
-            RoleInitService roleInitService,
-            DataSeedingService dataSeedingService) {
+            RoleInitializingService roleInitService,
+            TestingContextInitializingService dataSeedingService) {
         this.propertyConfig = propertyConfig;
         this.roleInitService = roleInitService;
-        this.dataSeedingService = dataSeedingService;
+        this.testingContextInitializingService = dataSeedingService;
 
         this.logger = LoggerFactory.getLogger(AppInitializer.class);
     }
@@ -36,7 +36,7 @@ class AppInitializer implements CommandLineRunner {
     public void run(String... args) {
         this.logger.info(LOGGING, this.roleInitService.initializeRoles());
 
-        this.dataSeedingService.seedTestData();
+        this.testingContextInitializingService.initializeTestingContext();
 
         this.logger.info(LOGGING, propertyConfig);
 
