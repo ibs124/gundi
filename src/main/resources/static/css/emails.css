@@ -1,11 +1,33 @@
-.email {}
+.email {
+    text-align: center;
+}
 
-.email__logo {}
+.email__icon {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    height: 50px;
+    width: 50px;
+}
 
-.email__headline {}
+.email__icon--main-logo {
+    height: 70px;
+    width: 70px;
+}
 
-.email__info {}
+.email__info {
+    font-size: 18px;
+}
 
-.email__verification-token {}
+.email__verification-token {
+    font-size: 20px;
+    padding: 20px;
+    background-color: lightgrey;
+    width: fit-content;
+}
 
-.email__warning {}
+.email__warning {
+    font-size: 15px;
+}
