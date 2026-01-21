@@ -1,7 +1,13 @@
 package ibs124.gundi.constant;
 
 public abstract class Routes {
-    
+
+    // Core
+
+    public static final String CONVENTIONAL_INDEX = "/";
+
+    public static final String INDEX = CONVENTIONAL_INDEX;
+
     public static final String CREATE = "/create";
 
     public static final String UPDATE = "/update";
@@ -10,7 +16,7 @@ public abstract class Routes {
 
     public static final String SUCCESS = "/success";
 
-    public static final String INDEX = "/";
+    // Auth
 
     public static final String AUTH = INDEX + "auth";
 
@@ -23,6 +29,8 @@ public abstract class Routes {
     public static final String LOGIN_ERROR = LOGIN + ERROR;
 
     public static final String LOGOUT = AUTH + "/sign-out";
+
+    // Users
 
     public static final String USERS = INDEX + "users";
 

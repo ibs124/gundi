@@ -17,4 +17,6 @@ public abstract class ThymeleafAttributes {
 
     public static final String ROUTES = "routes";
 
+    public static final String VERIFICATION_TOKEN = "verificationToken";
+
 }
