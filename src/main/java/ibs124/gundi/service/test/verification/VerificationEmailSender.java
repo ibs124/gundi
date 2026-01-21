@@ -1,4 +1,4 @@
-package ibs124.gundi.service.test.impl;
+package ibs124.gundi.service.test.verification;
 
 import org.springframework.stereotype.Component;
 
