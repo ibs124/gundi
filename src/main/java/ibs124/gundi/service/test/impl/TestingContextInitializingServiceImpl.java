@@ -10,14 +10,16 @@ import ibs124.gundi.service.test.TestingContextInitializingService;
 @Service
 class TestingContextInitializingServiceImpl implements TestingContextInitializingService {
 
+    private final VerificationEmailSender verificationEmailSender;
     private final UserSeeder userSeeder;
     private final EmailSeeder emailSeeder;
 
     public TestingContextInitializingServiceImpl(
             UserSeeder userSeeder,
-            EmailSeeder emailSeeder) {
+            EmailSeeder emailSeeder, VerificationEmailSender verificationEmailSender) {
         this.userSeeder = userSeeder;
         this.emailSeeder = emailSeeder;
+        this.verificationEmailSender = verificationEmailSender;
     }
 
     @Override
@@ -26,6 +28,7 @@ class TestingContextInitializingServiceImpl implements TestingContextInitializin
 
         this.emailSeeder.seedPrimaryEmails(users);
 
+        this.verificationEmailSender.run();
     }
 
 }
