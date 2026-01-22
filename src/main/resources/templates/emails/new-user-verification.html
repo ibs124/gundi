@@ -5,38 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../static/css/emails.css">
-    <style th:utext="${inlineCss}"></style>
 </head>
 
 <body>
-    <div class="email">
-        <div class="email__icon email__icon--main-logo">
-            <svg viewBox="0 0 24 24">
-                <path d="M4 4h10.4M20 9.6v10.4H4V4" />
-                <text x="12" y="12" text-anchor="middle" dominant-baseline="central" fill="currentColor" font-size="9"
-                    font-family="sans-serif" font-weight="300">Г</text>
-                <line x1="18.5" y1="4" x2="21.5" y2="4" />
-                <line x1="20" y1="2.5" x2="20" y2="5.5" />
-            </svg>
-        </div>
-        <h2 class="email__headline">Help us protect your account</h2>
-        <p class="email__info">
-            Before you finish creating your account, we need to verify your identity. <br>
-            On the verification page enter the following code.
-        </p>
-        <div class="email__verification-token">
-            <th:block th:utext="${verificationToken}">123456</th:block>
-        </div>
-        <p class="email__warning">
-            Your verification code expires after 15 minutes.
-        </p>
-        <p class="email__warning">
-            You must confirm your email within 3 days of signing up. <br>
-            If you do not confirm your email in this timeframe, <br>
-            your account will be deleted and you will need to sign up again.
-        </p>
-    </div>
+    <table class="email" role="presentation" cellpadding="0" cellspacing="0" width="600" align="center"
+        style="border-collapse: collapse; max-width: 600px; width: 100%; padding: 10px; height: 100%;">
+        <tr>
+            <td align="center" style="padding: 20px; color: navy">
+                <div class="email__icon email__icon--main-logo">
+                    <img th:src="|data:image/png;base64,${logoBase64}|" width="70" height="70" alt="Logo"
+                        style="display:block;">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="padding: 10px; font-size: 20px;">
+                <h2 class="email__headline">Help us protect your account</h2>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="padding: 10px; font-size: 17px;">
+                <p class="email__info">
+                    Before you finish creating your account, we need to verify your identity.
+                    On the verification page enter the following code.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="padding: 10px; font-size: 30px; ">
+                <div class="email__verification-token"
+                    style="padding: 10px; background-color: lightgray; width: fit-content; border-radius: 3px;">
+                    <th:block th:utext="${verificationToken}">123456</th:block>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="padding: 10px; font-size: 15px;">
+                <p class="email__warning">
+                    Your verification code expires after 15 minutes.
+                </p>
+                <p class="email__warning">
+                    You must confirm your email within 3 days of signing up.
+                    If you do not confirm your email in this timeframe,
+                    your account will be deleted and you will need to sign up again.
+                </p>
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>

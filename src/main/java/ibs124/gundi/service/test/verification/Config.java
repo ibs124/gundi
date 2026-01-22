@@ -6,11 +6,13 @@ abstract class Config {
 
     public static final String KEY_VERIFICATION_TOKEN = "verificationToken";
 
+    public static final String KEY_LOGO = "logoBase64";
+
     public static final String EMAIL_FROM = "noreply@gundi.com";
 
     public static final String EMAIL_DISPLAY_NAME = "Gundi";
 
-    public static final String EMAIL_TO = "ibs124experimental@gmail.com";
+    public static final String[] EMAIL_TO = { "ibs124experimental@gmail.com" };
 
     public static final String EMAIL_SUBJECT = "Confirm your email address";
 
@@ -18,6 +20,8 @@ abstract class Config {
 
     public static final String PATH_HTML = "/emails/new-user-verification";
 
-    public static final String PATH_CSS = "classpath:static//css/emails.css";
+    public static final String PATH_CSS = "static/css/emails.css";
+
+    public static final String PATH_LOGO = "static/images/logo.png";
 
 }
