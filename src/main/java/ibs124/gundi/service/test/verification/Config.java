@@ -28,6 +28,6 @@ abstract class Config {
 
     public static final String URL_CSS = "static/css/emails.css";
 
-    public static final String URL_LOGO = "https://gitlab.com/ibs124/gundi/-/raw/feature/assets/logo.png?ref_type=heads";
+    public static final String URL_LOGO = "https://gitlab.com/ibs124/gundi/-/raw/feature/assets/logo-navy.png?ref_type=heads";
 
 }
