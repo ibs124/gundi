@@ -33,11 +33,11 @@ public class VerificationEmailSender {
 
     public void run() {
         TemplateCompileDto templateRequest = new TemplateCompileDto(
-                PATH_HTML, null);
+                URL_HTML, null);
 
         templateRequest.addAttributre(KEY_VERIFICATION_TOKEN, VERIFICATION_CODE);
         templateRequest.addAttributre(KEY_CSS_INLINE, this.loadCss());
-        templateRequest.addAttributre(KEY_LOGO, this.loadBase64Logo());
+        templateRequest.addAttributre(KEY_URL_LOGO, URL_LOGO);
 
         String htmlMessage = this.templateCompileService.compileHtml(templateRequest);
 
@@ -54,21 +54,11 @@ public class VerificationEmailSender {
     }
 
     private String loadCss() {
-        try (InputStream is = this.getClassPathResource(PATH_CSS).getInputStream()) {
+        try (InputStream is = this.getClassPathResource(URL_CSS).getInputStream()) {
             return new String(is.readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
-    }
-
-    private String loadBase64Logo() {
-        try (InputStream is = this.getClassPathResource(PATH_LOGO).getInputStream()) {
-            byte[] bytes = StreamUtils.copyToByteArray(is);
-            return Base64.getEncoder().encodeToString(bytes);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-
     }
 
     private ClassPathResource getClassPathResource(String path) {

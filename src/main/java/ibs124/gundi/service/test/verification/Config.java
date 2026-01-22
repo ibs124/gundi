@@ -2,11 +2,7 @@ package ibs124.gundi.service.test.verification;
 
 abstract class Config {
 
-    public static final String KEY_CSS_INLINE = "inlineCss";
-
-    public static final String KEY_VERIFICATION_TOKEN = "verificationToken";
-
-    public static final String KEY_LOGO = "logoBase64";
+    // Email
 
     public static final String EMAIL_FROM = "noreply@gundi.com";
 
@@ -18,10 +14,20 @@ abstract class Config {
 
     public static final String VERIFICATION_CODE = "094532";
 
-    public static final String PATH_HTML = "/emails/new-user-verification";
+    // Keys
 
-    public static final String PATH_CSS = "static/css/emails.css";
+    public static final String KEY_CSS_INLINE = "inlineCss";
 
-    public static final String PATH_LOGO = "static/images/logo.png";
+    public static final String KEY_VERIFICATION_TOKEN = "verificationToken";
+
+    public static final String KEY_URL_LOGO = "logoUrl";
+
+    // URLs
+
+    public static final String URL_HTML = "/emails/new-user-verification";
+
+    public static final String URL_CSS = "static/css/emails.css";
+
+    public static final String URL_LOGO = "https://gitlab.com/ibs124/gundi/-/raw/feature/assets/logo.png?ref_type=heads";
 
 }
