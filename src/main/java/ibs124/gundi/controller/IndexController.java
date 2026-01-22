@@ -7,10 +7,10 @@ import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 
 @Controller
-public class HomeController {
+public class IndexController {
 
     @GetMapping(Routes.INDEX)
-    public String getIndex() {
+    public String index() {
         return Templates.INDEX;
     }
 

@@ -2,6 +2,8 @@ package ibs124.gundi.constant;
 
 public abstract class ThymeleafAttributes {
 
+    public static final String MESSAGE = "message";
+
     public static final String EMAIL = "email";
 
     public static final String USERNAME = "username";

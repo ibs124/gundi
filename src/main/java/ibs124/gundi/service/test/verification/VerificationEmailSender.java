@@ -31,7 +31,7 @@ public class VerificationEmailSender {
         this.templateCompileService = templateCompileService;
     }
 
-    public void run() {
+    public void sendTestingVerificationTemail() {
         TemplateCompileDto templateRequest = new TemplateCompileDto(
                 URL_HTML, null);
 

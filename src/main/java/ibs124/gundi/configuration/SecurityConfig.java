@@ -45,7 +45,7 @@ class SecurityConfig {
 
                 .formLogin(x -> x
                         .loginPage(LOGIN)
-                        .defaultSuccessUrl(USERS_ME)
+                        .defaultSuccessUrl(USERS_SELF_PROFILE)
                         .failureForwardUrl(LOGIN_ERROR))
 
                 .logout(x -> x

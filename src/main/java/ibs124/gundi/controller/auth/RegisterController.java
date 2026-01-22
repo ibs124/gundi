@@ -15,7 +15,7 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDto;
 import ibs124.gundi.model.presentation.UserRegisterRequest;
 import ibs124.gundi.service.auth.RegistrationService;
-import ibs124.gundi.utility.Routes;
+import ibs124.gundi.utility.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -56,16 +56,16 @@ public class RegisterController {
             redirectAttributes
                     .addFlashAttribute(BINDING_MODEL, bindingModel)
                     .addFlashAttribute(BINDING_RESULT, bindingResult);
-            return Routes.getRedirectUrl(REGISTER);
+            return RouteUtils.getRedirectUrl(REGISTER);
         }
 
         this.registerService
                 .registerUser(
                         new RegisterDto(
                                 this.userMapper.mapToApplicationModel(bindingModel),
-                                Routes.getAppUrl(httpServletRequest)));
+                                RouteUtils.getAppUrl(httpServletRequest)));
 
-        return Routes.getRedirectUrl(REGISTER + SUCCESS);
+        return RouteUtils.getRedirectUrl(REGISTER + SUCCESS);
     }
 
     @GetMapping(SUCCESS)

@@ -1,4 +1,4 @@
-package ibs124.gundi.controller.auth;
+package ibs124.gundi.controller.users;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,17 +14,17 @@ import ibs124.gundi.model.application.UserDetailsDto;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequestMapping(Routes.USERS_ME)
-class UserMeController {
+@RequestMapping(Routes.USERS_SELF_PROFILE)
+class SelfProfileController {
 
     private final UserMapper userMapper;
 
-    public UserMeController(UserMapper userMapper) {
+    public SelfProfileController(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
     @GetMapping
-    public String meGet(
+    public String index(
             @AuthenticationPrincipal UserDetailsDto principal,
             Model model) {
 
@@ -35,7 +35,7 @@ class UserMeController {
                             this.userMapper.mapToPresentationModel(principal));
         }
 
-        return Templates.USERS_ME;
+        return Templates.USERS_SELF_PROFILE;
     }
 
 }

@@ -15,7 +15,6 @@ import ibs124.gundi.service.test.verification.VerificationEmailSender;
 @Order(2)
 class TestContextInitializer implements CommandLineRunner {
 
-    private final VerificationEmailSender verificationEmailSender;
     private final UserSeeder userSeeder;
     private final EmailSeeder emailSeeder;
 
@@ -25,7 +24,6 @@ class TestContextInitializer implements CommandLineRunner {
             VerificationEmailSender verificationEmailSender) {
         this.userSeeder = userSeeder;
         this.emailSeeder = emailSeeder;
-        this.verificationEmailSender = verificationEmailSender;
     }
 
     @Override
@@ -34,8 +32,5 @@ class TestContextInitializer implements CommandLineRunner {
         List<User> users = this.userSeeder.seedUsers();
 
         this.emailSeeder.seedPrimaryEmails(users);
-
-        this.verificationEmailSender.run();
-
     }
 }

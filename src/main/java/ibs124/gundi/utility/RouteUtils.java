@@ -4,7 +4,7 @@ import static ibs124.gundi.constant.Formats.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public abstract class Routes {
+public abstract class RouteUtils {
 
     public static final String getAppUrl(HttpServletRequest request) {
         return String.format(CONTEXT_URL,
