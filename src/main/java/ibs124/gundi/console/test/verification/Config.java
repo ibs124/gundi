@@ -1,4 +1,4 @@
-package ibs124.gundi.service.test.verification;
+package ibs124.gundi.console.test.verification;
 
 abstract class Config {
 

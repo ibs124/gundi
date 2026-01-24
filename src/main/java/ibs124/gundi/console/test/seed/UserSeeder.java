@@ -1,6 +1,7 @@
-package ibs124.gundi.service.test.seed;
+package ibs124.gundi.console.test.seed;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +34,10 @@ public class UserSeeder {
     }
 
     public List<User> seedUsers() {
+        if (this.userRepository.count() > 0) {
+            return new ArrayList<>();
+        }
+
         String password = this.passwordEncoder.encode(Config.DEFAULT_USER_PASSWORD);
 
         List<User> users = Arrays

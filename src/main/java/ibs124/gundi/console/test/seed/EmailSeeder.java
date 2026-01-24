@@ -1,6 +1,7 @@
-package ibs124.gundi.service.test.seed;
+package ibs124.gundi.console.test.seed;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -19,6 +20,10 @@ public class EmailSeeder {
     }
 
     public List<Email> seedPrimaryEmails(List<User> users) {
+        if (this.emailRepository.count() > 0) {
+            return new ArrayList<>();
+        }
+        
         List<Email> emails = users
                 .stream()
                 .map(x -> this.createPrimaryEmailByUser(x))
