@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequestMapping(Routes.USERS_SELF_ACCOUNT)
-public class SelfAccountController {
+public class AccountController {
 
     private final UserMapper userMapper;
 
-    public SelfAccountController(UserMapper userMapper) {
+    public AccountController(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 

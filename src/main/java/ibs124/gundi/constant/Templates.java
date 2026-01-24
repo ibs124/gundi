@@ -21,15 +21,8 @@ public class Templates {
 
     // Users
     private static final String USERS = "/users";
-    public static final String USERS_SELF_PROFILE = USERS + "/self-profile";
-    public static final String USERS_SELF_ACCOUNT = USERS + "/self-account";
-
-    // Admins
-    private static final String ADMINS = USERS + "/admins";
-    public static final String ADMINS_INDEX = ADMINS + "/" + INDEX;
-
-    // Root
-    private static final String ROOT = USERS + "/root";
-    public static final String ROOT_INDEX = ROOT + "/" + INDEX;
+    public static final String USERS_SELF_PROFILE = USERS + "/profile";
+    public static final String USERS_SELF_ACCOUNT = USERS + "/account";
+    public static final String USERS_ADMINISTRATION = USERS + "/administration";
 
 }

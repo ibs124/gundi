@@ -3,7 +3,6 @@ package ibs124.gundi.controller.users;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
@@ -14,16 +13,15 @@ import ibs124.gundi.model.application.UserDetailsDto;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequestMapping(Routes.USERS_SELF_PROFILE)
-class SelfProfileController {
+class ProfileController {
 
     private final UserMapper userMapper;
 
-    public SelfProfileController(UserMapper userMapper) {
+    public ProfileController(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
-    @GetMapping
+    @GetMapping(Routes.USERS_SELF_PROFILE)
     public String index(
             @AuthenticationPrincipal UserDetailsDto principal,
             Model model) {
