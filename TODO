@@ -1,3 +1,17 @@
+--  AUTHENTICATION --
+
+[ ] Implement basic new user verification
+
+[ ] Implement basic password resetting 
+
+[ ] Implement basic new email adding and verifying
+
+--  IFRASTRUCTURE --
+
 [ ] Define separate module for manual testing
-    Currently manual testings are performed in the RootIndexController.
+
+    Currently manual testings are performed in special package at:
+
+        src/main/java/ibs124/gundi/console
+
     It is vital to create separate module and clean the code base.
