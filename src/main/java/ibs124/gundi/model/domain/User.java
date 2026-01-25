@@ -13,25 +13,25 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class User extends AbstractAuditableDomainModel {
 
     private Set<Role> roles;
+    private String fullName;
     private String username;
     private String password;
-    private String fullName;
     private String primaryEmail;
     private Boolean isEnabled;
     private Instant lastVerifiedAt;
+    private Instant accountExpiresAt;
 
     public User() {
         super();
         this.setRoles(new HashSet<>());
     }
-
-    // Utilities
 
     @Transient
     public boolean addRoles(Collection<? extends Role> roles) {
@@ -43,8 +43,6 @@ public class User extends AbstractAuditableDomainModel {
         return this.getRoles().removeAll(roles);
     }
 
-    // Getters and setters + JPA configuration
-
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<Role> getRoles() {
         return roles;
@@ -52,16 +50,6 @@ public class User extends AbstractAuditableDomainModel {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    @ValidPassword
-    @Column(nullable = false)
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFullName() {
@@ -80,6 +68,16 @@ public class User extends AbstractAuditableDomainModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @ValidPassword
+    @Column(nullable = false)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @ValidEmail
@@ -107,6 +105,15 @@ public class User extends AbstractAuditableDomainModel {
 
     public void setLastVerifiedAt(Instant lastVerifiedAt) {
         this.lastVerifiedAt = lastVerifiedAt;
+    }
+
+    @Future
+    public Instant getAccountExpiresAt() {
+        return accountExpiresAt;
+    }
+
+    public void setAccountExpiresAt(Instant accountExpiresAt) {
+        this.accountExpiresAt = accountExpiresAt;
     }
 
 }
