@@ -1,6 +1,6 @@
 package ibs124.gundi.constant;
 
-public abstract class CommonConstants {
+public abstract class Constants {
 
     public static final String JSESSIONID = "JSESSIONID";
 

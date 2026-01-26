@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import ibs124.gundi.constant.CommonConstants;
+import ibs124.gundi.constant.Constants;
 
 abstract class Config {
 
@@ -16,7 +16,7 @@ abstract class Config {
     public static final String TEMPLATE = "/emails/new-user-verification";
 
     public static final Map<String, Object> TEMPALTE_ATTRIBUTES = Map.of(
-        "logoUrl", new String(CommonConstants.GUNDI_LOGO_URL),
+        "logoUrl", new String(Constants.GUNDI_LOGO_URL),
         "verificationToken", new String("004591")
     );
 

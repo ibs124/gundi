@@ -1,7 +1,7 @@
 package ibs124.gundi.configuration;
 
 import static ibs124.gundi.constant.Routes.*;
-import static ibs124.gundi.constant.CommonConstants.SUBROUTE_MATCHER;
+import static ibs124.gundi.constant.Constants.SUBROUTE_MATCHER;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import ibs124.gundi.constant.CommonConstants;
+import ibs124.gundi.constant.Constants;
 import ibs124.gundi.model.enumm.RoleName;
 
 @EnableWebSecurity
@@ -52,7 +52,7 @@ class SecurityConfig {
                         .logoutUrl(LOGOUT)
                         .logoutSuccessUrl(INDEX)
                         .invalidateHttpSession(true)
-                        .deleteCookies(CommonConstants.JSESSIONID))
+                        .deleteCookies(Constants.JSESSIONID))
 
                 .build();
     }
