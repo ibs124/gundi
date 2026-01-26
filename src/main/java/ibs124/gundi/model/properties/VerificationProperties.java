@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 @NotNull
 public record VerificationProperties(
         @Valid MailProperties mail,
+        boolean userVerificationLink,
         int tokenExpirationMinutes,
         int verificationDeadlineHours) {
 
