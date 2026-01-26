@@ -7,5 +7,6 @@ import jakarta.validation.constraints.NotNull;
 public record MailProperties(
         @ValidEmail String from,
         String displayName,
+        String subject,
         boolean isHtml) {
 }
