@@ -47,9 +47,10 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
     }
 
     private Instant getExpiration() {
+        int minutes = this.config.newUser().tokenExpirationMinutes();
         return Instant
                 .now()
-                .plus(this.config.tokenExpirationMinutes(), ChronoUnit.MINUTES);
+                .plus(minutes, ChronoUnit.MINUTES);
     }
 
     private String getValueByType(VerificationType type) {

@@ -1,0 +1,11 @@
+package ibs124.gundi.model.properties;
+
+import ibs124.gundi.validation.constraint.ValidEmail;
+import jakarta.validation.constraints.NotNull;
+
+@NotNull
+public record MailProperties(
+        @ValidEmail String from,
+        String displayName,
+        boolean isHtml) {
+}
