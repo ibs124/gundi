@@ -1,33 +1,23 @@
 package ibs124.gundi.console.test.verification;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import ibs124.gundi.constant.CommonConstants;
+
 abstract class Config {
 
-    // Email
+    public static final String[] MAIL_TO = { "ibs124experimental@gmail.com" };
 
-    public static final String EMAIL_FROM = "noreply@gundi.com";
+    public static final String MAIL_SENT_MESSAGE = "Verification email sent, check inboxes at: "
+            + Arrays.stream(MAIL_TO).collect(Collectors.joining(", "));;
 
-    public static final String EMAIL_DISPLAY_NAME = "Gundi";
+    public static final String TEMPLATE = "/emails/new-user-verification";
 
-    public static final String[] EMAIL_TO = { "ibs124experimental@gmail.com" };
-
-    public static final String EMAIL_SUBJECT = "Confirm your email address";
-
-    public static final String VERIFICATION_CODE = "094532";
-
-    // Keys
-
-    public static final String KEY_CSS_INLINE = "inlineCss";
-
-    public static final String KEY_VERIFICATION_TOKEN = "verificationToken";
-
-    public static final String KEY_URL_LOGO = "logoUrl";
-
-    // URLs
-
-    public static final String URL_HTML = "/emails/new-user-verification";
-
-    public static final String URL_CSS = "static/css/emails.css";
-
-    public static final String URL_LOGO = "https://gitlab.com/ibs124/gundi/-/raw/feature/assets/logo-navy.png?ref_type=heads";
+    public static final Map<String, Object> TEMPALTE_ATTRIBUTES = Map.of(
+        "logoUrl", new String(CommonConstants.GUNDI_LOGO_URL),
+        "verificationToken", new String("004591")
+    );
 
 }
