@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import ibs124.gundi.constant.Routes;
-import ibs124.gundi.constant.Templates;
-import ibs124.gundi.constant.ThymeleafAttributes;
+import ibs124.gundi.constant.ThTemplates;
+import ibs124.gundi.constant.ThAttributes;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.UserDetailsDto;
 
@@ -26,14 +26,14 @@ class ProfileController {
             @AuthenticationPrincipal UserDetailsDto principal,
             Model model) {
 
-        if (!model.containsAttribute(ThymeleafAttributes.VIEW_MODEL)) {
+        if (!model.containsAttribute(ThAttributes.VIEW_MODEL)) {
             model
                     .addAttribute(
-                            ThymeleafAttributes.VIEW_MODEL,
+                            ThAttributes.VIEW_MODEL,
                             this.userMapper.mapToPresentationModel(principal));
         }
 
-        return Templates.USERS_SELF_PROFILE;
+        return ThTemplates.USERS_SELF_PROFILE;
     }
 
 }

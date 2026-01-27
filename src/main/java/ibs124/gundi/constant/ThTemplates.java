@@ -1,6 +1,6 @@
 package ibs124.gundi.constant;
 
-public class Templates {
+public class ThTemplates {
 
     // Core
     public static final String INDEX = "index";

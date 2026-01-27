@@ -1,6 +1,6 @@
 package ibs124.gundi.constant;
 
-public abstract class ThymeleafAttributes {
+public abstract class ThAttributes {
 
     public static final String MESSAGE = "message";
 
@@ -19,6 +19,12 @@ public abstract class ThymeleafAttributes {
 
     public static final String ROUTES = "routes";
 
-    public static final String VERIFICATION_TOKEN = "verificationToken";
+    public static final String TOKEN = "token";
+
+    public static final String EXPIRATION = "expiration";
+
+    public static final String DEADLINE = "deadline";
+
+    public static final String URL = "url";
 
 }

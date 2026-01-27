@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ibs124.gundi.constant.Routes;
-import ibs124.gundi.constant.Templates;
-import ibs124.gundi.constant.ThymeleafAttributes;
+import ibs124.gundi.constant.ThTemplates;
+import ibs124.gundi.constant.ThAttributes;
 
 @Controller
 @RequestMapping(Routes.LOGIN)
@@ -17,16 +17,16 @@ class LoginController {
 
     @GetMapping
     public String getMethodName() {
-        return Templates.LOGIN;
+        return ThTemplates.LOGIN;
     }
 
     @PostMapping(Routes.ERROR)
-    public String loginError(@ModelAttribute(ThymeleafAttributes.USERNAME) String username, Model model) {
+    public String loginError(@ModelAttribute(ThAttributes.USERNAME) String username, Model model) {
         model
-                .addAttribute(ThymeleafAttributes.USERNAME, username)
-                .addAttribute(ThymeleafAttributes.SUCCESS, false);
+                .addAttribute(ThAttributes.USERNAME, username)
+                .addAttribute(ThAttributes.SUCCESS, false);
 
-        return Templates.LOGIN;
+        return ThTemplates.LOGIN;
     }
 
 }

@@ -9,9 +9,10 @@ import org.springframework.stereotype.Component;
 
 import ibs124.gundi.configuration.PropertyConfig;
 import ibs124.gundi.console.CommandRunner;
+import ibs124.gundi.constant.ThTemplates;
 import ibs124.gundi.model.application.EmailSendDto;
 import ibs124.gundi.model.application.TemplateCompileDto;
-import ibs124.gundi.model.properties.MailProperties;
+import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.service.utility.EmailSendingService;
 import ibs124.gundi.service.utility.TemplateCompileService;
@@ -42,7 +43,7 @@ public class VerificationCommandRunner implements CommandRunner {
     }
 
     private void sendMessage(String message) {
-        MailProperties mail = this.properties.newUser().mail();
+        VerificationEmailProperties mail = this.properties.newUser().mail();
 
         EmailSendDto emailRequest = new EmailSendDto(
                 mail.from(),
@@ -66,7 +67,7 @@ public class VerificationCommandRunner implements CommandRunner {
         map.put(KEY_DEADLINE, newUser.verificationDeadlineHours());
 
         TemplateCompileDto template = new TemplateCompileDto(
-                TEMPLATE, map);
+                ThTemplates.NEW_USER_VERIFICATION_EMAIL, map);
 
         return this.templateCompileService.compileHtml(template);
     }

@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ibs124.gundi.constant.Routes;
-import ibs124.gundi.constant.Templates;
-import ibs124.gundi.constant.ThymeleafAttributes;
+import ibs124.gundi.constant.ThTemplates;
+import ibs124.gundi.constant.ThAttributes;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.UserDetailsDto;
 
@@ -28,14 +28,14 @@ public class AccountController {
             @AuthenticationPrincipal UserDetailsDto principal,
             Model model) {
 
-        if (!model.containsAttribute(ThymeleafAttributes.VIEW_MODEL)) {
+        if (!model.containsAttribute(ThAttributes.VIEW_MODEL)) {
             model
                     .addAttribute(
-                            ThymeleafAttributes.VIEW_MODEL,
+                            ThAttributes.VIEW_MODEL,
                             this.userMapper.mapToPresentationModel(principal));
         }
 
-        return Templates.USERS_SELF_ACCOUNT;
+        return ThTemplates.USERS_SELF_ACCOUNT;
     }
 
 }
