@@ -1,18 +1,20 @@
 package ibs124.gundi.console.test.verification;
 
-import static ibs124.gundi.console.test.verification.Config.*;
+import static ibs124.gundi.constant.ThEnv.DEADLINE;
+import static ibs124.gundi.constant.ThEnv.TOKEN;
+import static ibs124.gundi.constant.ThEnv.EXPIRATION;
+import static ibs124.gundi.constant.ThEnv.URL;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.configuration.PropertyConfig;
 import ibs124.gundi.console.CommandRunner;
+import ibs124.gundi.constant.Env;
 import ibs124.gundi.constant.ThTemplates;
 import ibs124.gundi.model.application.EmailSendDto;
 import ibs124.gundi.model.application.TemplateCompileDto;
-import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.service.utility.EmailSendingService;
 import ibs124.gundi.service.utility.TemplateCompileService;
@@ -22,7 +24,7 @@ public class VerificationCommandRunner implements CommandRunner {
 
     private final EmailSendingService emailSendingService;
     private final TemplateCompileService templateCompileService;
-    private final PropertyConfig properties;
+    private final VerificationProperties config;
 
     public VerificationCommandRunner(
             EmailSendingService emailSendingService,
@@ -30,46 +32,27 @@ public class VerificationCommandRunner implements CommandRunner {
             PropertyConfig config) {
         this.emailSendingService = emailSendingService;
         this.templateCompileService = templateCompileService;
-        this.properties = config;
+        this.config = config.newUser();
     }
 
     @Override
     public String run(String... args) {
-        String message = this.createMessage();
-
-        this.sendMessage(message);
-
-        return MAIL_SENT_MESSAGE;
-    }
-
-    private void sendMessage(String message) {
-        VerificationEmailProperties mail = this.properties.newUser().mail();
-
-        EmailSendDto emailRequest = new EmailSendDto(
-                mail.from(),
-                mail.displayName(),
-                MAIL_TO,
-                mail.subject(),
-                message,
-                mail.isHtml());
-
-        this.emailSendingService.sendEmail(emailRequest);
-
-    }
-
-    private String createMessage() {
-        Map<String, Object> map = new HashMap<>();
-
-        VerificationProperties newUser = this.properties.newUser();
-
-        map.putAll(TEMPALTE_ATTRIBUTES);
-        map.put(KEY_EXPIRATION, newUser.tokenExpirationMinutes());
-        map.put(KEY_DEADLINE, newUser.verificationDeadlineHours());
-
         TemplateCompileDto template = new TemplateCompileDto(
-                ThTemplates.NEW_USER_VERIFICATION_EMAIL, map);
+                ThTemplates.NEW_USER_VERIFICATION_EMAIL,
+                Map.of(
+                        URL, Env.GUNDI_LOGO_URL,
+                        TOKEN, Config.OTP,
+                        EXPIRATION, this.config.tokenExpirationMinutes(),
+                        DEADLINE, this.config.verificationDeadlineHours()));
 
-        return this.templateCompileService.compileHtml(template);
+        String message = this.templateCompileService.compileHtml(template);
+
+        EmailSendDto email = new EmailSendDto(
+                this.config.mail(), message, Config.EMAIL_TO);
+
+        this.emailSendingService.sendEmail(email);
+
+        return Config.MESSAGE;
     }
 
 }

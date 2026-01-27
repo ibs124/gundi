@@ -31,26 +31,35 @@ public class CommandListener {
 
     private void listen() {
         try (Scanner scanner = new Scanner(System.in)) {
+
             System.out.println(WELCOME);
             System.out.println(HELP);
 
-            while (true) {
-                System.out.print(PROMPT);
+            String command = this.readCommand(scanner);
+            String message = String.format(ERROR_FORAMT, command);
 
-                String command = scanner.nextLine().trim();
-
-                String message = String.format(ERROR_FORAMT, command);
+            while (!command.equals(EXIT_COMMAND)) {
 
                 switch (command) {
                     case EXIT_COMMAND -> System.exit(0);
-                    case HELP_COMMAND -> System.out.println(HELP);
+                    case HELP_COMMAND -> message = Config.HELP;
                     case SEED_COMMAND -> message = this.seedeer.run();
                     case SEND_COMMAND -> message = this.sender.run();
+                    default -> message = String.format(ERROR_FORAMT, command);
                 }
 
                 System.out.println(message);
+                System.out.println();
+                command = this.readCommand(scanner);
             }
+
+            System.exit(1);
         }
+    }
+
+    private String readCommand(Scanner scanner) {
+        System.out.print(PROMPT);
+        return scanner.nextLine().trim();
     }
 
 }
