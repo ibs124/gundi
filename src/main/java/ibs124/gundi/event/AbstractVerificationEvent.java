@@ -2,29 +2,19 @@ package ibs124.gundi.event;
 
 import org.springframework.context.ApplicationEvent;
 
+import ibs124.gundi.model.application.VerificationSendDto;
+
 public class AbstractVerificationEvent extends ApplicationEvent {
 
-    private final String token;
-    private final String email;
-    private final String appUrl;
+    private final VerificationSendDto verificationRequest;
 
-    public AbstractVerificationEvent(String token, String email, String appUrl) {
-        super(token);
-        this.token = token;
-        this.email = email;
-        this.appUrl = appUrl;
+    public AbstractVerificationEvent(VerificationSendDto verificationRequest) {
+        super(verificationRequest);
+        this.verificationRequest = verificationRequest;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAppUrl() {
-        return appUrl;
+    public VerificationSendDto getVerificationRequest() {
+        return verificationRequest;
     }
 
 }

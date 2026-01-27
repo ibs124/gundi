@@ -8,8 +8,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import ibs124.gundi.console.test.VerificationCommandRunner;
 import ibs124.gundi.console.test.seed.SeedCommandRunner;
-import ibs124.gundi.console.test.verification.VerificationCommandRunner;
 
 @Component
 public class CommandListener {

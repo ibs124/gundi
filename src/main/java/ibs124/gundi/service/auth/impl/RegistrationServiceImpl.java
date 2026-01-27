@@ -14,6 +14,7 @@ import ibs124.gundi.exception.ResourceCreatingException;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDto;
 import ibs124.gundi.model.application.UserCreateDto;
+import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.model.enumm.VerificationType;
@@ -71,7 +72,10 @@ class RegistrationServiceImpl implements RegistrationService {
     }
 
     public void sendVerification(String token, String appUrl, String email) {
-        UserVerificationEvent event = new UserVerificationEvent(token, email, appUrl);
+        VerificationSendDto verificationRequest = new VerificationSendDto(
+                VerificationType.NEW_USER, email, token, appUrl);
+
+        UserVerificationEvent event = new UserVerificationEvent(verificationRequest);
 
         this.eventPublisher.publishEvent(event);
     }
