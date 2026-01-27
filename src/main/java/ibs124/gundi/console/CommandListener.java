@@ -43,8 +43,8 @@ public class CommandListener {
                 switch (command) {
                     case EXIT_COMMAND -> System.exit(0);
                     case HELP_COMMAND -> message = Config.HELP;
-                    case SEED_COMMAND -> message = this.seedeer.run();
-                    case SEND_COMMAND -> message = this.sender.run();
+                    case SEED_COMMAND -> message = this.callRunner(this.seedeer);
+                    case SEND_COMMAND -> message = this.callRunner(this.sender);
                     default -> message = String.format(ERROR_FORAMT, command);
                 }
 
@@ -54,6 +54,15 @@ public class CommandListener {
             }
 
             System.exit(1);
+        }
+    }
+
+    private String callRunner(CommandRunner runner, String... args) {
+        try {
+            String message = runner.run(args);
+            return message;
+        } catch (Exception e) {
+            return e.toString();
         }
     }
 
