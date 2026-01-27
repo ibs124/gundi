@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.ThTemplates;
-import ibs124.gundi.constant.ThAttributes;
+import ibs124.gundi.constant.ThEnv;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.UserDetailsDto;
 
@@ -28,10 +28,10 @@ public class AccountController {
             @AuthenticationPrincipal UserDetailsDto principal,
             Model model) {
 
-        if (!model.containsAttribute(ThAttributes.VIEW_MODEL)) {
+        if (!model.containsAttribute(ThEnv.VIEW_MODEL)) {
             model
                     .addAttribute(
-                            ThAttributes.VIEW_MODEL,
+                            ThEnv.VIEW_MODEL,
                             this.userMapper.mapToPresentationModel(principal));
         }
 

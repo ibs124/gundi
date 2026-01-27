@@ -1,14 +1,14 @@
 package ibs124.gundi.constant;
 
-public abstract class ThAttributes {
+public abstract class ThEnv {
 
-    public static final String MESSAGE = "message";
+    public static final String MESSAGE = Env.MESSAGE;
 
-    public static final String EMAIL = "email";
+    public static final String EMAIL = Env.EMAIL;
 
     public static final String USERNAME = "username";
 
-    public static final String SUCCESS = "success";
+    public static final String SUCCESS = Env.SUCCESS;
 
     public static final String VIEW_MODEL = "viewModel";
 

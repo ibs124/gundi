@@ -1,10 +1,10 @@
 package ibs124.gundi.event.listener;
 
 import static ibs124.gundi.constant.ThTemplates.NEW_USER_VERIFICATION_EMAIL;
-import static ibs124.gundi.constant.ThAttributes.DEADLINE;
-import static ibs124.gundi.constant.ThAttributes.TOKEN;
-import static ibs124.gundi.constant.ThAttributes.EXPIRATION;
-import static ibs124.gundi.constant.ThAttributes.URL;
+import static ibs124.gundi.constant.ThEnv.DEADLINE;
+import static ibs124.gundi.constant.ThEnv.TOKEN;
+import static ibs124.gundi.constant.ThEnv.EXPIRATION;
+import static ibs124.gundi.constant.ThEnv.URL;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import ibs124.gundi.configuration.PropertyConfig;
-import ibs124.gundi.constant.Constants;
+import ibs124.gundi.constant.Env;
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.model.application.EmailSendDto;
 import ibs124.gundi.model.application.TemplateCompileDto;
@@ -47,7 +47,7 @@ class UserVerificationEventListener
         TemplateCompileDto template = new TemplateCompileDto(
                 NEW_USER_VERIFICATION_EMAIL,
                 Map.of(
-                        URL, Constants.GUNDI_LOGO_URL,
+                        URL, Env.GUNDI_LOGO_URL,
                         TOKEN, event.getToken(),
                         EXPIRATION, this.config.tokenExpirationMinutes(),
                         DEADLINE, this.config.verificationDeadlineHours()));

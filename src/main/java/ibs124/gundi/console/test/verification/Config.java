@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import ibs124.gundi.constant.Constants;
+import ibs124.gundi.constant.Env;
 
 abstract class Config {
 
@@ -14,7 +14,7 @@ abstract class Config {
             + Arrays.stream(MAIL_TO).collect(Collectors.joining(", "));;
 
     public static final Map<String, Object> TEMPALTE_ATTRIBUTES = Map.of(
-            "logo", new String(Constants.GUNDI_LOGO_URL),
+            "logo", new String(Env.GUNDI_LOGO_URL),
             "token", new String("004591"));
 
     public static final String KEY_EXPIRATION = "expiration";

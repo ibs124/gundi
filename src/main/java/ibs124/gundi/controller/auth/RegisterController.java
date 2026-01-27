@@ -2,8 +2,8 @@ package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.Routes.REGISTER;
 import static ibs124.gundi.constant.Routes.SUCCESS;
-import static ibs124.gundi.constant.ThAttributes.BINDING_MODEL;
-import static ibs124.gundi.constant.ThAttributes.BINDING_RESULT;
+import static ibs124.gundi.constant.ThEnv.BINDING_MODEL;
+import static ibs124.gundi.constant.ThEnv.BINDING_RESULT;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

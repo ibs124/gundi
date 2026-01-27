@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.ThTemplates;
-import ibs124.gundi.constant.ThAttributes;
+import ibs124.gundi.constant.ThEnv;
 
 @Controller
 @RequestMapping(Routes.LOGIN)
@@ -21,10 +21,10 @@ class LoginController {
     }
 
     @PostMapping(Routes.ERROR)
-    public String loginError(@ModelAttribute(ThAttributes.USERNAME) String username, Model model) {
+    public String loginError(@ModelAttribute(ThEnv.USERNAME) String username, Model model) {
         model
-                .addAttribute(ThAttributes.USERNAME, username)
-                .addAttribute(ThAttributes.SUCCESS, false);
+                .addAttribute(ThEnv.USERNAME, username)
+                .addAttribute(ThEnv.SUCCESS, false);
 
         return ThTemplates.LOGIN;
     }
