@@ -16,8 +16,11 @@ abstract class Config {
     public static final String TEMPLATE = "/emails/new-user-verification";
 
     public static final Map<String, Object> TEMPALTE_ATTRIBUTES = Map.of(
-        "logoUrl", new String(Constants.GUNDI_LOGO_URL),
-        "verificationToken", new String("004591")
-    );
+            "logo", new String(Constants.GUNDI_LOGO_URL),
+            "token", new String("004591"));
+
+    public static final String KEY_EXPIRATION = "expiration";
+
+    public static final String KEY_DEADLINE = "deadline";
 
 }
