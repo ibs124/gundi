@@ -20,12 +20,12 @@ public record TemplateCompileDto(
         this(template, new LinkedHashMap<>());
     }
 
-    public TemplateCompileDto addAttributre(String key, Object value) {
+    public TemplateCompileDto addVariable(String key, Object value) {
         this.variables.put(key, value);
         return this;
     }
 
-    public TemplateCompileDto removeAttributre(Object value) {
+    public TemplateCompileDto removeVariable(Object value) {
         this.variables.remove(value);
         return this;
     }

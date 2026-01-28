@@ -17,6 +17,7 @@ import ibs124.gundi.model.application.EmailSendDto;
 import ibs124.gundi.model.application.TemplateCompileDto;
 import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.enumm.VerificationType;
+import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.service.utility.EmailSendingService;
 import ibs124.gundi.service.utility.TemplateCompileService;
@@ -46,20 +47,28 @@ class VerificationSendingServiceImpl implements VerificationSendingService {
     public void sendVerification(VerificationSendDto request) {
         VerificationProperties config = this.configMap.get(request.type());
 
-        TemplateCompileDto template = new TemplateCompileDto(
-                NEW_USER_VERIFICATION_EMAIL,
-                Map.of(
-                        URL, GUNDI_LOGO_URL,
-                        TOKEN, request.token(),
-                        EXPIRATION, config.tokenExpirationMinutes(),
-                        DEADLINE, config.verificationDeadlineHours()));
+        TemplateCompileDto templateRequest = new TemplateCompileDto(
+                NEW_USER_VERIFICATION_EMAIL)
+                .addVariable(URL, GUNDI_LOGO_URL)
+                .addVariable(TOKEN, request.token())
+                .addVariable(EXPIRATION, config.tokenExpirationMinutes())
+                .addVariable(DEADLINE, config.verificationDeadlineHours());
 
-        String message = this.templateCompileService.compileHtml(template);
+        String message = this.templateCompileService.compileHtml(templateRequest);
 
-        EmailSendDto email = new EmailSendDto(
-                config.mail(), message, request.email());
+        VerificationEmailProperties mailConfig = config.mail();
 
-        this.emailSendingService.sendEmail(email);
+        EmailSendDto emailRequest = EmailSendDto
+                .builder()
+                .from(mailConfig.from())
+                .displayName(mailConfig.displayName())
+                .to(request.email())
+                .subject(mailConfig.subject())
+                .text(message)
+                .isHtml(mailConfig.isHtml())
+                .build();
+
+        this.emailSendingService.sendEmail(emailRequest);
     }
 
 }
