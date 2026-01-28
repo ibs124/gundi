@@ -19,6 +19,7 @@ import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.enumm.VerificationType;
 import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
+import ibs124.gundi.model.properties.VerificationTokenProperties;
 import ibs124.gundi.service.utility.EmailSendingService;
 import ibs124.gundi.service.utility.TemplateCompileService;
 import ibs124.gundi.service.utility.VerificationSendingService;
@@ -47,12 +48,14 @@ class VerificationSendingServiceImpl implements VerificationSendingService {
     public void sendVerification(VerificationSendDto request) {
         VerificationProperties config = this.configMap.get(request.type());
 
+        VerificationTokenProperties tokenConfig = config.token();
+
         TemplateCompileDto templateRequest = new TemplateCompileDto(
                 NEW_USER_VERIFICATION_EMAIL)
                 .addVariable(URL, GUNDI_LOGO_URL)
                 .addVariable(TOKEN, request.token())
-                .addVariable(EXPIRATION, config.tokenExpirationMinutes())
-                .addVariable(DEADLINE, config.verificationDeadlineHours());
+                .addVariable(EXPIRATION, tokenConfig.expirationMinutes())
+                .addVariable(DEADLINE, config.timeframeHours());
 
         String message = this.templateCompileService.compileHtml(templateRequest);
 

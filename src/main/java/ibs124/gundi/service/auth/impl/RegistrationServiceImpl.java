@@ -94,7 +94,7 @@ class RegistrationServiceImpl implements RegistrationService {
     }
 
     private Instant createExpiration() {
-        int minutes = this.config.newUser().tokenExpirationMinutes();
+        int minutes = this.config.newUser().token().expirationMinutes();
         return Instant
                 .now()
                 .plus(minutes, ChronoUnit.MINUTES);
@@ -122,7 +122,7 @@ class RegistrationServiceImpl implements RegistrationService {
         Instant accountExpiresAt = Instant
                 .now()
                 .plus(
-                        this.config.newUser().verificationDeadlineHours(),
+                        this.config.newUser().timeframeHours(),
                         ChronoUnit.HOURS);
 
         user.setAccountExpiresAt(accountExpiresAt);
