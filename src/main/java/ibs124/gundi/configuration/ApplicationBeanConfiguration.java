@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-public abstract class CommonBeanConfig {
+public abstract class ApplicationBeanConfiguration {
 
     @Bean
     LocalValidatorFactoryBean localValidatorFactoryBean() {

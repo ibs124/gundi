@@ -12,7 +12,7 @@ import static ibs124.gundi.constant.ThEnv.URL;
 
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.configuration.PropertyConfig;
+import ibs124.gundi.configuration.PropertyConfiguration;
 import ibs124.gundi.model.application.EmailSendDto;
 import ibs124.gundi.model.application.TemplateCompileDto;
 import ibs124.gundi.model.application.VerificationSendDto;
@@ -34,7 +34,7 @@ class VerificationSendingServiceImpl implements VerificationSendingService {
     public VerificationSendingServiceImpl(
             TemplateCompilingService templateCompileService,
             EmailSendingService emailSendingService,
-            PropertyConfig config) {
+            PropertyConfiguration config) {
 
         this.templateCompileService = templateCompileService;
 

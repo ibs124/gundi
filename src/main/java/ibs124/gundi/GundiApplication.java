@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import ibs124.gundi.configuration.PropertyConfig;
+import ibs124.gundi.configuration.PropertyConfiguration;
 
 @SpringBootApplication
-@EnableConfigurationProperties(PropertyConfig.class)
+@EnableConfigurationProperties(PropertyConfiguration.class)
 @EnableJpaAuditing
 public class GundiApplication {
 

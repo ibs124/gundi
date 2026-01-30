@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.configuration.PropertyConfig;
+import ibs124.gundi.configuration.PropertyConfiguration;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.service.auth.RoleInitializingService;
 import ibs124.gundi.utility.Application;
@@ -17,12 +17,12 @@ import ibs124.gundi.utility.Application;
 @Order(1)
 class ApplicationInitializer implements CommandLineRunner {
 
-    private final PropertyConfig propertyConfig;
+    private final PropertyConfiguration propertyConfig;
     private final RoleInitializingService roleInitService;
     private final Logger logger;
 
     public ApplicationInitializer(
-            PropertyConfig propertyConfig,
+            PropertyConfiguration propertyConfig,
             RoleInitializingService roleInitService) {
         this.propertyConfig = propertyConfig;
         this.roleInitService = roleInitService;

@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.configuration.PropertyConfig;
+import ibs124.gundi.configuration.PropertyConfiguration;
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.exception.ResourceCreatingException;
 import ibs124.gundi.mapper.UserMapper;
@@ -28,14 +28,14 @@ class RegistrationServiceImpl implements RegistrationService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final VerificationTokenRepository tokenRepository;
-    private final PropertyConfig config;
+    private final PropertyConfiguration config;
     private final ApplicationEventPublisher eventPublisher;
 
     public RegistrationServiceImpl(
             PasswordEncoder passwordEncoder,
             UserMapper userMapper,
             VerificationTokenRepository tokenRepository,
-            PropertyConfig config,
+            PropertyConfiguration config,
             ApplicationEventPublisher eventPublisher) {
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
