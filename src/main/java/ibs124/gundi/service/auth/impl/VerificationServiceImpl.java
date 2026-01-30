@@ -5,6 +5,7 @@ import java.time.Instant;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.domain.Email;
+import ibs124.gundi.model.domain.Role;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.model.enumm.RoleName;
@@ -50,9 +51,10 @@ class VerificationServiceImpl implements VerificationService {
 
         this.tokenRepository.delete(token);
 
-        user.addRoles(
-                this.roleRepository
-                        .findByNameIn(RoleName.USER));
+        Role userRole = this.roleRepository
+                .getReferenceById(RoleName.USER.ordinal() + 1L);
+
+        user.addRole(userRole);
 
         user.setIsEnabled(true);
 
