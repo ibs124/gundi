@@ -6,7 +6,7 @@ import ibs124.gundi.console.CommandRunner;
 
 import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.enumm.VerificationType;
-import ibs124.gundi.service.utility.VerificationSendingService;
+import ibs124.gundi.service.auth.VerificationSendingService;
 
 @Component
 public class VerificationCommandRunner implements CommandRunner {

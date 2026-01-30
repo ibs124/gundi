@@ -1,4 +1,4 @@
-package ibs124.gundi.service.utility.impl;
+package ibs124.gundi.service.auth.impl;
 
 import static ibs124.gundi.constant.ThTemplates.NEW_USER_VERIFICATION_EMAIL;
 
@@ -20,19 +20,19 @@ import ibs124.gundi.model.enumm.VerificationType;
 import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
-import ibs124.gundi.service.utility.EmailSendingService;
-import ibs124.gundi.service.utility.TemplateCompileService;
-import ibs124.gundi.service.utility.VerificationSendingService;
+import ibs124.gundi.service.auth.EmailSendingService;
+import ibs124.gundi.service.auth.TemplateCompilingService;
+import ibs124.gundi.service.auth.VerificationSendingService;
 
 @Service
 class VerificationSendingServiceImpl implements VerificationSendingService {
 
-    private final TemplateCompileService templateCompileService;
+    private final TemplateCompilingService templateCompileService;
     private final EmailSendingService emailSendingService;
     private final Map<VerificationType, VerificationProperties> configMap;
 
     public VerificationSendingServiceImpl(
-            TemplateCompileService templateCompileService,
+            TemplateCompilingService templateCompileService,
             EmailSendingService emailSendingService,
             PropertyConfig config) {
 

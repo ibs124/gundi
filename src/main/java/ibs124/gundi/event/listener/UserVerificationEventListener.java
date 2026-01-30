@@ -7,8 +7,7 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import ibs124.gundi.event.UserVerificationEvent;
-
-import ibs124.gundi.service.utility.VerificationSendingService;
+import ibs124.gundi.service.auth.VerificationSendingService;
 
 @Component
 class UserVerificationEventListener
