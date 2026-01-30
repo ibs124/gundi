@@ -12,9 +12,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @MappedSuperclass
-public class AbstractToken<T extends AbstractDomainModel> extends AbstractDomainModel {
+public class AbstractToken extends AbstractDomainModel {
 
-    private T owner;
+    private User user;
     private Instant expiresAt;
     private String value;
 
@@ -23,14 +23,14 @@ public class AbstractToken<T extends AbstractDomainModel> extends AbstractDomain
     }
 
     @Valid
-    @OneToOne
     @MapsId
-    public T getOwner() {
-        return owner;
+    @OneToOne
+    public User getUser() {
+        return user;
     }
 
-    public void setOwner(T owner) {
-        this.owner = owner;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Future

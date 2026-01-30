@@ -11,10 +11,8 @@ import jakarta.validation.Valid;
 import java.time.Instant;
 
 @NoRepositoryBean
-public interface AbstractTokenRepository<T extends AbstractToken<?>>
+public interface AbstractTokenRepository<T extends AbstractToken>
         extends JpaRepository<T, Long> {
-
-    Optional<T> findByOwnerId(long id);
 
     Optional<@Valid T> findByValueAndExpiresAtBefore(String value, Instant expiresAt);
 

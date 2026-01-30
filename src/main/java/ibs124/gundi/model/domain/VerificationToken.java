@@ -6,7 +6,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 @Entity
-public class VerificationToken extends AbstractToken<User> {
+public class VerificationToken extends AbstractToken {
 
     private VerificationType type;
 

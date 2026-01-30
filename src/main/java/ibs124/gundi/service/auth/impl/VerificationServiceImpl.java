@@ -46,7 +46,7 @@ class VerificationServiceImpl implements VerificationService {
             return false;
         }
 
-        User user = token.getOwner();
+        User user = token.getUser();
 
         this.tokenRepository.delete(token);
 
