@@ -8,6 +8,11 @@
     width: 1.5rem;
 }
 
+.icon--l {
+    height: 2rem;
+    width: 2rem;
+}
+
 .btn {
     height: inherit;
     width: inherit;
@@ -47,11 +52,6 @@
 
 .btn--logo:hover {
     color: var(--primary-color);
-}
-
-.btn--logo .btn__icon {
-    height: 2rem;
-    width: 2rem;
 }
 
 .btn--logo .btn__label {
