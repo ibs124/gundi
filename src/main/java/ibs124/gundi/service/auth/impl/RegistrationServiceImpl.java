@@ -1,8 +1,10 @@
 package ibs124.gundi.service.auth.impl;
 
+import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,7 @@ import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.model.enumm.VerificationType;
+import ibs124.gundi.model.properties.VerificationTokenProperties;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.RegistrationService;
 import jakarta.transaction.Transactional;
@@ -30,18 +33,21 @@ class RegistrationServiceImpl implements RegistrationService {
     private final VerificationTokenRepository tokenRepository;
     private final PropertyConfiguration config;
     private final ApplicationEventPublisher eventPublisher;
+    private final SecureRandom secureRandom;
 
     public RegistrationServiceImpl(
             PasswordEncoder passwordEncoder,
             UserMapper userMapper,
             VerificationTokenRepository tokenRepository,
             PropertyConfiguration config,
-            ApplicationEventPublisher eventPublisher) {
+            ApplicationEventPublisher eventPublisher,
+            SecureRandom secureRandom) {
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
         this.tokenRepository = tokenRepository;
         this.config = config;
         this.eventPublisher = eventPublisher;
+        this.secureRandom = secureRandom;
     }
 
     @Override
@@ -85,7 +91,7 @@ class RegistrationServiceImpl implements RegistrationService {
 
         token.setUser(user);
         token.setType(VerificationType.NEW_USER);
-        token.setValue(this.createLinkToken());
+        token.setValue(this.createTokenValue());
         token.setExpiresAt(this.createExpiration());
 
         token = this.tokenRepository.save(token);
@@ -100,14 +106,35 @@ class RegistrationServiceImpl implements RegistrationService {
                 .plus(minutes, ChronoUnit.MINUTES);
     }
 
-    private String createLinkToken() {
-        String value = UUID.randomUUID().toString();
+    private String createTokenValue() {
+        VerificationTokenProperties config = this.config.newUser().token();
+
+        String value = config.useLink()
+                ? this.createTokenLinkValue()
+                : this.createTokenCodeValue(config);
 
         while (this.tokenRepository.existsByValue(value)) {
-            value = UUID.randomUUID().toString();
+            value = config.useLink()
+                    ? this.createTokenLinkValue()
+                    : this.createTokenCodeValue(config);
         }
 
         return value;
+    }
+
+    private String createTokenCodeValue(VerificationTokenProperties props) {
+        int length = props.length();
+        String[] charactrers = props.allowedCharacters();
+
+        return this.secureRandom
+                .ints(length, 0, charactrers.length)
+                .mapToObj(x -> charactrers[x])
+                .collect(Collectors.joining());
+
+    }
+
+    private String createTokenLinkValue() {
+        return UUID.randomUUID().toString();
     }
 
     public User createUser(UserCreateDto request) {
@@ -127,7 +154,6 @@ class RegistrationServiceImpl implements RegistrationService {
 
         user.setAccountExpiresAt(accountExpiresAt);
 
-        // user = this.userRepository.save(user);
         return user;
 
     }
