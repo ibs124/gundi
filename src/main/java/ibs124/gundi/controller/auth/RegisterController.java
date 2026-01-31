@@ -1,7 +1,6 @@
 package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.Routes.REGISTER;
-import static ibs124.gundi.constant.Routes.SUCCESS;
 import static ibs124.gundi.constant.ThEnv.BINDING_MODEL;
 import static ibs124.gundi.constant.ThEnv.BINDING_RESULT;
 
@@ -10,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.ThTemplates;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDto;
@@ -65,11 +65,7 @@ public class RegisterController {
                                 this.userMapper.mapToApplicationModel(bindingModel),
                                 RouteUtils.getAppUrl(httpServletRequest)));
 
-        return RouteUtils.getRedirectUrl(REGISTER + SUCCESS);
+        return RouteUtils.getRedirectUrl(Routes.VERIFICATION);
     }
 
-    @GetMapping(SUCCESS)
-    public String registerSuccess() {
-        return ThTemplates.REGISTER_SUCCESS;
-    }
 }

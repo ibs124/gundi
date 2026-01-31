@@ -22,5 +22,4 @@ public abstract class Env {
 
     public static final String EMAIL = "email";
 
-
 }

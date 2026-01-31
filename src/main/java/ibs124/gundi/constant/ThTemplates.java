@@ -9,6 +9,7 @@ public class ThTemplates {
     public static final String REGISTER_SUCCESS = REGISTER + "-success";
 
     public static final String LOGIN = AUTH + "/login";
+    public static final String VERIFICATION = AUTH + "/verification";
 
     private static final String VERIFICATION_EMAILS = "/emails/verification";
     public static final String NEW_USER_VERIFICATION_EMAIL = VERIFICATION_EMAILS
