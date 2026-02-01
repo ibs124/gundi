@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
     title='Verification',
-    content=~{this::.app__main-content}
+    content=~{this::.verification},
+    headExtra=~{this::headExtra}
 ">
 
-<div class="app__main-content">
+<th:block th:fragment="headExtra">
+    <link rel="stylesheet" th:href="@{/css/verification.css}">
+</th:block>
+
+<div class="verification">
     <h1>
-        <svg class="icon">
-            <use href="#logo"></use>
-        </svg>
-        <p class="btn__label">Gundi</p>
+        <div class="logo">
+            <svg class="icon icon--xl">
+                <use href="#logo"></use>
+            </svg>
+            <p>Gundi</p>
+        </div>
     </h1>
-    <h2>Help us protect your account</h2>
-    <p>
-        You are signed in as <th:block th:text="${username}"></th:block>. For added
+    <h2 class="verification__headline">Help us protect your account</h2>
+    <p class="verification__info">
+        You are signed in as <th:block th:text="${username ?: gundi_user}"></th:block>. For added
         security, you will need to verify your identity. We have sent a verification
         code to <th:block th:text="${email}"></th:block>
     </p>

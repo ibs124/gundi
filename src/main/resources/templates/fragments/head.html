@@ -13,6 +13,11 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
 
     <script th:src="@{/js/main.js}" defer></script>
+
+    <th:block th:if="${headExtra != null}">
+        <th:block th:replace="${headExtra}"></th:block>
+
+    </th:block>
 </head>
 
 </html>
