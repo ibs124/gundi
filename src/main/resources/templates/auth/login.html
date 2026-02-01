@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/app :: app(title='Sign in', content=~{::content})}">
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
+    title='Sign In',
+    content=~{this::.app__main-content}
+">
 
-<div th:fragment="content">
+<div class="app__main-content">
     <form class="form" th:action="@{${routes.login}}" method="POST">
         <div class="form__group">
             <label class="form__label" for="username">Email or Username</label>
@@ -19,5 +22,6 @@
         </button>
     </form>
 </div>
+
 
 </html>

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{fragments/app :: app(title='Verification', content=~{::content})}">
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
+    title='Verification',
+    content=~{this::.app__main-content}
+">
 
-<div th:fragment="content">
+<div class="app__main-content">
     <h1>
         <svg class="icon">
             <use href="#logo"></use>
