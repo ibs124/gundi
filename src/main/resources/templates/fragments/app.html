@@ -2,14 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:fragment="app (title, content)">
-
-    <head th:replace="~{fragments/head :: head(title=${title})}"></head>
+    <th:block th:replace="~{fragments/head :: head(title=${title})}"></th:block>
 
     <body>
         <div class="app app--dark-mode app--sidebar-expanded">
-            <header th:replace="~{fragments/header :: header}"></header>
-            <sidebar th:replace="~{fragments/sidebar :: sidebar}"></sidebar>
-            <div th:replace="~{fragments/workspace :: workspace(content=${content})}"></div>
+            <th:block th:replace="~{fragments/header :: header}"></th:block>
+            <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
+            <th:block th:replace="~{fragments/workspace :: workspace(content=${content})}"></th:block>
         </div>
     </body>
 </th:block>
