@@ -20,9 +20,9 @@
     </h1>
     <h2 class="verification__headline">Help us protect your account</h2>
     <p class="verification__info">
-        You are signed in as <th:block th:text="${username ?: gundi_user}"></th:block>. For added
+        You are signed in as <th:block th:text="${username ?: 'username'}"></th:block>. For added
         security, you will need to verify your identity. We have sent a verification
-        code to <th:block th:text="${email}"></th:block>
+        code to <th:block th:text="${email ?: 'email@example.com'}"></th:block>
     </p>
     <form class="form" th:action="@{${routes.verification}}" method="POST">
         <div class="form__group">
