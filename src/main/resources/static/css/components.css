@@ -8,6 +8,10 @@
     width: 1.5rem;
 }
 
+.link {
+    color: var(--primary-color);
+}
+
 .icon--l {
     height: 2rem;
     width: 2rem;
@@ -22,7 +26,11 @@
     display: flex;
     color: var(--primary-color);
     gap: 0.1rem;
-    font-size: 3rem;
+    font-size: 1.7rem;
+}
+
+.logo--l {
+    font-size: 3rem; 
 }
 
 .btn {
@@ -56,18 +64,6 @@
 .btn__indicator {
     order: 3;
     margin-left: auto;
-}
-
-.btn--logo {
-    color: var(--primary-color);
-}
-
-.btn--logo:hover {
-    color: var(--primary-color);
-}
-
-.btn--logo .btn__label {
-    font-size: 1.7rem;
 }
 
 .list {
