@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{fragments/app :: app(title='Admin Panel', content=~{::content})}">
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
+    content=~{this::.app__main-content},
+    title='Admin Panel'
+" sec:authorize="hasRole('ADMIN')">
 
-<div th:fragment="content" sec:authorize="hasRole('ADMIN')">
+<div class="app__main-content">
     <h1>Admin panel</h1>
 
     <div sec:authorize="hasRole('ROOT')">

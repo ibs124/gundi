@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/app :: app(title='My Profile', content=~{::content})}">
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
+    content=~{this::.app__main-content},
+    title='My Profile'
+" sec:authorize="hasRole('USER')">
 
-<div th:fragment="content" sec:authorize="isAuthenticated()">
+<div class="app__main-content">
     <div class="card" th:object="${viewModel}">
         <p th:text="*{username}"></p>
         <p th:text="*{fullName}"></p>

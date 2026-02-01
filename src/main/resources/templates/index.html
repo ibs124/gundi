@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/app :: app(title='Home', content=~{::content})}">
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
+    content=~{this::.app__main-content}
+">
 
-<section class="index-class" th:fragment="content">
+<div class="app__main-content">
     <p>Index page content</p>
-</section>
+</div>
 
 </html>

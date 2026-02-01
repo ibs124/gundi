@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{fragments/app :: app(title='Account Settings', content=~{::content})}">
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
+    content=~{this::.app__main-content},
+    title='Account Settings'
+" sec:authorize="hasRole('USER')">
 
-<div th:fragment="content" sec:authorize="hasRole('USER')">
+<div class="app__main-content">
     <h2>Account Settings</h2>
-
-    </div>
 </div>
 
 </html>
