@@ -8,6 +8,7 @@ public abstract class Routes {
     public static final String ERROR = CONVENTIONAL_INDEX + Env.ERROR;
     public static final String SUCCESS = CONVENTIONAL_INDEX + Env.SUCCESS;
     public static final String SEND = CONVENTIONAL_INDEX + "send";
+    public static final String SUBMIT = CONVENTIONAL_INDEX + "submit";
 
     public static final String INDEX = CONVENTIONAL_INDEX;
 
@@ -18,6 +19,8 @@ public abstract class Routes {
     public static final String LOGIN_ERROR = LOGIN + ERROR;
     public static final String LOGOUT = AUTH + "/sign-out";
     public static final String VERIFICATION = AUTH + "/verification";
+    public static final String VERIFICATION_SEND = VERIFICATION + SEND;
+    public static final String VERIFICATION_SUBMIT = VERIFICATION + SUBMIT;
 
     public static final String USERS = INDEX + "users";
     public static final String USERS_SELF_PROFILE = USERS + "/me";

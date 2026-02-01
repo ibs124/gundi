@@ -10,6 +10,7 @@
 </th:block>
 
 <div class="verification">
+    <th:block th:if="${message != null}" th:text="${message}"></th:block>
     <h1>
         <div class="logo logo--l">
             <svg class="icon icon--xl">
@@ -24,13 +25,13 @@
         security, you will need to verify your identity. We have sent a verification
         code to <th:block th:text="${email ?: 'email@example.com'}"></th:block>
     </p>
-    <form class="form" th:action="@{${routes.verification}}" method="POST">
+    <form class="form" th:action="@{${routes.verification_submit}}" method="GET">
         <div class="form__group">
             <label class="form__label" for="token">Verification code</label>
             <input class="form__input" type="text" name="token">
         </div>
         <p>
-            Didn't get the code? <a href="" class="link">Resend code</a>
+            Didn't get the code? <a th:href="@{${routes.verification_send}}" class="link">Resend code</a>
         </p>
         <button class="btn form__submit-btn" type="submit">
             <div class="btn__label">Verify code</div>
