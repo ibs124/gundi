@@ -65,7 +65,7 @@ public class RegisterController {
                                 this.userMapper.mapToApplicationModel(bindingModel),
                                 RouteUtils.getAppUrl(httpServletRequest)));
 
-        return RouteUtils.getRedirectUrl(Routes.VERIFICATION);
+        return RouteUtils.getRedirectUrl(Routes.VERIFICATION_SEND);
     }
 
 }
