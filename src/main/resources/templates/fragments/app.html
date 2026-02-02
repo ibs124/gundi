@@ -1,13 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{fragments/head}"></th:block>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${title} ?: 'Gundi'"></title>
+
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <script th:src="@{/js/main.js}" defer></script>
+
+    <th:block th:if="${headExtra != null}">
+        <th:block th:replace="${headExtra}"></th:block>
+    </th:block>
+</head>
 
 <body>
     <div class="app app--dark-mode app--sidebar-expanded">
-        <th:block th:replace="~{fragments/header}"></th:block>
-        <th:block th:replace="~{fragments/sidebar}"></th:block>
-        <th:block th:replace="~{fragments/workspace}"></th:block>
+        <div th:insert="~{fragments/header}" class="app__header"></div>
+
+        <div th:insert="~{fragments/sidebar}" class="app__sidebar"></div>
+
+        <div class="app__workspace">
+            <main class="app__main">
+                <th:block th:if="${content != null}">
+                    <th:block th:replace="${content}"></th:block>
+                </th:block>
+
+                <th:block th:if="${content == null}">
+                    <h1>Error, content not available!</h1>
+                </th:block>
+            </main>
+            <!-- <footer class="app__footer" th:insert="~{fragments/contacts}"></footer> -->
+        </div>
     </div>
 </body>
 
