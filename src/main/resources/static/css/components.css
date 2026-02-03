@@ -1,3 +1,7 @@
+.link {
+    color: var(--primary-color);
+}
+
 .icon {
     fill: none;
     stroke: currentColor;
@@ -6,10 +10,6 @@
     stroke-linejoin: round;
     height: 1.5rem;
     width: 1.5rem;
-}
-
-.link {
-    color: var(--primary-color);
 }
 
 .icon--l {
@@ -30,7 +30,7 @@
 }
 
 .logo--l {
-    font-size: 3rem; 
+    font-size: 3rem;
 }
 
 .btn {
