@@ -5,8 +5,6 @@ const APP_SIDEBAR_EXPANDED = "app--sidebar-expanded";
 main();
 
 function main() {
-    injectIcons();
-
     setDOMContentLoadedEventListener()
 
     setSidebarToggleBtn();
@@ -65,6 +63,7 @@ function updateSidebar(app) {
     classes.remove(expanded);
 }
 
+// Old icons injection function. Now icons are injected using a Thymeleaf fragment.
 function injectIcons() {
     fetch("../images/icons.svg")
         .then(res => res.text())
