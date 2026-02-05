@@ -9,28 +9,28 @@
         <div class="form__group">
             <label class="form__label" for="email">Email address</label>
             <input class="form__input" type="text" placeholder="Email address" name="email" th:field="*{email}">
-            <small class="form__error" th:if="${#fields.hasErrors('email')}">
+            <small class="text text--danger" th:if="${#fields.hasErrors('email')}">
                 <pre th:errors="*{email}"></pre>
             </small>
         </div>
         <div class="form__group">
             <label class="form__label" for="password">Password</label>
             <input class="form__input" type="password" placeholder="Password" name="password" th:field="*{password}">
-            <small class="form__error" th:if="${#fields.hasErrors('password')}">
+            <small class="text text--danger" th:if="${#fields.hasErrors('password')}">
                 <pre th:errors="*{password}"></pre>
             </small>
         </div>
         <div class="form__group">
             <label class="form__label" for="fullname">Full name</label>
             <input class="form__input" type="text" placeholder="Full name" name="fullName" th:field="*{fullName}">
-            <small class="form__error" th:if="${#fields.hasErrors('fullName')}">
+            <small class="text text--danger" th:if="${#fields.hasErrors('fullName')}">
                 <pre th:errors="*{fullName}"></pre>
             </small>
         </div>
         <div class="form__group">
             <label class="from__label" for="username">Username</label>
             <input class="form__input" type="text" placeholder="Username" name="username" th:field="*{username}">
-            <small class="form__error" th:if="${#fields.hasErrors('username')}">
+            <small class="text text--danger" th:if="${#fields.hasErrors('username')}">
                 <pre th:errors="*{username}"></pre>
             </small>
         </div>
