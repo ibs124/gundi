@@ -12,8 +12,8 @@
     --bg-dark-color: oklch(0.92 0.015 252);
     --bg-color: oklch(0.96 0.015 252);
     --bg-light-color: oklch(1 0.015 252);
-    --text-color: oklch(0.15 0.03 252);
-    --text-muted-color: oklch(0.4 0.03 252);
+    --text-color: oklch(0.4 0.03 252);
+    --text-highlighted-color: oklch(0.15 0.03 252);
     --border-highlight-color: oklch(1 0.03 252);
     --border-color: oklch(0.6 0.03 252);
     --border-muted-color: oklch(0.7 0.03 252);
@@ -25,7 +25,7 @@
     --alert-info-color: oklch(0.5 0.05 260);
 
     --header-height: 60px;
-    --sidebar-width: 60px;
+    --sidebar-width: var(--header-height);
     --sidebar-expanded-width: 230px;
     --padding: 0.5rem;
 
@@ -38,7 +38,7 @@
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    background-color: var(--bg-dark-color);
+    background-color: var(--bg-color);
     color: var(--text-color);
 
     display: grid;
@@ -53,12 +53,15 @@
     grid-area: header;
     overflow: hidden auto;
     padding: var(--padding);
+    background-color: var(--bg-dark-color);
 }
 
 .app__sidebar {
     grid-area: sidebar;
     overflow: hidden auto;
     padding: var(--padding);
+    background-color: var(--bg-dark-color);
+    color: var(--text-highlighted-color);
     z-index: 10;
     transition: width .5s;
 }
@@ -67,8 +70,6 @@
     grid-area: workspace;
     overflow: hidden auto;
     padding: 2rem;
-    background-color: var(--bg-color);
-    color: var(--text-muted-color);
     border-radius: 15px;
     z-index: 1;
     display: flex;
@@ -82,8 +83,8 @@
     --bg-dark-color: oklch(0.1 0.015 252);
     --bg-color: oklch(0.15 0.015 252);
     --bg-light-color: oklch(0.2 0.015 252);
-    --text-color: oklch(0.96 0.03 252);
-    --text-muted-color: oklch(0.76 0.03 252);
+    --text-highlighted-color: oklch(0.96 0.03 252);
+    --text-color: oklch(0.76 0.03 252);
     --border-highlight-color: oklch(0.5 0.03 252);
     --border-color: oklch(0.4 0.03 252);
     --border-muted-color: oklch(0.3 0.03 252);
