@@ -28,6 +28,9 @@
         <div th:insert="~{fragments/sidebar}" class="app__sidebar"></div>
 
         <div class="app__workspace">
+            <div class="box box--full-width">
+                <p class="text text--danger">Hello world</p>
+            </div>
             <main class="app__main">
                 <th:block th:if="${content != null}">
                     <th:block th:replace="${content}"></th:block>
@@ -37,7 +40,6 @@
                     <h1>Error, content not available!</h1>
                 </th:block>
             </main>
-            <!-- <footer class="app__footer" th:insert="~{fragments/contacts}"></footer> -->
         </div>
     </div>
 </body>

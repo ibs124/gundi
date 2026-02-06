@@ -72,18 +72,10 @@
     border-radius: 15px;
     z-index: 1;
     display: flex;
+    gap: 2rem;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     align-content: center;
-}
-
-.app__footer {
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--bg-light-color);
-    border: solid 1px var(--border-color);
-    border-radius: 10px;
 }
 
 .app--dark-mode {
