@@ -10,7 +10,7 @@ import ibs124.gundi.constant.ThymeleafEnv;
 import ibs124.gundi.utility.AppUtils;
 
 @ControllerAdvice
-class RoutesController {
+class GlobalController {
 
     private final Map<String, String> routes = AppUtils
             .mapConstants(Routes.class);
