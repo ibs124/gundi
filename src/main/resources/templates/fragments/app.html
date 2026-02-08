@@ -28,8 +28,8 @@
         <div th:insert="~{fragments/sidebar}" class="app__sidebar"></div>
 
         <div class="app__workspace">
-            <div class="box box--full-width">
-                <p class="text text--danger">Hello world</p>
+            <div class="alert-box">
+                <p class="alert--danger">Hello world</p>
             </div>
             <main class="app__main">
                 <th:block th:if="${content != null}">
