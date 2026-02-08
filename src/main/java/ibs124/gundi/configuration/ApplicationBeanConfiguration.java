@@ -2,8 +2,10 @@ package ibs124.gundi.configuration;
 
 import java.security.SecureRandom;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
@@ -11,12 +13,28 @@ public class ApplicationBeanConfiguration {
 
     @Bean
     LocalValidatorFactoryBean localValidatorFactoryBean() {
-        return new LocalValidatorFactoryBean();
+        var validatorFactory = new LocalValidatorFactoryBean();
+
+        MessageSource messageSource = this.messageSource();
+
+        if (messageSource != null) {
+            validatorFactory.setValidationMessageSource(messageSource);
+        }
+
+        return validatorFactory;
     }
 
     @Bean
     SecureRandom secureRandom() {
         return new SecureRandom();
+    }
+
+    @Bean
+    MessageSource messageSource() {
+        var messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:message");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 
 }
