@@ -1,8 +1,8 @@
 package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.Routes.REGISTER;
-import static ibs124.gundi.constant.ThEnv.BINDING_MODEL;
-import static ibs124.gundi.constant.ThEnv.BINDING_RESULT;
+import static ibs124.gundi.constant.ThymeleafEnv.BINDING_MODEL;
+import static ibs124.gundi.constant.ThymeleafEnv.BINDING_RESULT;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import ibs124.gundi.constant.Routes;
-import ibs124.gundi.constant.ThTemplates;
+import ibs124.gundi.constant.Templates;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDto;
 import ibs124.gundi.model.presentation.UserRegisterRequest;
@@ -42,7 +42,7 @@ public class RegisterController {
                     new UserRegisterRequest(null, null, null, null));
         }
 
-        return ThTemplates.REGISTER;
+        return Templates.REGISTER;
     }
 
     @PostMapping

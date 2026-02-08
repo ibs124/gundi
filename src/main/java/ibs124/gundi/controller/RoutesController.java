@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ibs124.gundi.constant.Routes;
-import ibs124.gundi.constant.ThEnv;
-import ibs124.gundi.utility.Application;
+import ibs124.gundi.constant.ThymeleafEnv;
+import ibs124.gundi.utility.AppUtils;
 
 @ControllerAdvice
 class RoutesController {
 
-    private final Map<String, String> routes = Application
+    private final Map<String, String> routes = AppUtils
             .mapConstants(Routes.class);
 
-    @ModelAttribute(ThEnv.ROUTES)
+    @ModelAttribute(ThymeleafEnv.ROUTES)
     public Map<String, String> globalRoutes() {
         return this.routes;
     }

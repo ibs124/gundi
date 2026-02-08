@@ -1,12 +1,12 @@
 package ibs124.gundi.constant;
 
-public abstract class ThEnv {
+public abstract class ThymeleafEnv {
 
     public static final String MESSAGE = Env.MESSAGE;
 
     public static final String EMAIL = Env.EMAIL;
 
-    public static final String USERNAME = "username";
+    public static final String USERNAME = Env.USERNAME;
 
     public static final String SUCCESS = Env.SUCCESS;
 

@@ -1,14 +1,14 @@
 package ibs124.gundi.service.auth.impl;
 
-import static ibs124.gundi.constant.ThTemplates.NEW_USER_VERIFICATION_EMAIL;
+import static ibs124.gundi.constant.Templates.NEW_USER_VERIFICATION_EMAIL;
 
 import java.util.Map;
 
 import static ibs124.gundi.constant.Env.GUNDI_LOGO_URL;
-import static ibs124.gundi.constant.ThEnv.DEADLINE;
-import static ibs124.gundi.constant.ThEnv.TOKEN;
-import static ibs124.gundi.constant.ThEnv.EXPIRATION;
-import static ibs124.gundi.constant.ThEnv.URL;
+import static ibs124.gundi.constant.ThymeleafEnv.DEADLINE;
+import static ibs124.gundi.constant.ThymeleafEnv.TOKEN;
+import static ibs124.gundi.constant.ThymeleafEnv.EXPIRATION;
+import static ibs124.gundi.constant.ThymeleafEnv.URL;
 
 import org.springframework.stereotype.Service;
 

@@ -2,24 +2,25 @@ package ibs124.gundi.constant;
 
 public abstract class Messages {
 
-    public static final String BLANK_FIELD = "This field is required.";
+    private static final String NOT_FOUND = ".not_found}";
+    private static final String FORMAT_ERROR = ".format_error}";
+    private static final String TAKEN = ".taken}";
+    private static final String REQUIRED = ".required}";
 
-    public static final String USER_NOT_FOUND = "User not found";
+    public static final String BLANK_FIELD = "{blank_field}";
 
-    public static final String EMAIL_FORMAT_ERROR = "Invalid email address.";
+    public static final String USER_NOT_FOUND = "{user" + NOT_FOUND;
 
-    public static final String EMAIL_TAKEN = "Email already taken.";
+    private static final String EMAIL = "{" + Env.EMAIL;
+    public static final String EMAIL_FORMAT_ERROR = EMAIL + FORMAT_ERROR;
+    public static final String EMAIL_TAKEN = EMAIL + TAKEN;
+    public static final String EMAIL_REQUIRED = EMAIL + REQUIRED;
 
-    public static final String EMAIL_REQUIRED = "Email required.";
+    public static final String PASSWORD_FORMAT_ERROR = "{password" + FORMAT_ERROR;
 
-    public static final String PASSWORD_FORMAT_ERROR = "Password must be at least 6 characters long.";
+    private static final String USERNAME = "{" + Env.USERNAME;
+    public static final String USERNAME_FORMAT_ERROR = USERNAME + FORMAT_ERROR;
+    public static final String USERNAME_TAKEN = USERNAME + TAKEN;
 
-    public static final String USERNAME_FORMAT_ERROR = """
-            Username must be between 3 and 20 characters long,
-            it can only use letters, numbers and underscores.
-            """;
-
-    public static final String USERNAME_TAKEN = "Username already taken.";
-
-    public static final String FULL_NAME_FORMAT_ERROR = "Invalid full name.";
+    public static final String FULL_NAME_FORMAT_ERROR = "{full_name" + FORMAT_ERROR;
 }

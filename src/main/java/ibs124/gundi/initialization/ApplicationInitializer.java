@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import ibs124.gundi.configuration.PropertyConfiguration;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.service.auth.RoleInitializingService;
-import ibs124.gundi.utility.Application;
+import ibs124.gundi.utility.AppUtils;
 
 @Component
 @Order(1)
@@ -35,7 +35,7 @@ class ApplicationInitializer implements CommandLineRunner {
 
         this.logger.info(LOGGING, propertyConfig);
 
-        this.logger.info(LOGGING, Application.mapConstants(Routes.class));
+        this.logger.info(LOGGING, AppUtils.mapConstants(Routes.class));
     }
 
 }

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ibs124.gundi.constant.Routes;
-import ibs124.gundi.constant.ThEnv;
-import ibs124.gundi.constant.ThTemplates;
+import ibs124.gundi.constant.ThymeleafEnv;
+import ibs124.gundi.constant.Templates;
 
 @Controller
 @RequestMapping(Routes.VERIFICATION)
@@ -15,14 +15,14 @@ class VerificationController {
 
     @GetMapping(Routes.SEND)
     public String send(Model model) {
-        model.addAttribute(ThEnv.MESSAGE, "Verification email sent");
-        return ThTemplates.VERIFICATION;
+        model.addAttribute(ThymeleafEnv.MESSAGE, "Verification email sent");
+        return Templates.VERIFICATION;
     }
 
     @GetMapping(Routes.SUBMIT)
     public String submit(Model model) {
-        model.addAttribute(ThEnv.MESSAGE, "Verification code submited!");
-        return ThTemplates.VERIFICATION;
+        model.addAttribute(ThymeleafEnv.MESSAGE, "Verification code submited!");
+        return Templates.VERIFICATION;
     }
 
 }
