@@ -24,7 +24,7 @@ class LoginController {
     public String loginError(@ModelAttribute(ThymeleafEnv.USERNAME) String username, Model model) {
         model
                 .addAttribute(ThymeleafEnv.USERNAME, username)
-                .addAttribute(ThymeleafEnv.SUCCESS, false);
+                .addAttribute(ThymeleafEnv.STATUS_CODE, 1);
 
         return Templates.LOGIN;
     }

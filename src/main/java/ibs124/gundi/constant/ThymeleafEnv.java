@@ -2,20 +2,14 @@ package ibs124.gundi.constant;
 
 public abstract class ThymeleafEnv {
 
-    public static final String MESSAGE = Env.MESSAGE;
+    public static final String API_RESPONSE = "apiResponse";
 
-    public static final String EMAIL = Env.EMAIL;
-
-    public static final String USERNAME = Env.USERNAME;
-
-    public static final String SUCCESS = Env.SUCCESS;
-
-    public static final String VIEW_MODEL = "viewModel";
-
-    public static final String BINDING_MODEL = "bindingModel";
+    public static final String STATUS_CODE = "statusCode";
 
     public static final String BINDING_RESULT = "org.springframework.validation.BindingResult."
-            + BINDING_MODEL;
+            + API_RESPONSE;
+
+    public static final String USERNAME = Env.USERNAME;
 
     public static final String ROUTES = "routes";
 

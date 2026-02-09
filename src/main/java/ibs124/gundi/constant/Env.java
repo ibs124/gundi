@@ -24,4 +24,8 @@ public abstract class Env {
 
     public static final String USERNAME = "username";
 
+    public static final String MESSAGE_SOURCE_BASENAME = "classpath:message";
+
+    public static final String MESSAGE_SOURCE_DEFAULT_ENCODING = "UTF-8";
+
 }

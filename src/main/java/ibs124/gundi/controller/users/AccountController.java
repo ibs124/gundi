@@ -1,5 +1,7 @@
 package ibs124.gundi.controller.users;
 
+import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
-import ibs124.gundi.constant.ThymeleafEnv;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.UserDetailsDto;
 
@@ -28,10 +29,10 @@ public class AccountController {
             @AuthenticationPrincipal UserDetailsDto principal,
             Model model) {
 
-        if (!model.containsAttribute(ThymeleafEnv.VIEW_MODEL)) {
+        if (!model.containsAttribute(API_RESPONSE)) {
             model
                     .addAttribute(
-                            ThymeleafEnv.VIEW_MODEL,
+                            API_RESPONSE,
                             this.userMapper.mapToPresentationModel(principal));
         }
 

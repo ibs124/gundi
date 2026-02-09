@@ -28,9 +28,10 @@
         <div th:insert="~{fragments/sidebar}" class="app__sidebar"></div>
 
         <div class="app__workspace">
-            <div class="alert-box">
-                <p class="alert--danger">Hello world</p>
-            </div>
+            <th:block th:if="${mesage != null}">
+                <div class="alert-box" th:insert="${mesage}">
+                </div>
+            </th:block>
             <main class="app__main">
                 <th:block th:if="${content != null}">
                     <th:block th:replace="${content}"></th:block>

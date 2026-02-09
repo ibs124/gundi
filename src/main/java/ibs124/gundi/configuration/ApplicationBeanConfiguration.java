@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import ibs124.gundi.constant.Env;
+
 @Configuration
 public class ApplicationBeanConfiguration {
 
@@ -32,8 +34,8 @@ public class ApplicationBeanConfiguration {
     @Bean
     MessageSource messageSource() {
         var messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:message");
-        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setBasename(Env.MESSAGE_SOURCE_BASENAME);
+        messageSource.setDefaultEncoding(Env.MESSAGE_SOURCE_DEFAULT_ENCODING);
         return messageSource;
     }
 
