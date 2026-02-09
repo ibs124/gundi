@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
     title='Sign In',
-    content=~{this::.app__main-content},
-    alert=~{this::alert}
+    content=~{this::.app__main-content}
 ">
-
-<th:blcok th:if="${statusCode != 0}">
-    <p class="alert alert--danger" th:fragment="alert" th:text="#{auth.login.error}"></p>
-</th:blcok>
 
 <div class="app__main-content">
     <form class="form" th:action="@{${routes.login}}" method="POST">
         <div class="form__group">
             <label class="form__label" for="username">Email or Username</label>
-            <input class="form__input" type="text" placeholder="Email or Username" name="username" th:value="${username}">
+            <input class="form__input" type="text" placeholder="Email or Username" name="username"
+                th:value="${username}">
         </div>
         <div class="form__group">
             <label class="form__label" for="password">Password</label>
             <input class="form__input" type="password" placeholder="Password" name="password">
-            </p>
-            <button class="btn form__submit-btn" type="submit">
-                <div class="btn__label">Sign in</div>
-            </button>
+        </div>
+
+        <p class="alert alert--danger" th:if="${statusCode == 1}" th:text="#{auth.login.error}"></p>
+        <button class="btn form__submit-btn" type="submit">
+            <div class="btn__label">Sign in</div>
+        </button>
     </form>
 </div>
 
