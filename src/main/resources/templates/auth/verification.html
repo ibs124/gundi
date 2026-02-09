@@ -2,11 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
     title='Verification',
     content=~{this::.verification},
-    headExtra=~{this::headExtra}
+    headExtra=~{this::headExtra},
+    alert=~{this::alert}
 ">
 
 <th:block th:fragment="headExtra">
     <link rel="stylesheet" th:href="@{/css/verification.css}">
+</th:block>
+
+<th:block th:fragment="alert">
+    <p class="alert alert--info" th:if="${statusCode == 3}" th:text="#{auth.verification.sent}"></p>
+    <p class="alert alert--danger" th:if="${statusCode == 4}" th:text="#{auth.verification.incorrect}"></p>
 </th:block>
 
 <div class="verification">
