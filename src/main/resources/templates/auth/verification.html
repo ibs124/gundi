@@ -11,17 +11,17 @@
     <th:block th:case="*"></th:block>
 </th:block>
 
-<div class="card">
-    <header class="card__header">
+<div class="section">
+    <header class="section__header">
         <div class="logo logo--l">
             <svg class="icon icon--xl">
                 <use href="#logo"></use>
             </svg>
             <p>Gundi</p>
         </div>
-        <h2 class="card__headline">Help us protect your account</h2>
+        <h2>Help us protect your account</h2>
     </header>
-    <div class="card__main">
+    <div class="section__main"></div>
         <p>
             You are signed in as <th:block th:text="${username ?: 'username'}"></th:block>. For added
             security, you will need to verify your identity. We have sent a verification
