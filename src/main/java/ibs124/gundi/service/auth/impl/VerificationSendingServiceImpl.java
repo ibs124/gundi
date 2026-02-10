@@ -2,8 +2,6 @@ package ibs124.gundi.service.auth.impl;
 
 import static ibs124.gundi.constant.Templates.NEW_USER_VERIFICATION_EMAIL;
 
-import java.util.Map;
-
 import static ibs124.gundi.constant.Env.GUNDI_LOGO_URL;
 import static ibs124.gundi.constant.ThymeleafEnv.DEADLINE;
 import static ibs124.gundi.constant.ThymeleafEnv.TOKEN;
@@ -16,7 +14,6 @@ import ibs124.gundi.configuration.PropertyConfiguration;
 import ibs124.gundi.model.application.EmailSendDto;
 import ibs124.gundi.model.application.TemplateCompileDto;
 import ibs124.gundi.model.application.VerificationSendDto;
-import ibs124.gundi.model.enumm.VerificationType;
 import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
@@ -29,24 +26,20 @@ class VerificationSendingServiceImpl implements VerificationSendingService {
 
     private final TemplateCompilingService templateCompileService;
     private final EmailSendingService emailSendingService;
-    private final Map<VerificationType, VerificationProperties> configMap;
+    private final PropertyConfiguration config;
 
     public VerificationSendingServiceImpl(
             TemplateCompilingService templateCompileService,
             EmailSendingService emailSendingService,
             PropertyConfiguration config) {
-
         this.templateCompileService = templateCompileService;
-
         this.emailSendingService = emailSendingService;
-
-        this.configMap = Map.of(
-                VerificationType.NEW_USER, config.newUser());
+        this.config = config;
     }
 
     @Override
     public void sendVerification(VerificationSendDto request) {
-        VerificationProperties config = this.configMap.get(request.type());
+        VerificationProperties config = this.config.newUser();
 
         VerificationTokenProperties tokenConfig = config.token();
 

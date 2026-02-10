@@ -19,7 +19,6 @@ import ibs124.gundi.model.application.UserCreateDto;
 import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
-import ibs124.gundi.model.enumm.VerificationType;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.RegistrationService;
@@ -78,10 +77,9 @@ class RegistrationServiceImpl implements RegistrationService {
     }
 
     public void sendVerification(String token, String appUrl, String email) {
-        VerificationSendDto verificationRequest = new VerificationSendDto(
-                VerificationType.NEW_USER, email, token, appUrl);
+        var request = new VerificationSendDto(email, token, appUrl);
 
-        UserVerificationEvent event = new UserVerificationEvent(verificationRequest);
+        var event = new UserVerificationEvent(request);
 
         this.eventPublisher.publishEvent(event);
     }

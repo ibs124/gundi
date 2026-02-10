@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import ibs124.gundi.console.CommandRunner;
 
 import ibs124.gundi.model.application.VerificationSendDto;
-import ibs124.gundi.model.enumm.VerificationType;
 import ibs124.gundi.service.auth.VerificationSendingService;
 
 @Component
@@ -27,12 +26,7 @@ public class VerificationCommandRunner implements CommandRunner {
 
     @Override
     public String run(String... args) {
-
-        VerificationSendDto request = new VerificationSendDto(
-                VerificationType.NEW_USER,
-                EMAIL,
-                OTP,
-                null);
+        var request = new VerificationSendDto(EMAIL, OTP, null);
 
         this.verificationSendingService.sendVerification(request);
 
