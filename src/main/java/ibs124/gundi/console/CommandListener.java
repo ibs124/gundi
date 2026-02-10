@@ -44,7 +44,7 @@ public class CommandListener {
                     case EXIT_COMMAND -> System.exit(0);
                     case HELP_COMMAND -> message = Config.HELP;
                     case SEED_COMMAND -> message = this.callRunner(this.seedeer);
-                    case SEND_COMMAND -> message = this.callRunner(this.sender);
+                    // case SEND_COMMAND -> message = this.callRunner(this.sender);
                     default -> message = String.format(ERROR_FORAMT, command);
                 }
 
