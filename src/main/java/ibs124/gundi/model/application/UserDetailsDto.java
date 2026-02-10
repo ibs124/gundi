@@ -15,18 +15,18 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
     private Long id;
     private String primaryEmail;
     private String fullName;
-    private Boolean isEnabled;
+    private boolean isEnabled;
     private Instant lockedAt;
     private Instant accountExpiresAt;
 
-    @Override
-    public boolean isEnabled() {
-        return this.getIsEnabled();
+    public UserDetailsDto() {
+        super();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.getAccountExpiresAt().isBefore(Instant.now());
+        return this.getAccountExpiresAt() != null
+                && this.getAccountExpiresAt().isAfter(Instant.now());
     }
 
     @Override
@@ -39,7 +39,6 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
         this.setPassword(null);
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
@@ -48,22 +47,20 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
         this.authorities = authorities;
     }
 
-    @Override
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    @Override
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
-    public void setPassword(String passowrd) {
-        this.password = passowrd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
@@ -78,8 +75,8 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
         return primaryEmail;
     }
 
-    public void setPrimaryEmail(String email) {
-        this.primaryEmail = email;
+    public void setPrimaryEmail(String primaryEmail) {
+        this.primaryEmail = primaryEmail;
     }
 
     public String getFullName() {
@@ -90,12 +87,12 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
         this.fullName = fullName;
     }
 
-    public Boolean getIsEnabled() {
+    public boolean isEnabled() {
         return isEnabled;
     }
 
-    public void setIsEnabled(Boolean isEnabled) {
-        this.isEnabled = isEnabled;
+    public void setEnabled(boolean enabled) {
+        this.isEnabled = enabled;
     }
 
     public Instant getLockedAt() {

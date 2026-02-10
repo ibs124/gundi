@@ -56,7 +56,7 @@ class VerificationServiceImpl implements VerificationService {
 
         user.addRole(userRole);
 
-        user.setIsEnabled(true);
+        user.setEnabled(true);
 
         user.setLastVerifiedAt(Instant.now());
 

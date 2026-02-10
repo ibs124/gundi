@@ -90,7 +90,7 @@ public class UserSeeder {
         user.setPrimaryEmail(primaryEmail);
 
         user.setLastVerifiedAt(Instant.now());
-        user.setIsEnabled(true);
+        user.setEnabled(true);
         return user;
     }
 

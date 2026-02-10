@@ -13,7 +13,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
@@ -24,7 +23,7 @@ public class User extends AbstractAuditableDomainModel {
     private String username;
     private String password;
     private String primaryEmail;
-    private Boolean isEnabled;
+    private boolean isEnabled;
     private Instant lastVerifiedAt;
     private Instant accountExpiresAt;
     private Instant mfaEnabledAt;
@@ -51,6 +50,10 @@ public class User extends AbstractAuditableDomainModel {
     }
 
     public void setRoles(Set<Role> roles) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+
         this.roles = roles;
     }
 
@@ -92,12 +95,12 @@ public class User extends AbstractAuditableDomainModel {
         this.primaryEmail = primaryEmail;
     }
 
-    public Boolean getIsEnabled() {
+    public boolean isEnabled() {
         return isEnabled;
     }
 
-    public void setIsEnabled(Boolean isEnabled) {
-        this.isEnabled = isEnabled;
+    public void setEnabled(boolean enabled) {
+        this.isEnabled = enabled;
     }
 
     @PastOrPresent
@@ -118,7 +121,7 @@ public class User extends AbstractAuditableDomainModel {
         this.accountExpiresAt = accountExpiresAt;
     }
 
-    @FutureOrPresent
+    @PastOrPresent
     public Instant getMfaEnabledAt() {
         return mfaEnabledAt;
     }
@@ -127,7 +130,7 @@ public class User extends AbstractAuditableDomainModel {
         this.mfaEnabledAt = mfaEnabledAt;
     }
 
-    @FutureOrPresent
+    @PastOrPresent
     public Instant getLockedAt() {
         return lockedAt;
     }
