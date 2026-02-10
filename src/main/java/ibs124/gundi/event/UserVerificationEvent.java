@@ -4,8 +4,8 @@ import ibs124.gundi.model.application.VerificationSendDto;
 
 public class UserVerificationEvent extends AbstractVerificationEvent {
 
-    public UserVerificationEvent(VerificationSendDto verificationRequest) {
-        super(verificationRequest);
+    public UserVerificationEvent(VerificationSendDto payload) {
+        super(payload);
     }
 
 }

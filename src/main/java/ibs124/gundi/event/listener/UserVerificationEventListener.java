@@ -24,7 +24,7 @@ class UserVerificationEventListener
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationEvent(@NonNull UserVerificationEvent event) {
         this.verificationSendingService
-                .sendVerification(event.getVerificationRequest());
+                .sendVerification(event.getPayload());
 
     }
 
