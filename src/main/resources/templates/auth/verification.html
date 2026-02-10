@@ -10,9 +10,9 @@
     <link rel="stylesheet" th:href="@{/css/verification.css}">
 </th:block>
 
-<th:block th:fragment="alert">
-    <p class="alert alert--info" th:if="${statusCode == 3}" th:text="#{auth.verification.sent}"></p>
-    <p class="alert alert--danger" th:if="${statusCode == 4}" th:text="#{auth.verification.incorrect}"></p>
+<th:block th:switch="${statusCode}" th:fragment="alert">
+    <p th:case="3" th:text="#{auth.verification.sent}" class="alert alert--info"></p>
+    <p th:case="4" th:text="#{auth.verification.incorrect}" class="alert alert--danger" ></p>
 </th:block>
 
 <div class="verification">
