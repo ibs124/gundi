@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
     title='Verification',
-    content=~{this::.verification},
-    headExtra=~{this::.head},
+    content=~{this::.card},
     alert=~{this::.alert}
 ">
-
-<th:block class="head">
-    <link rel="stylesheet" th:href="@{/css/verification.css}">
-</th:block>
 
 <th:block th:switch="${statusCode}" class="alert">
     <p th:case="3" th:text="#{auth.verification.sent}" class="alert alert__info"></p>
@@ -16,33 +11,35 @@
     <th:block th:case="*"></th:block>
 </th:block>
 
-<div class="verification">
-    <h1>
+<div class="card">
+    <header class="card__header">
         <div class="logo logo--l">
             <svg class="icon icon--xl">
                 <use href="#logo"></use>
             </svg>
             <p>Gundi</p>
         </div>
-    </h1>
-    <h2 class="verification__headline">Help us protect your account</h2>
-    <p class="verification__info">
-        You are signed in as <th:block th:text="${username ?: 'username'}"></th:block>. For added
-        security, you will need to verify your identity. We have sent a verification
-        code to <th:block th:text="${email ?: 'email@example.com'}"></th:block>
-    </p>
-    <form class="form box" th:action="@{${routes.verification_submit}}" method="GET">
-        <div class="form__group">
-            <label class="form__label" for="token">Verification code</label>
-            <input class="form__input" type="text" name="token">
-        </div>
+        <h2 class="card__headline">Help us protect your account</h2>
+    </header>
+    <div class="card__main">
         <p>
-            Didn't get the code? <a th:href="@{${routes.verification_send}}" class="link">Resend code</a>
+            You are signed in as <th:block th:text="${username ?: 'username'}"></th:block>. For added
+            security, you will need to verify your identity. We have sent a verification
+            code to <th:block th:text="${email ?: 'email@example.com'}"></th:block>
         </p>
-        <button class="btn form__submit-btn" type="submit">
-            <div class="btn__label">Verify code</div>
-        </button>
-    </form>
+        <form class="form" th:action="@{${routes.verification_submit}}" method="GET">
+            <div class="form__group">
+                <label class="form__label" for="token">Verification code</label>
+                <input class="form__input" type="text" name="token">
+            </div>
+            <p>
+                Didn't get the code? <a th:href="@{${routes.verification_send}}" class="link">Resend code</a>
+            </p>
+            <button class="btn form__submit-btn" type="submit">
+                <div class="btn__label">Verify code</div>
+            </button>
+        </form>
+    </div>
 </div>
 
 </html>
