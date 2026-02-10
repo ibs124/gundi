@@ -1,11 +1,17 @@
 .alert {
+    overflow: auto;
+    min-height: 3rem;
+    max-height: 5rem;
     width: 100%;
-    padding: 1rem;
+    padding: 0.7rem;
     background: var(--bg-light-color);
     color: var(--text-color);
     border: 1px solid var(--border-color);
     border-radius: 10px;
     font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
 .alert__success {
