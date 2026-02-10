@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
     title='Verification',
-    content=~{this::.card},
+    content=~{this::.section},
     alert=~{this::.alert}
 ">
 
@@ -11,7 +11,7 @@
     <th:block th:case="*"></th:block>
 </th:block>
 
-<div class="section">
+<section class="section">
     <header class="section__header">
         <div class="logo logo--l">
             <svg class="icon icon--xl">
@@ -21,10 +21,10 @@
         </div>
         <h2>Help us protect your account</h2>
     </header>
-    <div class="section__main"></div>
+    <div class="section__main">
         <p>
             You are signed in as <th:block th:text="${username ?: 'username'}"></th:block>. For added
-            security, you will need to verify your identity. We have sent a verification
+            security, you will need to verify your identity. <br> We have sent a verification
             code to <th:block th:text="${email ?: 'email@example.com'}"></th:block>
         </p>
         <form class="form" th:action="@{${routes.verification_submit}}" method="GET">
@@ -40,6 +40,6 @@
             </button>
         </form>
     </div>
-</div>
+</section>
 
 </html>
