@@ -16,7 +16,7 @@ interface UserMapstruct extends UserMapper {
 
     @Override
     @Mapping(source = Mappers.ROLES, target = Mappers.AUTHORITIES)
-    UserDetailsDto mapToInfrastructureModel(User x);
+    UserDetailsDto mapToSecurityModel(User x);
 
     @Override
     @Mapping(source = Mappers.EMAIL, target = Mappers.PRIMARY_EMAIL)

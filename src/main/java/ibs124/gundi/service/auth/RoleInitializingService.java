@@ -1,11 +1,11 @@
 package ibs124.gundi.service.auth;
 
-import java.util.List;
+import java.util.Collection;
 
 import ibs124.gundi.model.enumm.RoleName;
 
 public interface RoleInitializingService {
 
-    List<RoleName> initializeRoles();
+    Collection<RoleName> initializeRoles();
 
 }

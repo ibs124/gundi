@@ -12,7 +12,7 @@ public interface UserMapper {
 
     UserCreateDto mapToApplicationModel(UserRegisterRequest src);
 
-    UserDetailsDto mapToInfrastructureModel(User src);
+    UserDetailsDto mapToSecurityModel(User src);
 
     User mapToDomainModel(UserCreateDto dto);
 

@@ -13,7 +13,7 @@ import ibs124.gundi.model.enumm.RoleName;
 public interface RoleMapstruct extends RoleMapper {
 
     @Override
-    default GrantedAuthority mapToInfrastructureModel(Role src) {
+    default GrantedAuthority mapToSecurityModel(Role src) {
         return src == null
                 ? null
                 : new SimpleGrantedAuthority(

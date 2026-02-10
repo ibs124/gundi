@@ -24,7 +24,7 @@ class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository
                 .findByUsernameOrPrimaryEmail(username, username)
-                .map(x -> this.userMapper.mapToInfrastructureModel(x))
+                .map(x -> this.userMapper.mapToSecurityModel(x))
                 .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND));
     }
 

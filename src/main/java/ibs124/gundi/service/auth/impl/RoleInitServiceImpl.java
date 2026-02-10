@@ -1,6 +1,8 @@
 package ibs124.gundi.service.auth.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -25,14 +27,13 @@ class RoleInitServiceImpl implements RoleInitializingService {
     }
 
     @Override
-    public List<RoleName> initializeRoles() {
+    public Collection<RoleName> initializeRoles() {
 
         List<Role> roles = this.roleRepository
                 .findAll();
 
         if (roles.size() == RoleName.values().length) {
             return this.roleMapper.mapToEnumAll(roles);
-
         }
 
         this.roleRepository.deleteAll();
@@ -41,6 +42,10 @@ class RoleInitServiceImpl implements RoleInitializingService {
                 .stream(RoleName.values())
                 .map(x -> new Role(x))
                 .toList();
+
+        if (roles == null) {
+            return new ArrayList<>();
+        }
 
         roles = this.roleRepository.saveAll(roles);
 
