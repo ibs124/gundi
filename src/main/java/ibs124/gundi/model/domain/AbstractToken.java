@@ -16,7 +16,7 @@ public class AbstractToken extends AbstractDomainModel {
 
     private User user;
     private Instant expiresAt;
-    private String value;
+    private String secret;
 
     public AbstractToken() {
         super();
@@ -46,12 +46,12 @@ public class AbstractToken extends AbstractDomainModel {
 
     @NotBlank
     @Column(nullable = false, unique = true)
-    public String getValue() {
-        return value;
+    public String getSecret() {
+        return secret;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setSecret(String value) {
+        this.secret = value;
     }
 
 }

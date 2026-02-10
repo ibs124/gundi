@@ -55,7 +55,7 @@ class UserVerificationEventListener
         TemplateCompileDto templateRequest = new TemplateCompileDto(
                 NEW_USER_VERIFICATION_EMAIL)
                 .addVariable(URL, GUNDI_LOGO_URL)
-                .addVariable(TOKEN, payload.token())
+                .addVariable(TOKEN, payload.secret())
                 .addVariable(EXPIRATION, tokenConfig.expirationMinutes())
                 .addVariable(DEADLINE, config.timeframeHours());
 

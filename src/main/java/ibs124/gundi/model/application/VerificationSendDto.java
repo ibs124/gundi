@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 @NotNull
 public record VerificationSendDto(
         @ValidEmail String email,
-        @NotBlank String token,
+        @NotBlank String secret,
         String appUrl) {
 
 }
