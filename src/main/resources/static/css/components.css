@@ -1,4 +1,4 @@
-.alert-box {
+.alert {
     width: 100%;
     padding: 1rem;
     background: var(--bg-light-color);
@@ -8,20 +8,20 @@
     font-size: 1.1rem;
 }
 
-.alert--danger {
-    color: var(--alert-danger-color);
-}
-
-.alert--warning {
-    color: var(--alert-warning-color);
-}
-
-.alert--success {
+.alert__success {
     color: var(--alert-success-color);
 }
 
-.alert--info {
+.alert__danger {
+    color: var(--alert-danger-color);
+}
+
+.alert__info {
     color: var(--alert-info-color);
+}
+
+.alert__warning {
+    color: var(--alert-warning-color);
 }
 
 .link {

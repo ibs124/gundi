@@ -11,8 +11,8 @@
 </th:block>
 
 <th:block th:switch="${statusCode}" th:fragment="alert">
-    <p th:case="3" th:text="#{auth.verification.sent}" class="alert alert--info"></p>
-    <p th:case="4" th:text="#{auth.verification.incorrect}" class="alert alert--danger" ></p>
+    <p th:case="3" th:text="#{auth.verification.sent}" class="alert alert__info"></p>
+    <p th:case="4" th:text="#{auth.verification.incorrect}" class="alert alert__danger"></p>
 </th:block>
 
 <div class="verification">
