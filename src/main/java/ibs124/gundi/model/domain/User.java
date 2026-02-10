@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
@@ -26,6 +27,8 @@ public class User extends AbstractAuditableDomainModel {
     private Boolean isEnabled;
     private Instant lastVerifiedAt;
     private Instant accountExpiresAt;
+    private Instant mfaEnabledAt;
+    private Instant lockedAt;
 
     public User() {
         super();
@@ -113,6 +116,24 @@ public class User extends AbstractAuditableDomainModel {
 
     public void setAccountExpiresAt(Instant accountExpiresAt) {
         this.accountExpiresAt = accountExpiresAt;
+    }
+
+    @FutureOrPresent
+    public Instant getMfaEnabledAt() {
+        return mfaEnabledAt;
+    }
+
+    public void setMfaEnabledAt(Instant mfaEnabledAt) {
+        this.mfaEnabledAt = mfaEnabledAt;
+    }
+
+    @FutureOrPresent
+    public Instant getLockedAt() {
+        return lockedAt;
+    }
+
+    public void setLockedAt(Instant lockedAt) {
+        this.lockedAt = lockedAt;
     }
 
 }
