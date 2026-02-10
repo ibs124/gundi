@@ -20,31 +20,29 @@ import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.NewUserVerificationTokenCreatingService;
 import ibs124.gundi.service.auth.RegistrationService;
+import ibs124.gundi.service.auth.UserStateManagingService;
 import jakarta.transaction.Transactional;
 
 @Service
 class RegistrationServiceImpl implements RegistrationService {
 
-    private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final VerificationTokenRepository tokenRepository;
-    private final PropertyConfiguration config;
     private final ApplicationEventPublisher eventPublisher;
     private final NewUserVerificationTokenCreatingService tokenCreatingService;
+    private final UserStateManagingService stateManagingService;
 
     public RegistrationServiceImpl(
-            PasswordEncoder passwordEncoder,
             UserMapper userMapper,
             VerificationTokenRepository tokenRepository,
-            PropertyConfiguration config,
             ApplicationEventPublisher eventPublisher,
-            NewUserVerificationTokenCreatingService tokenCreatingService) {
-        this.passwordEncoder = passwordEncoder;
+            NewUserVerificationTokenCreatingService tokenCreatingService,
+            UserStateManagingService stateManagingService) {
         this.userMapper = userMapper;
         this.tokenRepository = tokenRepository;
-        this.config = config;
         this.eventPublisher = eventPublisher;
         this.tokenCreatingService = tokenCreatingService;
+        this.stateManagingService = stateManagingService;
     }
 
     @Override
@@ -104,21 +102,15 @@ class RegistrationServiceImpl implements RegistrationService {
         User user = this.userMapper
                 .mapToDomainModel(request);
 
-        String encodedPassword = this.passwordEncoder
-                .encode(request.password());
+        user.setPassword(
+                this.stateManagingService
+                        .encodePassword(request.password()));
 
-        user.setPassword(encodedPassword);
+        user.setAccountExpiresAt(
+                this.stateManagingService.computeNewUserAccountExpiration());
 
-        Instant now = Instant.now();
-
-        Instant accountExpiresAt = now.plus(
-                this.config.newUser().timeframeHours(), ChronoUnit.HOURS);
-
-        user.setAccountExpiresAt(accountExpiresAt);
-
-        user.setMfaEnabledAt(now);
+        user.setMfaEnabledAt(Instant.now());
 
         return user;
-
     }
 }
