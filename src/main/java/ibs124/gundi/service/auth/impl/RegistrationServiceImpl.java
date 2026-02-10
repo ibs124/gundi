@@ -90,7 +90,6 @@ class RegistrationServiceImpl implements RegistrationService {
         VerificationToken token = new VerificationToken();
 
         token.setUser(user);
-        token.setType(VerificationType.NEW_USER);
         token.setValue(this.createTokenValue());
         token.setExpiresAt(this.createExpiration());
 
