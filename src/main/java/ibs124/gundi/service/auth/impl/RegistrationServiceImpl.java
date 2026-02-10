@@ -1,10 +1,7 @@
 package ibs124.gundi.service.auth.impl;
 
-import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,12 +12,13 @@ import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.exception.ResourceCreatingException;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDto;
+import ibs124.gundi.model.application.TokenDto;
 import ibs124.gundi.model.application.UserCreateDto;
 import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
-import ibs124.gundi.model.properties.VerificationTokenProperties;
 import ibs124.gundi.repository.VerificationTokenRepository;
+import ibs124.gundi.service.auth.NewUserVerificationTokenCreatingService;
 import ibs124.gundi.service.auth.RegistrationService;
 import jakarta.transaction.Transactional;
 
@@ -32,7 +30,7 @@ class RegistrationServiceImpl implements RegistrationService {
     private final VerificationTokenRepository tokenRepository;
     private final PropertyConfiguration config;
     private final ApplicationEventPublisher eventPublisher;
-    private final SecureRandom secureRandom;
+    private final NewUserVerificationTokenCreatingService tokenCreatingService;
 
     public RegistrationServiceImpl(
             PasswordEncoder passwordEncoder,
@@ -40,13 +38,13 @@ class RegistrationServiceImpl implements RegistrationService {
             VerificationTokenRepository tokenRepository,
             PropertyConfiguration config,
             ApplicationEventPublisher eventPublisher,
-            SecureRandom secureRandom) {
+            NewUserVerificationTokenCreatingService tokenCreatingService) {
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
         this.tokenRepository = tokenRepository;
         this.config = config;
         this.eventPublisher = eventPublisher;
-        this.secureRandom = secureRandom;
+        this.tokenCreatingService = tokenCreatingService;
     }
 
     @Override
@@ -85,53 +83,21 @@ class RegistrationServiceImpl implements RegistrationService {
     }
 
     public String createTokenByUser(User user) {
+        TokenDto tokenMeta = this.tokenCreatingService.createNewUserVerificationToken();
+
+        while (this.tokenRepository.existsByValue(tokenMeta.secret())) {
+            tokenMeta = this.tokenCreatingService.createNewUserVerificationToken();
+        }
+
         VerificationToken token = new VerificationToken();
 
         token.setUser(user);
-        token.setValue(this.createTokenValue());
-        token.setExpiresAt(this.createExpiration());
+        token.setValue(tokenMeta.secret());
+        token.setExpiresAt(tokenMeta.expiresAt());
 
         token = this.tokenRepository.save(token);
 
         return token.getValue();
-    }
-
-    private Instant createExpiration() {
-        int minutes = this.config.newUser().token().expirationMinutes();
-        return Instant
-                .now()
-                .plus(minutes, ChronoUnit.MINUTES);
-    }
-
-    private String createTokenValue() {
-        VerificationTokenProperties config = this.config.newUser().token();
-
-        String value = config.useLink()
-                ? this.createTokenLinkValue()
-                : this.createTokenCodeValue(config);
-
-        while (this.tokenRepository.existsByValue(value)) {
-            value = config.useLink()
-                    ? this.createTokenLinkValue()
-                    : this.createTokenCodeValue(config);
-        }
-
-        return value;
-    }
-
-    private String createTokenCodeValue(VerificationTokenProperties props) {
-        int length = props.length();
-        String[] charactrers = props.allowedCharacters();
-
-        return this.secureRandom
-                .ints(length, 0, charactrers.length)
-                .mapToObj(x -> charactrers[x])
-                .collect(Collectors.joining());
-
-    }
-
-    private String createTokenLinkValue() {
-        return UUID.randomUUID().toString();
     }
 
     public User createUser(UserCreateDto request) {
