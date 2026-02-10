@@ -13,10 +13,26 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
     private String username;
     private String password;
     private Long id;
-    private Instant createdAt;
-    private Instant updatedAt;
     private String primaryEmail;
     private String fullName;
+    private Boolean isEnabled;
+    private Instant lockedAt;
+    private Instant accountExpiresAt;
+
+    @Override
+    public boolean isEnabled() {
+        return this.getIsEnabled();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return this.getAccountExpiresAt().isBefore(Instant.now());
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.getLockedAt() == null;
+    }
 
     @Override
     public void eraseCredentials() {
@@ -58,22 +74,6 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
         this.id = id;
     }
 
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public String getPrimaryEmail() {
         return primaryEmail;
     }
@@ -89,4 +89,29 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    public Instant getLockedAt() {
+        return lockedAt;
+    }
+
+    public void setLockedAt(Instant lockedAt) {
+        this.lockedAt = lockedAt;
+    }
+
+    public Instant getAccountExpiresAt() {
+        return accountExpiresAt;
+    }
+
+    public void setAccountExpiresAt(Instant accountExpiresAt) {
+        this.accountExpiresAt = accountExpiresAt;
+    }
+
 }

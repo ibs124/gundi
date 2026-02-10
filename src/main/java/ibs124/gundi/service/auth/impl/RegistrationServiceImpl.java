@@ -138,21 +138,22 @@ class RegistrationServiceImpl implements RegistrationService {
     }
 
     public User createUser(UserCreateDto request) {
-        String encodedPassword = this.passwordEncoder
-                .encode(request.password());
-
         User user = this.userMapper
                 .mapToDomainModel(request);
 
+        String encodedPassword = this.passwordEncoder
+                .encode(request.password());
+
         user.setPassword(encodedPassword);
 
-        Instant accountExpiresAt = Instant
-                .now()
-                .plus(
-                        this.config.newUser().timeframeHours(),
-                        ChronoUnit.HOURS);
+        Instant now = Instant.now();
+
+        Instant accountExpiresAt = now.plus(
+                this.config.newUser().timeframeHours(), ChronoUnit.HOURS);
 
         user.setAccountExpiresAt(accountExpiresAt);
+
+        user.setMfaEnabledAt(now);
 
         return user;
 
