@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
     title='Sign In',
-    content=~{this::.app__main-content}
+    content=~{this::.section}
 ">
 
-<div class="app__main-content">
-    <form class="form" th:action="@{${routes.login}}" method="POST">
-        <div class="form__group">
-            <label class="form__label" for="username">Email or Username</label>
-            <input class="form__input" type="text" placeholder="Email or Username" name="username"
-                th:value="${username}">
-        </div>
-        <div class="form__group">
-            <label class="form__label" for="password">Password</label>
-            <input class="form__input" type="password" placeholder="Password" name="password">
-        </div>
-
-        <p class="alert alert--danger" th:if="${statusCode == 1}" th:text="#{auth.login.error}"></p>
-        <button class="btn form__submit-btn" type="submit">
-            <div class="btn__label">Sign in</div>
-        </button>
-    </form>
+<div class="section">
+    <div class="section__header">
+        <h1>Sign In</h1>
+    </div>
+    <div class="section__main">
+        <form class="form" th:action="@{${routes.login}}" method="POST">
+            <div class="form__group">
+                <label class="form__label" for="username">Email or Username</label>
+                <input class="form__input" type="text" placeholder="Email or Username" name="username"
+                    th:value="${username}">
+            </div>
+            <div class="form__group">
+                <label class="form__label" for="password">Password</label>
+                <input class="form__input" type="password" placeholder="Password" name="password">
+            </div>
+            <p class="form__error" th:if="${statusCode == 1}" th:text="#{auth.login.error}"></p>
+            <button class="btn form__submit-btn" type="submit">
+                <div class="btn__label">Sign in</div>
+            </button>
+        </form>
+    </div>
 </div>
 
 
