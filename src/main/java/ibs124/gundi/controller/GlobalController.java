@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.ThymeleafEnv;
-import ibs124.gundi.utility.AppUtils;
+import ibs124.gundi.util.AppUtils;
 
 @ControllerAdvice
 class GlobalController {

@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.configuration.PropertyConfiguration;
+import ibs124.gundi.config.PropertyConfiguration;
 import ibs124.gundi.service.auth.UserStateManagingService;
 
 @Service

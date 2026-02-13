@@ -16,7 +16,7 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDto;
 import ibs124.gundi.model.presentation.UserRegisterRequest;
 import ibs124.gundi.service.auth.RegistrationService;
-import ibs124.gundi.utility.RouteUtils;
+import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 

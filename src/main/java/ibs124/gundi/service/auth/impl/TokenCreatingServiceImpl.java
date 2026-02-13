@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.configuration.PropertyConfiguration;
+import ibs124.gundi.config.PropertyConfiguration;
 import ibs124.gundi.model.application.TokenDto;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;

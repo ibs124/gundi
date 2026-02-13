@@ -8,10 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.configuration.PropertyConfiguration;
+import ibs124.gundi.config.PropertyConfiguration;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.service.auth.RoleInitializingService;
-import ibs124.gundi.utility.AppUtils;
+import ibs124.gundi.util.AppUtils;
 
 @Component
 @Order(1)

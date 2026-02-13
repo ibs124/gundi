@@ -8,15 +8,14 @@ import static ibs124.gundi.constant.ThymeleafEnv.TOKEN;
 import static ibs124.gundi.constant.ThymeleafEnv.EXPIRATION;
 import static ibs124.gundi.constant.ThymeleafEnv.URL;
 
-import ibs124.gundi.configuration.PropertyConfiguration;
 import ibs124.gundi.model.application.EmailSendDto;
 import ibs124.gundi.model.application.TemplateCompileDto;
 import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
-import ibs124.gundi.service.auth.EmailSendingService;
-import ibs124.gundi.service.auth.TemplateCompilingService;
+import ibs124.gundi.service.util.EmailSendingService;
+import ibs124.gundi.service.util.TemplateCompilingService;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.lang.NonNull;
@@ -24,17 +23,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
-import ibs124.gundi.event.UserVerificationEvent;
+import ibs124.gundi.config.PropertyConfiguration;
+import ibs124.gundi.event.NewUserVerificationEvent;
 
 @Component
-class UserVerificationEventListener
-        implements ApplicationListener<UserVerificationEvent> {
+class NewUserVerificationEventListener
+        implements ApplicationListener<NewUserVerificationEvent> {
 
     private final TemplateCompilingService templateCompileService;
     private final EmailSendingService emailSendingService;
     private final PropertyConfiguration config;
 
-    public UserVerificationEventListener(
+    public NewUserVerificationEventListener(
             TemplateCompilingService templateCompileService,
             EmailSendingService emailSendingService,
             PropertyConfiguration config) {
@@ -45,7 +45,7 @@ class UserVerificationEventListener
 
     @Override
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void onApplicationEvent(@NonNull UserVerificationEvent event) {
+    public void onApplicationEvent(@NonNull NewUserVerificationEvent event) {
         VerificationSendDto payload = event.getPayload();
 
         VerificationProperties config = this.config.newUser();

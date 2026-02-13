@@ -1,11 +1,11 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.util.impl;
 
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import ibs124.gundi.model.application.TemplateCompileDto;
-import ibs124.gundi.service.auth.TemplateCompilingService;
+import ibs124.gundi.service.util.TemplateCompilingService;
 
 @Service
 class TemplateCompilingServiceImpl implements TemplateCompilingService {

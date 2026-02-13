@@ -7,8 +7,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.configuration.PropertyConfiguration;
-import ibs124.gundi.event.UserVerificationEvent;
+import ibs124.gundi.config.PropertyConfiguration;
+import ibs124.gundi.event.NewUserVerificationEvent;
 import ibs124.gundi.exception.ResourceCreatingException;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDto;
@@ -75,7 +75,7 @@ class RegistrationServiceImpl implements RegistrationService {
     public void sendVerification(String token, String appUrl, String email) {
         var request = new VerificationSendDto(email, token, appUrl);
 
-        var event = new UserVerificationEvent(request);
+        var event = new NewUserVerificationEvent(request);
 
         this.eventPublisher.publishEvent(event);
     }

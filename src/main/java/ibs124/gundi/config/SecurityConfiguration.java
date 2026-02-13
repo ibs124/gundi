@@ -1,4 +1,4 @@
-package ibs124.gundi.configuration;
+package ibs124.gundi.config;
 
 import static ibs124.gundi.constant.Routes.*;
 import static ibs124.gundi.constant.Env.SUBROUTE_MATCHER;

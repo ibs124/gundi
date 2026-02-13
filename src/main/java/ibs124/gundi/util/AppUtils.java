@@ -1,4 +1,4 @@
-package ibs124.gundi.utility;
+package ibs124.gundi.util;
 
 import java.lang.reflect.Modifier;
 import java.util.Map;

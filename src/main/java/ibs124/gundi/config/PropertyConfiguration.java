@@ -1,4 +1,4 @@
-package ibs124.gundi.configuration;
+package ibs124.gundi.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

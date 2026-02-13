@@ -1,4 +1,4 @@
-package ibs124.gundi.utility;
+package ibs124.gundi.util;
 
 import static ibs124.gundi.constant.Formats.*;
 
