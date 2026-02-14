@@ -1,13 +1,10 @@
 package ibs124.gundi.service.auth.impl;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.config.PropertyConfiguration;
 import ibs124.gundi.event.NewUserVerificationEvent;
 import ibs124.gundi.exception.ResourceCreatingException;
 import ibs124.gundi.mapper.UserMapper;

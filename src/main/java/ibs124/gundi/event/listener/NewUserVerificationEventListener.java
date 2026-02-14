@@ -18,7 +18,6 @@ import ibs124.gundi.service.util.EmailSendingService;
 import ibs124.gundi.service.util.TemplateCompilingService;
 
 import org.springframework.context.ApplicationListener;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -45,7 +44,7 @@ class NewUserVerificationEventListener
 
     @Override
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void onApplicationEvent(@NonNull NewUserVerificationEvent event) {
+    public void onApplicationEvent(NewUserVerificationEvent event) {
         VerificationSendDto payload = event.getPayload();
 
         VerificationProperties config = this.config.newUser();
