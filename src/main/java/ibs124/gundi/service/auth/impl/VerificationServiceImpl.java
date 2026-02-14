@@ -33,7 +33,7 @@ class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
-    public boolean verifyNewUserVerificationToken(String request) {
+    public boolean verifyBySecret(String request) {
         VerificationToken token = this.tokenRepository
                 .findBySecretAndExpiresAtBefore(request, Instant.now())
                 .orElse(null);

@@ -7,15 +7,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.PropertyConfiguration;
-import ibs124.gundi.service.auth.UserStateManagingService;
+import ibs124.gundi.service.auth.UserSecurityService;
 
 @Service
-public class UserStateManagingServiceImpl implements UserStateManagingService {
+public class UserSecurityServiceImpl implements UserSecurityService {
 
     private final PasswordEncoder passwordEncoder;
     private final PropertyConfiguration config;
 
-    public UserStateManagingServiceImpl(
+    public UserSecurityServiceImpl(
             PasswordEncoder passwordEncoder,
             PropertyConfiguration config) {
         this.passwordEncoder = passwordEncoder;
