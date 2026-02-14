@@ -3,7 +3,7 @@ package ibs124.gundi.config;
 import static ibs124.gundi.constant.Routes.*;
 import static ibs124.gundi.constant.Env.SUBROUTE_MATCHER;
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
