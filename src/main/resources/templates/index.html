@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
-    content=~{this::.app__main-content}
-">
+<html xmlns:th="http://www.thymeleaf.org">
 
-<div class="app__main-content">
-    <h1>Welcome to Gundi.</h1>
-</div>
+<th:block th:insert="~{fragments/app}" th:with="content=~{this::.main}">
+    <div class="main section">
+        <h1 class="section__header">
+            <th:block sec:authorize="!isAuthenticated()">Welcome to Gundi</th:block>
+            <th:block sec:authorize="isAuthenticated()"
+                th:text="|Welcome back ${#authentication.principal.getFullName()}|"></th:block>
+        </h1>
+        <div class="section__main">
+            <div>
+                <h2>About Us</h2>
+                <th:block th:insert="~{fragments/about}"></th:block>
+            </div>
+            <div>
+                <h2>Contacts</h2>
+                <th:block th:insert="~{fragments/contacts}"></th:block>
+            </div>
+        </div>
+    </div>
+</th:block>
 
 </html>
