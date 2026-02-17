@@ -6,18 +6,18 @@ import java.time.temporal.ChronoUnit;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.config.PropertyConfiguration;
+import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.service.auth.UserSecurityService;
 
 @Service
 public class UserSecurityServiceImpl implements UserSecurityService {
 
     private final PasswordEncoder passwordEncoder;
-    private final PropertyConfiguration config;
+    private final PropertyConfig config;
 
     public UserSecurityServiceImpl(
             PasswordEncoder passwordEncoder,
-            PropertyConfiguration config) {
+            PropertyConfig config) {
         this.passwordEncoder = passwordEncoder;
         this.config = config;
     }

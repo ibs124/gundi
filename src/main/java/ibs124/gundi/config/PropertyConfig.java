@@ -6,6 +6,6 @@ import ibs124.gundi.constant.Env;
 import ibs124.gundi.model.properties.VerificationProperties;
 
 @ConfigurationProperties(prefix = Env.APP)
-public record PropertyConfiguration(
+public record PropertyConfig(
         VerificationProperties newUser) {
 }

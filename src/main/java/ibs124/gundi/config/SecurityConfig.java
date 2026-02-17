@@ -17,7 +17,7 @@ import ibs124.gundi.model.enumm.RoleName;
 
 @EnableWebSecurity
 @Configuration
-class SecurityConfiguration {
+class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
