@@ -22,12 +22,12 @@ public abstract class Routes {
     public static final String VERIFICATION_SEND = VERIFICATION + SEND;
     public static final String VERIFICATION_SUBMIT = VERIFICATION + SUBMIT;
 
+    public static final String HOME = INDEX;
+
     public static final String USERS = INDEX + "users";
     public static final String USERS_SELF_PROFILE = USERS + "/me";
     public static final String USERS_SELF_ACCOUNT = USERS_SELF_PROFILE + "/account";
-
     public static final String ADMINS = INDEX + "admins";
-
     public static final String ROOT = INDEX + "root";
 
 }
