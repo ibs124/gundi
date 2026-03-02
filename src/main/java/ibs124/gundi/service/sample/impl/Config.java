@@ -1,4 +1,4 @@
-package ibs124.gundi.console.test.seed;
+package ibs124.gundi.service.sample.impl;
 
 abstract class Config {
 
