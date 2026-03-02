@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,12 +10,12 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.repository.UserRepository;
 
 @Service
-class UserDetailsServiceImpl implements UserDetailsService {
+class MyUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserDetailsServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    public MyUserDetailsService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }

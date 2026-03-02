@@ -1,4 +1,4 @@
-package ibs124.gundi.model.application;
+package ibs124.gundi.security;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -7,7 +7,7 @@ import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserDetailsDto implements UserDetails, CredentialsContainer {
+public class MyUserDetails implements UserDetails, CredentialsContainer {
 
     private Collection<? extends GrantedAuthority> authorities;
     private String username;
@@ -19,7 +19,7 @@ public class UserDetailsDto implements UserDetails, CredentialsContainer {
     private Instant lockedAt;
     private Instant accountExpiresAt;
 
-    public UserDetailsDto() {
+    public MyUserDetails() {
         super();
     }
 
