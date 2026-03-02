@@ -1,45 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:insert="~{fragments/app}" th:with="
     title='Verification',
     content=~{this::.section},
     alert=~{this::.alert}
 ">
+    <th:block th:switch="${statusCode}" class="alert">
+        <p th:case="3" th:text="#{auth.verification.sent}" class="alert alert__info"></p>
+        <p th:case="4" th:text="#{auth.verification.incorrect}" class="alert alert__danger"></p>
+        <th:block th:case="*"></th:block>
+    </th:block>
 
-<th:block th:switch="${statusCode}" class="alert">
-    <p th:case="3" th:text="#{auth.verification.sent}" class="alert alert__info"></p>
-    <p th:case="4" th:text="#{auth.verification.incorrect}" class="alert alert__danger"></p>
-    <th:block th:case="*"></th:block>
-</th:block>
-
-<section class="section">
-    <header class="section__header">
-        <div class="logo logo--l">
-            <svg class="icon icon--xl">
-                <use href="#logo"></use>
-            </svg>
-            <p>Gundi</p>
-        </div>
-        <h2>Help us protect your account</h2>
-    </header>
-    <div class="section__main">
-        <p>
-            You are signed in as <th:block th:text="${username ?: 'username'}"></th:block>. For added
-            security, you will need to verify your identity. <br> We have sent a verification
-            code to <th:block th:text="${email ?: 'email@example.com'}"></th:block>
-        </p>
-        <form class="form" th:action="@{${routes.verification_submit}}" method="GET">
-            <div class="form__group">
-                <label class="form__label" for="token">Verification code</label>
-                <input class="form__input" type="text" name="token">
+    <section class="section">
+        <header class="section__header">
+            <div class="logo logo--l">
+                <svg class="icon icon--xl">
+                    <use href="#logo"></use>
+                </svg>
+                <p>Gundi</p>
             </div>
+            <h2>Help us protect your account</h2>
+        </header>
+        <div class="section__main">
             <p>
-                Didn't get the code? <a th:href="@{${routes.verification_send}}" class="link">Resend code</a>
+                You are signed in as <th:block th:text="${username ?: 'username'}"></th:block>. For added
+                security, you will need to verify your identity. <br> We have sent a verification
+                code to <th:block th:text="${email ?: 'email@example.com'}"></th:block>
             </p>
-            <button class="btn form__submit-btn" type="submit">
-                <div class="btn__label">Verify code</div>
-            </button>
-        </form>
-    </div>
-</section>
+            <form class="form" th:action="@{${routes.verification_submit}}" method="GET">
+                <div class="form__group">
+                    <label class="form__label" for="token">Verification code</label>
+                    <input class="form__input" type="text" name="token">
+                </div>
+                <p>
+                    Didn't get the code? <a th:href="@{${routes.verification_send}}" class="link">Resend code</a>
+                </p>
+                <button class="btn form__submit-btn" type="submit">
+                    <div class="btn__label">Verify code</div>
+                </button>
+            </form>
+        </div>
+    </section>
+</th:block>
 
 </html>
