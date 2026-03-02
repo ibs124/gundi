@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.application.RegisterDto;
 import ibs124.gundi.model.presentation.UserRegisterRequest;
 import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.util.RouteUtils;
@@ -62,9 +61,7 @@ public class RegisterController {
 
         this.registerService
                 .registerUser(
-                        new RegisterDto(
-                                this.userMapper.mapToApplicationModel(bindingModel),
-                                RouteUtils.getAppUrl(httpServletRequest)));
+                        this.userMapper.mapToApplicationModel(bindingModel));
 
         return RouteUtils.getRedirectUrl(Routes.VERIFICATION_SEND);
     }

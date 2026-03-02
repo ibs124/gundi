@@ -6,7 +6,7 @@ import org.mapstruct.Mapping;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.constant.Mappers;
 import ibs124.gundi.mapper.RoleMapper;
-import ibs124.gundi.model.application.UserCreateDto;
+import ibs124.gundi.model.application.RegisterDto;
 import ibs124.gundi.model.application.UserDetailsDto;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.presentation.UserRegisterRequest;
@@ -20,6 +20,6 @@ interface UserMapstruct extends UserMapper {
 
     @Override
     @Mapping(source = Mappers.EMAIL, target = Mappers.PRIMARY_EMAIL)
-    UserCreateDto mapToApplicationModel(UserRegisterRequest src);
+    RegisterDto mapToApplicationModel(UserRegisterRequest src);
 
 }
