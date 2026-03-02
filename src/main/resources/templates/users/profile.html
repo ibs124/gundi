@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
-    content=~{this::.app__main-content},
-    title='My Profile'
-">
+<html xmlns:th="http://www.thymeleaf.org">
 
-<div class="app__main-content">
-    <div class="card" th:object="${apiResponse}">
-        <p th:text="*{username}"></p>
-        <p th:text="*{fullName}"></p>
-        <p th:text="*{primaryEmail}"></p>
+<th:block th:insert="~{fragments/app}" th:with="
+    title='My Profile',
+    content=~{this::.app__main-content}
+">
+    <div class="app__main-content">
+        <div class="card" th:object="${apiResponse}">
+            <p th:text="*{username}"></p>
+            <p th:text="*{fullName}"></p>
+            <p th:text="*{primaryEmail}"></p>
+        </div>
     </div>
-</div>
+</th:block>
 
 </html>
