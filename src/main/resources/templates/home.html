@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:insert="~{fragments/app}" th:with="content=~{this::.main}">
+<th:block th:insert="~{fragments/app}" sec:authorize="isAuthenticated()" th:with="
+        content=~{this::.main},
+        name=${#authentication.principal.getFullName()}
+">
     <div class="main section">
-        <h1 class="section__header">Welcome to Gundi</h1>
+        <h1 class="section__header" th:text="|Welcome back ${name}|"></h1>
         <div class="section__main">
             <div>
                 <h2>About Us</h2>
