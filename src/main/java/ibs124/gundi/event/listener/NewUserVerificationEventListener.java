@@ -14,8 +14,8 @@ import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
-import ibs124.gundi.service.util.EmailSendingService;
-import ibs124.gundi.service.util.TemplateCompilingService;
+import ibs124.gundi.service.message.EmailSendingService;
+import ibs124.gundi.service.message.TemplateCompilingService;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
