@@ -1,11 +1,8 @@
 package ibs124.gundi.event;
 
-import ibs124.gundi.model.application.VerificationSendDto;
-
 public class NewUserVerificationEvent extends AbstractVerificationEvent {
 
-    public NewUserVerificationEvent(VerificationSendDto payload) {
-        super(payload);
+    public NewUserVerificationEvent(String email, String secret, String appUrl) {
+        super(email, secret, appUrl);
     }
-
 }

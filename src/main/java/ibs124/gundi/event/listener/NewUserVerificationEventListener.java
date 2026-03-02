@@ -10,7 +10,6 @@ import static ibs124.gundi.constant.ThymeleafEnv.URL;
 
 import ibs124.gundi.model.application.EmailSendDto;
 import ibs124.gundi.model.application.TemplateCompileDto;
-import ibs124.gundi.model.application.VerificationSendDto;
 import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
@@ -45,7 +44,6 @@ class NewUserVerificationEventListener
     @Override
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationEvent(NewUserVerificationEvent event) {
-        VerificationSendDto payload = event.getPayload();
 
         VerificationProperties config = this.config.newUser();
 
@@ -54,7 +52,7 @@ class NewUserVerificationEventListener
         TemplateCompileDto templateRequest = new TemplateCompileDto(
                 NEW_USER_VERIFICATION_EMAIL)
                 .addVariable(URL, GUNDI_LOGO_URL)
-                .addVariable(TOKEN, payload.secret())
+                .addVariable(TOKEN, event.getSecret())
                 .addVariable(EXPIRATION, tokenConfig.expirationMinutes())
                 .addVariable(DEADLINE, config.timeframeHours());
 
@@ -66,7 +64,7 @@ class NewUserVerificationEventListener
                 .builder()
                 .from(mailConfig.from())
                 .displayName(mailConfig.displayName())
-                .to(payload.email())
+                .to(event.getEmail())
                 .subject(mailConfig.subject())
                 .text(message)
                 .isHtml(mailConfig.isHtml())

@@ -4,6 +4,7 @@ import static ibs124.gundi.constant.Routes.REGISTER;
 import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
 import static ibs124.gundi.constant.ThymeleafEnv.BINDING_RESULT;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
+import ibs124.gundi.event.NewUserVerificationEvent;
 import ibs124.gundi.mapper.UserMapper;
+import ibs124.gundi.model.application.RegisterResponseDto;
 import ibs124.gundi.model.presentation.UserRegisterRequest;
 import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.util.RouteUtils;
@@ -29,10 +32,15 @@ public class RegisterController {
 
     private final RegistrationService registerService;
     private final UserMapper userMapper;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public RegisterController(RegistrationService registerService, UserMapper userMapper) {
+    public RegisterController(
+            RegistrationService registerService,
+            UserMapper userMapper,
+            ApplicationEventPublisher eventPublisher) {
         this.registerService = registerService;
         this.userMapper = userMapper;
+        this.eventPublisher = eventPublisher;
     }
 
     @GetMapping
@@ -59,9 +67,16 @@ public class RegisterController {
             return RouteUtils.getRedirectUrl(REGISTER);
         }
 
-        this.registerService
+        RegisterResponseDto response = this.registerService
                 .registerUser(
                         this.userMapper.mapToApplicationModel(bindingModel));
+
+        var event = new NewUserVerificationEvent(
+                bindingModel.email(),
+                response.verificationSecret(),
+                RouteUtils.getAppUrl(httpServletRequest));
+
+        this.eventPublisher.publishEvent(event);
 
         return RouteUtils.getRedirectUrl(Routes.VERIFICATION_SEND);
     }
