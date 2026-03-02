@@ -12,6 +12,7 @@ import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.model.application.TokenDto;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
+import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.NewUserVerificationTokenCreatingService;
 
 @Service
@@ -20,17 +21,26 @@ public class TokenCreatingServiceImpl implements
 
     private final PropertyConfig config;
     private final SecureRandom secureRandom;
+    private final VerificationTokenRepository verificationTokenRepository;
 
     public TokenCreatingServiceImpl(
             PropertyConfig config,
-            SecureRandom secureRandom) {
+            SecureRandom secureRandom,
+            VerificationTokenRepository verificationTokenRepository) {
         this.config = config;
         this.secureRandom = secureRandom;
+        this.verificationTokenRepository = verificationTokenRepository;
     }
 
     @Override
     public TokenDto createNewUserVerificationToken() {
-        return this.prepareToken(this.config.newUser());
+        TokenDto token = this.prepareToken(this.config.newUser());
+
+        while (this.verificationTokenRepository.existsBySecret(token.secret())) {
+            token = this.prepareToken(this.config.newUser());
+        }
+
+        return token;
     }
 
     private TokenDto prepareToken(VerificationProperties config) {
@@ -39,7 +49,6 @@ public class TokenCreatingServiceImpl implements
                 : this.createOtpSecret(config.token());
 
         return new TokenDto(secret, this.createExpiration(config.token()));
-
     }
 
     private String createOtpSecret(VerificationTokenProperties config) {

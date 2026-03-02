@@ -80,10 +80,6 @@ class RegistrationServiceImpl implements RegistrationService {
     public String createTokenByUser(User user) {
         TokenDto tokenMeta = this.tokenCreatingService.createNewUserVerificationToken();
 
-        while (this.tokenRepository.existsBySecret(tokenMeta.secret())) {
-            tokenMeta = this.tokenCreatingService.createNewUserVerificationToken();
-        }
-
         VerificationToken token = new VerificationToken();
 
         token.setUser(user);
