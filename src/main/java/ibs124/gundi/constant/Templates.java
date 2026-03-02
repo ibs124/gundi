@@ -15,6 +15,8 @@ public class Templates {
     public static final String NEW_USER_VERIFICATION_EMAIL = VERIFICATION_EMAILS
             + "/new-user";
 
+    public static final String HOME = "home";
+
     private static final String USERS = "/users";
     public static final String USERS_SELF_PROFILE = USERS + "/profile";
     public static final String USERS_SELF_ACCOUNT = USERS + "/account";
