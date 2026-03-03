@@ -13,11 +13,11 @@ import ibs124.gundi.model.application.TokenDto;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.NewUserVerificationTokenCreatingService;
+import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 
 @Service
 public class TokenCreatingServiceImpl implements
-        NewUserVerificationTokenCreatingService {
+        VerificationTokenCreatingService {
 
     private final PropertyConfig config;
     private final SecureRandom secureRandom;

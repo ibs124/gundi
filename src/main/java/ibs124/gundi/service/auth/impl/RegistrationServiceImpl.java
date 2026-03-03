@@ -11,7 +11,7 @@ import ibs124.gundi.model.application.TokenDto;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.NewUserVerificationTokenCreatingService;
+import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.service.auth.UserSecurityService;
 import jakarta.transaction.Transactional;
@@ -21,13 +21,13 @@ class RegistrationServiceImpl implements RegistrationService {
 
     private final UserMapper userMapper;
     private final VerificationTokenRepository tokenRepository;
-    private final NewUserVerificationTokenCreatingService tokenCreatingService;
+    private final VerificationTokenCreatingService tokenCreatingService;
     private final UserSecurityService stateManagingService;
 
     public RegistrationServiceImpl(
             UserMapper userMapper,
             VerificationTokenRepository tokenRepository,
-            NewUserVerificationTokenCreatingService tokenCreatingService,
+            VerificationTokenCreatingService tokenCreatingService,
             UserSecurityService stateManagingService) {
         this.userMapper = userMapper;
         this.tokenRepository = tokenRepository;

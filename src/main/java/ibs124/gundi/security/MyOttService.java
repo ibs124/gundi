@@ -8,17 +8,17 @@ import org.springframework.security.authentication.ott.OneTimeTokenService;
 
 import ibs124.gundi.model.application.TokenDto;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.NewUserVerificationTokenCreatingService;
+import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import ibs124.gundi.service.auth.VerificationService;
 
 public class MyOttService implements OneTimeTokenService {
 
     private final VerificationService verificationService;
-    private final NewUserVerificationTokenCreatingService tokenCreatingService;
+    private final VerificationTokenCreatingService tokenCreatingService;
     private final VerificationTokenRepository tokenRepository;
 
     public MyOttService(VerificationService verificationService,
-            NewUserVerificationTokenCreatingService tokenCreatingService, VerificationTokenRepository tokenRepository) {
+            VerificationTokenCreatingService tokenCreatingService, VerificationTokenRepository tokenRepository) {
         this.verificationService = verificationService;
         this.tokenCreatingService = tokenCreatingService;
         this.tokenRepository = tokenRepository;
