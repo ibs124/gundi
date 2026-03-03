@@ -44,13 +44,10 @@ class RegistrationServiceImpl implements RegistrationService {
     }
 
     public VerificationToken createTokenByUser(User user) {
-        TokenDto tokenMeta = this.tokenCreatingService.createNewUserVerificationToken();
+        TokenDto tokenDto = this.tokenCreatingService.createNewUserVerificationToken();
 
-        VerificationToken token = new VerificationToken();
-
-        token.setUser(user);
-        token.setSecret(tokenMeta.secret());
-        token.setExpiresAt(tokenMeta.expiresAt());
+        VerificationToken token = new VerificationToken(
+                user, tokenDto.expiresAt(), tokenDto.secret());
 
         return this.tokenRepository.save(token);
     }
