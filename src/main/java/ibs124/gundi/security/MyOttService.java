@@ -5,23 +5,32 @@ import org.springframework.security.authentication.ott.GenerateOneTimeTokenReque
 import org.springframework.security.authentication.ott.OneTimeToken;
 import org.springframework.security.authentication.ott.OneTimeTokenAuthenticationToken;
 import org.springframework.security.authentication.ott.OneTimeTokenService;
+import org.springframework.stereotype.Component;
 
+import ibs124.gundi.exception.ResourceReadingException;
 import ibs124.gundi.model.application.TokenDto;
+import ibs124.gundi.model.domain.User;
+import ibs124.gundi.model.domain.VerificationToken;
+import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import ibs124.gundi.service.auth.VerificationService;
 
+@Component
 public class MyOttService implements OneTimeTokenService {
 
     private final VerificationService verificationService;
     private final VerificationTokenCreatingService tokenCreatingService;
     private final VerificationTokenRepository tokenRepository;
+    private final UserRepository userRepository;
 
     public MyOttService(VerificationService verificationService,
-            VerificationTokenCreatingService tokenCreatingService, VerificationTokenRepository tokenRepository) {
+            VerificationTokenCreatingService tokenCreatingService,
+            VerificationTokenRepository tokenRepository, UserRepository userRepository) {
         this.verificationService = verificationService;
         this.tokenCreatingService = tokenCreatingService;
         this.tokenRepository = tokenRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -41,9 +50,20 @@ public class MyOttService implements OneTimeTokenService {
 
     @Override
     public OneTimeToken generate(GenerateOneTimeTokenRequest request) {
-        TokenDto response = this.tokenCreatingService.createNewUserVerificationToken();
+        String username = request.getUsername();
 
-        return null;
+        User user = this.userRepository
+                .findByUsernameOrPrimaryEmail(username, username)
+                .orElseThrow(() -> new ResourceReadingException());
+
+        TokenDto tokenDto = this.tokenCreatingService.createNewUserVerificationToken();
+
+        VerificationToken token = new VerificationToken(
+                user, tokenDto.expiresAt(), tokenDto.secret());
+
+        token = this.tokenRepository.save(token);
+
+        return new MyOtt(user.getPrimaryEmail(), token.getSecret(), token.getExpiresAt());
     }
 
 }
