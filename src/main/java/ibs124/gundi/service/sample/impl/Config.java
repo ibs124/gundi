@@ -26,4 +26,6 @@ abstract class Config {
             "Lyanna Mormont", "Tormund Giantsbane"
     };
 
+    public static final int ACCOUNT_EXPIRATION_DAYS = 90;
+
 }
