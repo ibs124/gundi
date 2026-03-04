@@ -1,6 +1,9 @@
 package ibs124.gundi.util;
 
+import java.time.Instant;
+
 import ibs124.gundi.model.application.TokenDto;
+import ibs124.gundi.model.domain.AbstractToken;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 
@@ -17,10 +20,30 @@ public abstract class TokenUtils {
         return token;
     }
 
+    public static VerificationToken updateLazyBy(TokenDto dto, VerificationToken token) {
+        return isValid(token) ? token : updateBy(dto, token);
+    }
+
     public static VerificationToken updateBy(TokenDto dto, VerificationToken token) {
         token.setExpiresAt(dto.expiresAt());
         token.setSecret(dto.secret());
         return token;
+    }
+
+    public static boolean isValid(AbstractToken token) {
+        Instant now = Instant.now();
+        Instant expiration = token.getExpiresAt();
+        String secret = token.getSecret();
+
+        boolean isErrorFound = token == null
+                || token.getUser() == null
+                || secret.isBlank()
+                || secret.isEmpty()
+                || expiration == null
+                || expiration.isBefore(now);
+
+        return !isErrorFound;
+
     }
 
 }
