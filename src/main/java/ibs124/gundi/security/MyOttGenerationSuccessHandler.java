@@ -15,6 +15,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+// TODO: Remove after testing is completed.
+@SuppressWarnings(value = { "unused" })
 @Component
 public class MyOttGenerationSuccessHandler implements
         OneTimeTokenGenerationSuccessHandler {
@@ -34,12 +36,16 @@ public class MyOttGenerationSuccessHandler implements
             HttpServletResponse response,
             OneTimeToken oneTimeToken) throws IOException, ServletException {
 
-        NewUserVerificationEvent event = new NewUserVerificationEvent(
-                oneTimeToken.getUsername(),
-                oneTimeToken.getTokenValue(),
-                RouteUtils.getAppUrl(request));
+        // TODO: Replace std_out printing with event publishing after testing is
+        // complete.
+        // NewUserVerificationEvent event = new NewUserVerificationEvent(
+        // oneTimeToken.getUsername(),
+        // oneTimeToken.getTokenValue(),
+        // RouteUtils.getAppUrl(request));
 
-        this.eventPublisher.publishEvent(event);
+        // this.eventPublisher.publishEvent(event);
+        System.out.println(
+                "\nYour verification token is: " + oneTimeToken.getTokenValue() + "\n");
 
         this.redirectHandler.handle(request, response, oneTimeToken);
     }
