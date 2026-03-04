@@ -53,13 +53,16 @@ public class MyOttService implements OneTimeTokenService {
     public OneTimeToken generate(GenerateOneTimeTokenRequest request) {
         String username = request.getUsername();
 
+        TokenDto tokenDto = this.tokenCreatingService.createNewUserVerificationToken();
+
         User user = this.userRepository
                 .findByUsernameOrPrimaryEmail(username, username)
                 .orElseThrow(() -> new ResourceReadingException());
 
-        TokenDto tokenDto = this.tokenCreatingService.createNewUserVerificationToken();
-
-        VerificationToken token = TokenUtils.createBy(user, tokenDto);
+        VerificationToken token = this.tokenRepository
+                .findByUser(user)
+                .map(x -> TokenUtils.updateLazyBy(tokenDto, x))
+                .orElse(TokenUtils.createBy(user, tokenDto));
 
         token = this.tokenRepository.save(token);
 

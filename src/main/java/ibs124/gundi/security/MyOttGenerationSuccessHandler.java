@@ -34,12 +34,12 @@ public class MyOttGenerationSuccessHandler implements
             HttpServletResponse response,
             OneTimeToken oneTimeToken) throws IOException, ServletException {
 
-        new NewUserVerificationEvent(
+        NewUserVerificationEvent event = new NewUserVerificationEvent(
                 oneTimeToken.getUsername(),
                 oneTimeToken.getTokenValue(),
                 RouteUtils.getAppUrl(request));
 
-        this.eventPublisher.publishEvent(oneTimeToken);
+        this.eventPublisher.publishEvent(event);
 
         this.redirectHandler.handle(request, response, oneTimeToken);
     }
