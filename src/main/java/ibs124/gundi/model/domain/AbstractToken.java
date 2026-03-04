@@ -22,13 +22,6 @@ public class AbstractToken extends AbstractDomainModel {
         super();
     }
 
-    public AbstractToken(User user, Instant expiresAt, String secret) {
-        this();
-        this.setUser(user);
-        this.setExpiresAt(expiresAt);
-        this.setSecret(secret);
-    }
-
     @Valid
     @MapsId
     @OneToOne

@@ -14,6 +14,7 @@ import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
+import ibs124.gundi.util.TokenUtils;
 import ibs124.gundi.service.auth.VerificationService;
 
 @Component
@@ -58,8 +59,7 @@ public class MyOttService implements OneTimeTokenService {
 
         TokenDto tokenDto = this.tokenCreatingService.createNewUserVerificationToken();
 
-        VerificationToken token = new VerificationToken(
-                user, tokenDto.expiresAt(), tokenDto.secret());
+        VerificationToken token = TokenUtils.createBy(user, tokenDto);
 
         token = this.tokenRepository.save(token);
 

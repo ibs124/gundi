@@ -12,6 +12,7 @@ import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
+import ibs124.gundi.util.TokenUtils;
 import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.service.auth.UserSecurityService;
 import jakarta.transaction.Transactional;
@@ -45,10 +46,7 @@ class RegistrationServiceImpl implements RegistrationService {
 
     public VerificationToken createTokenByUser(User user) {
         TokenDto tokenDto = this.tokenCreatingService.createNewUserVerificationToken();
-
-        VerificationToken token = new VerificationToken(
-                user, tokenDto.expiresAt(), tokenDto.secret());
-
+        VerificationToken token = TokenUtils.createBy(user, tokenDto);
         return this.tokenRepository.save(token);
     }
 
