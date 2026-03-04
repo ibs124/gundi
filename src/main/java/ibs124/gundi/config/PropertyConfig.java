@@ -7,6 +7,5 @@ import ibs124.gundi.model.properties.VerificationProperties;
 
 @ConfigurationProperties(prefix = Env.APP)
 public record PropertyConfig(
-        boolean seedSamples,
         VerificationProperties newUser) {
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -21,17 +22,23 @@ import ibs124.gundi.repository.UserRepository;
 @Component
 public class UserSeeder {
 
+    private final String ROOT_EMAIL_PROPERTY = "mail_sample";
+    private final String USERNAME_DELIMITER = "_";
+
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final Environment environment;
 
     public UserSeeder(
             PasswordEncoder passwordEncoder,
             UserRepository userRepository,
-            RoleRepository roleRepository) {
+            RoleRepository roleRepository,
+            Environment environment) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.environment = environment;
     }
 
     public List<User> seedUsers() {
@@ -47,6 +54,8 @@ public class UserSeeder {
                 .toList();
 
         users = this.createRolesByUsers(users);
+
+        users.get(0).setPrimaryEmail(this.loadRootEmail());
 
         return this.userRepository.saveAll(users);
 
@@ -82,7 +91,7 @@ public class UserSeeder {
 
     private User createByFullNameAndPassword(String fullName, String password) {
         Instant now = Instant.now();
-        String username = fullName.toLowerCase().replaceAll(" ", "_");
+        String username = fullName.toLowerCase().replaceAll(" ", USERNAME_DELIMITER);
         String primaryEmail = username.concat(Config.PRIMARY_EMAIL_SUFFIX);
 
         User user = new User();
@@ -93,9 +102,14 @@ public class UserSeeder {
 
         user.setLastVerifiedAt(now);
         user.setEnabled(true);
-        user.setAccountExpiresAt(now.plus(90, ChronoUnit.DAYS));
+        user.setAccountExpiresAt(
+                now.plus(Config.ACCOUNT_EXPIRATION_DAYS, ChronoUnit.DAYS));
         user.setMfaEnabledAt(now);
         return user;
+    }
+
+    private String loadRootEmail() {
+        return this.environment.getProperty(ROOT_EMAIL_PROPERTY);
     }
 
 }
