@@ -3,7 +3,12 @@
 
 <th:block th:insert="~{fragments/app}" th:with="content=~{this::.main}">
     <div class="main section">
-        <h1 class="section__header">Welcome to Gundi</h1>
+        <th:block sec:authorize="!isAuthenticated()">
+            <h1 class="section__header">Welcome to Gundi</h1>
+        </th:block>
+        <th:block sec:authorize="isAuthenticated()" th:object="${#authentication.principal}">
+            <h1 class="section__header" th:text="|Welcome back *{getFullName()}|"></h1>
+        </th:block>
         <div class="section__main">
             <div>
                 <h2>About Us</h2>
@@ -15,6 +20,5 @@
             </div>
         </div>
     </div>
-</th:block>
 
 </html>
