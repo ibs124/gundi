@@ -68,6 +68,7 @@ class SecurityConfig {
                         .failureForwardUrl(LOGIN_ERROR))
 
                 .oneTimeTokenLogin(x -> x
+                        .loginPage(VERIFICATION_SEND)
                         .defaultSuccessUrl(HOME)
                         .tokenGeneratingUrl(VERIFICATION_SEND)
                         .defaultSubmitPageUrl(VERIFICATION_SUBMIT)

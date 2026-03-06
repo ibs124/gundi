@@ -2,6 +2,7 @@ package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ import ibs124.gundi.constant.ThymeleafEnv;
 class VerificationController {
 
     @GetMapping(Routes.SEND)
-    public String send(Model model) {
+    public String send(Model model, Authentication authentication) {
         model.addAttribute(STATUS_CODE, 3);
         return Templates.VERIFICATION;
     }
