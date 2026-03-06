@@ -68,11 +68,11 @@ class SecurityConfig {
                         .failureForwardUrl(LOGIN_ERROR))
 
                 .oneTimeTokenLogin(x -> x
-                        .loginPage(VERIFICATION_SEND)
-                        .defaultSuccessUrl(HOME)
+                        .loginPage(VERIFICATION)
                         .tokenGeneratingUrl(VERIFICATION_SEND)
                         .defaultSubmitPageUrl(VERIFICATION_SUBMIT)
-                        .showDefaultSubmitPage(false))
+                        .showDefaultSubmitPage(false)
+                        .defaultSuccessUrl(HOME))
 
                 .logout(x -> x
                         .logoutUrl(LOGOUT)

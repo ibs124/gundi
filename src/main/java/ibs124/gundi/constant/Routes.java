@@ -21,6 +21,8 @@ public abstract class Routes {
     public static final String VERIFICATION = AUTH + "/verification";
     public static final String VERIFICATION_SEND = VERIFICATION + SEND;
     public static final String VERIFICATION_SUBMIT = VERIFICATION + SUBMIT;
+    public static final String VERIFICATION_SUCCESS = VERIFICATION + SUCCESS;
+    public static final String VERIFICATION_FAIL = VERIFICATION + ERROR;
 
     public static final String HOME = INDEX;
 
