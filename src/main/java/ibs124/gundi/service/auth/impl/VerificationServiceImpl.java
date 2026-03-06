@@ -35,7 +35,7 @@ class VerificationServiceImpl implements VerificationService {
     @Transactional
     public boolean verifyBySecret(String request) {
         VerificationToken token = this.tokenRepository
-                .findBySecretAndExpiresAtBefore(request, Instant.now())
+                .findBySecretAndExpiresAtAfter(request, Instant.now())
                 .orElse(null);
 
         if (token == null) {
