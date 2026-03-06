@@ -48,6 +48,9 @@ class SecurityConfig {
                         .requestMatchers(INDEX, LOGIN, LOGIN_ERROR, REGISTER)
                         .access(password.permitAll())
 
+                        .requestMatchers(VERIFICATION + SUBROUTE_MATCHER)
+                        .access(password.authenticated())
+
                         .requestMatchers(ROOT + SUBROUTE_MATCHER)
                         .access(mfa.hasRole(RoleName.ROOT.name()))
 
