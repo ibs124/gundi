@@ -16,14 +16,14 @@ import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfiguringService;
 
 @Service
-public class TokenCreatingServiceImpl implements
+public class TokenConfiguringServiceImpl implements
         VerificationTokenConfiguringService {
 
     private final PropertyConfig config;
     private final SecureRandom secureRandom;
     private final VerificationTokenRepository verificationTokenRepository;
 
-    public TokenCreatingServiceImpl(
+    public TokenConfiguringServiceImpl(
             PropertyConfig config,
             SecureRandom secureRandom,
             VerificationTokenRepository verificationTokenRepository) {
