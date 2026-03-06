@@ -19,6 +19,8 @@ public interface AbstractTokenRepository<T extends AbstractToken>
 
     Optional<@Valid T> findByUser(User user);
 
+    Optional<@Valid T> findByUserId(Long id);
+
     boolean existsBySecret(String value);
 
 }
