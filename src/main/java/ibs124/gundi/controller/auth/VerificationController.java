@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
+import ibs124.gundi.constant.ThymeleafEnv;
 
 @Controller
 @RequestMapping(Routes.VERIFICATION)
@@ -21,7 +23,9 @@ class VerificationController {
     }
 
     @GetMapping(Routes.SUBMIT)
-    public String submit(Model model) {
+    public String submit(
+            Model model,
+            @RequestParam(ThymeleafEnv.TOKEN) String token) {
         model.addAttribute(STATUS_CODE, 4);
         return Templates.VERIFICATION;
     }

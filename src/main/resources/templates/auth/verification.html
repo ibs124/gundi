@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:insert="~{fragments/app}" th:with="
+<th:block sec:authorize="isAuthenticated()" th:insert="~{fragments/app}" th:with="
     title='Verification',
     content=~{this::.section},
-    alert=~{this::.alert}
+    alert=~{this::.alert},
+    username=${#authentication.principal.getUsername() ?: 'username'},
+    email=${#authentication.principal.getPrimaryEmail() ?: 'email'}
 ">
     <th:block th:switch="${statusCode}" class="alert">
         <p th:case="3" th:text="#{auth.verification.sent}" class="alert alert__info"></p>
@@ -24,9 +26,9 @@
         </header>
         <div class="section__main">
             <p>
-                You are signed in as <th:block th:text="${username ?: 'username'}"></th:block>. For added
+                You are signed in as <th:block th:text="${username}"></th:block>. For added
                 security, you will need to verify your identity. <br> We have sent a verification
-                code to <th:block th:text="${email ?: 'email@example.com'}"></th:block>
+                code to <th:block th:text="${email}"></th:block>
             </p>
             <form class="form" th:action="@{${routes.verification_submit}}" method="GET">
                 <div class="form__group">
