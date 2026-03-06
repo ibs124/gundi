@@ -38,7 +38,7 @@ class VerificationController {
 
     @GetMapping(Routes.VERIFICATION_SEND)
     public String send(Model model, Authentication authentication) {
-        model.addAttribute(STATUS_CODE, 3);
+        model.addAttribute(STATUS_CODE, 1);
         return Templates.VERIFICATION;
     }
 
@@ -46,7 +46,6 @@ class VerificationController {
     public String submit(
             Model model,
             @RequestParam(ThymeleafEnv.TOKEN) String token) {
-        model.addAttribute(STATUS_CODE, 1);
         return Templates.VERIFICATION;
     }
 
