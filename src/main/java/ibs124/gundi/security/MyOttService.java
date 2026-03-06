@@ -13,7 +13,7 @@ import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.VerificationTokenCreatingService;
+import ibs124.gundi.service.auth.VerificationTokenConfiguringService;
 import ibs124.gundi.util.TokenUtils;
 import ibs124.gundi.service.auth.VerificationService;
 
@@ -21,12 +21,12 @@ import ibs124.gundi.service.auth.VerificationService;
 public class MyOttService implements OneTimeTokenService {
 
     private final VerificationService verificationService;
-    private final VerificationTokenCreatingService tokenCreatingService;
+    private final VerificationTokenConfiguringService tokenCreatingService;
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
 
     public MyOttService(VerificationService verificationService,
-            VerificationTokenCreatingService tokenCreatingService,
+            VerificationTokenConfiguringService tokenCreatingService,
             VerificationTokenRepository tokenRepository, UserRepository userRepository) {
         this.verificationService = verificationService;
         this.tokenCreatingService = tokenCreatingService;
@@ -53,7 +53,7 @@ public class MyOttService implements OneTimeTokenService {
     public OneTimeToken generate(GenerateOneTimeTokenRequest request) {
         String username = request.getUsername();
 
-        TokenDto tokenDto = this.tokenCreatingService.createNewUserVerificationToken();
+        TokenDto tokenDto = this.tokenCreatingService.configureNewUserVerificationToken();
 
         User user = this.userRepository
                 .findByUsernameOrPrimaryEmail(username, username)
