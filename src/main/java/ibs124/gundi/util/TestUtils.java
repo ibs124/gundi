@@ -2,12 +2,17 @@ package ibs124.gundi.util;
 
 import java.time.Instant;
 
+import ibs124.gundi.event.AbstractVerificationEvent;
 import ibs124.gundi.model.application.TokenDto;
 import ibs124.gundi.model.domain.AbstractToken;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 
-public abstract class TokenUtils {
+public abstract class TestUtils {
+
+    public static void sendVerification(AbstractVerificationEvent event) {
+        System.out.println("\n [Verification Sent] " + event.toString() + "\n");
+    }
 
     public static final VerificationToken createBy(User user, TokenDto dto) {
         VerificationToken token = createBy(user);

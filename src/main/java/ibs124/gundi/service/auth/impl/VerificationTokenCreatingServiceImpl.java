@@ -9,7 +9,7 @@ import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfiguringService;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
-import ibs124.gundi.util.TokenUtils;
+import ibs124.gundi.util.TestUtils;
 
 @Service
 class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingService {
@@ -31,7 +31,7 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
     public String createVerificationTokenByUserId(Long id) {
         VerificationToken token = this.tokenRepository
                 .findByUserId(id)
-                .filter(x -> TokenUtils.isValid(x))
+                .filter(x -> TestUtils.isValid(x))
                 .orElse(null);
 
         if (token != null) {
@@ -43,7 +43,7 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
         TokenDto tokenDto = this.tokenConfiguringService
                 .configureNewUserVerificationToken();
 
-        token = TokenUtils.createBy(user, tokenDto);
+        token = TestUtils.createBy(user, tokenDto);
 
         token = this.tokenRepository.save(token);
 

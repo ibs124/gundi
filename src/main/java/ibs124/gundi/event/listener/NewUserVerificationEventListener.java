@@ -15,6 +15,7 @@ import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
 import ibs124.gundi.service.message.EmailSendingService;
 import ibs124.gundi.service.message.TemplateCompilingService;
+import ibs124.gundi.util.TestUtils;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -45,32 +46,34 @@ class NewUserVerificationEventListener
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationEvent(NewUserVerificationEvent event) {
 
-        VerificationProperties config = this.config.newUser();
+        TestUtils.sendVerification(event);
 
-        VerificationTokenProperties tokenConfig = config.token();
+        // VerificationProperties config = this.config.newUser();
 
-        TemplateCompileDto templateRequest = new TemplateCompileDto(
-                NEW_USER_VERIFICATION_EMAIL)
-                .addVariable(URL, GUNDI_LOGO_URL)
-                .addVariable(TOKEN, event.getSecret())
-                .addVariable(EXPIRATION, tokenConfig.expirationMinutes())
-                .addVariable(DEADLINE, config.timeframeHours());
+        // VerificationTokenProperties tokenConfig = config.token();
 
-        String message = this.templateCompileService.compileHtml(templateRequest);
+        // TemplateCompileDto templateRequest = new TemplateCompileDto(
+        //         NEW_USER_VERIFICATION_EMAIL)
+        //         .addVariable(URL, GUNDI_LOGO_URL)
+        //         .addVariable(TOKEN, event.getSecret())
+        //         .addVariable(EXPIRATION, tokenConfig.expirationMinutes())
+        //         .addVariable(DEADLINE, config.timeframeHours());
 
-        VerificationEmailProperties mailConfig = config.mail();
+        // String message = this.templateCompileService.compileHtml(templateRequest);
 
-        EmailSendDto emailRequest = EmailSendDto
-                .builder()
-                .from(mailConfig.from())
-                .displayName(mailConfig.displayName())
-                .to(event.getEmail())
-                .subject(mailConfig.subject())
-                .text(message)
-                .isHtml(mailConfig.isHtml())
-                .build();
+        // VerificationEmailProperties mailConfig = config.mail();
 
-        this.emailSendingService.sendEmail(emailRequest);
+        // EmailSendDto emailRequest = EmailSendDto
+        //         .builder()
+        //         .from(mailConfig.from())
+        //         .displayName(mailConfig.displayName())
+        //         .to(event.getEmail())
+        //         .subject(mailConfig.subject())
+        //         .text(message)
+        //         .isHtml(mailConfig.isHtml())
+        //         .build();
+
+        // this.emailSendingService.sendEmail(emailRequest);
 
     }
 

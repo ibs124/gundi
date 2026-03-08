@@ -14,7 +14,7 @@ import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfiguringService;
-import ibs124.gundi.util.TokenUtils;
+import ibs124.gundi.util.TestUtils;
 import ibs124.gundi.service.auth.VerificationService;
 
 @Component
@@ -61,8 +61,8 @@ public class MyOttService implements OneTimeTokenService {
 
         VerificationToken token = this.tokenRepository
                 .findByUser(user)
-                .map(x -> TokenUtils.updateLazyBy(tokenDto, x))
-                .orElse(TokenUtils.createBy(user, tokenDto));
+                .map(x -> TestUtils.updateLazyBy(tokenDto, x))
+                .orElse(TestUtils.createBy(user, tokenDto));
 
         token = this.tokenRepository.save(token);
 
