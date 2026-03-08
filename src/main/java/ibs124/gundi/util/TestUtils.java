@@ -11,7 +11,15 @@ import ibs124.gundi.model.domain.VerificationToken;
 public abstract class TestUtils {
 
     public static void sendVerification(AbstractVerificationEvent event) {
-        System.out.println("\n [Verification Sent] " + event.toString() + "\n");
+        System.out.println("\n [Verification Sent] " + getCustomToString(event) + "\n");
+    }
+
+    public static String getCustomToString(AbstractVerificationEvent event) {
+        return String.format("%s[email=%s, secret=%s, appUrl=%s]",
+                event.getClass().getName(),
+                event.getEmail(),
+                event.getSecret(),
+                event.getAppUrl());
     }
 
     public static final VerificationToken createBy(User user, TokenDto dto) {
