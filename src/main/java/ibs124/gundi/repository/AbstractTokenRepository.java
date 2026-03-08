@@ -15,6 +15,8 @@ import java.time.Instant;
 public interface AbstractTokenRepository<T extends AbstractToken>
         extends JpaRepository<T, Long> {
 
+    Optional<@Valid T> findBySecret(String value);
+
     Optional<@Valid T> findBySecretAndExpiresAtAfter(String value, Instant expiresAt);
 
     Optional<@Valid T> findByUser(User user);
