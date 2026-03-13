@@ -62,19 +62,6 @@ class VerificationController {
         return Templates.VERIFICATION;
     }
 
-    @GetMapping(Routes.VERIFICATION_SUBMIT)
-    public String submit(
-            Model model,
-            @RequestParam(ThymeleafEnv.TOKEN) String token) {
-
-        boolean success = this.verificationService
-                .verifyBySecret(token);
-
-        String forward = success ? VERIFICATION_SUCCESS : VERIFICATION_FAIL;
-
-        return RouteUtils.getForwardUrl(forward);
-    }
-
     @GetMapping(Routes.VERIFICATION_SUCCESS)
     public String success(Model model, Authentication authentication) {
         model.addAttribute(STATUS_CODE, 0);
