@@ -1,8 +1,6 @@
 package ibs124.gundi.controller.auth;
 
-import static ibs124.gundi.constant.Routes.VERIFICATION_FAIL;
 import static ibs124.gundi.constant.Routes.VERIFICATION_SEND;
-import static ibs124.gundi.constant.Routes.VERIFICATION_SUCCESS;
 import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -11,14 +9,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
-import ibs124.gundi.constant.ThymeleafEnv;
 import ibs124.gundi.event.NewUserVerificationEvent;
 import ibs124.gundi.security.MyUserDetails;
-import ibs124.gundi.service.auth.VerificationService;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,13 +23,12 @@ class VerificationController {
 
     private final VerificationTokenCreatingService verificationTokenCreatingService;
     private final ApplicationEventPublisher eventPublisher;
-    private final VerificationService verificationService;
 
-    public VerificationController(VerificationTokenCreatingService verificationTokenCreatingService,
-            ApplicationEventPublisher eventPublisher, VerificationService verificationService) {
+    public VerificationController(
+            VerificationTokenCreatingService verificationTokenCreatingService,
+            ApplicationEventPublisher eventPublisher) {
         this.verificationTokenCreatingService = verificationTokenCreatingService;
         this.eventPublisher = eventPublisher;
-        this.verificationService = verificationService;
     }
 
     @GetMapping(Routes.VERIFICATION)
