@@ -4,9 +4,11 @@ import java.time.Instant;
 
 import org.springframework.stereotype.Service;
 
+import ibs124.gundi.model.application.TokenDto;
 import ibs124.gundi.model.domain.Email;
 import ibs124.gundi.model.domain.Role;
 import ibs124.gundi.model.domain.User;
+import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.model.enumm.RoleName;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.RoleRepository;
@@ -36,27 +38,46 @@ class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
-    public boolean verifyBySecret(String request) {
-        User user = this.tokenRepository
-                .findBySecret(request)
-                .filter(x -> this.validator.validate(x).isEmpty())
-                .map(x -> {
-                    this.tokenRepository.delete(x);
-                    User u = x.getUser();
-                    u.setLastVerifiedAt(Instant.now());
-                    return u;
-                })
-                .orElse(null);
+    public TokenDto verifyBySecret(String request) {
+        VerificationToken token = this.consumeTokenBySecret(request);
 
-        if (user == null) {
-            return false;
+        if (token == null) {
+            return null;
         }
+
+        User user = token.getUser();
+        user.setLastVerifiedAt(Instant.now());
 
         if (!user.isEnabled() && user.getLastVerifiedAt() == null) {
             this.verifyNewUser(user);
         }
 
-        return true;
+        TokenDto response = new TokenDto(
+                user.getPrimaryEmail(),
+                token.getSecret(),
+                token.getExpiresAt());
+
+        return response;
+    }
+
+    private VerificationToken consumeTokenBySecret(String secret) {
+        VerificationToken token = this.tokenRepository
+                .findBySecret(secret)
+                .orElse(null);
+
+        if (token == null) {
+            return null;
+        }
+
+        boolean isTokenValid = this.validator.validate(token).isEmpty();
+
+        if (!isTokenValid) {
+            return null;
+        }
+
+        this.tokenRepository.delete(token);
+
+        return token;
     }
 
     private void verifyNewUser(User user) {

@@ -5,7 +5,7 @@ import java.time.Instant;
 import org.springframework.security.authentication.ott.OneTimeToken;
 
 public record MyOtt(
-        String email,
+        String username,
         String secret,
         Instant expiresAt) implements OneTimeToken {
 
@@ -16,7 +16,7 @@ public record MyOtt(
 
     @Override
     public String getUsername() {
-        return this.email();
+        return this.username();
     }
 
     @Override

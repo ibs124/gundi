@@ -35,18 +35,13 @@ public class MyOttService implements OneTimeTokenService {
     }
 
     @Override
-    public @Nullable OneTimeToken consume(OneTimeTokenAuthenticationToken authenticationToken) {
-        boolean success = this.verificationService
-                .verifyBySecret(authenticationToken.getTokenValue());
+    public @Nullable OneTimeToken consume(OneTimeTokenAuthenticationToken authToken) {
+        TokenDto token = this.verificationService
+                .verifyBySecret(authToken.getTokenValue());
 
-        if (!success) {
-            return null;
-        }
-
-        return new MyOtt(
-                authenticationToken.getName(),
-                authenticationToken.getTokenValue(),
-                null);
+        return token == null
+                ? null
+                : new MyOtt(token.username(), token.secret(), token.expiresAt());
     }
 
     @Override
