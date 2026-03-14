@@ -1,10 +1,11 @@
 package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.Routes.REGISTER;
+import static ibs124.gundi.constant.Routes.REGISTER_SUCCESS;
 import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
 import static ibs124.gundi.constant.ThymeleafEnv.BINDING_RESULT;
+import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
 
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,37 +14,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
-import ibs124.gundi.event.NewUserVerificationEvent;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.application.RegisterResponseDto;
 import ibs124.gundi.model.presentation.UserRegisterRequest;
 import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.util.RouteUtils;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(REGISTER)
 public class RegisterController {
 
     private final RegistrationService registerService;
     private final UserMapper userMapper;
-    private final ApplicationEventPublisher eventPublisher;
 
     public RegisterController(
             RegistrationService registerService,
-            UserMapper userMapper,
-            ApplicationEventPublisher eventPublisher) {
+            UserMapper userMapper) {
         this.registerService = registerService;
         this.userMapper = userMapper;
-        this.eventPublisher = eventPublisher;
     }
 
-    @GetMapping
+    @GetMapping(REGISTER)
     public String registerGet(Model model) {
         if (!model.containsAttribute(API_RESPONSE)) {
             model.addAttribute(API_RESPONSE,
@@ -53,12 +46,11 @@ public class RegisterController {
         return Templates.REGISTER;
     }
 
-    @PostMapping
+    @PostMapping(REGISTER)
     public String registerPost(
             @Valid @ModelAttribute(API_RESPONSE) UserRegisterRequest bindingModel,
             BindingResult bindingResult,
-            RedirectAttributes redirectAttributes,
-            HttpServletRequest httpServletRequest) {
+            RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes
@@ -67,18 +59,16 @@ public class RegisterController {
             return RouteUtils.getRedirectUrl(REGISTER);
         }
 
-        RegisterResponseDto response = this.registerService
-                .registerUser(
-                        this.userMapper.mapToApplicationModel(bindingModel));
+        this.registerService.registerUser(
+                this.userMapper.mapToApplicationModel(bindingModel));
 
-        var event = new NewUserVerificationEvent(
-                bindingModel.email(),
-                response.verificationSecret(),
-                RouteUtils.getAppUrl(httpServletRequest));
+        return RouteUtils.getRedirectUrl(Routes.REGISTER_SUCCESS);
+    }
 
-        this.eventPublisher.publishEvent(event);
-
-        return RouteUtils.getRedirectUrl(Routes.VERIFICATION_SEND);
+    @GetMapping(REGISTER_SUCCESS)
+    public String registerSuccess(Model model) {
+        model.addAttribute(STATUS_CODE, 0);
+        return Templates.REGISTER;
     }
 
 }

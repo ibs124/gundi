@@ -44,7 +44,7 @@ class SecurityConfig {
                                 PathRequest.toStaticResources().atCommonLocations())
                         .permitAll()
 
-                        .requestMatchers(INDEX, LOGIN, LOGIN_ERROR, REGISTER)
+                        .requestMatchers(INDEX, LOGIN, LOGIN_ERROR, REGISTER, REGISTER_SUCCESS)
                         .access(password.permitAll())
 
                         .requestMatchers(VERIFICATION + SUBROUTE_MATCHER)

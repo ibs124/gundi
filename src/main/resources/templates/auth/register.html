@@ -3,9 +3,15 @@
 
 <th:block th:insert="~{fragments/app}" th:with="
     title='Sign Up', 
-    content=~{this::.section}
+    content=~{this::.section},
+    alert=~{this::.alert},
+    isSuccess=${statusCode != null && statusCode == 0}
 ">
-    <div class="section">
+    <th:block th:if="${isSuccess}" class="alert">
+        <p th:text="#{auth.register.success}" class="alert alert__success"></p>
+    </th:block>
+
+    <div class="section" th:if="${isSuccess == false}">
         <div class="section__header">
             <h1 class="section__headline">Sign Up</h1>
         </div>
