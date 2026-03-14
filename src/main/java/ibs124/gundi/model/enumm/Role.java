@@ -1,6 +1,6 @@
 package ibs124.gundi.model.enumm;
 
-public enum RoleName {
+public enum Role {
 
     USER,
 

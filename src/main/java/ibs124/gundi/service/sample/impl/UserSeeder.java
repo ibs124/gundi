@@ -13,10 +13,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.model.domain.Role;
+import ibs124.gundi.model.domain.Authority;
 import ibs124.gundi.model.domain.User;
-import ibs124.gundi.model.enumm.RoleName;
-import ibs124.gundi.repository.RoleRepository;
+import ibs124.gundi.model.enumm.Role;
+import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
 
 @Component
@@ -27,13 +27,13 @@ public class UserSeeder {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final AuthorityRepository roleRepository;
     private final Environment environment;
 
     public UserSeeder(
             PasswordEncoder passwordEncoder,
             UserRepository userRepository,
-            RoleRepository roleRepository,
+            AuthorityRepository roleRepository,
             Environment environment) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
@@ -62,17 +62,17 @@ public class UserSeeder {
     }
 
     private List<User> createRolesByUsers(List<User> users) {
-        HashSet<Role> rootRoles = new HashSet<>(
+        HashSet<Authority> rootRoles = new HashSet<>(
                 this.roleRepository.findAll());
 
-        Set<Role> adminRoles = rootRoles
+        Set<Authority> adminRoles = rootRoles
                 .stream()
-                .filter(x -> x.getName() != RoleName.ROOT)
+                .filter(x -> x.getName() != Role.ROOT)
                 .collect(Collectors.toSet());
 
-        Set<Role> userRoles = adminRoles
+        Set<Authority> userRoles = adminRoles
                 .stream()
-                .filter(x -> x.getName() != RoleName.ADMIN)
+                .filter(x -> x.getName() != Role.ADMIN)
                 .collect(Collectors.toSet());
 
         users.get(0).setRoles(rootRoles);

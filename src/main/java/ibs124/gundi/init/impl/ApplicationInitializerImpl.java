@@ -4,17 +4,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.init.ApplicationInitializer;
-import ibs124.gundi.service.auth.RoleInitializingService;
+import ibs124.gundi.service.auth.AuthorityInitService;
 import ibs124.gundi.service.sample.SampleDataSeedingService;
 
 @Component
 class ApplicationInitializerImpl implements CommandLineRunner, ApplicationInitializer {
 
-    private final RoleInitializingService roleInitializingService;
+    private final AuthorityInitService roleInitializingService;
     private final SampleDataSeedingService sampleDataSeedingService;
 
     public ApplicationInitializerImpl(
-            RoleInitializingService roleInitializingService,
+            AuthorityInitService roleInitializingService,
             SampleDataSeedingService sampleDataSeedingService) {
         this.roleInitializingService = roleInitializingService;
         this.sampleDataSeedingService = sampleDataSeedingService;
@@ -27,7 +27,7 @@ class ApplicationInitializerImpl implements CommandLineRunner, ApplicationInitia
 
     @Override
     public void initializeApplication() {
-        this.roleInitializingService.initializeRoles();
+        this.roleInitializingService.init();
 
         this.sampleDataSeedingService.seedSampleData();
     }

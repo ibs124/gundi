@@ -58,7 +58,7 @@ public class RegisterController {
             return RouteUtils.getRedirectUrl(REGISTER);
         }
 
-        this.registerService.registerUser(
+        this.registerService.register(
                 this.userMapper.mapToApplicationModel(bindingModel));
 
         return RouteUtils.getRedirectUrl(Routes.REGISTER_SUCCESS);

@@ -7,19 +7,19 @@ import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.VerificationTokenConfiguringService;
+import ibs124.gundi.service.auth.VerificationTokenConfigService;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import ibs124.gundi.util.TestUtils;
 
 @Service
 class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingService {
 
-    private final VerificationTokenConfiguringService tokenConfiguringService;
+    private final VerificationTokenConfigService tokenConfiguringService;
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
 
     public VerificationTokenCreatingServiceImpl(
-            VerificationTokenConfiguringService tokenConfiguringService,
+            VerificationTokenConfigService tokenConfiguringService,
             VerificationTokenRepository tokenRepository,
             UserRepository userRepository) {
         this.tokenConfiguringService = tokenConfiguringService;

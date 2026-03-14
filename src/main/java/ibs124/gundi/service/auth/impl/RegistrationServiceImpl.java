@@ -11,10 +11,10 @@ import ibs124.gundi.model.application.TokenDto;
 import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.VerificationTokenConfiguringService;
+import ibs124.gundi.service.auth.VerificationTokenConfigService;
 import ibs124.gundi.util.TestUtils;
 import ibs124.gundi.service.auth.RegistrationService;
-import ibs124.gundi.service.auth.UserSecurityService;
+import ibs124.gundi.service.auth.UserConfigService;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -22,14 +22,14 @@ class RegistrationServiceImpl implements RegistrationService {
 
     private final UserMapper userMapper;
     private final VerificationTokenRepository tokenRepository;
-    private final VerificationTokenConfiguringService tokenCreatingService;
-    private final UserSecurityService stateManagingService;
+    private final VerificationTokenConfigService tokenCreatingService;
+    private final UserConfigService stateManagingService;
 
     public RegistrationServiceImpl(
             UserMapper userMapper,
             VerificationTokenRepository tokenRepository,
-            VerificationTokenConfiguringService tokenCreatingService,
-            UserSecurityService stateManagingService) {
+            VerificationTokenConfigService tokenCreatingService,
+            UserConfigService stateManagingService) {
         this.userMapper = userMapper;
         this.tokenRepository = tokenRepository;
         this.tokenCreatingService = tokenCreatingService;
@@ -38,7 +38,7 @@ class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     @Transactional
-    public RegisterResponseDto registerUser(RegisterDto request) {
+    public RegisterResponseDto register(RegisterDto request) {
         User user = this.createUser(request);
         VerificationToken token = this.createTokenByUser(user);
         return new RegisterResponseDto(token.getUser().getId(), token.getSecret());

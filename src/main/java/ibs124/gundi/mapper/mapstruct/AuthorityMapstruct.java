@@ -5,15 +5,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import ibs124.gundi.constant.Mappers;
-import ibs124.gundi.mapper.RoleMapper;
-import ibs124.gundi.model.domain.Role;
-import ibs124.gundi.model.enumm.RoleName;
+import ibs124.gundi.mapper.AuthorityMapper;
+import ibs124.gundi.model.domain.Authority;
+import ibs124.gundi.model.enumm.Role;
 
 @Mapper(componentModel = Mappers.COMPONENT_MODEL)
-public interface RoleMapstruct extends RoleMapper {
+public interface AuthorityMapstruct extends AuthorityMapper {
 
     @Override
-    default GrantedAuthority mapToSecurityModel(Role src) {
+    default GrantedAuthority mapToSecurityModel(Authority src) {
         return src == null
                 ? null
                 : new SimpleGrantedAuthority(
@@ -21,7 +21,7 @@ public interface RoleMapstruct extends RoleMapper {
     }
 
     @Override
-    default RoleName mapToEnum(Role role) {
+    default Role mapToEnum(Authority role) {
         return role.getName();
     }
 

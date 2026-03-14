@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import ibs124.gundi.constant.Env;
-import ibs124.gundi.model.enumm.RoleName;
+import ibs124.gundi.model.enumm.Role;
 
 @EnableMultiFactorAuthentication(authorities = {})
 @EnableWebSecurity
@@ -51,13 +51,13 @@ class SecurityConfig {
                         .access(password.authenticated())
 
                         .requestMatchers(ROOT + SUBROUTE_MATCHER)
-                        .access(mfa.hasRole(RoleName.ROOT.name()))
+                        .access(mfa.hasRole(Role.ROOT.name()))
 
                         .requestMatchers(ADMINS + SUBROUTE_MATCHER)
-                        .access(mfa.hasRole(RoleName.ADMIN.name()))
+                        .access(mfa.hasRole(Role.ADMIN.name()))
 
                         .requestMatchers(USERS + SUBROUTE_MATCHER)
-                        .access(mfa.hasRole(RoleName.USER.name()))
+                        .access(mfa.hasRole(Role.USER.name()))
 
                         .anyRequest().access(mfa.authenticated()))
 
