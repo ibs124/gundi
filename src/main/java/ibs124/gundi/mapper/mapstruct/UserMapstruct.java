@@ -8,7 +8,7 @@ import ibs124.gundi.constant.Mappers;
 import ibs124.gundi.mapper.RoleMapper;
 import ibs124.gundi.model.application.RegisterDto;
 import ibs124.gundi.model.domain.User;
-import ibs124.gundi.model.presentation.UserRegisterRequest;
+import ibs124.gundi.model.presentation.RegisterRequest;
 import ibs124.gundi.security.MyUserDetails;
 
 @Mapper(componentModel = Mappers.COMPONENT_MODEL, uses = RoleMapper.class)
@@ -20,6 +20,6 @@ interface UserMapstruct extends UserMapper {
 
     @Override
     @Mapping(source = Mappers.EMAIL, target = Mappers.PRIMARY_EMAIL)
-    RegisterDto mapToApplicationModel(UserRegisterRequest src);
+    RegisterDto mapToApplicationModel(RegisterRequest src);
 
 }

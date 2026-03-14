@@ -8,9 +8,13 @@ import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.validation.constraints.NotNull;
 
 @NotNull
-public record UserRegisterRequest(
+public record RegisterRequest(
         @UniqueUsername @ValidUsername String username,
         @ValidPassword String password,
         @UniqueEmail @ValidEmail String email,
         String fullName) {
+
+    public RegisterRequest() {
+        this(null, null, null, null);
+    }
 }

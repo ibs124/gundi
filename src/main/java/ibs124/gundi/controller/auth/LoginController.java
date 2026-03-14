@@ -21,7 +21,9 @@ class LoginController {
     }
 
     @PostMapping(Routes.ERROR)
-    public String loginError(@ModelAttribute(ThymeleafEnv.USERNAME) String username, Model model) {
+    public String loginError(
+            @ModelAttribute(ThymeleafEnv.USERNAME) String username,
+            Model model) {
         model
                 .addAttribute(ThymeleafEnv.USERNAME, username)
                 .addAttribute(ThymeleafEnv.STATUS_CODE, 1);

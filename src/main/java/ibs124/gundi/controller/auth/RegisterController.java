@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.presentation.UserRegisterRequest;
+import ibs124.gundi.model.presentation.RegisterRequest;
 import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.validation.Valid;
@@ -39,8 +39,7 @@ public class RegisterController {
     @GetMapping(REGISTER)
     public String registerGet(Model model) {
         if (!model.containsAttribute(API_RESPONSE)) {
-            model.addAttribute(API_RESPONSE,
-                    new UserRegisterRequest(null, null, null, null));
+            model.addAttribute(API_RESPONSE, new RegisterRequest());
         }
 
         return Templates.REGISTER;
@@ -48,7 +47,7 @@ public class RegisterController {
 
     @PostMapping(REGISTER)
     public String registerPost(
-            @Valid @ModelAttribute(API_RESPONSE) UserRegisterRequest bindingModel,
+            @Valid @ModelAttribute(API_RESPONSE) RegisterRequest bindingModel,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
 
