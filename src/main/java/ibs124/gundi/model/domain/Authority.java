@@ -1,30 +1,31 @@
 package ibs124.gundi.model.domain;
 
-import ibs124.gundi.model.enumm.Role;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Authority extends AbstractDomainModel {
 
-    private Role name;
+    private String name;
 
     public Authority() {
         super();
     }
 
-    public Authority(Role x) {
+    public Authority(String name) {
         this();
-        this.setName(x);
+        this.setName(name);
     }
 
-    @Enumerated(EnumType.STRING)
-    public Role getName() {
+    @NotBlank
+    @Column(nullable = false, unique = true)
+    public String getName() {
         return name;
     }
 
-    public void setName(Role type) {
-        this.name = type;
+    public void setName(String name) {
+        this.name = name;
     }
+
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.mapper.AuthorityMapper;
+import ibs124.gundi.model.application.AuthorityDto;
 import ibs124.gundi.model.domain.Authority;
 import ibs124.gundi.model.enumm.Role;
 import ibs124.gundi.repository.AuthorityRepository;
@@ -27,20 +28,20 @@ class AuthorityInitServiceImpl implements AuthorityInitService {
     }
 
     @Override
-    public Collection<Role> init() {
+    public Collection<AuthorityDto> init() {
 
         List<Authority> roles = this.roleRepository
                 .findAll();
 
-        if (roles.size() == Role.values().length) {
-            return this.roleMapper.mapToEnumAll(roles);
+        if (!roles.isEmpty()) {
+            return this.roleMapper.mapToApplicationModelAll(roles);
         }
 
         this.roleRepository.deleteAll();
 
         roles = Arrays
                 .stream(Role.values())
-                .map(x -> new Authority(x))
+                .map(x -> new Authority(x.name()))
                 .toList();
 
         if (roles == null) {
@@ -49,8 +50,7 @@ class AuthorityInitServiceImpl implements AuthorityInitService {
 
         roles = this.roleRepository.saveAll(roles);
 
-        return this.roleMapper.mapToEnumAll(roles);
-
+        return this.roleMapper.mapToApplicationModelAll(roles);
     }
 
 }

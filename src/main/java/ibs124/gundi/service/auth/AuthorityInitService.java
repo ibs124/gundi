@@ -2,10 +2,10 @@ package ibs124.gundi.service.auth;
 
 import java.util.Collection;
 
-import ibs124.gundi.model.enumm.Role;
+import ibs124.gundi.model.application.AuthorityDto;
 
 public interface AuthorityInitService {
 
-    Collection<Role> init();
+    Collection<AuthorityDto> init();
 
 }

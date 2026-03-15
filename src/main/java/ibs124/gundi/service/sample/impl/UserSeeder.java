@@ -67,12 +67,12 @@ public class UserSeeder {
 
         Set<Authority> adminRoles = rootRoles
                 .stream()
-                .filter(x -> x.getName() != Role.ROOT)
+                .filter(x -> x.getName() != Role.ROOT.name())
                 .collect(Collectors.toSet());
 
         Set<Authority> userRoles = adminRoles
                 .stream()
-                .filter(x -> x.getName() != Role.ADMIN)
+                .filter(x -> x.getName() != Role.ADMIN.name())
                 .collect(Collectors.toSet());
 
         users.get(0).setRoles(rootRoles);
