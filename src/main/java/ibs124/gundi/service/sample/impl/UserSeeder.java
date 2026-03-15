@@ -75,15 +75,15 @@ public class UserSeeder {
                 .filter(x -> x.getName() != Role.ADMIN.name())
                 .collect(Collectors.toSet());
 
-        users.get(0).setRoles(rootRoles);
+        users.get(0).setAuthorities(rootRoles);
 
         for (int i = 1; i < users.size(); i++) {
             if (i < Config.ADMINS_COUNT + 1) {
-                users.get(i).setRoles(adminRoles);
+                users.get(i).setAuthorities(adminRoles);
                 continue;
             }
 
-            users.get(i).setRoles(userRoles);
+            users.get(i).setAuthorities(userRoles);
         }
 
         return users;

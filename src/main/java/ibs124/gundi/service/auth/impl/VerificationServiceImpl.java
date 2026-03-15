@@ -84,7 +84,7 @@ class VerificationServiceImpl implements VerificationService {
         Authority userRole = this.roleRepository
                 .getReferenceById(Role.USER.ordinal() + 1L);
 
-        user.addRole(userRole);
+        user.addAuthority(userRole);
 
         user.setEnabled(true);
 
