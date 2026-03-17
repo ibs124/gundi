@@ -8,9 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @IdClass(UserAuthorityId.class)
+@Table(name = "user_authorities")
 public class UserAuthorityEntity {
 
     private UserEntity user;

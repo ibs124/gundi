@@ -12,10 +12,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
+@Table(name = "users")
 public class UserEntity extends AbstractAuditableEntity {
 
     private Set<AuthorityEntity> authorities;

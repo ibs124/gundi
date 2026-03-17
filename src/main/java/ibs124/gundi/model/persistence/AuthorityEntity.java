@@ -2,9 +2,11 @@ package ibs124.gundi.model.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "authorities")
 public class AuthorityEntity extends AbstractEntity {
 
     private String name;
