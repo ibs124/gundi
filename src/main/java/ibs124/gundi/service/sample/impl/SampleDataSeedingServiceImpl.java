@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.model.persistence.User;
+import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.service.sample.SampleDataSeedingService;
 
 @Service
@@ -34,7 +34,7 @@ class SampleDataSeedingServiceImpl implements SampleDataSeedingService {
             return;
         }
 
-        List<User> users = this.userSeeder.seedUsers();
+        List<UserEntity> users = this.userSeeder.seedUsers();
 
         this.emailSeeder.seedPrimaryEmails(users);
     }

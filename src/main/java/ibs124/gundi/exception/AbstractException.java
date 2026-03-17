@@ -1,10 +1,10 @@
 package ibs124.gundi.exception;
 
-import ibs124.gundi.model.persistence.AbstractDomainModel;
+import ibs124.gundi.model.persistence.AbstractEntity;
 
 public abstract class AbstractException extends RuntimeException {
 
-    private Class<? extends AbstractDomainModel> target;
+    private Class<? extends AbstractEntity> target;
 
     public AbstractException() {
         super();
@@ -22,11 +22,11 @@ public abstract class AbstractException extends RuntimeException {
         super(message, cause);
     }
 
-    public Class<? extends AbstractDomainModel> getTarget() {
+    public Class<? extends AbstractEntity> getTarget() {
         return target;
     }
 
-    public void setTarget(Class<? extends AbstractDomainModel> target) {
+    public void setTarget(Class<? extends AbstractEntity> target) {
         this.target = target;
     }
 

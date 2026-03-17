@@ -12,12 +12,12 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractAuditableDomainModel extends AbstractDomainModel {
+public abstract class AbstractAuditableEntity extends AbstractEntity {
 
     private Instant createdAt;
     private Instant updatedAt;
 
-    public AbstractAuditableDomainModel() {
+    public AbstractAuditableEntity() {
         super();
     }
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import ibs124.gundi.mapper.AuthorityMapper;
 import ibs124.gundi.model.application.AuthorityDto;
 import ibs124.gundi.model.enumm.Role;
-import ibs124.gundi.model.persistence.Authority;
+import ibs124.gundi.model.persistence.AuthorityEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.service.auth.AuthorityInitService;
 
@@ -30,7 +30,7 @@ class AuthorityInitServiceImpl implements AuthorityInitService {
     @Override
     public Collection<AuthorityDto> init() {
 
-        List<Authority> roles = this.roleRepository
+        List<AuthorityEntity> roles = this.roleRepository
                 .findAll();
 
         if (!roles.isEmpty()) {
@@ -41,7 +41,7 @@ class AuthorityInitServiceImpl implements AuthorityInitService {
 
         roles = Arrays
                 .stream(Role.values())
-                .map(x -> new Authority(x.name()))
+                .map(x -> new AuthorityEntity(x.name()))
                 .toList();
 
         if (roles == null) {

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import ibs124.gundi.exception.ResourceReadingException;
 import ibs124.gundi.model.application.TokenDto;
-import ibs124.gundi.model.persistence.User;
-import ibs124.gundi.model.persistence.VerificationToken;
+import ibs124.gundi.model.persistence.UserEntity;
+import ibs124.gundi.model.persistence.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfigService;
@@ -50,11 +50,11 @@ public class MyOttService implements OneTimeTokenService {
 
         TokenDto tokenDto = this.tokenCreatingService.configureNewUserVerificationToken();
 
-        User user = this.userRepository
+        UserEntity user = this.userRepository
                 .findByUsernameOrPrimaryEmail(username, username)
                 .orElseThrow(() -> new ResourceReadingException());
 
-        VerificationToken token = this.tokenRepository
+        VerificationTokenEntity token = this.tokenRepository
                 .findByUser(user)
                 .map(x -> TestUtils.updateLazyBy(tokenDto, x))
                 .orElse(TestUtils.createBy(user, tokenDto));

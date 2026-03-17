@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.model.persistence.Email;
-import ibs124.gundi.model.persistence.User;
+import ibs124.gundi.model.persistence.EmailEntity;
+import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.repository.EmailRepository;
 
 @Component
@@ -19,12 +19,12 @@ public class EmailSeeder {
         this.emailRepository = emailRepository;
     }
 
-    public List<Email> seedPrimaryEmails(List<User> users) {
+    public List<EmailEntity> seedPrimaryEmails(List<UserEntity> users) {
         if (this.emailRepository.count() > 0) {
             return new ArrayList<>();
         }
         
-        List<Email> emails = users
+        List<EmailEntity> emails = users
                 .stream()
                 .map(x -> this.createPrimaryEmailByUser(x))
                 .toList();
@@ -32,11 +32,11 @@ public class EmailSeeder {
         return this.emailRepository.saveAll(emails);
     }
 
-    private Email createPrimaryEmailByUser(User user) {
+    private EmailEntity createPrimaryEmailByUser(UserEntity user) {
         String emailAddress = user
                 .getUsername().concat(Config.PRIMARY_EMAIL_SUFFIX);
 
-        Email email = new Email(user, emailAddress);
+        EmailEntity email = new EmailEntity(user, emailAddress);
 
         email.setLastVerifiedAt(Instant.now());
 

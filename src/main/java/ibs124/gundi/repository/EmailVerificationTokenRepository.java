@@ -2,10 +2,10 @@ package ibs124.gundi.repository;
 
 import org.springframework.stereotype.Repository;
 
-import ibs124.gundi.model.persistence.EmailVerificationToken;
+import ibs124.gundi.model.persistence.EmailVerificationTokenEntity;
 
 @Repository
 public interface EmailVerificationTokenRepository
-        extends AbstractTokenRepository<EmailVerificationToken> {
+        extends AbstractTokenRepository<EmailVerificationTokenEntity> {
 
 }

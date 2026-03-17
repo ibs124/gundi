@@ -9,28 +9,28 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
-public class Email extends AbstractDomainModel {
+public class EmailEntity extends AbstractEntity {
 
-    private User user;
+    private UserEntity user;
     private String emailAddress;
     private Instant lastVerifiedAt;
 
-    public Email() {
+    public EmailEntity() {
         super();
     }
 
-    public Email(User user, String emailAddress) {
+    public EmailEntity(UserEntity user, String emailAddress) {
         this();
         this.setUser(user);
         this.setEmailAddress(emailAddress);
     }
 
     @ManyToOne(optional = false)
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 

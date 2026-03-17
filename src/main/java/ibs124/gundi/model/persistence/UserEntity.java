@@ -16,9 +16,9 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
-public class User extends AbstractAuditableDomainModel {
+public class UserEntity extends AbstractAuditableEntity {
 
-    private Set<Authority> authorities;
+    private Set<AuthorityEntity> authorities;
     private String fullName;
     private String username;
     private String password;
@@ -29,27 +29,27 @@ public class User extends AbstractAuditableDomainModel {
     private Instant mfaEnabledAt;
     private Instant lockedAt;
 
-    public User() {
+    public UserEntity() {
         super();
         this.setAuthorities(new HashSet<>());
     }
 
     @Transient
-    public boolean addAuthority(Authority role) {
+    public boolean addAuthority(AuthorityEntity role) {
         return this.getAuthorities().add(role);
     }
 
     @Transient
-    public boolean removeAuthority(Authority role) {
+    public boolean removeAuthority(AuthorityEntity role) {
         return this.getAuthorities().remove(role);
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    public Set<Authority> getAuthorities() {
+    public Set<AuthorityEntity> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Set<Authority> roles) {
+    public void setAuthorities(Set<AuthorityEntity> roles) {
         if (roles == null) {
             roles = new HashSet<>();
         }

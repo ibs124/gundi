@@ -3,8 +3,8 @@ package ibs124.gundi.service.auth.impl;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.application.TokenDto;
-import ibs124.gundi.model.persistence.User;
-import ibs124.gundi.model.persistence.VerificationToken;
+import ibs124.gundi.model.persistence.UserEntity;
+import ibs124.gundi.model.persistence.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfigService;
@@ -29,7 +29,7 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
 
     @Override
     public String createVerificationTokenByUserId(Long id) {
-        VerificationToken token = this.tokenRepository
+        VerificationTokenEntity token = this.tokenRepository
                 .findByUserId(id)
                 .filter(x -> TestUtils.isValid(x))
                 .orElse(null);
@@ -38,7 +38,7 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
             return token.getSecret();
         }
 
-        User user = this.userRepository.getReferenceById(id);
+        UserEntity user = this.userRepository.getReferenceById(id);
 
         TokenDto tokenDto = this.tokenConfiguringService
                 .configureNewUserVerificationToken();

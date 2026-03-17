@@ -2,31 +2,31 @@ package ibs124.gundi.model.persistence.id;
 
 import java.io.Serializable;
 
-import ibs124.gundi.model.persistence.Authority;
-import ibs124.gundi.model.persistence.User;
+import ibs124.gundi.model.persistence.AuthorityEntity;
+import ibs124.gundi.model.persistence.UserEntity;
 
 public class UserAuthorityId implements Serializable {
 
-    private User user;
-    private Authority authority;
+    private UserEntity user;
+    private AuthorityEntity authority;
 
     public UserAuthorityId() {
         super();
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 
-    public Authority getAuthority() {
+    public AuthorityEntity getAuthority() {
         return authority;
     }
 
-    public void setAuthority(Authority authority) {
+    public void setAuthority(AuthorityEntity authority) {
         this.authority = authority;
     }
 

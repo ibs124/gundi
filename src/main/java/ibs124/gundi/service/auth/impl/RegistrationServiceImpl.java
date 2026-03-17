@@ -8,8 +8,8 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.RegisterDto;
 import ibs124.gundi.model.application.RegisterResponseDto;
 import ibs124.gundi.model.application.TokenDto;
-import ibs124.gundi.model.persistence.User;
-import ibs124.gundi.model.persistence.VerificationToken;
+import ibs124.gundi.model.persistence.UserEntity;
+import ibs124.gundi.model.persistence.VerificationTokenEntity;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfigService;
 import ibs124.gundi.util.TestUtils;
@@ -39,19 +39,19 @@ class RegistrationServiceImpl implements RegistrationService {
     @Override
     @Transactional
     public RegisterResponseDto register(RegisterDto request) {
-        User user = this.createUser(request);
-        VerificationToken token = this.createTokenByUser(user);
+        UserEntity user = this.createUser(request);
+        VerificationTokenEntity token = this.createTokenByUser(user);
         return new RegisterResponseDto(token.getUser().getId(), token.getSecret());
     }
 
-    public VerificationToken createTokenByUser(User user) {
+    public VerificationTokenEntity createTokenByUser(UserEntity user) {
         TokenDto tokenDto = this.tokenCreatingService.configureNewUserVerificationToken();
-        VerificationToken token = TestUtils.createBy(user, tokenDto);
+        VerificationTokenEntity token = TestUtils.createBy(user, tokenDto);
         return this.tokenRepository.save(token);
     }
 
-    public User createUser(RegisterDto request) {
-        User user = this.userMapper
+    public UserEntity createUser(RegisterDto request) {
+        UserEntity user = this.userMapper
                 .mapToPersistenceModel(request);
 
         user.setPassword(

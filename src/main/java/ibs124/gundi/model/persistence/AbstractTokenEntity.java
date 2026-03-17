@@ -12,24 +12,24 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @MappedSuperclass
-public class AbstractToken extends AbstractDomainModel {
+public class AbstractTokenEntity extends AbstractEntity {
 
-    private User user;
+    private UserEntity user;
     private Instant expiresAt;
     private String secret;
 
-    public AbstractToken() {
+    public AbstractTokenEntity() {
         super();
     }
 
     @Valid
     @MapsId
     @OneToOne
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 

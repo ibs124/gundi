@@ -6,15 +6,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import ibs124.gundi.model.application.AuthorityDto;
-import ibs124.gundi.model.persistence.Authority;
+import ibs124.gundi.model.persistence.AuthorityEntity;
 
 public interface AuthorityMapper {
 
-    SimpleGrantedAuthority mapToSecurityModel(Authority src);
+    SimpleGrantedAuthority mapToSecurityModel(AuthorityEntity src);
 
-    Collection<GrantedAuthority> mapToSecurityModelAll(Collection<Authority> src);
+    Collection<GrantedAuthority> mapToSecurityModelAll(Collection<AuthorityEntity> src);
 
-    AuthorityDto mapToApplicationModel(Authority x);
+    AuthorityDto mapToApplicationModel(AuthorityEntity x);
 
-    Collection<AuthorityDto> mapToApplicationModelAll(Collection<Authority> x);
+    Collection<AuthorityDto> mapToApplicationModelAll(Collection<AuthorityEntity> x);
 }

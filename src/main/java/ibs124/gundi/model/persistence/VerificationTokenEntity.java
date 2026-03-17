@@ -3,6 +3,6 @@ package ibs124.gundi.model.persistence;
 import jakarta.persistence.Entity;
 
 @Entity
-public class VerificationToken extends AbstractToken {
+public class VerificationTokenEntity extends AbstractTokenEntity {
 
 }

@@ -11,17 +11,17 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 @IdClass(UserAuthorityId.class)
-public class UserAuthority {
+public class UserAuthorityEntity {
 
-    private User user;
-    private Authority authority;
+    private UserEntity user;
+    private AuthorityEntity authority;
     private Instant issedAt;
 
-    public UserAuthority() {
+    public UserAuthorityEntity() {
         super();
     }
 
-    public UserAuthority(User user, Authority authority) {
+    public UserAuthorityEntity(UserEntity user, AuthorityEntity authority) {
         this();
         this.setUser(user);
         this.setAuthority(authority);
@@ -30,21 +30,21 @@ public class UserAuthority {
 
     @Id
     @ManyToOne(optional = false)
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 
     @Id
     @ManyToOne(optional = false)
-    public Authority getAuthority() {
+    public AuthorityEntity getAuthority() {
         return authority;
     }
 
-    public void setAuthority(Authority authority) {
+    public void setAuthority(AuthorityEntity authority) {
         this.authority = authority;
     }
 

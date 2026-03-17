@@ -4,11 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 @Entity
-public class EmailVerificationToken extends AbstractToken {
+public class EmailVerificationTokenEntity extends AbstractTokenEntity {
 
     private String sentTo;
 
-    public EmailVerificationToken() {
+    public EmailVerificationTokenEntity() {
         super();
     }
 

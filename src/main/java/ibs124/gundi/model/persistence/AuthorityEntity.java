@@ -5,15 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class Authority extends AbstractDomainModel {
+public class AuthorityEntity extends AbstractEntity {
 
     private String name;
 
-    public Authority() {
+    public AuthorityEntity() {
         super();
     }
 
-    public Authority(String name) {
+    public AuthorityEntity(String name) {
         this();
         this.setName(name);
     }

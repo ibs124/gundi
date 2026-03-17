@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.model.enumm.Role;
-import ibs124.gundi.model.persistence.Authority;
-import ibs124.gundi.model.persistence.User;
+import ibs124.gundi.model.persistence.AuthorityEntity;
+import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
 
@@ -41,14 +41,14 @@ public class UserSeeder {
         this.environment = environment;
     }
 
-    public List<User> seedUsers() {
+    public List<UserEntity> seedUsers() {
         if (this.userRepository.count() > 0) {
             return new ArrayList<>();
         }
 
         String password = this.passwordEncoder.encode(Config.DEFAULT_USER_PASSWORD);
 
-        List<User> users = Arrays
+        List<UserEntity> users = Arrays
                 .stream(Config.USER_NAMES)
                 .map(x -> this.createByFullNameAndPassword(x, password))
                 .toList();
@@ -61,16 +61,16 @@ public class UserSeeder {
 
     }
 
-    private List<User> createRolesByUsers(List<User> users) {
-        HashSet<Authority> rootRoles = new HashSet<>(
+    private List<UserEntity> createRolesByUsers(List<UserEntity> users) {
+        HashSet<AuthorityEntity> rootRoles = new HashSet<>(
                 this.roleRepository.findAll());
 
-        Set<Authority> adminRoles = rootRoles
+        Set<AuthorityEntity> adminRoles = rootRoles
                 .stream()
                 .filter(x -> x.getName() != Role.ROOT.name())
                 .collect(Collectors.toSet());
 
-        Set<Authority> userRoles = adminRoles
+        Set<AuthorityEntity> userRoles = adminRoles
                 .stream()
                 .filter(x -> x.getName() != Role.ADMIN.name())
                 .collect(Collectors.toSet());
@@ -89,12 +89,12 @@ public class UserSeeder {
         return users;
     }
 
-    private User createByFullNameAndPassword(String fullName, String password) {
+    private UserEntity createByFullNameAndPassword(String fullName, String password) {
         Instant now = Instant.now();
         String username = fullName.toLowerCase().replaceAll(" ", USERNAME_DELIMITER);
         String primaryEmail = username.concat(Config.PRIMARY_EMAIL_SUFFIX);
 
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setUsername(username);
         user.setPassword(password);
         user.setFullName(fullName);

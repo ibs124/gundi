@@ -6,11 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class AbstractDomainModel {
+public abstract class AbstractEntity {
 
     private Long id;
 
-    public AbstractDomainModel() {
+    public AbstractEntity() {
         super();
     }
 
