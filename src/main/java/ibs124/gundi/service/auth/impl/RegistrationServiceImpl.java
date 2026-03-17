@@ -52,7 +52,7 @@ class RegistrationServiceImpl implements RegistrationService {
 
     public User createUser(RegisterDto request) {
         User user = this.userMapper
-                .mapToDomainModel(request);
+                .mapToPersistenceModel(request);
 
         user.setPassword(
                 this.stateManagingService

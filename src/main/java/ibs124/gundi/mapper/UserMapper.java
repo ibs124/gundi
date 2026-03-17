@@ -14,6 +14,6 @@ public interface UserMapper {
 
     MyUserDetails mapToSecurityModel(User src);
 
-    User mapToDomainModel(RegisterDto dto);
+    User mapToPersistenceModel(RegisterDto dto);
 
 }
