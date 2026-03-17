@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import ibs124.gundi.constant.Env;
-import ibs124.gundi.model.enumm.Role;
+import ibs124.gundi.model.application.Role;
 
 @EnableMultiFactorAuthentication(authorities = {})
 @EnableWebSecurity
