@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.mapper.AuthorityMapper;
 import ibs124.gundi.model.application.AuthorityDto;
-import ibs124.gundi.model.domain.Authority;
 import ibs124.gundi.model.enumm.Role;
+import ibs124.gundi.model.persistence.Authority;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.service.auth.AuthorityInitService;
 

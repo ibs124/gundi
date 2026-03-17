@@ -5,11 +5,11 @@ import java.time.Instant;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.application.TokenDto;
-import ibs124.gundi.model.domain.Email;
-import ibs124.gundi.model.domain.Authority;
-import ibs124.gundi.model.domain.User;
-import ibs124.gundi.model.domain.VerificationToken;
 import ibs124.gundi.model.enumm.Role;
+import ibs124.gundi.model.persistence.Authority;
+import ibs124.gundi.model.persistence.Email;
+import ibs124.gundi.model.persistence.User;
+import ibs124.gundi.model.persistence.VerificationToken;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;

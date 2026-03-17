@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import ibs124.gundi.exception.ResourceReadingException;
 import ibs124.gundi.model.application.TokenDto;
-import ibs124.gundi.model.domain.User;
-import ibs124.gundi.model.domain.VerificationToken;
+import ibs124.gundi.model.persistence.User;
+import ibs124.gundi.model.persistence.VerificationToken;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfigService;

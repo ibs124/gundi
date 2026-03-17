@@ -1,7 +1,7 @@
 package ibs124.gundi.mapper;
 
 import ibs124.gundi.model.application.RegisterDto;
-import ibs124.gundi.model.domain.User;
+import ibs124.gundi.model.persistence.User;
 import ibs124.gundi.model.presentation.ProfileSelfView;
 import ibs124.gundi.model.presentation.RegisterRequest;
 import ibs124.gundi.security.MyUserDetails;

@@ -1,8 +1,8 @@
-package ibs124.gundi.model.domain;
+package ibs124.gundi.model.persistence;
 
 import java.time.Instant;
 
-import ibs124.gundi.model.domain.id.UserAuthorityId;
+import ibs124.gundi.model.persistence.id.UserAuthorityId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

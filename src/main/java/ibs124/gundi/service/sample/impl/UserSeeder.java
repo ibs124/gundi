@@ -13,9 +13,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.model.domain.Authority;
-import ibs124.gundi.model.domain.User;
 import ibs124.gundi.model.enumm.Role;
+import ibs124.gundi.model.persistence.Authority;
+import ibs124.gundi.model.persistence.User;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
 

@@ -1,9 +1,9 @@
-package ibs124.gundi.model.domain.id;
+package ibs124.gundi.model.persistence.id;
 
 import java.io.Serializable;
 
-import ibs124.gundi.model.domain.Authority;
-import ibs124.gundi.model.domain.User;
+import ibs124.gundi.model.persistence.Authority;
+import ibs124.gundi.model.persistence.User;
 
 public class UserAuthorityId implements Serializable {
 

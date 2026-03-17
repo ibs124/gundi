@@ -2,7 +2,7 @@ package ibs124.gundi.repository;
 
 import org.springframework.stereotype.Repository;
 
-import ibs124.gundi.model.domain.VerificationToken;
+import ibs124.gundi.model.persistence.VerificationToken;
 
 @Repository
 public interface PasswordResetTokenRepository

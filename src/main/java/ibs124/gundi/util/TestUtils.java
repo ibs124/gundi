@@ -4,9 +4,9 @@ import java.time.Instant;
 
 import ibs124.gundi.event.AbstractVerificationEvent;
 import ibs124.gundi.model.application.TokenDto;
-import ibs124.gundi.model.domain.AbstractToken;
-import ibs124.gundi.model.domain.User;
-import ibs124.gundi.model.domain.VerificationToken;
+import ibs124.gundi.model.persistence.AbstractToken;
+import ibs124.gundi.model.persistence.User;
+import ibs124.gundi.model.persistence.VerificationToken;
 
 public abstract class TestUtils {
 

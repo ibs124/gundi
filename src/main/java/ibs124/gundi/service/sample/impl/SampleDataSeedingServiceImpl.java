@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.model.domain.User;
+import ibs124.gundi.model.persistence.User;
 import ibs124.gundi.service.sample.SampleDataSeedingService;
 
 @Service

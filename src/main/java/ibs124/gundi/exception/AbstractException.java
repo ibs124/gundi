@@ -1,6 +1,6 @@
 package ibs124.gundi.exception;
 
-import ibs124.gundi.model.domain.AbstractDomainModel;
+import ibs124.gundi.model.persistence.AbstractDomainModel;
 
 public abstract class AbstractException extends RuntimeException {
 
