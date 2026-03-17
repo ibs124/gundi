@@ -1,6 +1,6 @@
 package ibs124.gundi.service.message;
 
-import ibs124.gundi.model.application.TemplateCompileDto;
+import ibs124.gundi.model.application.dto.TemplateCompileDto;
 
 public interface TemplateCompilingService {
 

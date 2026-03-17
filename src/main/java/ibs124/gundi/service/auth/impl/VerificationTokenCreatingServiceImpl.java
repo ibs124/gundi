@@ -2,7 +2,7 @@ package ibs124.gundi.service.auth.impl;
 
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.model.application.TokenDto;
+import ibs124.gundi.model.application.dto.TokenDto;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.model.persistence.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;

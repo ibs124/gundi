@@ -1,4 +1,4 @@
-package ibs124.gundi.model.application;
+package ibs124.gundi.model.application.dto;
 
 import jakarta.validation.constraints.NotNull;
 

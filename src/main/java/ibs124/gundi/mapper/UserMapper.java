@@ -1,6 +1,6 @@
 package ibs124.gundi.mapper;
 
-import ibs124.gundi.model.application.RegisterDto;
+import ibs124.gundi.model.application.dto.RegisterDto;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.model.presentation.ProfileSelfView;
 import ibs124.gundi.model.presentation.RegisterRequest;

@@ -8,7 +8,7 @@ import org.springframework.security.authentication.ott.OneTimeTokenService;
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.exception.ResourceReadingException;
-import ibs124.gundi.model.application.TokenDto;
+import ibs124.gundi.model.application.dto.TokenDto;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.model.persistence.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;

@@ -5,9 +5,9 @@ import java.time.Instant;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.application.RegisterDto;
-import ibs124.gundi.model.application.RegisterResponseDto;
-import ibs124.gundi.model.application.TokenDto;
+import ibs124.gundi.model.application.dto.RegisterDto;
+import ibs124.gundi.model.application.dto.RegisterResponseDto;
+import ibs124.gundi.model.application.dto.TokenDto;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.model.persistence.VerificationTokenEntity;
 import ibs124.gundi.repository.VerificationTokenRepository;

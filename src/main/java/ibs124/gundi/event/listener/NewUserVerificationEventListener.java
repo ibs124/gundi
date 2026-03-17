@@ -8,8 +8,8 @@ import static ibs124.gundi.constant.ThymeleafEnv.TOKEN;
 import static ibs124.gundi.constant.ThymeleafEnv.EXPIRATION;
 import static ibs124.gundi.constant.ThymeleafEnv.URL;
 
-import ibs124.gundi.model.application.EmailSendDto;
-import ibs124.gundi.model.application.TemplateCompileDto;
+import ibs124.gundi.model.application.dto.EmailSendDto;
+import ibs124.gundi.model.application.dto.TemplateCompileDto;
 import ibs124.gundi.model.properties.VerificationEmailProperties;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;

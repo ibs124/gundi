@@ -1,4 +1,4 @@
-package ibs124.gundi.model.application;
+package ibs124.gundi.model.application.dto;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

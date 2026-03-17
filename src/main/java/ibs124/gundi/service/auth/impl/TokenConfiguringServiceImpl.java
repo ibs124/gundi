@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.ApplicationConfig;
-import ibs124.gundi.model.application.TokenDto;
+import ibs124.gundi.model.application.dto.TokenDto;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
 import ibs124.gundi.repository.VerificationTokenRepository;
