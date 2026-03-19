@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
-import ibs124.gundi.config.ApplicationConfig;
+import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.event.NewUserVerificationEvent;
 
 @Component
@@ -31,12 +31,12 @@ class NewUserVerificationEventListener
 
     private final TemplateCompilingService templateCompileService;
     private final EmailSendingService emailSendingService;
-    private final ApplicationConfig config;
+    private final PropertyConfig config;
 
     public NewUserVerificationEventListener(
             TemplateCompilingService templateCompileService,
             EmailSendingService emailSendingService,
-            ApplicationConfig config) {
+            PropertyConfig config) {
         this.templateCompileService = templateCompileService;
         this.emailSendingService = emailSendingService;
         this.config = config;

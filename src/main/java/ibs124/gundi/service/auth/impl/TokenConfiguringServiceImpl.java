@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.config.ApplicationConfig;
+import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.model.application.dto.TokenDto;
 import ibs124.gundi.model.properties.VerificationProperties;
 import ibs124.gundi.model.properties.VerificationTokenProperties;
@@ -19,12 +19,12 @@ import ibs124.gundi.service.auth.VerificationTokenConfigService;
 public class TokenConfiguringServiceImpl implements
         VerificationTokenConfigService {
 
-    private final ApplicationConfig config;
+    private final PropertyConfig config;
     private final SecureRandom secureRandom;
     private final VerificationTokenRepository verificationTokenRepository;
 
     public TokenConfiguringServiceImpl(
-            ApplicationConfig config,
+            PropertyConfig config,
             SecureRandom secureRandom,
             VerificationTokenRepository verificationTokenRepository) {
         this.config = config;

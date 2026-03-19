@@ -11,7 +11,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import ibs124.gundi.constant.Env;
 
 @Configuration
-public class ApplicationBeanConfig {
+public class BeanConfig {
 
     @Bean
     LocalValidatorFactoryBean localValidatorFactoryBean() {
