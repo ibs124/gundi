@@ -51,13 +51,13 @@ class SecurityConfig {
                         .access(password.authenticated())
 
                         .requestMatchers(ROOT + SUBROUTE_MATCHER)
-                        .access(mfa.hasRole(Role.ROOT.name()))
+                        .access(mfa.hasAuthority(Role.ROOT.getAuthority()))
 
                         .requestMatchers(ADMINS + SUBROUTE_MATCHER)
-                        .access(mfa.hasRole(Role.ADMIN.name()))
+                        .access(mfa.hasAuthority(Role.ADMIN.getAuthority()))
 
                         .requestMatchers(USERS + SUBROUTE_MATCHER)
-                        .access(mfa.hasRole(Role.USER.name()))
+                        .access(mfa.hasAuthority(Role.USER.getAuthority()))
 
                         .anyRequest().access(mfa.authenticated()))
 
