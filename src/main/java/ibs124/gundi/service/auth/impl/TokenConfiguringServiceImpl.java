@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.model.application.dto.TokenDto;
-import ibs124.gundi.model.properties.VerificationProperties;
-import ibs124.gundi.model.properties.VerificationTokenProperties;
+import ibs124.gundi.model.application.property.VerificationProperties;
+import ibs124.gundi.model.application.property.VerificationTokenProperties;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfigService;
 
