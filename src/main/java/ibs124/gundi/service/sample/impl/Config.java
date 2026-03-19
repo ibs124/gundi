@@ -1,5 +1,7 @@
 package ibs124.gundi.service.sample.impl;
 
+import ibs124.gundi.model.application.FactorAuthority;
+
 abstract class Config {
 
     public static final String PRIMARY_EMAIL_SUFFIX = "@gmail.com";
@@ -27,5 +29,7 @@ abstract class Config {
     };
 
     public static final int ACCOUNT_EXPIRATION_DAYS = 90;
+
+    public static final FactorAuthority SAMPLE_FACTOR = new FactorAuthority("SAMPLE_USER");
 
 }

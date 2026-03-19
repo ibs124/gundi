@@ -4,9 +4,9 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.core.env.Environment;
@@ -18,6 +18,7 @@ import ibs124.gundi.model.persistence.AuthorityEntity;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
+import jakarta.validation.constraints.NotBlank;
 
 @Component
 public class UserSeeder {
@@ -62,28 +63,23 @@ public class UserSeeder {
     }
 
     private List<UserEntity> createRolesByUsers(List<UserEntity> users) {
-        HashSet<AuthorityEntity> rootRoles = new HashSet<>(
-                this.roleRepository.findAll());
+        Map<String, AuthorityEntity> authorities = this.loadDefaultAuthorities();
 
-        Set<AuthorityEntity> adminRoles = rootRoles
-                .stream()
-                .filter(x -> x.getName() != Role.ROOT.name())
-                .collect(Collectors.toSet());
+        AuthorityEntity rootAuth = authorities.get(Role.ROOT.getAuthority());
+        users.get(0).addAuthority(rootAuth);
 
-        Set<AuthorityEntity> userRoles = adminRoles
-                .stream()
-                .filter(x -> x.getName() != Role.ADMIN.name())
-                .collect(Collectors.toSet());
+        AuthorityEntity adminAuth = authorities.get(Role.ADMIN.getAuthority());
+        for (int i = 0; i < Config.ADMINS_COUNT; i++) {
+            users.get(i).addAuthority(adminAuth);
+        }
 
-        users.get(0).setAuthorities(rootRoles);
+        AuthorityEntity userAuth = authorities.get(Role.USER.getAuthority());
+        AuthorityEntity sampleAuth = authorities.get(Config.SAMPLE_FACTOR.getAuthority());
 
-        for (int i = 1; i < users.size(); i++) {
-            if (i < Config.ADMINS_COUNT + 1) {
-                users.get(i).setAuthorities(adminRoles);
-                continue;
-            }
+        for (int i = 0; i < users.size(); i++) {
+            users.get(i).addAuthority(userAuth);
+            users.get(i).addAuthority(sampleAuth);
 
-            users.get(i).setAuthorities(userRoles);
         }
 
         return users;
@@ -110,6 +106,27 @@ public class UserSeeder {
 
     private String loadRootEmail() {
         return this.environment.getProperty(ROOT_EMAIL_PROPERTY);
+    }
+
+    private Map<String, AuthorityEntity> loadDefaultAuthorities() {
+        List<String> roleNames = Arrays
+                .stream(Role.values())
+                .map(x -> x.getAuthority())
+                .toList();
+
+        Map<@NotBlank String, AuthorityEntity> authorities = this.roleRepository
+                .findByNameIn(roleNames)
+                .stream()
+                .collect(Collectors.toMap(AuthorityEntity::getName, Function.identity()));
+
+        AuthorityEntity newUserAuthority = new AuthorityEntity(
+                Config.SAMPLE_FACTOR.getAuthority());
+
+        newUserAuthority = this.roleRepository.save(newUserAuthority);
+
+        authorities.put(Config.SAMPLE_FACTOR.getAuthority(), newUserAuthority);
+
+        return authorities;
     }
 
 }
