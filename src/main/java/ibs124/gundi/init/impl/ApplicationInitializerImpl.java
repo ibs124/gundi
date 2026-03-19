@@ -2,12 +2,14 @@ package ibs124.gundi.init.impl;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.init.ApplicationInitializer;
 import ibs124.gundi.model.application.Authority;
+import ibs124.gundi.model.application.FactorAuthority;
 import ibs124.gundi.model.application.Role;
 import ibs124.gundi.service.auth.AuthorityCreatingService;
 import ibs124.gundi.service.sample.SampleDataSeedingService;
@@ -39,7 +41,10 @@ class ApplicationInitializerImpl implements CommandLineRunner, ApplicationInitia
     }
 
     private Collection<? extends Authority> loadDefaultAuthorities() {
-        return Arrays.asList(Role.values());
+        return Stream
+                .of(Role.values(), FactorAuthority.DEFAULT_VALUES)
+                .flatMap(Arrays::stream)
+                .toList();
     }
 
 }
