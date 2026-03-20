@@ -15,17 +15,17 @@ import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfigService;
 import ibs124.gundi.util.TestUtils;
-import ibs124.gundi.service.auth.VerificationService;
+import ibs124.gundi.service.auth.UserVerifyingService;
 
 @Component
 public class MyOttService implements OneTimeTokenService {
 
-    private final VerificationService verificationService;
+    private final UserVerifyingService verificationService;
     private final VerificationTokenConfigService tokenCreatingService;
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
 
-    public MyOttService(VerificationService verificationService,
+    public MyOttService(UserVerifyingService verificationService,
             VerificationTokenConfigService tokenCreatingService,
             VerificationTokenRepository tokenRepository, UserRepository userRepository) {
         this.verificationService = verificationService;
