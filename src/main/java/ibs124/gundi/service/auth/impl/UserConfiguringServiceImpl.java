@@ -7,15 +7,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.PropertyConfig;
-import ibs124.gundi.service.auth.UserConfigService;
+import ibs124.gundi.service.auth.UserConfiguringService;
 
 @Service
-public class UserSecurityServiceImpl implements UserConfigService {
+public class UserConfiguringServiceImpl implements UserConfiguringService {
 
     private final PasswordEncoder passwordEncoder;
     private final PropertyConfig config;
 
-    public UserSecurityServiceImpl(
+    public UserConfiguringServiceImpl(
             PasswordEncoder passwordEncoder,
             PropertyConfig config) {
         this.passwordEncoder = passwordEncoder;
@@ -23,7 +23,7 @@ public class UserSecurityServiceImpl implements UserConfigService {
     }
 
     @Override
-    public Instant computeNewUserAccountExpiration() {
+    public Instant getAccountExpiration() {
         return Instant
                 .now()
                 .plus(

@@ -16,7 +16,7 @@ import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.presentation.RegisterRequest;
-import ibs124.gundi.service.auth.RegistrationService;
+import ibs124.gundi.service.auth.UserCreatingService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.validation.Valid;
 
@@ -26,11 +26,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class RegisterController {
 
-    private final RegistrationService registerService;
+    private final UserCreatingService registerService;
     private final UserMapper userMapper;
 
     public RegisterController(
-            RegistrationService registerService,
+            UserCreatingService registerService,
             UserMapper userMapper) {
         this.registerService = registerService;
         this.userMapper = userMapper;
@@ -58,7 +58,7 @@ public class RegisterController {
             return RouteUtils.getRedirectUrl(REGISTER);
         }
 
-        this.registerService.register(
+        this.registerService.create(
                 this.userMapper.mapToApplicationModel(bindingModel));
 
         return RouteUtils.getRedirectUrl(Routes.REGISTER_SUCCESS);

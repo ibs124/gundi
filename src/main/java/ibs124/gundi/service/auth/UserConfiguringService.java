@@ -2,9 +2,9 @@ package ibs124.gundi.service.auth;
 
 import java.time.Instant;
 
-public interface UserConfigService {
+public interface UserConfiguringService {
 
-    Instant computeNewUserAccountExpiration();
+    Instant getAccountExpiration();
 
     String encodePassword(String raw);
 

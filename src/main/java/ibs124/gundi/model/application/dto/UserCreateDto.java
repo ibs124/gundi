@@ -8,7 +8,7 @@ import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.validation.constraints.NotNull;
 
 @NotNull
-public record RegisterDto(
+public record UserCreateDto(
         @UniqueUsername @ValidUsername String username,
         @ValidPassword String password,
         @UniqueEmail @ValidEmail String primaryEmail,

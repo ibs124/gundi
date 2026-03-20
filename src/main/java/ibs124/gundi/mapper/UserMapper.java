@@ -1,6 +1,6 @@
 package ibs124.gundi.mapper;
 
-import ibs124.gundi.model.application.dto.RegisterDto;
+import ibs124.gundi.model.application.dto.UserCreateDto;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.model.presentation.ProfileSelfView;
 import ibs124.gundi.model.presentation.RegisterRequest;
@@ -10,10 +10,10 @@ public interface UserMapper {
 
     ProfileSelfView mapToPresentationModel(MyUserDetails src);
 
-    RegisterDto mapToApplicationModel(RegisterRequest src);
+    UserCreateDto mapToApplicationModel(RegisterRequest src);
 
     MyUserDetails mapToSecurityModel(UserEntity src);
 
-    UserEntity mapToPersistenceModel(RegisterDto dto);
+    UserEntity mapToPersistenceModel(UserCreateDto dto);
 
 }

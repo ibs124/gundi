@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @NotNull
-public record RegisterResponseDto(
+public record UserDto(
         @NotNull @Positive Long userId,
         @NotBlank String verificationSecret) {
 }

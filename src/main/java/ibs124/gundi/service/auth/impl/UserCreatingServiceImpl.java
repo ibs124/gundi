@@ -5,31 +5,31 @@ import java.time.Instant;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.application.dto.RegisterDto;
-import ibs124.gundi.model.application.dto.RegisterResponseDto;
+import ibs124.gundi.model.application.dto.UserCreateDto;
+import ibs124.gundi.model.application.dto.UserDto;
 import ibs124.gundi.model.application.dto.TokenDto;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.model.persistence.VerificationTokenEntity;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenConfigService;
 import ibs124.gundi.util.TestUtils;
-import ibs124.gundi.service.auth.RegistrationService;
-import ibs124.gundi.service.auth.UserConfigService;
+import ibs124.gundi.service.auth.UserCreatingService;
+import ibs124.gundi.service.auth.UserConfiguringService;
 import jakarta.transaction.Transactional;
 
 @Service
-class RegistrationServiceImpl implements RegistrationService {
+class UserCreatingServiceImpl implements UserCreatingService {
 
     private final UserMapper userMapper;
     private final VerificationTokenRepository tokenRepository;
     private final VerificationTokenConfigService tokenCreatingService;
-    private final UserConfigService stateManagingService;
+    private final UserConfiguringService stateManagingService;
 
-    public RegistrationServiceImpl(
+    public UserCreatingServiceImpl(
             UserMapper userMapper,
             VerificationTokenRepository tokenRepository,
             VerificationTokenConfigService tokenCreatingService,
-            UserConfigService stateManagingService) {
+            UserConfiguringService stateManagingService) {
         this.userMapper = userMapper;
         this.tokenRepository = tokenRepository;
         this.tokenCreatingService = tokenCreatingService;
@@ -38,10 +38,10 @@ class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     @Transactional
-    public RegisterResponseDto register(RegisterDto request) {
+    public UserDto create(UserCreateDto request) {
         UserEntity user = this.createUser(request);
         VerificationTokenEntity token = this.createTokenByUser(user);
-        return new RegisterResponseDto(token.getUser().getId(), token.getSecret());
+        return new UserDto(token.getUser().getId(), token.getSecret());
     }
 
     public VerificationTokenEntity createTokenByUser(UserEntity user) {
@@ -50,7 +50,7 @@ class RegistrationServiceImpl implements RegistrationService {
         return this.tokenRepository.save(token);
     }
 
-    public UserEntity createUser(RegisterDto request) {
+    public UserEntity createUser(UserCreateDto request) {
         UserEntity user = this.userMapper
                 .mapToPersistenceModel(request);
 
@@ -59,7 +59,7 @@ class RegistrationServiceImpl implements RegistrationService {
                         .encodePassword(request.password()));
 
         user.setAccountExpiresAt(
-                this.stateManagingService.computeNewUserAccountExpiration());
+                this.stateManagingService.getAccountExpiration());
 
         user.setMfaEnabledAt(Instant.now());
 
