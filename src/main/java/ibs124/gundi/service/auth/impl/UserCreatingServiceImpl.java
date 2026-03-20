@@ -1,68 +1,79 @@
 package ibs124.gundi.service.auth.impl;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.mapper.UserMapper;
+import ibs124.gundi.model.application.FactorAuthority;
+import ibs124.gundi.model.application.Role;
 import ibs124.gundi.model.application.dto.UserCreateDto;
 import ibs124.gundi.model.application.dto.UserDto;
-import ibs124.gundi.model.application.dto.TokenDto;
+import ibs124.gundi.model.persistence.AuthorityEntity;
 import ibs124.gundi.model.persistence.UserEntity;
-import ibs124.gundi.model.persistence.VerificationTokenEntity;
-import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.VerificationTokenConfigService;
-import ibs124.gundi.util.TestUtils;
+import ibs124.gundi.repository.AuthorityRepository;
+import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.service.auth.UserCreatingService;
 import ibs124.gundi.service.auth.UserConfiguringService;
-import jakarta.transaction.Transactional;
 
 @Service
 class UserCreatingServiceImpl implements UserCreatingService {
 
     private final UserMapper userMapper;
-    private final VerificationTokenRepository tokenRepository;
-    private final VerificationTokenConfigService tokenCreatingService;
-    private final UserConfiguringService stateManagingService;
+    private final UserConfiguringService userConfigService;
+    private final UserRepository userRepository;
+    private final AuthorityRepository authorityRepository;
 
-    public UserCreatingServiceImpl(
-            UserMapper userMapper,
-            VerificationTokenRepository tokenRepository,
-            VerificationTokenConfigService tokenCreatingService,
-            UserConfiguringService stateManagingService) {
+    public UserCreatingServiceImpl(UserMapper userMapper, UserConfiguringService userConfigService,
+            UserRepository userRepository, AuthorityRepository authorityRepository) {
         this.userMapper = userMapper;
-        this.tokenRepository = tokenRepository;
-        this.tokenCreatingService = tokenCreatingService;
-        this.stateManagingService = stateManagingService;
+        this.userConfigService = userConfigService;
+        this.userRepository = userRepository;
+        this.authorityRepository = authorityRepository;
     }
 
     @Override
-    @Transactional
     public UserDto create(UserCreateDto request) {
-        UserEntity user = this.createUser(request);
-        VerificationTokenEntity token = this.createTokenByUser(user);
-        return new UserDto(token.getUser().getId(), token.getSecret());
-    }
-
-    public VerificationTokenEntity createTokenByUser(UserEntity user) {
-        TokenDto tokenDto = this.tokenCreatingService.configureNewUserVerificationToken();
-        VerificationTokenEntity token = TestUtils.createBy(user, tokenDto);
-        return this.tokenRepository.save(token);
-    }
-
-    public UserEntity createUser(UserCreateDto request) {
         UserEntity user = this.userMapper
                 .mapToPersistenceModel(request);
 
+        user = this.configure(user);
+
+        user = this.assignAuthorities(user);
+
+        user = this.userRepository.save(user);
+
+        UserDto userDto = this.userMapper.mapToApplicationModel(user);
+
+        return userDto;
+    }
+
+    private UserEntity assignAuthorities(UserEntity user) {
+        List<String> defaultNewUserAuthorities = List.of(
+                Role.USER.getAuthority(),
+                FactorAuthority.NEW_USER.getAuthority());
+
+        List<AuthorityEntity> authorities = this.authorityRepository
+                .findByNameIn(defaultNewUserAuthorities);
+
+        user.addAuthority(authorities.get(0));
+        user.addAuthority(authorities.get(1));
+
+        return user;
+    }
+
+    private UserEntity configure(UserEntity user) {
         user.setPassword(
-                this.stateManagingService
-                        .encodePassword(request.password()));
+                this.userConfigService
+                        .encodePassword(user.getPassword()));
 
         user.setAccountExpiresAt(
-                this.stateManagingService.getAccountExpiration());
+                this.userConfigService.getAccountExpiration());
 
         user.setMfaEnabledAt(Instant.now());
 
         return user;
     }
+
 }

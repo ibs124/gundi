@@ -1,11 +1,45 @@
 package ibs124.gundi.model.application.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import java.util.Collection;
+import java.util.HashSet;
+
+import ibs124.gundi.model.application.Authority;
+import ibs124.gundi.validation.constraint.ValidEmail;
+import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @NotNull
 public record UserDto(
-        @NotNull @Positive Long userId,
-        @NotBlank String verificationSecret) {
+        @NotNull @PositiveOrZero Long id,
+        Collection<Authority> authorities,
+        @ValidUsername String username,
+        @ValidEmail String primaryEmail,
+        boolean isEnabled) {
+
+    public UserDto {
+        if (authorities == null) {
+            authorities = new HashSet<>();
+        }
+    }
+
+    public UserDto addAuthority(Authority arg) {
+        if (arg == null) {
+            return this;
+        }
+
+        this.authorities.add(arg);
+
+        return this;
+    }
+
+    public UserDto removeAuthority(Authority arg) {
+        if (arg == null) {
+            return this;
+        }
+
+        this.authorities.remove(arg);
+
+        return this;
+    }
 }
