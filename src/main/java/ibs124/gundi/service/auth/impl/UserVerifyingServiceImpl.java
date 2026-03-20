@@ -4,7 +4,6 @@ import java.time.Instant;
 
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.model.application.Role;
 import ibs124.gundi.model.application.dto.TokenDto;
 import ibs124.gundi.model.persistence.AuthorityEntity;
 import ibs124.gundi.model.persistence.EmailEntity;
@@ -81,10 +80,6 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
     }
 
     private void verifyNewUser(UserEntity user) {
-        AuthorityEntity userRole = this.roleRepository
-                .getReferenceById(Role.USER.ordinal() + 1L);
-
-        user.addAuthority(userRole);
 
         user.setEnabled(true);
 

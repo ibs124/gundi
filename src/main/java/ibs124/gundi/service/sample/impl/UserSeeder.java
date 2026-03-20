@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.model.application.Role;
+import ibs124.gundi.config.AuthorityConfig;
 import ibs124.gundi.model.persistence.AuthorityEntity;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;
@@ -56,15 +56,19 @@ public class UserSeeder {
     private List<UserEntity> createRolesByUsers(List<UserEntity> users) {
         Map<String, AuthorityEntity> authorities = this.loadDefaultAuthorities();
 
-        AuthorityEntity rootAuth = authorities.get(Role.ROOT.getAuthority());
+        AuthorityEntity rootAuth = authorities
+                .get(AuthorityConfig.ROLE_ROOT.getAuthority());
+
         users.get(0).addAuthority(rootAuth);
 
-        AuthorityEntity adminAuth = authorities.get(Role.ADMIN.getAuthority());
+        AuthorityEntity adminAuth = authorities
+                .get(AuthorityConfig.ROLE_ADMIN.getAuthority());
+
         for (int i = 0; i < Config.ADMINS_COUNT; i++) {
             users.get(i).addAuthority(adminAuth);
         }
 
-        AuthorityEntity userAuth = authorities.get(Role.USER.getAuthority());
+        AuthorityEntity userAuth = authorities.get(AuthorityConfig.ROLE_USER.getAuthority());
         AuthorityEntity sampleAuth = authorities.get(Config.SAMPLE_FACTOR.getAuthority());
 
         for (int i = 0; i < users.size(); i++) {
@@ -95,13 +99,13 @@ public class UserSeeder {
     }
 
     private Map<String, AuthorityEntity> loadDefaultAuthorities() {
-        List<String> roleNames = Arrays
-                .stream(Role.values())
-                .map(x -> x.getAuthority())
-                .toList();
 
         Map<@NotBlank String, AuthorityEntity> authorities = this.authorityRepository
-                .findByNameIn(roleNames)
+                .findByNameIn(
+                        List.of(
+                                AuthorityConfig.ROLE_ROOT.getAuthority(),
+                                AuthorityConfig.ROLE_ADMIN.getAuthority(),
+                                AuthorityConfig.ROLE_USER.getAuthority()))
                 .stream()
                 .collect(Collectors.toMap(AuthorityEntity::getName, Function.identity()));
 

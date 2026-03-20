@@ -5,9 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import ibs124.gundi.config.AuthorityConfig;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.application.FactorAuthority;
-import ibs124.gundi.model.application.Role;
 import ibs124.gundi.model.application.dto.UserCreateDto;
 import ibs124.gundi.model.application.dto.UserDto;
 import ibs124.gundi.model.persistence.AuthorityEntity;
@@ -49,8 +48,8 @@ class UserCreatingServiceImpl implements UserCreatingService {
 
     private UserEntity assignAuthorities(UserEntity user) {
         List<String> defaultNewUserAuthorities = List.of(
-                Role.USER.getAuthority(),
-                FactorAuthority.NEW_USER.getAuthority());
+                AuthorityConfig.ROLE_USER.getAuthority(),
+                AuthorityConfig.FACTOR_NEW_USER.getAuthority());
 
         List<AuthorityEntity> authorities = this.authorityRepository
                 .findByNameIn(defaultNewUserAuthorities);

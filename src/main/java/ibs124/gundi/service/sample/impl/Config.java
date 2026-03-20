@@ -1,6 +1,7 @@
 package ibs124.gundi.service.sample.impl;
 
-import ibs124.gundi.model.application.FactorAuthority;
+import ibs124.gundi.config.AuthorityConfig;
+import ibs124.gundi.model.application.Authority;
 
 abstract class Config {
 
@@ -30,6 +31,7 @@ abstract class Config {
 
     public static final int ACCOUNT_EXPIRATION_DAYS = 90;
 
-    public static final FactorAuthority SAMPLE_FACTOR = new FactorAuthority("SAMPLE_USER");
+    public static final Authority SAMPLE_FACTOR = AuthorityConfig
+            .factorAuthorityOf("SAMPLE_USER");
 
 }
