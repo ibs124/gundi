@@ -38,15 +38,13 @@ class UserCreatingServiceImpl implements UserCreatingService {
         UserEntity user = this.userMapper
                 .mapToPersistenceModel(request);
 
-        user = this.configure(user);
-
         user = this.assignAuthorities(user);
+
+        user = this.configure(user);
 
         user = this.userRepository.save(user);
 
-        UserDto userDto = this.userMapper.mapToApplicationModel(user);
-
-        return userDto;
+        return this.userMapper.mapToApplicationModel(user);
     }
 
     private UserEntity assignAuthorities(UserEntity user) {
@@ -72,6 +70,8 @@ class UserCreatingServiceImpl implements UserCreatingService {
                 this.userConfigService.getAccountExpiration());
 
         user.setMfaEnabledAt(Instant.now());
+
+        user.setEnabled(true);
 
         return user;
     }
