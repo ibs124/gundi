@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -23,23 +22,17 @@ import jakarta.validation.constraints.NotBlank;
 @Component
 public class UserSeeder {
 
-    private final String ROOT_EMAIL_PROPERTY = "mail_sample";
     private final String USERNAME_DELIMITER = "_";
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final AuthorityRepository roleRepository;
-    private final Environment environment;
+    private final AuthorityRepository authorityRepository;
 
-    public UserSeeder(
-            PasswordEncoder passwordEncoder,
-            UserRepository userRepository,
-            AuthorityRepository roleRepository,
-            Environment environment) {
+    public UserSeeder(PasswordEncoder passwordEncoder, UserRepository userRepository,
+            AuthorityRepository roleRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.environment = environment;
+        this.authorityRepository = roleRepository;
     }
 
     public List<UserEntity> seedUsers() {
@@ -55,8 +48,6 @@ public class UserSeeder {
                 .toList();
 
         users = this.createRolesByUsers(users);
-
-        users.get(0).setPrimaryEmail(this.loadRootEmail());
 
         return this.userRepository.saveAll(users);
 
@@ -79,7 +70,6 @@ public class UserSeeder {
         for (int i = 0; i < users.size(); i++) {
             users.get(i).addAuthority(userAuth);
             users.get(i).addAuthority(sampleAuth);
-
         }
 
         return users;
@@ -104,27 +94,23 @@ public class UserSeeder {
         return user;
     }
 
-    private String loadRootEmail() {
-        return this.environment.getProperty(ROOT_EMAIL_PROPERTY);
-    }
-
     private Map<String, AuthorityEntity> loadDefaultAuthorities() {
         List<String> roleNames = Arrays
                 .stream(Role.values())
                 .map(x -> x.getAuthority())
                 .toList();
 
-        Map<@NotBlank String, AuthorityEntity> authorities = this.roleRepository
+        Map<@NotBlank String, AuthorityEntity> authorities = this.authorityRepository
                 .findByNameIn(roleNames)
                 .stream()
                 .collect(Collectors.toMap(AuthorityEntity::getName, Function.identity()));
 
-        AuthorityEntity newUserAuthority = new AuthorityEntity(
+        AuthorityEntity sampleFactorAuthority = new AuthorityEntity(
                 Config.SAMPLE_FACTOR.getAuthority());
 
-        newUserAuthority = this.roleRepository.save(newUserAuthority);
+        sampleFactorAuthority = this.authorityRepository.save(sampleFactorAuthority);
 
-        authorities.put(Config.SAMPLE_FACTOR.getAuthority(), newUserAuthority);
+        authorities.put(Config.SAMPLE_FACTOR.getAuthority(), sampleFactorAuthority);
 
         return authorities;
     }
