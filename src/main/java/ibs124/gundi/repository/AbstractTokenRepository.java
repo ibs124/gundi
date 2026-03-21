@@ -23,6 +23,8 @@ public interface AbstractTokenRepository<T extends AbstractTokenEntity>
 
     Optional<@Valid T> findByUserId(Long id);
 
+    Optional<@Valid T> findByUserUsernameOrUserPrimaryEmail(String username, String email);
+
     boolean existsBySecret(String value);
 
 }

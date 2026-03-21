@@ -1,7 +1,11 @@
 package ibs124.gundi.service.auth;
 
+import ibs124.gundi.model.application.dto.TokenDto;
+
 public interface VerificationTokenCreatingService {
 
-    String createVerificationTokenByUserId(Long id);
+    TokenDto createByUserId(Long id);
+
+    TokenDto createByUsername(String username);
 
 }

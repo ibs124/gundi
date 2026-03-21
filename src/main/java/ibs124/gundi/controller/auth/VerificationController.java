@@ -43,7 +43,8 @@ class VerificationController {
             @AuthenticationPrincipal MyUserDetails principal) {
 
         String secret = this.verificationTokenCreatingService
-                .createVerificationTokenByUserId(principal.getId());
+                .createByUserId(principal.getId())
+                .secret();
 
         String appUrl = RouteUtils.getAppUrl(request);
 
