@@ -10,15 +10,15 @@ import ibs124.gundi.mapper.AuthorityMapper;
 import ibs124.gundi.model.application.Authority;
 import ibs124.gundi.model.persistence.AuthorityEntity;
 import ibs124.gundi.repository.AuthorityRepository;
-import ibs124.gundi.service.auth.AuthorityInitializingService;
+import ibs124.gundi.service.auth.AuthorityCreatingService;
 
 @Service
-class AuthorityInitializingServiceImpl implements AuthorityInitializingService {
+class AuthorityServiceImpl implements AuthorityCreatingService {
 
     private final AuthorityRepository authorityRepository;
     private final AuthorityMapper authorityMapper;
 
-    public AuthorityInitializingServiceImpl(
+    public AuthorityServiceImpl(
             AuthorityRepository roleRepository,
             AuthorityMapper roleMapper) {
         this.authorityRepository = roleRepository;
@@ -26,7 +26,7 @@ class AuthorityInitializingServiceImpl implements AuthorityInitializingService {
     }
 
     @Override
-    public Authority[] initialize() {
+    public Authority[] create() {
         this.authorityRepository.deleteAll();
 
         List<AuthorityEntity> authList = this.createNew();

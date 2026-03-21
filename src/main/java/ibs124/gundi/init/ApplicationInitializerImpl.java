@@ -1,22 +1,21 @@
-package ibs124.gundi.init.impl;
+package ibs124.gundi.init;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.init.ApplicationInitializer;
-import ibs124.gundi.service.auth.AuthorityInitializingService;
+import ibs124.gundi.service.auth.AuthorityCreatingService;
 import ibs124.gundi.service.sample.SampleDataSeedingService;
 
 @Component
 class ApplicationInitializerImpl implements CommandLineRunner, ApplicationInitializer {
 
-    private final AuthorityInitializingService authorityInitService;
+    private final AuthorityCreatingService authorityCreatingService;
     private final SampleDataSeedingService sampleDataSeedingService;
 
     public ApplicationInitializerImpl(
-            AuthorityInitializingService authorityInitService,
+            AuthorityCreatingService authorityInitService,
             SampleDataSeedingService sampleDataSeedingService) {
-        this.authorityInitService = authorityInitService;
+        this.authorityCreatingService = authorityInitService;
         this.sampleDataSeedingService = sampleDataSeedingService;
     }
 
@@ -27,7 +26,7 @@ class ApplicationInitializerImpl implements CommandLineRunner, ApplicationInitia
 
     @Override
     public void initializeApplication() {
-        this.authorityInitService.initialize();
+        this.authorityCreatingService.create();
 
         this.sampleDataSeedingService.seedSampleData();
     }
