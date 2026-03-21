@@ -1,5 +1,7 @@
 package ibs124.gundi.security;
 
+import java.time.Instant;
+
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.authentication.ott.GenerateOneTimeTokenRequest;
 import org.springframework.security.authentication.ott.OneTimeToken;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import ibs124.gundi.exception.ResourceReadingException;
 import ibs124.gundi.model.application.dto.TokenDto;
+import ibs124.gundi.model.application.dto.UserVerifiedResponseDto;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.model.persistence.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
@@ -25,9 +28,11 @@ public class MyOttService implements OneTimeTokenService {
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
 
-    public MyOttService(UserVerifyingService verificationService,
+    public MyOttService(
+            UserVerifyingService verificationService,
             VerificationTokenConfigService tokenCreatingService,
-            VerificationTokenRepository tokenRepository, UserRepository userRepository) {
+            VerificationTokenRepository tokenRepository,
+            UserRepository userRepository) {
         this.verificationService = verificationService;
         this.tokenCreatingService = tokenCreatingService;
         this.tokenRepository = tokenRepository;
@@ -36,12 +41,14 @@ public class MyOttService implements OneTimeTokenService {
 
     @Override
     public @Nullable OneTimeToken consume(OneTimeTokenAuthenticationToken authToken) {
-        TokenDto token = this.verificationService
+        UserVerifiedResponseDto response = this.verificationService
                 .verifyBySecret(authToken.getTokenValue());
 
-        return token == null
-                ? null
-                : new MyOtt(token.username(), token.secret(), token.expiresAt());
+        String username = response.user().username();
+        String secret = response.token().secret();
+        Instant expiresAt = response.token().expiresAt();
+
+        return response == null ? null : this.map(username, secret, expiresAt);
     }
 
     @Override
@@ -61,7 +68,26 @@ public class MyOttService implements OneTimeTokenService {
 
         token = this.tokenRepository.save(token);
 
-        return new MyOtt(user.getPrimaryEmail(), token.getSecret(), token.getExpiresAt());
+        return this.map(user.getPrimaryEmail(), token.getSecret(), token.getExpiresAt());
+    }
+
+    private OneTimeToken map(String username, String secret, Instant expiresAt) {
+        return new OneTimeToken() {
+            @Override
+            public String getTokenValue() {
+                return secret;
+            }
+
+            @Override
+            public String getUsername() {
+                return username;
+            }
+
+            @Override
+            public Instant getExpiresAt() {
+                return expiresAt;
+            }
+        };
     }
 
 }

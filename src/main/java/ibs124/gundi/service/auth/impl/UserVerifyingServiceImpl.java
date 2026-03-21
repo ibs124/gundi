@@ -4,7 +4,10 @@ import java.time.Instant;
 
 import org.springframework.stereotype.Service;
 
+import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.dto.TokenDto;
+import ibs124.gundi.model.application.dto.UserDto;
+import ibs124.gundi.model.application.dto.UserVerifiedResponseDto;
 import ibs124.gundi.model.persistence.EmailEntity;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.model.persistence.VerificationTokenEntity;
@@ -20,19 +23,22 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
     private final Validator validator;
     private final VerificationTokenRepository tokenRepository;
     private final EmailRepository emailRepository;
+    private final UserMapper userMapper;
 
     public UserVerifyingServiceImpl(
             Validator validator,
             VerificationTokenRepository tokenRepository,
-            EmailRepository emailRepository) {
+            EmailRepository emailRepository,
+            UserMapper userMapper) {
         this.validator = validator;
         this.tokenRepository = tokenRepository;
         this.emailRepository = emailRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
     @Transactional
-    public TokenDto verifyBySecret(String request) {
+    public UserVerifiedResponseDto verifyBySecret(String request) {
         VerificationTokenEntity token = this.consumeTokenBySecret(request);
 
         if (token == null) {
@@ -46,12 +52,9 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
             this.verifyNewUser(user);
         }
 
-        TokenDto response = new TokenDto(
-                user.getPrimaryEmail(),
-                token.getSecret(),
-                token.getExpiresAt());
-
-        return response;
+        UserDto userDto = this.userMapper.mapToApplicationModel(user);
+        TokenDto tokenDto = this.userMapper.mapToApplicationModel(token);
+        return new UserVerifiedResponseDto(userDto, tokenDto);
     }
 
     private VerificationTokenEntity consumeTokenBySecret(String secret) {

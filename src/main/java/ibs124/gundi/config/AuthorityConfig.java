@@ -14,16 +14,10 @@ public abstract class AuthorityConfig {
 
     public static final Authority ROLE_USER = roleAuthorityOf("USER");
 
-    public static final Authority FACTOR_NEW_USER = factorAuthorityOf("NEW_USER");
-
-    public static final Authority FACTOR_VERIFICATION_TOKEN = factorAuthorityOf("VERIFICATION_TOKEN");
-
     public static final Authority[] DEFAULT_AUTHORITIES = {
             ROLE_ROOT,
             ROLE_ADMIN,
             ROLE_USER,
-            FACTOR_NEW_USER,
-            FACTOR_VERIFICATION_TOKEN
     };
 
     public static final Authority factorAuthorityOf(String name) {
