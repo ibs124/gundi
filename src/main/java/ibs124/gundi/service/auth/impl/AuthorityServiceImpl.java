@@ -1,6 +1,7 @@
 package ibs124.gundi.service.auth.impl;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -26,21 +27,14 @@ class AuthorityServiceImpl implements AuthorityCreatingService {
     }
 
     @Override
-    public Authority[] create() {
+    public Collection<? extends Authority> create() {
         this.authorityRepository.deleteAll();
 
         List<AuthorityEntity> authList = this.createNew();
 
         authList = this.authorityRepository.saveAll(authList);
 
-        return this.prepareResponse(authList);
-    }
-
-    private Authority[] prepareResponse(List<AuthorityEntity> args) {
-        return this.authorityMapper
-                .mapToApplicationModelAll(args)
-                .stream()
-                .toArray(Authority[]::new);
+        return this.authorityMapper.mapToApplicationModelAll(authList);
     }
 
     private List<AuthorityEntity> createNew() {
