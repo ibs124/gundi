@@ -5,12 +5,10 @@ import java.time.Instant;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.application.dto.TokenDto;
-import ibs124.gundi.model.persistence.AuthorityEntity;
 import ibs124.gundi.model.persistence.EmailEntity;
 import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.model.persistence.VerificationTokenEntity;
 import ibs124.gundi.repository.EmailRepository;
-import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.UserVerifyingService;
 import jakarta.transaction.Transactional;
@@ -21,17 +19,14 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
 
     private final Validator validator;
     private final VerificationTokenRepository tokenRepository;
-    private final AuthorityRepository roleRepository;
     private final EmailRepository emailRepository;
 
     public UserVerifyingServiceImpl(
             Validator validator,
             VerificationTokenRepository tokenRepository,
-            AuthorityRepository roleRepository,
             EmailRepository emailRepository) {
         this.validator = validator;
         this.tokenRepository = tokenRepository;
-        this.roleRepository = roleRepository;
         this.emailRepository = emailRepository;
     }
 
@@ -45,9 +40,9 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
         }
 
         UserEntity user = token.getUser();
-        user.setLastVerifiedAt(Instant.now());
+        user.setLastMfaVerifiedAt(Instant.now());
 
-        if (!user.isEnabled() && user.getLastVerifiedAt() == null) {
+        if (user.getLastMfaVerifiedAt() == null) {
             this.verifyNewUser(user);
         }
 
@@ -80,12 +75,9 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
     }
 
     private void verifyNewUser(UserEntity user) {
-
-        user.setEnabled(true);
-
         EmailEntity email = new EmailEntity(user, user.getPrimaryEmail());
 
-        email.setLastVerifiedAt(user.getLastVerifiedAt());
+        email.setLastVerifiedAt(user.getLastMfaVerifiedAt());
 
         email = this.emailRepository.save(email);
     }

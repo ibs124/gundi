@@ -1,7 +1,5 @@
 package ibs124.gundi.service.sample.impl;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -80,7 +78,6 @@ public class UserSeeder {
     }
 
     private UserEntity createByFullNameAndPassword(String fullName, String password) {
-        Instant now = Instant.now();
         String username = fullName.toLowerCase().replaceAll(" ", USERNAME_DELIMITER);
         String primaryEmail = username.concat(Config.PRIMARY_EMAIL_SUFFIX);
 
@@ -90,11 +87,6 @@ public class UserSeeder {
         user.setFullName(fullName);
         user.setPrimaryEmail(primaryEmail);
 
-        user.setLastVerifiedAt(now);
-        user.setEnabled(true);
-        user.setAccountExpiresAt(
-                now.plus(Config.ACCOUNT_EXPIRATION_DAYS, ChronoUnit.DAYS));
-        user.setMfaEnabledAt(now);
         return user;
     }
 

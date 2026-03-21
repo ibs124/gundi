@@ -13,7 +13,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
@@ -26,14 +25,12 @@ public class UserEntity extends AbstractAuditableEntity {
     private String password;
     private String primaryEmail;
     private boolean isEnabled;
-    private Instant lastVerifiedAt;
-    private Instant accountExpiresAt;
-    private Instant mfaEnabledAt;
-    private Instant lockedAt;
+    private Instant lastMfaVerifiedAt;
 
     public UserEntity() {
         super();
         this.setAuthorities(new HashSet<>());
+        this.setEnabled(true);
     }
 
     @Transient
@@ -51,12 +48,12 @@ public class UserEntity extends AbstractAuditableEntity {
         return authorities;
     }
 
-    public void setAuthorities(Set<AuthorityEntity> roles) {
-        if (roles == null) {
-            roles = new HashSet<>();
+    public void setAuthorities(Set<AuthorityEntity> authorities) {
+        if (authorities == null) {
+            return;
         }
 
-        this.authorities = roles;
+        this.authorities = authorities;
     }
 
     public String getFullName() {
@@ -106,39 +103,12 @@ public class UserEntity extends AbstractAuditableEntity {
     }
 
     @PastOrPresent
-    public Instant getLastVerifiedAt() {
-        return lastVerifiedAt;
+    public Instant getLastMfaVerifiedAt() {
+        return lastMfaVerifiedAt;
     }
 
-    public void setLastVerifiedAt(Instant lastVerifiedAt) {
-        this.lastVerifiedAt = lastVerifiedAt;
-    }
-
-    @Future
-    public Instant getAccountExpiresAt() {
-        return accountExpiresAt;
-    }
-
-    public void setAccountExpiresAt(Instant accountExpiresAt) {
-        this.accountExpiresAt = accountExpiresAt;
-    }
-
-    @PastOrPresent
-    public Instant getMfaEnabledAt() {
-        return mfaEnabledAt;
-    }
-
-    public void setMfaEnabledAt(Instant mfaEnabledAt) {
-        this.mfaEnabledAt = mfaEnabledAt;
-    }
-
-    @PastOrPresent
-    public Instant getLockedAt() {
-        return lockedAt;
-    }
-
-    public void setLockedAt(Instant lockedAt) {
-        this.lockedAt = lockedAt;
+    public void setLastMfaVerifiedAt(Instant lastVerifiedAt) {
+        this.lastMfaVerifiedAt = lastVerifiedAt;
     }
 
 }

@@ -1,8 +1,8 @@
 package ibs124.gundi.service.auth.impl;
 
-import java.time.Instant;
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.AuthorityConfig;
@@ -14,22 +14,24 @@ import ibs124.gundi.model.persistence.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.service.auth.UserCreatingService;
-import ibs124.gundi.service.auth.UserConfiguringService;
 
 @Service
 class UserCreatingServiceImpl implements UserCreatingService {
 
     private final UserMapper userMapper;
-    private final UserConfiguringService userConfigService;
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserCreatingServiceImpl(UserMapper userMapper, UserConfiguringService userConfigService,
-            UserRepository userRepository, AuthorityRepository authorityRepository) {
+    public UserCreatingServiceImpl(
+            UserMapper userMapper,
+            UserRepository userRepository,
+            AuthorityRepository authorityRepository,
+            PasswordEncoder passwordEncoder) {
         this.userMapper = userMapper;
-        this.userConfigService = userConfigService;
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -39,7 +41,7 @@ class UserCreatingServiceImpl implements UserCreatingService {
 
         user = this.assignAuthorities(user);
 
-        user = this.configure(user);
+        user = this.setDefaultUserState(user);
 
         user = this.userRepository.save(user);
 
@@ -47,28 +49,19 @@ class UserCreatingServiceImpl implements UserCreatingService {
     }
 
     private UserEntity assignAuthorities(UserEntity user) {
-        List<String> defaultNewUserAuthorities = List.of(
-                AuthorityConfig.ROLE_USER.getAuthority(),
-                AuthorityConfig.FACTOR_NEW_USER.getAuthority());
-
         List<AuthorityEntity> authorities = this.authorityRepository
-                .findByNameIn(defaultNewUserAuthorities);
+                .findByNameIn(AuthorityConfig.ROLE_USER.getAuthority());
 
         user.addAuthority(authorities.get(0));
-        user.addAuthority(authorities.get(1));
 
         return user;
     }
 
-    private UserEntity configure(UserEntity user) {
-        user.setPassword(
-                this.userConfigService
-                        .encodePassword(user.getPassword()));
+    private UserEntity setDefaultUserState(UserEntity user) {
+        String encodedPassword = this.passwordEncoder
+                .encode(user.getPassword());
 
-        user.setAccountExpiresAt(
-                this.userConfigService.getAccountExpiration());
-
-        user.setMfaEnabledAt(Instant.now());
+        user.setPassword(encodedPassword);
 
         user.setEnabled(true);
 

@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import ibs124.gundi.model.application.Authority;
 import ibs124.gundi.validation.constraint.ValidEmail;
+import ibs124.gundi.validation.constraint.ValidFullName;
 import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -12,9 +13,10 @@ import jakarta.validation.constraints.PositiveOrZero;
 @NotNull
 public record UserDto(
         @NotNull @PositiveOrZero Long id,
-        Collection<Authority> authorities,
+        @NotNull Collection<Authority> authorities,
         @ValidUsername String username,
         @ValidEmail String primaryEmail,
+        @ValidFullName String fullName,
         boolean isEnabled) {
 
     public UserDto {
