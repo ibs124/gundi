@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.AuthorityConfig;
 import ibs124.gundi.mapper.AuthorityMapper;
-import ibs124.gundi.model.application.Authority;
+import ibs124.gundi.model.application.contract.AuthorityContract;
 import ibs124.gundi.model.persistence.AuthorityEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.service.auth.AuthorityCreatingService;
@@ -27,7 +27,7 @@ class AuthorityServiceImpl implements AuthorityCreatingService {
     }
 
     @Override
-    public Collection<? extends Authority> create() {
+    public Collection<? extends AuthorityContract> create() {
         this.authorityRepository.deleteAll();
 
         List<AuthorityEntity> authList = this.createNew();
