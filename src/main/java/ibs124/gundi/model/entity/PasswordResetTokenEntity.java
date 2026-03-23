@@ -1,4 +1,4 @@
-package ibs124.gundi.model.persistence;
+package ibs124.gundi.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

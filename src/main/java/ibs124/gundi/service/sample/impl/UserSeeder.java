@@ -11,8 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.config.AuthorityConfig;
-import ibs124.gundi.model.persistence.AuthorityEntity;
-import ibs124.gundi.model.persistence.UserEntity;
+import ibs124.gundi.model.entity.AuthorityEntity;
+import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
 import jakarta.validation.constraints.NotBlank;

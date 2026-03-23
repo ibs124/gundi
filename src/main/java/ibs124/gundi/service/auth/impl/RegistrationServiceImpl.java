@@ -7,23 +7,23 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.AuthorityConfig;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.application.dto.UserCreateDto;
+import ibs124.gundi.model.application.dto.RegisterDto;
 import ibs124.gundi.model.application.dto.UserDto;
-import ibs124.gundi.model.persistence.AuthorityEntity;
-import ibs124.gundi.model.persistence.UserEntity;
+import ibs124.gundi.model.entity.AuthorityEntity;
+import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
-import ibs124.gundi.service.auth.UserCreatingService;
+import ibs124.gundi.service.auth.RegistrationService;
 
 @Service
-class UserCreatingServiceImpl implements UserCreatingService {
+class RegistrationServiceImpl implements RegistrationService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserCreatingServiceImpl(
+    public RegistrationServiceImpl(
             UserMapper userMapper,
             UserRepository userRepository,
             AuthorityRepository authorityRepository,
@@ -35,9 +35,9 @@ class UserCreatingServiceImpl implements UserCreatingService {
     }
 
     @Override
-    public UserDto create(UserCreateDto request) {
+    public UserDto create(RegisterDto request) {
         UserEntity user = this.userMapper
-                .mapToPersistenceModel(request);
+                .mapToEntity(request);
 
         user = this.assignAuthorities(user);
 
@@ -45,7 +45,7 @@ class UserCreatingServiceImpl implements UserCreatingService {
 
         user = this.userRepository.save(user);
 
-        return this.userMapper.mapToApplicationModel(user);
+        return this.userMapper.mapToDto(user);
     }
 
     private UserEntity assignAuthorities(UserEntity user) {

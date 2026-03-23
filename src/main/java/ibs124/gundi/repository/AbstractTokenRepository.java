@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
-import ibs124.gundi.model.persistence.AbstractTokenEntity;
-import ibs124.gundi.model.persistence.UserEntity;
+import ibs124.gundi.model.entity.AbstractTokenEntity;
+import ibs124.gundi.model.entity.UserEntity;
 import jakarta.validation.Valid;
 
 import java.time.Instant;

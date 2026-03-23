@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.model.persistence.EmailEntity;
-import ibs124.gundi.model.persistence.UserEntity;
+import ibs124.gundi.model.entity.EmailEntity;
+import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.EmailRepository;
 
 @Component

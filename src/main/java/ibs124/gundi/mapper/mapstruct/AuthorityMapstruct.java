@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import ibs124.gundi.constant.Mappers;
 import ibs124.gundi.mapper.AuthorityMapper;
-import ibs124.gundi.model.persistence.AuthorityEntity;
+import ibs124.gundi.model.entity.AuthorityEntity;
 
 @Mapper(componentModel = Mappers.COMPONENT_MODEL)
 public interface AuthorityMapstruct extends AuthorityMapper {

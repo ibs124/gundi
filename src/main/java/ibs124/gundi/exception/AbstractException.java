@@ -1,6 +1,6 @@
 package ibs124.gundi.exception;
 
-import ibs124.gundi.model.persistence.AbstractEntity;
+import ibs124.gundi.model.entity.AbstractEntity;
 
 public abstract class AbstractException extends RuntimeException {
 

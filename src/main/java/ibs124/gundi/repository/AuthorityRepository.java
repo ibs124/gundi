@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import ibs124.gundi.model.persistence.AuthorityEntity;
+import ibs124.gundi.model.entity.AuthorityEntity;
 
 @Repository
 public interface AuthorityRepository extends JpaRepository<AuthorityEntity, Long> {

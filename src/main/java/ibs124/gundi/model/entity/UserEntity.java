@@ -1,4 +1,4 @@
-package ibs124.gundi.model.persistence;
+package ibs124.gundi.model.entity;
 
 import java.beans.Transient;
 import java.time.Instant;

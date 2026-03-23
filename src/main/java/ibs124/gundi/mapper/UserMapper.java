@@ -1,26 +1,19 @@
 package ibs124.gundi.mapper;
 
 import ibs124.gundi.model.application.dto.TokenDto;
-import ibs124.gundi.model.application.dto.UserCreateDto;
+import ibs124.gundi.model.application.dto.RegisterDto;
 import ibs124.gundi.model.application.dto.UserDto;
-import ibs124.gundi.model.persistence.UserEntity;
-import ibs124.gundi.model.persistence.VerificationTokenEntity;
-import ibs124.gundi.model.presentation.ProfileSelfView;
-import ibs124.gundi.model.presentation.RegisterRequest;
+import ibs124.gundi.model.entity.UserEntity;
+import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.security.MyUserDetails;
 
 public interface UserMapper {
 
-    ProfileSelfView mapToPresentationModel(MyUserDetails src);
+    UserEntity mapToEntity(RegisterDto dto);
 
-    UserCreateDto mapToApplicationModel(RegisterRequest src);
+    UserDto mapToDto(UserEntity src);
 
-    UserDto mapToApplicationModel(UserEntity src);
+    TokenDto mapToDto(VerificationTokenEntity token);
 
     MyUserDetails mapToSecurityModel(UserEntity src);
-
-    UserEntity mapToPersistenceModel(UserCreateDto dto);
-
-    TokenDto mapToApplicationModel(VerificationTokenEntity token);
-
 }

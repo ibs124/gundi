@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
-import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.presentation.RegisterRequest;
-import ibs124.gundi.service.auth.UserCreatingService;
+import ibs124.gundi.model.application.dto.RegisterDto;
+import ibs124.gundi.service.auth.RegistrationService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.validation.Valid;
 
@@ -26,20 +25,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class RegisterController {
 
-    private final UserCreatingService registerService;
-    private final UserMapper userMapper;
+    private final RegistrationService registerService;
 
-    public RegisterController(
-            UserCreatingService registerService,
-            UserMapper userMapper) {
+    public RegisterController(RegistrationService registerService) {
         this.registerService = registerService;
-        this.userMapper = userMapper;
     }
 
     @GetMapping(REGISTER)
     public String registerGet(Model model) {
         if (!model.containsAttribute(API_RESPONSE)) {
-            model.addAttribute(API_RESPONSE, new RegisterRequest());
+            model.addAttribute(API_RESPONSE, new RegisterDto());
         }
 
         return Templates.REGISTER;
@@ -47,7 +42,7 @@ public class RegisterController {
 
     @PostMapping(REGISTER)
     public String registerPost(
-            @Valid @ModelAttribute(API_RESPONSE) RegisterRequest bindingModel,
+            @Valid @ModelAttribute(API_RESPONSE) RegisterDto bindingModel,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
 
@@ -58,8 +53,7 @@ public class RegisterController {
             return RouteUtils.getRedirectUrl(REGISTER);
         }
 
-        this.registerService.create(
-                this.userMapper.mapToApplicationModel(bindingModel));
+        this.registerService.create(bindingModel);
 
         return RouteUtils.getRedirectUrl(Routes.REGISTER_SUCCESS);
     }

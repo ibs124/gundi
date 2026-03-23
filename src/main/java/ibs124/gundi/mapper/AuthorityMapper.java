@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import ibs124.gundi.model.application.dto.AuthorityDto;
-import ibs124.gundi.model.persistence.AuthorityEntity;
+import ibs124.gundi.model.entity.AuthorityEntity;
 
 public interface AuthorityMapper {
 
@@ -14,7 +14,7 @@ public interface AuthorityMapper {
 
     Collection<GrantedAuthority> mapToSecurityModelAll(Collection<AuthorityEntity> src);
 
-    AuthorityDto mapToApplicationModel(AuthorityEntity x);
+    AuthorityDto mapToDto(AuthorityEntity x);
 
-    Collection<AuthorityDto> mapToApplicationModelAll(Collection<AuthorityEntity> x);
+    Collection<AuthorityDto> mapToDtoAll(Collection<AuthorityEntity> x);
 }

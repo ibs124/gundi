@@ -8,9 +8,9 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.application.dto.TokenDto;
 import ibs124.gundi.model.application.dto.UserDto;
 import ibs124.gundi.model.application.dto.UserVerifiedResponseDto;
-import ibs124.gundi.model.persistence.EmailEntity;
-import ibs124.gundi.model.persistence.UserEntity;
-import ibs124.gundi.model.persistence.VerificationTokenEntity;
+import ibs124.gundi.model.entity.EmailEntity;
+import ibs124.gundi.model.entity.UserEntity;
+import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.UserVerifyingService;
@@ -52,8 +52,8 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
             this.verifyNewUser(user);
         }
 
-        UserDto userDto = this.userMapper.mapToApplicationModel(user);
-        TokenDto tokenDto = this.userMapper.mapToApplicationModel(token);
+        UserDto userDto = this.userMapper.mapToDto(user);
+        TokenDto tokenDto = this.userMapper.mapToDto(token);
         return new UserVerifiedResponseDto(userDto, tokenDto);
     }
 
