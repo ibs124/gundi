@@ -4,10 +4,7 @@ import java.time.Instant;
 
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.dto.TokenDto;
-import ibs124.gundi.model.dto.UserDto;
-import ibs124.gundi.model.dto.UserVerifiedResponseDto;
 import ibs124.gundi.model.entity.EmailEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
@@ -23,22 +20,19 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
     private final Validator validator;
     private final VerificationTokenRepository tokenRepository;
     private final EmailRepository emailRepository;
-    private final UserMapper userMapper;
 
     public UserVerifyingServiceImpl(
             Validator validator,
             VerificationTokenRepository tokenRepository,
-            EmailRepository emailRepository,
-            UserMapper userMapper) {
+            EmailRepository emailRepository) {
         this.validator = validator;
         this.tokenRepository = tokenRepository;
         this.emailRepository = emailRepository;
-        this.userMapper = userMapper;
     }
 
     @Override
     @Transactional
-    public UserVerifiedResponseDto verifyBySecret(String request) {
+    public TokenDto verifyBySecret(String request) {
         VerificationTokenEntity token = this.consumeTokenBySecret(request);
 
         if (token == null) {
@@ -52,9 +46,8 @@ class UserVerifyingServiceImpl implements UserVerifyingService {
             this.verifyNewUser(user);
         }
 
-        UserDto userDto = this.userMapper.mapToDto(user);
-        TokenDto tokenDto = this.userMapper.mapToDto(token);
-        return new UserVerifiedResponseDto(userDto, tokenDto);
+        return new TokenDto(
+                token.getUser().getUsername(), token.getSecret(), token.getExpiresAt());
     }
 
     private VerificationTokenEntity consumeTokenBySecret(String secret) {

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import ibs124.gundi.model.dto.TokenDto;
-import ibs124.gundi.model.dto.UserVerifiedResponseDto;
 import ibs124.gundi.service.auth.UserVerifyingService;
 
 @Component
@@ -20,8 +19,7 @@ public class OneTimeTokenServiceImpl implements OneTimeTokenService {
     private final UserVerifyingService verificationService;
     private final VerificationTokenCreatingService tokenCreatingService;
 
-    public OneTimeTokenServiceImpl(
-            UserVerifyingService verificationService,
+    public OneTimeTokenServiceImpl(UserVerifyingService verificationService,
             VerificationTokenCreatingService tokenCreatingService) {
         this.verificationService = verificationService;
         this.tokenCreatingService = tokenCreatingService;
@@ -29,14 +27,10 @@ public class OneTimeTokenServiceImpl implements OneTimeTokenService {
 
     @Override
     public @Nullable OneTimeToken consume(OneTimeTokenAuthenticationToken authToken) {
-        UserVerifiedResponseDto response = this.verificationService
+        TokenDto token = this.verificationService
                 .verifyBySecret(authToken.getTokenValue());
 
-        String username = response.user().username();
-        String secret = response.token().secret();
-        Instant expiresAt = response.token().expiresAt();
-
-        return response == null ? null : this.map(username, secret, expiresAt);
+        return this.map(token);
     }
 
     @Override
@@ -44,24 +38,27 @@ public class OneTimeTokenServiceImpl implements OneTimeTokenService {
         TokenDto token = this.tokenCreatingService
                 .createByUsername(request.getUsername());
 
-        return this.map(request.getUsername(), token.secret(), token.expiresAt());
+        return this.map(token);
     }
 
-    private OneTimeToken map(String username, String secret, Instant expiresAt) {
+    private OneTimeToken map(TokenDto dto) {
+        if (dto == null) {
+            return null;
+        }
         return new OneTimeToken() {
             @Override
-            public String getTokenValue() {
-                return secret;
+            public String getUsername() {
+                return dto.username();
             }
 
             @Override
-            public String getUsername() {
-                return username;
+            public String getTokenValue() {
+                return dto.secret();
             }
 
             @Override
             public Instant getExpiresAt() {
-                return expiresAt;
+                return dto.expiresAt();
             }
         };
     }

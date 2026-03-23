@@ -1,8 +1,8 @@
 package ibs124.gundi.service.auth;
 
-import ibs124.gundi.model.dto.UserVerifiedResponseDto;
+import ibs124.gundi.model.dto.TokenDto;
 
 public interface UserVerifyingService {
 
-    UserVerifiedResponseDto verifyBySecret(String secret);
+    TokenDto verifyBySecret(String secret);
 }

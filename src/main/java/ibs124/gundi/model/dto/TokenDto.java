@@ -7,6 +7,11 @@ import jakarta.validation.constraints.NotNull;
 
 @NotNull
 public record TokenDto(
+        String username,
         @NotBlank String secret,
-        Instant expiresAt) {
+        @NotNull Instant expiresAt) {
+
+    public TokenDto(String secret, Instant expiresAt) {
+        this(null, secret, expiresAt);
+    }
 }
