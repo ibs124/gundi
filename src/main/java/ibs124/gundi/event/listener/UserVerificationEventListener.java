@@ -23,17 +23,17 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import ibs124.gundi.config.PropertyConfig;
-import ibs124.gundi.event.NewUserVerificationEvent;
+import ibs124.gundi.event.UserVerificationEvent;
 
 @Component
-class NewUserVerificationEventListener
-        implements ApplicationListener<NewUserVerificationEvent> {
+class UserVerificationEventListener
+        implements ApplicationListener<UserVerificationEvent> {
 
     private final TemplateCompilingService templateCompileService;
     private final EmailSendingService emailSendingService;
     private final PropertyConfig config;
 
-    public NewUserVerificationEventListener(
+    public UserVerificationEventListener(
             TemplateCompilingService templateCompileService,
             EmailSendingService emailSendingService,
             PropertyConfig config) {
@@ -44,7 +44,7 @@ class NewUserVerificationEventListener
 
     @Override
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void onApplicationEvent(NewUserVerificationEvent event) {
+    public void onApplicationEvent(UserVerificationEvent event) {
 
         TestUtils.sendVerification(event);
 

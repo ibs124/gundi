@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.ott.RedirectOneTimeTokenG
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.constant.Routes;
-import ibs124.gundi.event.NewUserVerificationEvent;
+import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ public class OneTimeTokenGenerationSuccessHandlerImpl implements
             HttpServletResponse response,
             OneTimeToken oneTimeToken) throws IOException, ServletException {
 
-        NewUserVerificationEvent event = new NewUserVerificationEvent(
+        UserVerificationEvent event = new UserVerificationEvent(
                 oneTimeToken.getUsername(),
                 oneTimeToken.getTokenValue(),
                 RouteUtils.getAppUrl(request));
