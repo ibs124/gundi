@@ -10,12 +10,12 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.repository.UserRepository;
 
 @Service
-class MyUserDetailsService implements UserDetailsService {
+class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public MyUserDetailsService(UserRepository userRepository, UserMapper userMapper) {
+    public UserDetailsServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }

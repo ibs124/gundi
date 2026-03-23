@@ -15,12 +15,12 @@ import ibs124.gundi.model.dto.UserVerifiedResponseDto;
 import ibs124.gundi.service.auth.UserVerifyingService;
 
 @Component
-public class MyOttService implements OneTimeTokenService {
+public class OneTimeTokenServiceImpl implements OneTimeTokenService {
 
     private final UserVerifyingService verificationService;
     private final VerificationTokenCreatingService tokenCreatingService;
 
-    public MyOttService(
+    public OneTimeTokenServiceImpl(
             UserVerifyingService verificationService,
             VerificationTokenCreatingService tokenCreatingService) {
         this.verificationService = verificationService;

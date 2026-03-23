@@ -2,22 +2,21 @@ package ibs124.gundi.security;
 
 import java.util.Collection;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class MyUserDetails implements UserDetails, CredentialsContainer {
+public class UserDetailsImpl implements UserDetails, CredentialsContainer {
 
-    private Long id;
     private Collection<? extends GrantedAuthority> authorities;
     private String username;
     private String password;
+    private boolean isEnabled;
+    private Long id;
     private String primaryEmail;
     private String fullName;
-    private boolean isEnabled;
 
-    public MyUserDetails() {
+    public UserDetailsImpl() {
         super();
     }
 
@@ -26,19 +25,36 @@ public class MyUserDetails implements UserDetails, CredentialsContainer {
         this.password = null;
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        return authorities;
     }
 
-    @Override
-    public @Nullable String getPassword() {
-        return this.password;
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 
-    @Override
     public String getUsername() {
-        return this.username;
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
 
     public Long getId() {
@@ -47,18 +63,6 @@ public class MyUserDetails implements UserDetails, CredentialsContainer {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPrimaryEmail() {
@@ -75,14 +79,6 @@ public class MyUserDetails implements UserDetails, CredentialsContainer {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(boolean isEnabled) {
-        this.isEnabled = isEnabled;
     }
 
 }

@@ -5,7 +5,7 @@ import ibs124.gundi.model.dto.TokenDto;
 import ibs124.gundi.model.dto.UserDto;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
-import ibs124.gundi.security.MyUserDetails;
+import ibs124.gundi.security.UserDetailsImpl;
 
 public interface UserMapper {
 
@@ -15,5 +15,5 @@ public interface UserMapper {
 
     TokenDto mapToDto(VerificationTokenEntity token);
 
-    MyUserDetails mapToSecurityModel(UserEntity src);
+    UserDetailsImpl mapToSecurityModel(UserEntity src);
 }

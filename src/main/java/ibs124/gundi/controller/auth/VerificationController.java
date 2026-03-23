@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.NewUserVerificationEvent;
-import ibs124.gundi.security.MyUserDetails;
+import ibs124.gundi.security.UserDetailsImpl;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,7 +40,7 @@ class VerificationController {
     public String send(
             Model model,
             HttpServletRequest request,
-            @AuthenticationPrincipal MyUserDetails principal) {
+            @AuthenticationPrincipal UserDetailsImpl principal) {
 
         String secret = this.verificationTokenCreatingService
                 .createByUserId(principal.getId())

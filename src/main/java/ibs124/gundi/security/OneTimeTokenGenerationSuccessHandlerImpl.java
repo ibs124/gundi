@@ -16,13 +16,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class MyOttGenerationSuccessHandler implements
+public class OneTimeTokenGenerationSuccessHandlerImpl implements
         OneTimeTokenGenerationSuccessHandler {
 
     private final ApplicationEventPublisher eventPublisher;
     private final OneTimeTokenGenerationSuccessHandler redirectHandler;
 
-    public MyOttGenerationSuccessHandler(ApplicationEventPublisher eventPublisher) {
+    public OneTimeTokenGenerationSuccessHandlerImpl(
+            ApplicationEventPublisher eventPublisher) {
+
         this.eventPublisher = eventPublisher;
         this.redirectHandler = new RedirectOneTimeTokenGenerationSuccessHandler(
                 Routes.VERIFICATION_SEND);
