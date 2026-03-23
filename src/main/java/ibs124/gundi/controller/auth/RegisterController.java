@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
-import ibs124.gundi.model.dto.RegisterDto;
-import ibs124.gundi.service.auth.RegistrationService;
+import ibs124.gundi.model.dto.UserRegisterDto;
+import ibs124.gundi.service.auth.UserRegisterService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.validation.Valid;
 
@@ -25,16 +25,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class RegisterController {
 
-    private final RegistrationService registerService;
+    private final UserRegisterService registerService;
 
-    public RegisterController(RegistrationService registerService) {
+    public RegisterController(UserRegisterService registerService) {
         this.registerService = registerService;
     }
 
     @GetMapping(REGISTER)
     public String registerGet(Model model) {
         if (!model.containsAttribute(API_RESPONSE)) {
-            model.addAttribute(API_RESPONSE, new RegisterDto());
+            model.addAttribute(API_RESPONSE, new UserRegisterDto());
         }
 
         return Templates.REGISTER;
@@ -42,7 +42,7 @@ public class RegisterController {
 
     @PostMapping(REGISTER)
     public String registerPost(
-            @Valid @ModelAttribute(API_RESPONSE) RegisterDto bindingModel,
+            @Valid @ModelAttribute(API_RESPONSE) UserRegisterDto bindingModel,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
 
@@ -53,7 +53,7 @@ public class RegisterController {
             return RouteUtils.getRedirectUrl(REGISTER);
         }
 
-        this.registerService.create(bindingModel);
+        this.registerService.register(bindingModel);
 
         return RouteUtils.getRedirectUrl(Routes.REGISTER_SUCCESS);
     }

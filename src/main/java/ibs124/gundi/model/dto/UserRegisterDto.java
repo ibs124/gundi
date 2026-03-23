@@ -9,13 +9,13 @@ import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.validation.constraints.NotNull;
 
 @NotNull
-public record RegisterDto(
+public record UserRegisterDto(
         @UniqueUsername @ValidUsername String username,
         @ValidPassword String password,
         @UniqueEmail @ValidEmail String email,
         @ValidFullName String fullName) {
 
-    public RegisterDto() {
+    public UserRegisterDto() {
         this(null, null, null, null);
     }
 }

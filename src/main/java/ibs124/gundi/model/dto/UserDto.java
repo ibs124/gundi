@@ -3,8 +3,6 @@ package ibs124.gundi.model.dto;
 import java.util.Collection;
 import java.util.HashSet;
 
-import ibs124.gundi.validation.constraint.ValidEmail;
-import ibs124.gundi.validation.constraint.ValidFullName;
 import ibs124.gundi.validation.constraint.ValidUsername;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -14,8 +12,6 @@ public record UserDto(
         @NotNull @PositiveOrZero Long id,
         @NotNull Collection<AuthorityContract> authorities,
         @ValidUsername String username,
-        @ValidEmail String primaryEmail,
-        @ValidFullName String fullName,
         boolean isEnabled) {
 
     public UserDto {

@@ -7,23 +7,23 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.AuthorityConfig;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.dto.RegisterDto;
+import ibs124.gundi.model.dto.UserRegisterDto;
 import ibs124.gundi.model.dto.UserDto;
 import ibs124.gundi.model.entity.AuthorityEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
-import ibs124.gundi.service.auth.RegistrationService;
+import ibs124.gundi.service.auth.UserRegisterService;
 
 @Service
-class RegistrationServiceImpl implements RegistrationService {
+class UserRegisterServiceImpl implements UserRegisterService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public RegistrationServiceImpl(
+    public UserRegisterServiceImpl(
             UserMapper userMapper,
             UserRepository userRepository,
             AuthorityRepository authorityRepository,
@@ -35,7 +35,7 @@ class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public UserDto create(RegisterDto request) {
+    public UserDto register(UserRegisterDto request) {
         UserEntity user = this.userMapper
                 .mapToEntity(request);
 
