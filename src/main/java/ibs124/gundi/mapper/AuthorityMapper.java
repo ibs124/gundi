@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import ibs124.gundi.model.application.dto.AuthorityDto;
+import ibs124.gundi.model.dto.AuthorityDto;
 import ibs124.gundi.model.entity.AuthorityEntity;
 
 public interface AuthorityMapper {

@@ -1,4 +1,4 @@
-package ibs124.gundi.model.application.property;
+package ibs124.gundi.model.configuration;
 
 import ibs124.gundi.validation.constraint.ValidEmail;
 import jakarta.validation.constraints.NotNull;

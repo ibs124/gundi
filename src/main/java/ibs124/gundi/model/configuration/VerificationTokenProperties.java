@@ -1,4 +1,4 @@
-package ibs124.gundi.model.application.property;
+package ibs124.gundi.model.configuration;
 
 public record VerificationTokenProperties(
         int expirationMinutes,

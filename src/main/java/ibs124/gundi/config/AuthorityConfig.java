@@ -1,6 +1,6 @@
 package ibs124.gundi.config;
 
-import ibs124.gundi.model.application.contract.AuthorityContract;
+import ibs124.gundi.model.dto.AuthorityContract;
 
 public abstract class AuthorityConfig {
 

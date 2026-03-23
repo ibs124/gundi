@@ -1,4 +1,4 @@
-package ibs124.gundi.model.application.contract;
+package ibs124.gundi.model.dto;
 
 public interface AuthorityContract {
 

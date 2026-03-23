@@ -1,9 +1,8 @@
-package ibs124.gundi.model.application.dto;
+package ibs124.gundi.model.dto;
 
 import java.util.Collection;
 import java.util.HashSet;
 
-import ibs124.gundi.model.application.contract.AuthorityContract;
 import ibs124.gundi.validation.constraint.ValidEmail;
 import ibs124.gundi.validation.constraint.ValidFullName;
 import ibs124.gundi.validation.constraint.ValidUsername;

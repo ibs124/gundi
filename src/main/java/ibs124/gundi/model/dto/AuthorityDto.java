@@ -1,6 +1,5 @@
-package ibs124.gundi.model.application.dto;
+package ibs124.gundi.model.dto;
 
-import ibs124.gundi.model.application.contract.AuthorityContract;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;

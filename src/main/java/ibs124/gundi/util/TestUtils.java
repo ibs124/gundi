@@ -3,7 +3,7 @@ package ibs124.gundi.util;
 import java.time.Instant;
 
 import ibs124.gundi.event.AbstractVerificationEvent;
-import ibs124.gundi.model.application.dto.TokenDto;
+import ibs124.gundi.model.dto.TokenDto;
 import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;

@@ -1,6 +1,6 @@
 package ibs124.gundi.service.message;
 
-import ibs124.gundi.model.application.dto.EmailSendDto;
+import ibs124.gundi.model.dto.EmailSendDto;
 
 public interface EmailSendingService {
 
