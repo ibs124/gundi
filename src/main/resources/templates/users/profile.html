@@ -3,13 +3,13 @@
 
 <th:block th:insert="~{fragments/app}" th:with="
     title='My Profile',
-    content=~{this::.app__main-content}
+    content=~{this::.app__main-content},
 ">
     <div class="app__main-content">
-        <div class="card" th:object="${apiResponse}">
-            <p th:text="*{username}"></p>
-            <p th:text="*{fullName}"></p>
-            <p th:text="*{primaryEmail}"></p>
+        <div class="card" th:object="${#authentication.principal}">
+            <p th:text="*{getUsername()}"></p>
+            <p th:text="*{getFullName()}"></p>
+            <p th:text="*{getPrimaryEmail()}"></p>
         </div>
     </div>
 </th:block>
