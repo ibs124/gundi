@@ -25,8 +25,8 @@
         <tr>
             <td align="center" style="padding: 5px; font-size: 17px;">
                 <p class="email__info">
-                    Before you finish creating your account, we need to verify your identity.
-                    On the verification page enter the following code.
+                    Before you sign in, we need to verify your identity. Enter the following code
+                    on the sign-in page.
                 </p>
             </td>
         </tr>
@@ -42,11 +42,6 @@
             <td align="center" style="padding: 5px; font-size: 15px;">
                 <p class="email__warning">
                     Your verification code expires after <th:block th:text="${expiration}"></th:block> minutes.
-                </p>
-                <p class="email__warning">
-                    You must confirm your email within <th:block th:text="${deadline}"></th:block> hours of signing up.
-                    If you do not confirm your email in this timeframe,
-                    your account will be deleted and you will need to sign up again.
                 </p>
             </td>
         </tr>
