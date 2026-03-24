@@ -1,7 +1,6 @@
 package ibs124.gundi.service.sample.impl;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -20,23 +19,16 @@ public class EmailSeeder {
     }
 
     public List<EmailEntity> seedPrimaryEmails(List<UserEntity> users) {
-        if (this.emailRepository.count() > 0) {
-            return new ArrayList<>();
-        }
-        
         List<EmailEntity> emails = users
                 .stream()
-                .map(x -> this.createPrimaryEmailByUser(x))
+                .map(x -> this.seedPrimaryEmailByUser(x))
                 .toList();
 
         return this.emailRepository.saveAll(emails);
     }
 
-    private EmailEntity createPrimaryEmailByUser(UserEntity user) {
-        String emailAddress = user
-                .getUsername().concat(Config.PRIMARY_EMAIL_SUFFIX);
-
-        EmailEntity email = new EmailEntity(user, emailAddress);
+    private EmailEntity seedPrimaryEmailByUser(UserEntity user) {
+        EmailEntity email = new EmailEntity(user, user.getPrimaryEmail());
 
         email.setLastVerifiedAt(Instant.now());
 

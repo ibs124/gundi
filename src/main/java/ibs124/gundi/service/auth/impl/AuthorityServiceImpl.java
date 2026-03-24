@@ -28,6 +28,12 @@ class AuthorityServiceImpl implements AuthorityCreatingService {
 
     @Override
     public Collection<? extends AuthorityContract> create() {
+        List<AuthorityEntity> authorities = this.authorityRepository.findAll();
+
+        if (!authorities.isEmpty()) {
+            return this.authorityMapper.mapToDtoAll(authorities);
+        }
+
         this.authorityRepository.deleteAll();
 
         List<AuthorityEntity> authList = this.createNew();

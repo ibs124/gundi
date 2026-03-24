@@ -1,21 +1,14 @@
 package ibs124.gundi.service.sample.impl;
 
-import java.util.ArrayList;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.config.AuthorityConfig;
-import ibs124.gundi.model.entity.AuthorityEntity;
 import ibs124.gundi.model.entity.UserEntity;
-import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
-import jakarta.validation.constraints.NotBlank;
 
 @Component
 public class UserSeeder {
@@ -23,58 +16,41 @@ public class UserSeeder {
     private final String USERNAME_DELIMITER = "_";
 
     private final PasswordEncoder passwordEncoder;
+    private final AuthoritySeeder authoritySeeder;
     private final UserRepository userRepository;
-    private final AuthorityRepository authorityRepository;
+    private final EmailSeeder emailSeeder;
 
-    public UserSeeder(PasswordEncoder passwordEncoder, UserRepository userRepository,
-            AuthorityRepository roleRepository) {
+    public UserSeeder(
+            PasswordEncoder passwordEncoder,
+            AuthoritySeeder authoritySeeder,
+            UserRepository userRepository,
+            EmailSeeder emailSeeder) {
         this.passwordEncoder = passwordEncoder;
+        this.authoritySeeder = authoritySeeder;
         this.userRepository = userRepository;
-        this.authorityRepository = roleRepository;
+        this.emailSeeder = emailSeeder;
     }
 
     public List<UserEntity> seedUsers() {
-        if (this.userRepository.count() > 0) {
-            return new ArrayList<>();
-        }
+        List<UserEntity> users = this.createUsers();
 
-        String password = this.passwordEncoder.encode(Config.DEFAULT_USER_PASSWORD);
+        this.authoritySeeder.seedAuthorities(users);
 
-        List<UserEntity> users = Arrays
+        users = this.userRepository.saveAll(users);
+
+        this.emailSeeder.seedPrimaryEmails(users);
+
+        return users;
+    }
+
+    private List<UserEntity> createUsers() {
+        String password = this.passwordEncoder
+                .encode(Config.DEFAULT_USER_PASSWORD);
+
+        return Arrays
                 .stream(Config.USER_NAMES)
                 .map(x -> this.createByFullNameAndPassword(x, password))
                 .toList();
-
-        users = this.createRolesByUsers(users);
-
-        return this.userRepository.saveAll(users);
-
-    }
-
-    private List<UserEntity> createRolesByUsers(List<UserEntity> users) {
-        Map<String, AuthorityEntity> authorities = this.loadDefaultAuthorities();
-
-        AuthorityEntity rootAuth = authorities
-                .get(AuthorityConfig.ROLE_ROOT.getAuthority());
-
-        users.get(0).addAuthority(rootAuth);
-
-        AuthorityEntity adminAuth = authorities
-                .get(AuthorityConfig.ROLE_ADMIN.getAuthority());
-
-        for (int i = 0; i < Config.ADMINS_COUNT; i++) {
-            users.get(i).addAuthority(adminAuth);
-        }
-
-        AuthorityEntity userAuth = authorities.get(AuthorityConfig.ROLE_USER.getAuthority());
-        AuthorityEntity sampleAuth = authorities.get(Config.SAMPLE_FACTOR.getAuthority());
-
-        for (int i = 0; i < users.size(); i++) {
-            users.get(i).addAuthority(userAuth);
-            users.get(i).addAuthority(sampleAuth);
-        }
-
-        return users;
     }
 
     private UserEntity createByFullNameAndPassword(String fullName, String password) {
@@ -86,29 +62,9 @@ public class UserSeeder {
         user.setPassword(password);
         user.setFullName(fullName);
         user.setPrimaryEmail(primaryEmail);
+        user.setLastMfaVerifiedAt(Instant.now());
 
         return user;
-    }
-
-    private Map<String, AuthorityEntity> loadDefaultAuthorities() {
-
-        Map<@NotBlank String, AuthorityEntity> authorities = this.authorityRepository
-                .findByNameIn(
-                        List.of(
-                                AuthorityConfig.ROLE_ROOT.getAuthority(),
-                                AuthorityConfig.ROLE_ADMIN.getAuthority(),
-                                AuthorityConfig.ROLE_USER.getAuthority()))
-                .stream()
-                .collect(Collectors.toMap(AuthorityEntity::getName, Function.identity()));
-
-        AuthorityEntity sampleFactorAuthority = new AuthorityEntity(
-                Config.SAMPLE_FACTOR.getAuthority());
-
-        sampleFactorAuthority = this.authorityRepository.save(sampleFactorAuthority);
-
-        authorities.put(Config.SAMPLE_FACTOR.getAuthority(), sampleFactorAuthority);
-
-        return authorities;
     }
 
 }
