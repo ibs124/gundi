@@ -3,7 +3,6 @@ package ibs124.gundi.event.listener;
 import static ibs124.gundi.constant.Templates.AUTH_VERIFICATION_EMAIL;
 
 import static ibs124.gundi.constant.Env.GUNDI_LOGO_URL;
-import static ibs124.gundi.constant.ThymeleafEnv.DEADLINE;
 import static ibs124.gundi.constant.ThymeleafEnv.TOKEN;
 import static ibs124.gundi.constant.ThymeleafEnv.EXPIRATION;
 import static ibs124.gundi.constant.ThymeleafEnv.URL;
@@ -15,7 +14,6 @@ import ibs124.gundi.model.dto.config.VerificationProperties;
 import ibs124.gundi.model.dto.config.VerificationTokenProperties;
 import ibs124.gundi.service.message.EmailSendingService;
 import ibs124.gundi.service.message.TemplateCompilingService;
-import ibs124.gundi.util.TestUtils;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -46,34 +44,31 @@ class UserVerificationEventListener
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationEvent(UserVerificationEvent event) {
 
-        TestUtils.sendVerification(event);
+        VerificationProperties config = this.config.newUser();
 
-        // VerificationProperties config = this.config.newUser();
+        VerificationTokenProperties tokenConfig = config.token();
 
-        // VerificationTokenProperties tokenConfig = config.token();
+        TemplateCompileDto templateRequest = new TemplateCompileDto(
+                AUTH_VERIFICATION_EMAIL)
+                .addVariable(URL, GUNDI_LOGO_URL)
+                .addVariable(TOKEN, event.getSecret())
+                .addVariable(EXPIRATION, tokenConfig.expirationMinutes());
 
-        // TemplateCompileDto templateRequest = new TemplateCompileDto(
-        // NEW_USER_VERIFICATION_EMAIL)
-        // .addVariable(URL, GUNDI_LOGO_URL)
-        // .addVariable(TOKEN, event.getSecret())
-        // .addVariable(EXPIRATION, tokenConfig.expirationMinutes())
-        // .addVariable(DEADLINE, config.timeframeHours());
+        String message = this.templateCompileService.compileHtml(templateRequest);
 
-        // String message = this.templateCompileService.compileHtml(templateRequest);
+        VerificationEmailProperties mailConfig = config.mail();
 
-        // VerificationEmailProperties mailConfig = config.mail();
+        EmailSendDto emailRequest = EmailSendDto
+                .builder()
+                .from(mailConfig.from())
+                .displayName(mailConfig.displayName())
+                .to(event.getEmail())
+                .subject(mailConfig.subject())
+                .text(message)
+                .isHtml(mailConfig.isHtml())
+                .build();
 
-        // EmailSendDto emailRequest = EmailSendDto
-        // .builder()
-        // .from(mailConfig.from())
-        // .displayName(mailConfig.displayName())
-        // .to(event.getEmail())
-        // .subject(mailConfig.subject())
-        // .text(message)
-        // .isHtml(mailConfig.isHtml())
-        // .build();
-
-        // this.emailSendingService.sendEmail(emailRequest);
+        this.emailSendingService.sendEmail(emailRequest);
 
     }
 
