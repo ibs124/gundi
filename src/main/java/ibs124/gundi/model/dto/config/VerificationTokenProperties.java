@@ -1,4 +1,4 @@
-package ibs124.gundi.model.configuration;
+package ibs124.gundi.model.dto.config;
 
 public record VerificationTokenProperties(
         int expirationMinutes,
