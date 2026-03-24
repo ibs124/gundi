@@ -1,6 +1,6 @@
 package ibs124.gundi.controller.auth;
 
-import static ibs124.gundi.constant.Routes.VERIFICATION_SEND;
+import static ibs124.gundi.constant.Routes.AUTH_VERIFICATION_SEND;
 import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -31,12 +31,12 @@ class VerificationController {
         this.eventPublisher = eventPublisher;
     }
 
-    @GetMapping(Routes.VERIFICATION)
+    @GetMapping(Routes.AUTH_VERIFICATION)
     public String index() {
-        return RouteUtils.getForwardUrl(VERIFICATION_SEND);
+        return RouteUtils.getForwardUrl(AUTH_VERIFICATION_SEND);
     }
 
-    @GetMapping(Routes.VERIFICATION_SEND)
+    @GetMapping(Routes.AUTH_VERIFICATION_SEND)
     public String send(
             Model model,
             HttpServletRequest request,
@@ -57,13 +57,13 @@ class VerificationController {
         return Templates.VERIFICATION;
     }
 
-    @GetMapping(Routes.VERIFICATION_SUCCESS)
+    @GetMapping(Routes.AUTH_VERIFICATION_SUCCESS)
     public String success(Model model, Authentication authentication) {
         model.addAttribute(STATUS_CODE, 0);
         return Templates.VERIFICATION;
     }
 
-    @GetMapping(Routes.VERIFICATION_FAIL)
+    @GetMapping(Routes.AUTH_VERIFICATION_FAIL)
     public String error(Model model, Authentication authentication) {
         model.addAttribute(STATUS_CODE, 2);
         return Templates.VERIFICATION;

@@ -10,7 +10,7 @@
             <h1>Sign In</h1>
         </div>
         <div class="section__main">
-            <form class="form" th:action="@{${routes.login}}" method="POST">
+            <form class="form" th:action="@{${routes.auth_login}}" method="POST">
                 <div class="form__group">
                     <label class="form__label" for="username">Email or Username</label>
                     <input class="form__input" type="text" placeholder="Email or Username" name="username"

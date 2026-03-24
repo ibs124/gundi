@@ -1,7 +1,7 @@
 package ibs124.gundi.controller.auth;
 
-import static ibs124.gundi.constant.Routes.REGISTER;
-import static ibs124.gundi.constant.Routes.REGISTER_SUCCESS;
+import static ibs124.gundi.constant.Routes.AUTH_REGISTER;
+import static ibs124.gundi.constant.Routes.AUTH_REGISTER_SUCCESS;
 import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
 import static ibs124.gundi.constant.ThymeleafEnv.BINDING_RESULT;
 import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
@@ -31,7 +31,7 @@ public class RegisterController {
         this.registerService = registerService;
     }
 
-    @GetMapping(REGISTER)
+    @GetMapping(AUTH_REGISTER)
     public String registerGet(Model model) {
         if (!model.containsAttribute(API_RESPONSE)) {
             model.addAttribute(API_RESPONSE, new UserRegisterDto());
@@ -40,7 +40,7 @@ public class RegisterController {
         return Templates.REGISTER;
     }
 
-    @PostMapping(REGISTER)
+    @PostMapping(AUTH_REGISTER)
     public String registerPost(
             @Valid @ModelAttribute(API_RESPONSE) UserRegisterDto bindingModel,
             BindingResult bindingResult,
@@ -50,15 +50,15 @@ public class RegisterController {
             redirectAttributes
                     .addFlashAttribute(API_RESPONSE, bindingModel)
                     .addFlashAttribute(BINDING_RESULT, bindingResult);
-            return RouteUtils.getRedirectUrl(REGISTER);
+            return RouteUtils.getRedirectUrl(AUTH_REGISTER);
         }
 
         this.registerService.register(bindingModel);
 
-        return RouteUtils.getRedirectUrl(Routes.REGISTER_SUCCESS);
+        return RouteUtils.getRedirectUrl(Routes.AUTH_REGISTER_SUCCESS);
     }
 
-    @GetMapping(REGISTER_SUCCESS)
+    @GetMapping(AUTH_REGISTER_SUCCESS)
     public String registerSuccess(Model model) {
         model.addAttribute(STATUS_CODE, 0);
         return Templates.REGISTER;

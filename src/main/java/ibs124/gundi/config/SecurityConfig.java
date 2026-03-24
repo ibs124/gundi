@@ -43,10 +43,10 @@ class SecurityConfig {
                                 PathRequest.toStaticResources().atCommonLocations())
                         .permitAll()
 
-                        .requestMatchers(INDEX, LOGIN, LOGIN_ERROR, REGISTER, REGISTER_SUCCESS)
+                        .requestMatchers(INDEX, AUTH_LOGIN, AUTH_LOGIN_ERROR, AUTH_REGISTER, AUTH_REGISTER_SUCCESS)
                         .access(password.permitAll())
 
-                        .requestMatchers(VERIFICATION + SUBROUTE_MATCHER)
+                        .requestMatchers(AUTH_VERIFICATION + SUBROUTE_MATCHER)
                         .access(password.authenticated())
 
                         .requestMatchers(ROOT + SUBROUTE_MATCHER)
@@ -61,18 +61,18 @@ class SecurityConfig {
                         .anyRequest().access(mfa.authenticated()))
 
                 .formLogin(x -> x
-                        .loginPage(LOGIN)
+                        .loginPage(AUTH_LOGIN)
                         .defaultSuccessUrl(HOME)
-                        .failureForwardUrl(LOGIN_ERROR))
+                        .failureForwardUrl(AUTH_LOGIN_ERROR))
 
                 .oneTimeTokenLogin(x -> x
-                        .loginPage(VERIFICATION_SEND)
-                        .failureUrl(VERIFICATION_FAIL)
+                        .loginPage(AUTH_VERIFICATION_SEND)
+                        .failureUrl(AUTH_VERIFICATION_FAIL)
                         .showDefaultSubmitPage(false)
                         .defaultSuccessUrl(HOME))
 
                 .logout(x -> x
-                        .logoutUrl(LOGOUT)
+                        .logoutUrl(AUTH_LOGOUT)
                         .logoutSuccessUrl(INDEX)
                         .invalidateHttpSession(true)
                         .deleteCookies(Env.JSESSIONID))

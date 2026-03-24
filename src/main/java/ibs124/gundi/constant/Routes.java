@@ -13,16 +13,16 @@ public abstract class Routes {
     public static final String INDEX = CONVENTIONAL_INDEX;
 
     public static final String AUTH = INDEX + "auth";
-    public static final String REGISTER = AUTH + "/sign-up";
-    public static final String REGISTER_SUCCESS = REGISTER + SUCCESS;
-    public static final String LOGIN = AUTH + "/sign-in";
-    public static final String LOGIN_ERROR = LOGIN + ERROR;
-    public static final String LOGOUT = AUTH + "/sign-out";
-    public static final String VERIFICATION = AUTH + "/verification";
-    public static final String VERIFICATION_SEND = VERIFICATION + SEND;
-    public static final String VERIFICATION_SUBMIT = VERIFICATION + SUBMIT;
-    public static final String VERIFICATION_SUCCESS = VERIFICATION + SUCCESS;
-    public static final String VERIFICATION_FAIL = VERIFICATION + ERROR;
+    public static final String AUTH_REGISTER = AUTH + "/sign-up";
+    public static final String AUTH_REGISTER_SUCCESS = AUTH_REGISTER + SUCCESS;
+    public static final String AUTH_LOGIN = AUTH + "/sign-in";
+    public static final String AUTH_LOGIN_ERROR = AUTH_LOGIN + ERROR;
+    public static final String AUTH_LOGOUT = AUTH + "/sign-out";
+    public static final String AUTH_VERIFICATION = AUTH + "/verification";
+    public static final String AUTH_VERIFICATION_SEND = AUTH_VERIFICATION + SEND;
+    public static final String AUTH_VERIFICATION_SUBMIT = AUTH_VERIFICATION + SUBMIT;
+    public static final String AUTH_VERIFICATION_SUCCESS = AUTH_VERIFICATION + SUCCESS;
+    public static final String AUTH_VERIFICATION_FAIL = AUTH_VERIFICATION + ERROR;
 
     public static final String HOME = INDEX;
 

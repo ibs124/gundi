@@ -31,13 +31,13 @@
                 security, you will need to verify your identity. <br> We have sent a verification
                 code to <th:block th:text="${email}"></th:block>
             </p>
-            <form class="form" th:action="@{${routes.verification_send}}" method="POST">
+            <form class="form" th:action="@{${routes.auth_verification_send}}" method="POST">
                 <div class="form__group">
                     <label class="form__label" for="token">Verification code</label>
                     <input class="form__input" type="text" name="token">
                 </div>
                 <p>
-                    Didn't get the code? <a th:href="@{${routes.verification_send}}" class="link">Resend code</a>
+                    Didn't get the code? <a th:href="@{${routes.auth_verification_send}}" class="link">Resend code</a>
                 </p>
                 <button class="btn form__submit-btn" type="submit">
                     <div class="btn__label">Verify code</div>

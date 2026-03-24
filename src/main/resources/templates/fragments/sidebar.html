@@ -242,20 +242,20 @@
     </nav>
     <div class="sidebar__auth-menu">
         <div class="sidebar__auth-guest-menu" sec:authorize="!isAuthenticated()">
-            <a class="btn" th:href="@{${routes.login}}">
+            <a class="btn" th:href="@{${routes.auth_login}}">
                 <svg class="btn__icon icon">
                     <use href="#sign-in"></use>
                 </svg>
                 <span class="btn__label sidebar__detail">Sign In</span>
             </a>
-            <a class="btn" th:href="@{${routes.register}}">
+            <a class="btn" th:href="@{${routes.auth_register}}">
                 <svg class="btn__icon icon">
                     <use href="#sign-up"></use>
                 </svg>
                 <span class="btn__label sidebar__detail">Sign Up</span>
             </a>
         </div>
-        <form sec:authorize="isAuthenticated()" th:action="@{${routes.logout}}" method="post"
+        <form sec:authorize="isAuthenticated()" th:action="@{${routes.auth_logout}}" method="post"
             class="sidebar__logout-form">
             <button class="btn" type="submit">
                 <svg class="btn__icon icon">
