@@ -4,11 +4,14 @@ import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.dto.auth.UserDto;
 import ibs124.gundi.model.dto.auth.UserLoginDetailsDto;
 import ibs124.gundi.model.dto.auth.UserRegisterDto;
+import ibs124.gundi.model.dto.profile.ProfileDto;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.security.UserDetailsImpl;
 
 public interface UserMapper {
+
+    ProfileDto mapToProfileDto(UserEntity x);
 
     UserEntity mapToEntity(UserRegisterDto x);
 
@@ -19,4 +22,5 @@ public interface UserMapper {
     UserLoginDetailsDto mapToLoginDetailsDto(UserEntity x);
 
     UserDetailsImpl mapToSecurityModel(UserLoginDetailsDto x);
+
 }
