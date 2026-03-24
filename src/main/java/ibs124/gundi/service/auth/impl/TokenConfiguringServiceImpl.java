@@ -34,10 +34,10 @@ public class TokenConfiguringServiceImpl implements
 
     @Override
     public TokenDto configureNewUserVerificationToken() {
-        TokenDto token = this.prepareToken(this.config.newUser());
+        TokenDto token = this.prepareToken(this.config.verification());
 
         while (this.verificationTokenRepository.existsBySecret(token.secret())) {
-            token = this.prepareToken(this.config.newUser());
+            token = this.prepareToken(this.config.verification());
         }
 
         return token;

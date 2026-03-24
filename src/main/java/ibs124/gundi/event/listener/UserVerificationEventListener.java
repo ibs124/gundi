@@ -44,7 +44,7 @@ class UserVerificationEventListener
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationEvent(UserVerificationEvent event) {
 
-        VerificationProperties config = this.config.newUser();
+        VerificationProperties config = this.config.verification();
 
         VerificationTokenProperties tokenConfig = config.token();
 

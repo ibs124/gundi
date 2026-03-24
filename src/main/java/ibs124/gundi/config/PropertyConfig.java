@@ -7,5 +7,7 @@ import ibs124.gundi.model.dto.config.VerificationProperties;
 
 @ConfigurationProperties(prefix = Env.APP)
 public record PropertyConfig(
-        VerificationProperties newUser) {
+        VerificationProperties verification,
+        VerificationProperties passwordReset) {
+
 }
