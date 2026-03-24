@@ -2,21 +2,27 @@ package ibs124.gundi.service.auth.impl;
 
 import org.springframework.stereotype.Service;
 
+import ibs124.gundi.mapper.UserMapper;
+import ibs124.gundi.model.dto.UserLoginDetailsDto;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.UserRepository;
+import ibs124.gundi.service.auth.UserLoginServiceService;
 import ibs124.gundi.service.auth.ValidationService;
 
 @Service
-class ValidationServiceImpl implements ValidationService {
+class UserReadingServiceImpl implements ValidationService, UserLoginServiceService {
 
     private final UserRepository userRepository;
     private final EmailRepository emailRepository;
+    private final UserMapper userMapper;
 
-    public ValidationServiceImpl(
+    public UserReadingServiceImpl(
             UserRepository userRepository,
-            EmailRepository emailRepository) {
+            EmailRepository emailRepository,
+            UserMapper userMapper) {
         this.userRepository = userRepository;
         this.emailRepository = emailRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -27,6 +33,14 @@ class ValidationServiceImpl implements ValidationService {
     @Override
     public boolean isUsernameUnique(String username) {
         return !this.userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public UserLoginDetailsDto findByUsernameOrEmail(String request) {
+        return this.userRepository
+                .findByUsernameOrPrimaryEmail(request, request)
+                .map(x -> this.userMapper.mapToLoginDetailsDto(x))
+                .orElse(null);
     }
 
 }

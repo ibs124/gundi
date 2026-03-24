@@ -8,6 +8,7 @@ import ibs124.gundi.constant.Mappers;
 import ibs124.gundi.mapper.AuthorityMapper;
 import ibs124.gundi.model.dto.UserRegisterDto;
 import ibs124.gundi.model.dto.UserDto;
+import ibs124.gundi.model.dto.UserLoginDetailsDto;
 import ibs124.gundi.model.entity.UserEntity;
 
 @Mapper(componentModel = Mappers.COMPONENT_MODEL, uses = AuthorityMapper.class)
@@ -20,4 +21,8 @@ interface UserMapstruct extends UserMapper {
     @Mapping(source = "enabled", target = "isEnabled")
     @Override
     UserDto mapToDto(UserEntity src);
+
+    @Mapping(source = "enabled", target = "isEnabled")
+    @Override
+    UserLoginDetailsDto mapToLoginDetailsDto(UserEntity x);
 }
