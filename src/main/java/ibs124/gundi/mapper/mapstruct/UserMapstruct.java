@@ -9,20 +9,25 @@ import ibs124.gundi.mapper.AuthorityMapper;
 import ibs124.gundi.model.dto.auth.UserDto;
 import ibs124.gundi.model.dto.auth.UserLoginDetailsDto;
 import ibs124.gundi.model.dto.auth.UserRegisterDto;
+import ibs124.gundi.model.dto.user.ProfileDto;
 import ibs124.gundi.model.entity.UserEntity;
 
 @Mapper(componentModel = Mappers.COMPONENT_MODEL, uses = AuthorityMapper.class)
 interface UserMapstruct extends UserMapper {
 
-    @Override
     @Mapping(source = Mappers.EMAIL, target = Mappers.PRIMARY_EMAIL)
+    @Override
     UserEntity mapToEntity(UserRegisterDto src);
 
-    @Mapping(source = "enabled", target = "isEnabled")
+    @Mapping(source = Mappers.ENABLED, target = Mappers.IS_ENABLED)
     @Override
     UserDto mapToDto(UserEntity src);
 
-    @Mapping(source = "enabled", target = "isEnabled")
+    @Mapping(source = Mappers.ENABLED, target = Mappers.IS_ENABLED)
     @Override
     UserLoginDetailsDto mapToLoginDetailsDto(UserEntity x);
+
+    @Mapping(source = Mappers.PRIMARY_EMAIL, target = Mappers.EMAIL)
+    @Override
+    ProfileDto mapToProfileDto(UserEntity x);
 }
