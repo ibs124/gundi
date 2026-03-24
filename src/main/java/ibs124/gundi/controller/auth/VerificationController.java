@@ -54,19 +54,19 @@ class VerificationController {
         this.eventPublisher.publishEvent(event);
 
         model.addAttribute(STATUS_CODE, 1);
-        return Templates.VERIFICATION;
+        return Templates.AUTH_VERIFICATION;
     }
 
     @GetMapping(Routes.AUTH_VERIFICATION_SUCCESS)
     public String success(Model model, Authentication authentication) {
         model.addAttribute(STATUS_CODE, 0);
-        return Templates.VERIFICATION;
+        return Templates.AUTH_VERIFICATION;
     }
 
     @GetMapping(Routes.AUTH_VERIFICATION_FAIL)
     public String error(Model model, Authentication authentication) {
         model.addAttribute(STATUS_CODE, 2);
-        return Templates.VERIFICATION;
+        return Templates.AUTH_VERIFICATION;
     }
 
 }

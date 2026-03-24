@@ -1,6 +1,6 @@
 package ibs124.gundi.event.listener;
 
-import static ibs124.gundi.constant.Templates.NEW_USER_VERIFICATION_EMAIL;
+import static ibs124.gundi.constant.Templates.AUTH_VERIFICATION_EMAIL;
 
 import static ibs124.gundi.constant.Env.GUNDI_LOGO_URL;
 import static ibs124.gundi.constant.ThymeleafEnv.DEADLINE;
@@ -53,25 +53,25 @@ class UserVerificationEventListener
         // VerificationTokenProperties tokenConfig = config.token();
 
         // TemplateCompileDto templateRequest = new TemplateCompileDto(
-        //         NEW_USER_VERIFICATION_EMAIL)
-        //         .addVariable(URL, GUNDI_LOGO_URL)
-        //         .addVariable(TOKEN, event.getSecret())
-        //         .addVariable(EXPIRATION, tokenConfig.expirationMinutes())
-        //         .addVariable(DEADLINE, config.timeframeHours());
+        // NEW_USER_VERIFICATION_EMAIL)
+        // .addVariable(URL, GUNDI_LOGO_URL)
+        // .addVariable(TOKEN, event.getSecret())
+        // .addVariable(EXPIRATION, tokenConfig.expirationMinutes())
+        // .addVariable(DEADLINE, config.timeframeHours());
 
         // String message = this.templateCompileService.compileHtml(templateRequest);
 
         // VerificationEmailProperties mailConfig = config.mail();
 
         // EmailSendDto emailRequest = EmailSendDto
-        //         .builder()
-        //         .from(mailConfig.from())
-        //         .displayName(mailConfig.displayName())
-        //         .to(event.getEmail())
-        //         .subject(mailConfig.subject())
-        //         .text(message)
-        //         .isHtml(mailConfig.isHtml())
-        //         .build();
+        // .builder()
+        // .from(mailConfig.from())
+        // .displayName(mailConfig.displayName())
+        // .to(event.getEmail())
+        // .subject(mailConfig.subject())
+        // .text(message)
+        // .isHtml(mailConfig.isHtml())
+        // .build();
 
         // this.emailSendingService.sendEmail(emailRequest);
 

@@ -37,7 +37,7 @@ public class RegisterController {
             model.addAttribute(API_RESPONSE, new UserRegisterDto());
         }
 
-        return Templates.REGISTER;
+        return Templates.AUTH_REGISTER;
     }
 
     @PostMapping(AUTH_REGISTER)
@@ -61,7 +61,7 @@ public class RegisterController {
     @GetMapping(AUTH_REGISTER_SUCCESS)
     public String registerSuccess(Model model) {
         model.addAttribute(STATUS_CODE, 0);
-        return Templates.REGISTER;
+        return Templates.AUTH_REGISTER;
     }
 
 }
