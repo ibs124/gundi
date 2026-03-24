@@ -3,8 +3,13 @@
 
 <th:block th:insert="~{fragments/app}" th:with="
     title='Sign In',
-    content=~{this::.section}
+    content=~{this::.section},
+    alert=~{this::.alert}
 ">
+    <th:block th:if="${statusCode != null && statusCode == 2}" class="alert">
+        <p th:text="#{auth.password_reset.sent}" class="alert alert__info"></p>
+    </th:block>
+
     <div class="section">
         <div class="section__header">
             <h1>Sign In</h1>
@@ -20,6 +25,9 @@
                     <label class="form__label" for="password">Password</label>
                     <input class="form__input" type="password" placeholder="Password" name="password">
                 </div>
+                <a th:href="@{${routes.auth_password_reset}}" class="link">
+                    Forgot your password?
+                </a>
                 <p class="form__error" th:if="${statusCode == 1}" th:text="#{auth.login.error}"></p>
                 <button class="btn form__submit-btn" type="submit">
                     <div class="btn__label">Sign in</div>
