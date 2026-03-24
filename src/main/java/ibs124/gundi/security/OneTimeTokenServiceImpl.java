@@ -9,18 +9,18 @@ import org.springframework.security.authentication.ott.OneTimeTokenAuthenticatio
 import org.springframework.security.authentication.ott.OneTimeTokenService;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.service.auth.VerificationTokenCreatingService;
+import ibs124.gundi.service.auth.VerificationTokenIssuingService;
 import ibs124.gundi.model.dto.auth.TokenDto;
-import ibs124.gundi.service.auth.UserVerifyingService;
+import ibs124.gundi.service.auth.VerificationService;
 
 @Component
 public class OneTimeTokenServiceImpl implements OneTimeTokenService {
 
-    private final UserVerifyingService verificationService;
-    private final VerificationTokenCreatingService tokenCreatingService;
+    private final VerificationService verificationService;
+    private final VerificationTokenIssuingService tokenCreatingService;
 
-    public OneTimeTokenServiceImpl(UserVerifyingService verificationService,
-            VerificationTokenCreatingService tokenCreatingService) {
+    public OneTimeTokenServiceImpl(VerificationService verificationService,
+            VerificationTokenIssuingService tokenCreatingService) {
         this.verificationService = verificationService;
         this.tokenCreatingService = tokenCreatingService;
     }
@@ -36,7 +36,7 @@ public class OneTimeTokenServiceImpl implements OneTimeTokenService {
     @Override
     public OneTimeToken generate(GenerateOneTimeTokenRequest request) {
         TokenDto token = this.tokenCreatingService
-                .createByUsername(request.getUsername());
+                .issueByUsername(request.getUsername());
 
         return this.map(token);
     }

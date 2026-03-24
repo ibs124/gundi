@@ -10,22 +10,22 @@ import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.VerificationTokenConfigService;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
+import ibs124.gundi.service.auth.VerificationTokenIssuingService;
 import ibs124.gundi.util.TestUtils;
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 
 @Service
-class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingService {
+class VerificationTokenIssuingServiceImpl implements VerificationTokenIssuingService {
 
-    private final VerificationTokenConfigService tokenConfiguringService;
+    private final VerificationTokenCreatingService tokenConfiguringService;
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
     private final Validator validator;
 
-    public VerificationTokenCreatingServiceImpl(
-            VerificationTokenConfigService tokenConfiguringService,
+    public VerificationTokenIssuingServiceImpl(
+            VerificationTokenCreatingService tokenConfiguringService,
             VerificationTokenRepository tokenRepository,
             UserRepository userRepository,
             Validator validator) {
@@ -36,7 +36,7 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
     }
 
     @Override
-    public TokenDto createByUsername(String username) {
+    public TokenDto issueByUsername(String username) {
         Optional<@Valid VerificationTokenEntity> cache = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username);
 
@@ -54,7 +54,7 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
     }
 
     @Override
-    public TokenDto createByUserId(Long id) {
+    public TokenDto issueById(Long id) {
         Optional<@Valid VerificationTokenEntity> cache = this.tokenRepository
                 .findByUserId(id);
 
@@ -77,7 +77,7 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
 
     private TokenDto createNew(UserEntity user) {
         TokenDto tokenDto = this.tokenConfiguringService
-                .configureNewUserVerificationToken();
+                .createVerificationToken();
 
         VerificationTokenEntity token = TestUtils.createBy(user, tokenDto);
 

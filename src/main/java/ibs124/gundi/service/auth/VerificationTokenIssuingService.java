@@ -1,0 +1,11 @@
+package ibs124.gundi.service.auth;
+
+import ibs124.gundi.model.dto.auth.TokenDto;
+
+public interface VerificationTokenIssuingService {
+
+    TokenDto issueById(Long id);
+
+    TokenDto issueByUsername(String username);
+
+}

@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 import ibs124.gundi.constant.Messages;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.dto.auth.UserLoginDetailsDto;
-import ibs124.gundi.service.auth.UserLoginServiceService;
+import ibs124.gundi.service.auth.LoginDetailsReadingService;
 
 @Service
 class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserLoginServiceService loginService;
+    private final LoginDetailsReadingService loginService;
     private final UserMapper userMapper;
 
     public UserDetailsServiceImpl(
-            UserLoginServiceService loginService,
+            LoginDetailsReadingService loginService,
             UserMapper userMapper) {
         this.loginService = loginService;
         this.userMapper = userMapper;

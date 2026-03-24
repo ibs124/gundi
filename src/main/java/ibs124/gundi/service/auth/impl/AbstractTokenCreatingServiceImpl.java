@@ -13,17 +13,17 @@ import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.dto.config.VerificationProperties;
 import ibs124.gundi.model.dto.config.VerificationTokenProperties;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.VerificationTokenConfigService;
+import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 
 @Service
-public class TokenConfiguringServiceImpl implements
-        VerificationTokenConfigService {
+public class AbstractTokenCreatingServiceImpl implements
+        VerificationTokenCreatingService {
 
     private final PropertyConfig config;
     private final SecureRandom secureRandom;
     private final VerificationTokenRepository verificationTokenRepository;
 
-    public TokenConfiguringServiceImpl(
+    public AbstractTokenCreatingServiceImpl(
             PropertyConfig config,
             SecureRandom secureRandom,
             VerificationTokenRepository verificationTokenRepository) {
@@ -33,7 +33,7 @@ public class TokenConfiguringServiceImpl implements
     }
 
     @Override
-    public TokenDto configureNewUserVerificationToken() {
+    public TokenDto createVerificationToken() {
         TokenDto token = this.prepareToken(this.config.verification());
 
         while (this.verificationTokenRepository.existsBySecret(token.secret())) {

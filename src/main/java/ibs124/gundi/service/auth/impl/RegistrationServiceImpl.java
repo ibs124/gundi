@@ -13,17 +13,17 @@ import ibs124.gundi.model.entity.AuthorityEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
-import ibs124.gundi.service.auth.UserRegisterService;
+import ibs124.gundi.service.auth.RegistrationService;
 
 @Service
-class UserRegisterServiceImpl implements UserRegisterService {
+class RegistrationServiceImpl implements RegistrationService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserRegisterServiceImpl(
+    public RegistrationServiceImpl(
             UserMapper userMapper,
             UserRepository userRepository,
             AuthorityRepository authorityRepository,

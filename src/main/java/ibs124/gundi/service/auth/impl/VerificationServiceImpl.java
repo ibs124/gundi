@@ -10,18 +10,18 @@ import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.UserVerifyingService;
+import ibs124.gundi.service.auth.VerificationService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Validator;
 
 @Service
-class UserVerifyingServiceImpl implements UserVerifyingService {
+class VerificationServiceImpl implements VerificationService {
 
     private final Validator validator;
     private final VerificationTokenRepository tokenRepository;
     private final EmailRepository emailRepository;
 
-    public UserVerifyingServiceImpl(
+    public VerificationServiceImpl(
             Validator validator,
             VerificationTokenRepository tokenRepository,
             EmailRepository emailRepository) {
