@@ -4,7 +4,7 @@ import java.time.Instant;
 
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.model.dto.TokenDto;
+import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.EmailEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;

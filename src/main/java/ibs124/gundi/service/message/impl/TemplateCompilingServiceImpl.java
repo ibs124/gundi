@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import ibs124.gundi.model.dto.TemplateCompileDto;
+import ibs124.gundi.model.dto.auth.TemplateCompileDto;
 import ibs124.gundi.service.message.TemplateCompilingService;
 
 @Service

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.AuthorityConfig;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.dto.UserRegisterDto;
-import ibs124.gundi.model.dto.UserDto;
+import ibs124.gundi.model.dto.auth.UserDto;
+import ibs124.gundi.model.dto.auth.UserRegisterDto;
 import ibs124.gundi.model.entity.AuthorityEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;

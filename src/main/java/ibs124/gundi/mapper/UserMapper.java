@@ -1,9 +1,9 @@
 package ibs124.gundi.mapper;
 
-import ibs124.gundi.model.dto.UserRegisterDto;
-import ibs124.gundi.model.dto.TokenDto;
-import ibs124.gundi.model.dto.UserDto;
-import ibs124.gundi.model.dto.UserLoginDetailsDto;
+import ibs124.gundi.model.dto.auth.TokenDto;
+import ibs124.gundi.model.dto.auth.UserDto;
+import ibs124.gundi.model.dto.auth.UserLoginDetailsDto;
+import ibs124.gundi.model.dto.auth.UserRegisterDto;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.security.UserDetailsImpl;

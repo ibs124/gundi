@@ -1,7 +1,7 @@
 package ibs124.gundi.service.sample.impl;
 
 import ibs124.gundi.config.AuthorityConfig;
-import ibs124.gundi.model.dto.AuthorityContract;
+import ibs124.gundi.model.dto.auth.AuthorityContract;
 
 abstract class Config {
 

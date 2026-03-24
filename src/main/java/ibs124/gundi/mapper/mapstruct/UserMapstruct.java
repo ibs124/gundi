@@ -6,9 +6,9 @@ import org.mapstruct.Mapping;
 import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.constant.Mappers;
 import ibs124.gundi.mapper.AuthorityMapper;
-import ibs124.gundi.model.dto.UserRegisterDto;
-import ibs124.gundi.model.dto.UserDto;
-import ibs124.gundi.model.dto.UserLoginDetailsDto;
+import ibs124.gundi.model.dto.auth.UserDto;
+import ibs124.gundi.model.dto.auth.UserLoginDetailsDto;
+import ibs124.gundi.model.dto.auth.UserRegisterDto;
 import ibs124.gundi.model.entity.UserEntity;
 
 @Mapper(componentModel = Mappers.COMPONENT_MODEL, uses = AuthorityMapper.class)

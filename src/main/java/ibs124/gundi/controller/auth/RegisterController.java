@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
-import ibs124.gundi.model.dto.UserRegisterDto;
+import ibs124.gundi.model.dto.auth.UserRegisterDto;
 import ibs124.gundi.service.auth.UserRegisterService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.validation.Valid;

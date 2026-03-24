@@ -6,7 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.model.dto.EmailSendDto;
+import ibs124.gundi.model.dto.auth.EmailSendDto;
 import ibs124.gundi.service.message.EmailSendingService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

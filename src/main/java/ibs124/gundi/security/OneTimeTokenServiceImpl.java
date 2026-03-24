@@ -10,7 +10,7 @@ import org.springframework.security.authentication.ott.OneTimeTokenService;
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
-import ibs124.gundi.model.dto.TokenDto;
+import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.service.auth.UserVerifyingService;
 
 @Component

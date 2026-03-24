@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.constant.Messages;
 import ibs124.gundi.mapper.UserMapper;
-import ibs124.gundi.model.dto.UserLoginDetailsDto;
+import ibs124.gundi.model.dto.auth.UserLoginDetailsDto;
 import ibs124.gundi.service.auth.UserLoginServiceService;
 
 @Service
