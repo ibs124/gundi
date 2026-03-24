@@ -9,6 +9,7 @@ public class Templates {
     public static final String AUTH_LOGIN = AUTH + "/login";
     public static final String AUTH_VERIFICATION = AUTH + "/verification";
     public static final String AUTH_VERIFICATION_EMAIL = AUTH_VERIFICATION + "-email";
+    public static final String AUTH_PASSWORD_RESET = AUTH + "/password-reset";
 
     public static final String HOME = "home";
 

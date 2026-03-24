@@ -23,6 +23,7 @@ public abstract class Routes {
     public static final String AUTH_VERIFICATION_SUBMIT = AUTH_VERIFICATION + SUBMIT;
     public static final String AUTH_VERIFICATION_SUCCESS = AUTH_VERIFICATION + SUCCESS;
     public static final String AUTH_VERIFICATION_FAIL = AUTH_VERIFICATION + ERROR;
+    public static final String AUTH_PASSWORD_RESET = AUTH + "/password-reset";
 
     public static final String HOME = INDEX;
 
