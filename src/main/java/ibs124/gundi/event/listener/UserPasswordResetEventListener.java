@@ -14,6 +14,7 @@ import ibs124.gundi.model.dto.config.VerificationProperties;
 import ibs124.gundi.model.dto.config.VerificationTokenProperties;
 import ibs124.gundi.service.message.EmailSendingService;
 import ibs124.gundi.service.message.TemplateCompilingService;
+import ibs124.gundi.util.TestUtils;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -46,37 +47,44 @@ class UserVerificationEventListener
     public void onApplicationEvent(UserPasswordResetEvent event) {
 
         VerificationProperties config = this.config.passwordReset();
-
         VerificationTokenProperties tokenConfig = config.token();
 
-        TemplateCompileDto templateRequest = new TemplateCompileDto(
-                AUTH_VERIFICATION_EMAIL)
-                .addVariable(URL, GUNDI_LOGO_URL)
-                .addVariable(TOKEN, this.buildLink(event))
-                .addVariable(EXPIRATION, tokenConfig.expirationMinutes());
+        if (tokenConfig.useLink()) {
+            event = this.mapTokenToMagicLink(event);
+        }
 
-        String message = this.templateCompileService.compileHtml(templateRequest);
+        TestUtils.sendVerification(event);
 
-        VerificationEmailProperties mailConfig = config.mail();
+        // TemplateCompileDto templateRequest = new TemplateCompileDto(
+        // AUTH_VERIFICATION_EMAIL)
+        // .addVariable(URL, GUNDI_LOGO_URL)
+        // .addVariable(TOKEN, event.getSecret())
+        // .addVariable(EXPIRATION, tokenConfig.expirationMinutes());
 
-        EmailSendDto emailRequest = EmailSendDto
-                .builder()
-                .from(mailConfig.from())
-                .displayName(mailConfig.displayName())
-                .to(event.getEmail())
-                .subject(mailConfig.subject())
-                .text(message)
-                .isHtml(mailConfig.isHtml())
-                .build();
+        // String message = this.templateCompileService.compileHtml(templateRequest);
 
-        this.emailSendingService.sendEmail(emailRequest);
+        // VerificationEmailProperties mailConfig = config.mail();
 
+        // EmailSendDto emailRequest = EmailSendDto
+        // .builder()
+        // .from(mailConfig.from())
+        // .displayName(mailConfig.displayName())
+        // .to(event.getEmail())
+        // .subject(mailConfig.subject())
+        // .text(message)
+        // .isHtml(mailConfig.isHtml())
+        // .build();
+
+        // this.emailSendingService.sendEmail(emailRequest);
     }
 
-    private String buildLink(UserPasswordResetEvent event) {
+    private UserPasswordResetEvent mapTokenToMagicLink(UserPasswordResetEvent event) {
         String rawUrl = event.getAppUrl() + Routes.AUTH_PASSWORD_RESET_TOKEN;
+
         String formattedUrl = rawUrl
                 .replace(Routes.PATH_VARIABLE_TOKEN, event.getSecret());
-        return formattedUrl;
+
+        return new UserPasswordResetEvent(
+                event.getEmail(), formattedUrl, event.getAppUrl());
     }
 }
