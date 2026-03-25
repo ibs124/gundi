@@ -4,14 +4,12 @@ import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.RouteMatcher.Route;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserPasswordResetEvent;
 import ibs124.gundi.model.dto.auth.TokenDto;
-import ibs124.gundi.service.auth.PasswordResetService;
 import ibs124.gundi.service.auth.PasswordResetTokenIssuingService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,15 +24,12 @@ class PasswordResetController {
     private static final int STATUS_CODE_EMAIL_SENT = 2;
 
     private final PasswordResetTokenIssuingService tokenIssuingService;
-    private final PasswordResetService passwordResetService;
     private final ApplicationEventPublisher eventPublisher;
 
     public PasswordResetController(
             PasswordResetTokenIssuingService tokenIssuingService,
-            PasswordResetService passwordResetService,
             ApplicationEventPublisher eventPublisher) {
         this.tokenIssuingService = tokenIssuingService;
-        this.passwordResetService = passwordResetService;
         this.eventPublisher = eventPublisher;
     }
 
