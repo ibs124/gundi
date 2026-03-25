@@ -2,26 +2,24 @@ package ibs124.gundi.service.auth.impl;
 
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.exception.ResourceReadingException;
 import ibs124.gundi.model.dto.auth.TokenDto;
-import ibs124.gundi.model.entity.UserEntity;
-import ibs124.gundi.model.entity.VerificationTokenEntity;
+import ibs124.gundi.model.entity.AbstractTokenEntity;
+import ibs124.gundi.model.entity.PasswordResetTokenEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;
 import ibs124.gundi.service.auth.PasswordResetTokenIssuingService;
-import ibs124.gundi.util.TestUtils;
 import jakarta.validation.Validator;
 
 @Service
-class VerificationTokenIssuingServiceImpl implements PasswordResetTokenIssuingService {
+class PasswordResetTokenIssuingServiceImpl implements PasswordResetTokenIssuingService {
 
     private final Validator validator;
     private final PasswordResetTokenRepository tokenRepository;
     private final PasswordResetTokenCreatingService tokenCreatingService;
     private final UserRepository userRepository;
 
-    public VerificationTokenIssuingServiceImpl(
+    public PasswordResetTokenIssuingServiceImpl(
             Validator validator,
             PasswordResetTokenRepository tokenRepository,
             PasswordResetTokenCreatingService tokenCreatingService,
@@ -34,32 +32,41 @@ class VerificationTokenIssuingServiceImpl implements PasswordResetTokenIssuingSe
 
     @Override
     public TokenDto issueByUsername(String username) {
-        TokenDto tokenDto = this.tokenRepository
+        PasswordResetTokenEntity cache = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
-                .filter(x -> x != null && this.validator.validate(x).isEmpty())
-                .map(x -> new TokenDto(x.getSecret(), x.getExpiresAt()))
                 .orElse(null);
 
-        if (tokenDto != null) {
-            return tokenDto;
+        if (cache == null) {
+            return this.createNewToken(username);
         }
 
-        UserEntity user = this.userRepository
-                .findByUsernameOrPrimaryEmail(username, username)
-                .orElseThrow(() -> new ResourceReadingException());
+        boolean cacheIsValid = this.validator.validate(cache).isEmpty();
 
-        return this.createNew(user);
+        return cacheIsValid ? this.mapToDto(cache) : this.refreshToken(cache);
     }
 
-    private TokenDto createNew(UserEntity user) {
-        TokenDto tokenDto = this.tokenCreatingService
-                .createPasswordResetToken();
+    private TokenDto createNewToken(String username) {
+        return this.userRepository
+                .findByUsernameOrPrimaryEmail(username, username)
+                .map(x -> new PasswordResetTokenEntity(x))
+                .map(x -> this.refreshToken(x))
+                .orElse(null);
+    }
 
-        VerificationTokenEntity token = TestUtils.createBy(user, tokenDto);
+    private TokenDto refreshToken(PasswordResetTokenEntity token) {
+        TokenDto tokenDto = this.tokenCreatingService.createPasswordResetToken();
+
+        token.setSecret(tokenDto.secret());
+        token.setExpiresAt(tokenDto.expiresAt());
 
         token = this.tokenRepository.save(token);
 
-        return new TokenDto(token.getSecret(), token.getExpiresAt());
+        return this.mapToDto(token);
+    }
+
+    private TokenDto mapToDto(AbstractTokenEntity x) {
+        return new TokenDto(
+                x.getUser().getPrimaryEmail(), x.getSecret(), x.getExpiresAt());
     }
 
 }

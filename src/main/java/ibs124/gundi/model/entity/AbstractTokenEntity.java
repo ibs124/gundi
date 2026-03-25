@@ -22,6 +22,17 @@ public class AbstractTokenEntity extends AbstractEntity {
         super();
     }
 
+    public AbstractTokenEntity(UserEntity user) {
+        this(user, null, null);
+    }
+
+    public AbstractTokenEntity(UserEntity user, Instant expiresAt, String secret) {
+        this();
+        this.setUser(user);
+        this.setExpiresAt(expiresAt);
+        this.setSecret(secret);
+    }
+
     @Valid
     @MapsId
     @OneToOne
