@@ -2,11 +2,14 @@ package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
+import ibs124.gundi.service.auth.PasswordResetService;
+import ibs124.gundi.service.auth.PasswordResetTokenIssuingService;
 import ibs124.gundi.util.RouteUtils;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +18,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 class PasswordResetController {
+
+    private final PasswordResetTokenIssuingService tokenIssuingService;
+    private final PasswordResetService passwordResetService;
+    private final ApplicationEventPublisher eventPublisher;
+
+    public PasswordResetController(
+            PasswordResetTokenIssuingService tokenIssuingService,
+            PasswordResetService passwordResetService,
+            ApplicationEventPublisher eventPublisher) {
+        this.tokenIssuingService = tokenIssuingService;
+        this.passwordResetService = passwordResetService;
+        this.eventPublisher = eventPublisher;
+    }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESET)
     public String index() {
