@@ -3,7 +3,7 @@ package ibs124.gundi.event.listener;
 import static ibs124.gundi.constant.Templates.AUTH_VERIFICATION_EMAIL;
 
 import static ibs124.gundi.constant.Env.GUNDI_LOGO_URL;
-import static ibs124.gundi.constant.Routes.REQUEST_PARAM_TOKEN;
+import static ibs124.gundi.constant.Routes.VAR_TOKEN;
 import static ibs124.gundi.constant.ThymeleafEnv.TOKEN;
 import static ibs124.gundi.constant.ThymeleafEnv.EXPIRATION;
 import static ibs124.gundi.constant.ThymeleafEnv.URL;
@@ -85,7 +85,7 @@ class UserVerificationEventListener
         String link = UriComponentsBuilder
                 .fromUriString(event.getAppUrl())
                 .path(Routes.AUTH_PASSWORD_RESSET_SUBMIT)
-                .queryParam(Routes.REQUEST_PARAM_TOKEN, event.getSecret())
+                .queryParam(Routes.VAR_TOKEN, event.getSecret())
                 .build()
                 .toUriString();
 

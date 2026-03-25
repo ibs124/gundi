@@ -9,7 +9,7 @@ public abstract class Routes {
     public static final String SUCCESS = CONVENTIONAL_INDEX + Env.SUCCESS;
     public static final String SEND = CONVENTIONAL_INDEX + "send";
     public static final String SUBMIT = CONVENTIONAL_INDEX + "submit";
-    public static final String REQUEST_PARAM_TOKEN = "token";
+    public static final String VAR_TOKEN = "token";
 
     public static final String INDEX = CONVENTIONAL_INDEX;
 

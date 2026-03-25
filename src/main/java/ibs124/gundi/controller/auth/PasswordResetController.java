@@ -12,6 +12,7 @@ import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserPasswordResetEvent;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.service.auth.PasswordResetTokenIssuingService;
+import ibs124.gundi.service.auth.PasswordResetValidationService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -26,12 +27,15 @@ class PasswordResetController {
 
     private final PasswordResetTokenIssuingService tokenIssuingService;
     private final ApplicationEventPublisher eventPublisher;
+    private final PasswordResetValidationService passwordResetValidationService;
 
     public PasswordResetController(
             PasswordResetTokenIssuingService tokenIssuingService,
-            ApplicationEventPublisher eventPublisher) {
+            ApplicationEventPublisher eventPublisher,
+            PasswordResetValidationService passwordResetValidationService) {
         this.tokenIssuingService = tokenIssuingService;
         this.eventPublisher = eventPublisher;
+        this.passwordResetValidationService = passwordResetValidationService;
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESET)
@@ -61,7 +65,10 @@ class PasswordResetController {
 
     @GetMapping(Routes.AUTH_PASSWORD_RESSET_SUBMIT)
     public String getMethodName(
-            @RequestParam(name = Routes.REQUEST_PARAM_TOKEN, required = false) String token) {
+            @RequestParam(name = Routes.VAR_TOKEN, required = false) String token) {
+
+        boolean tokenIsValid = this.passwordResetValidationService
+                .isPasswordResetTokenValid(token);
 
         return RouteUtils.getRedirectUrl(Routes.AUTH_LOGIN);
     }
