@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.model.entity.PasswordResetTokenEntity;
+import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;
@@ -42,15 +43,21 @@ class PasswordResetTokenIssuingServiceImpl implements PasswordResetTokenIssuingS
 
         boolean cacheIsValid = this.validator.validate(cache).isEmpty();
 
-        return cacheIsValid ? this.mapToDto(cache) : this.refreshToken(cache);
+        return cacheIsValid ? this.mapValidEntityToDto(cache) : this.refreshToken(cache);
     }
 
     private TokenDto createNewToken(String username) {
-        return this.userRepository
+        UserEntity user = this.userRepository
                 .findByUsernameOrPrimaryEmail(username, username)
-                .map(x -> new PasswordResetTokenEntity(x))
-                .map(x -> this.refreshToken(x))
                 .orElse(null);
+
+        if (user == null) {
+            return null;
+        }
+
+        PasswordResetTokenEntity newToken = new PasswordResetTokenEntity(user);
+
+        return this.refreshToken(newToken);
     }
 
     private TokenDto refreshToken(PasswordResetTokenEntity token) {
@@ -61,10 +68,10 @@ class PasswordResetTokenIssuingServiceImpl implements PasswordResetTokenIssuingS
 
         token = this.tokenRepository.save(token);
 
-        return this.mapToDto(token);
+        return this.mapValidEntityToDto(token);
     }
 
-    private TokenDto mapToDto(AbstractTokenEntity x) {
+    private TokenDto mapValidEntityToDto(AbstractTokenEntity x) {
         return new TokenDto(
                 x.getUser().getPrimaryEmail(), x.getSecret(), x.getExpiresAt());
     }

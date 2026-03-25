@@ -42,7 +42,7 @@ public class AbstractTokenCreatingServiceImpl implements
     @Override
     public TokenDto createPasswordResetToken() {
         return this.prepareToken(
-                this.config.verification(), this.passwordResetTokenRepository);
+                this.config.passwordReset(), this.passwordResetTokenRepository);
     }
 
     @Override
