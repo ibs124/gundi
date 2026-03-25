@@ -1,5 +1,6 @@
 package ibs124.gundi.service.auth.impl;
 
+import ibs124.gundi.repository.PasswordResetTokenRepository;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -12,43 +13,62 @@ import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.dto.config.VerificationProperties;
 import ibs124.gundi.model.dto.config.VerificationTokenProperties;
+import ibs124.gundi.repository.AbstractTokenRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
+import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 
 @Service
 public class AbstractTokenCreatingServiceImpl implements
-        VerificationTokenCreatingService {
+        VerificationTokenCreatingService,
+        PasswordResetTokenCreatingService {
 
     private final PropertyConfig config;
     private final SecureRandom secureRandom;
     private final VerificationTokenRepository verificationTokenRepository;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
 
     public AbstractTokenCreatingServiceImpl(
             PropertyConfig config,
             SecureRandom secureRandom,
-            VerificationTokenRepository verificationTokenRepository) {
+            VerificationTokenRepository verificationTokenRepository,
+            PasswordResetTokenRepository passwordResetTokenRepository) {
         this.config = config;
         this.secureRandom = secureRandom;
         this.verificationTokenRepository = verificationTokenRepository;
+        this.passwordResetTokenRepository = passwordResetTokenRepository;
+    }
+
+    @Override
+    public TokenDto createPasswordResetToken() {
+        return this.prepareToken(
+                this.config.verification(), this.passwordResetTokenRepository);
     }
 
     @Override
     public TokenDto createVerificationToken() {
-        TokenDto token = this.prepareToken(this.config.verification());
-
-        while (this.verificationTokenRepository.existsBySecret(token.secret())) {
-            token = this.prepareToken(this.config.verification());
-        }
-
-        return token;
+        return this.prepareToken(
+                this.config.verification(), this.verificationTokenRepository);
     }
 
-    private TokenDto prepareToken(VerificationProperties config) {
-        String secret = config.token().useLink()
-                ? this.createLinkSecret()
-                : this.createOtpSecret(config.token());
+    private TokenDto prepareToken(
+            VerificationProperties config,
+            AbstractTokenRepository<?> repo) {
 
-        return new TokenDto(secret, this.createExpiration(config.token()));
+        VerificationTokenProperties tokenConfig = config.token();
+        boolean isLink = config.token().useLink();
+
+        String secret = isLink
+                ? this.createLinkSecret()
+                : this.createOtpSecret(tokenConfig);
+
+        while (repo.existsBySecret(secret)) {
+            secret = isLink
+                    ? this.createLinkSecret()
+                    : this.createOtpSecret(tokenConfig);
+        }
+
+        return new TokenDto(secret, this.createExpiration(tokenConfig));
     }
 
     private String createOtpSecret(VerificationTokenProperties config) {
