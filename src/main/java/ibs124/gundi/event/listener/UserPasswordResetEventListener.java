@@ -21,6 +21,7 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import ibs124.gundi.config.PropertyConfig;
+import ibs124.gundi.constant.Routes;
 import ibs124.gundi.event.UserPasswordResetEvent;
 
 @Component
@@ -51,7 +52,7 @@ class UserVerificationEventListener
         TemplateCompileDto templateRequest = new TemplateCompileDto(
                 AUTH_VERIFICATION_EMAIL)
                 .addVariable(URL, GUNDI_LOGO_URL)
-                .addVariable(TOKEN, event.getSecret())
+                .addVariable(TOKEN, this.buildLink(event))
                 .addVariable(EXPIRATION, tokenConfig.expirationMinutes());
 
         String message = this.templateCompileService.compileHtml(templateRequest);
@@ -72,4 +73,10 @@ class UserVerificationEventListener
 
     }
 
+    private String buildLink(UserPasswordResetEvent event) {
+        String rawUrl = event.getAppUrl() + Routes.AUTH_PASSWORD_RESET_TOKEN;
+        String formattedUrl = rawUrl
+                .replace(Routes.PATH_VARIABLE_TOKEN, event.getSecret());
+        return formattedUrl;
+    }
 }

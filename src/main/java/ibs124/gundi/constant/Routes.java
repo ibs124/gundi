@@ -9,6 +9,7 @@ public abstract class Routes {
     public static final String SUCCESS = CONVENTIONAL_INDEX + Env.SUCCESS;
     public static final String SEND = CONVENTIONAL_INDEX + "send";
     public static final String SUBMIT = CONVENTIONAL_INDEX + "submit";
+    public static final String PATH_VARIABLE_TOKEN = "{token}";
 
     public static final String INDEX = CONVENTIONAL_INDEX;
 
@@ -24,6 +25,8 @@ public abstract class Routes {
     public static final String AUTH_VERIFICATION_SUCCESS = AUTH_VERIFICATION + SUCCESS;
     public static final String AUTH_VERIFICATION_FAIL = AUTH_VERIFICATION + ERROR;
     public static final String AUTH_PASSWORD_RESET = AUTH + "/password-reset";
+    public static final String AUTH_PASSWORD_RESET_TOKEN = AUTH_PASSWORD_RESET
+            + "/tokens/" + PATH_VARIABLE_TOKEN;
 
     public static final String HOME = INDEX;
 
