@@ -45,7 +45,9 @@ class SecurityConfig {
 
                         .requestMatchers(
                                 INDEX, AUTH_LOGIN, AUTH_LOGIN_ERROR, AUTH_REGISTER,
-                                AUTH_REGISTER_SUCCESS, AUTH_PASSWORD_RESET)
+                                AUTH_REGISTER_SUCCESS,
+                                AUTH_PASSWORD_RESET,
+                                AUTH_PASSWORD_RESSET_SUBMIT)
                         .access(password.permitAll())
 
                         .requestMatchers(AUTH_VERIFICATION + SUBROUTE_MATCHER)

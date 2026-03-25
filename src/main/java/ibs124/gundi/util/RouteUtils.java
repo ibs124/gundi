@@ -2,16 +2,19 @@ package ibs124.gundi.util;
 
 import static ibs124.gundi.constant.Formats.*;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 public abstract class RouteUtils {
 
     public static final String getAppUrl(HttpServletRequest request) {
-        return String.format(CONTEXT_URL,
-                request.getScheme(),
-                request.getServerName(),
-                request.getServerPort(),
-                request.getContextPath());
+        return ServletUriComponentsBuilder
+                .fromRequestUri(request)
+                .replacePath(request.getContextPath())
+                .replaceQuery(null)
+                .build()
+                .toUriString();
     }
 
     public static final String getRedirectUrl(String route) {

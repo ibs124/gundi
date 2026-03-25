@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import ibs124.gundi.config.PropertyConfig;
 
-@SpringBootApplication
 @EnableConfigurationProperties(PropertyConfig.class)
 @EnableJpaAuditing
+@SpringBootApplication
 public class GundiApplication {
 
     public static void main(String[] args) {

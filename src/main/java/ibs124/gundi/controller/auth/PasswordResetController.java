@@ -5,6 +5,7 @@ import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
@@ -54,6 +55,13 @@ class PasswordResetController {
             this.eventPublisher.publishEvent(
                     new UserPasswordResetEvent(token.username(), token.secret(), appUrl));
         }
+
+        return RouteUtils.getRedirectUrl(Routes.AUTH_LOGIN);
+    }
+
+    @GetMapping(Routes.AUTH_PASSWORD_RESSET_SUBMIT)
+    public String getMethodName(
+            @RequestParam(name = Routes.REQUEST_PARAM_TOKEN, required = false) String token) {
 
         return RouteUtils.getRedirectUrl(Routes.AUTH_LOGIN);
     }

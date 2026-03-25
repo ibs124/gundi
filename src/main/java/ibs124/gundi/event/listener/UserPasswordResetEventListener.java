@@ -3,6 +3,7 @@ package ibs124.gundi.event.listener;
 import static ibs124.gundi.constant.Templates.AUTH_VERIFICATION_EMAIL;
 
 import static ibs124.gundi.constant.Env.GUNDI_LOGO_URL;
+import static ibs124.gundi.constant.Routes.REQUEST_PARAM_TOKEN;
 import static ibs124.gundi.constant.ThymeleafEnv.TOKEN;
 import static ibs124.gundi.constant.ThymeleafEnv.EXPIRATION;
 import static ibs124.gundi.constant.ThymeleafEnv.URL;
@@ -20,6 +21,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
+import org.springframework.util.RouteMatcher.Route;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.constant.Routes;
@@ -79,12 +82,14 @@ class UserVerificationEventListener
     }
 
     private UserPasswordResetEvent mapTokenToMagicLink(UserPasswordResetEvent event) {
-        String rawUrl = event.getAppUrl() + Routes.AUTH_PASSWORD_RESET_TOKEN;
-
-        String formattedUrl = rawUrl
-                .replace(Routes.PATH_VARIABLE_TOKEN, event.getSecret());
+        String link = UriComponentsBuilder
+                .fromUriString(event.getAppUrl())
+                .path(Routes.AUTH_PASSWORD_RESSET_SUBMIT)
+                .queryParam(Routes.REQUEST_PARAM_TOKEN, event.getSecret())
+                .build()
+                .toUriString();
 
         return new UserPasswordResetEvent(
-                event.getEmail(), formattedUrl, event.getAppUrl());
+                event.getEmail(), link, event.getAppUrl());
     }
 }
