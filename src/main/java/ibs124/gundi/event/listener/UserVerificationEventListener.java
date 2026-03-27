@@ -14,6 +14,7 @@ import ibs124.gundi.model.dto.config.VerificationProperties;
 import ibs124.gundi.model.dto.config.VerificationTokenProperties;
 import ibs124.gundi.service.message.EmailSendingService;
 import ibs124.gundi.service.message.TemplateCompilingService;
+import ibs124.gundi.util.TestUtils;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -47,6 +48,11 @@ class UserVerificationEventListener
         VerificationProperties config = this.config.verification();
 
         VerificationTokenProperties tokenConfig = config.token();
+
+        if (this.config.debug().verification()) {
+            TestUtils.sendVerification(event);
+            return;
+        }
 
         TemplateCompileDto templateRequest = new TemplateCompileDto(
                 AUTH_VERIFICATION_EMAIL)

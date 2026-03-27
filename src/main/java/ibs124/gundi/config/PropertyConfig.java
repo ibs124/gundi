@@ -7,7 +7,26 @@ import ibs124.gundi.model.dto.config.VerificationProperties;
 
 @ConfigurationProperties(prefix = Env.APP)
 public record PropertyConfig(
+
+        Debug debug,
+
         VerificationProperties verification,
-        VerificationProperties passwordReset) {
+
+        VerificationProperties passwordReset
+
+) {
+
+    public record Debug(
+            boolean global,
+            boolean verification,
+            boolean passwordReset) {
+
+        public Debug {
+            if (global) {
+                verification = true;
+                passwordReset = true;
+            }
+        }
+    }
 
 }
