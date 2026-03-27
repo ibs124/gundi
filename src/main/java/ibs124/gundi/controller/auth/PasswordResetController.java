@@ -65,7 +65,7 @@ class PasswordResetController {
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESSET_SUBMIT)
-    public String getMethodName(PasswordResetRequest request) {
+    public String getSubmit(PasswordResetRequest request) {
 
         boolean tokenIsValid = this.passwordResetValidationService
                 .isPasswordResetTokenValid(request.token());
@@ -73,4 +73,13 @@ class PasswordResetController {
         return RouteUtils.getRedirectUrl(Routes.AUTH_LOGIN);
     }
 
+    @GetMapping(Routes.AUTH_PASSWORD_RESET_SUCCESS)
+    public String getSuccess(@RequestParam String param) {
+        return new String();
+    }
+
+    @GetMapping(Routes.AUTH_PASSWORD_RESET_ERROR)
+    public String getError(@RequestParam String param) {
+        return new String();
+    }
 }

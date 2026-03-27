@@ -27,6 +27,8 @@ public abstract class Routes {
     public static final String AUTH_PASSWORD_RESET = AUTH + "/password-reset";
     public static final String AUTH_PASSWORD_RESSET_SUBMIT = AUTH_PASSWORD_RESET
             + SUBMIT;
+    public static final String AUTH_PASSWORD_RESET_SUCCESS = AUTH_PASSWORD_RESET + SUCCESS;
+    public static final String AUTH_PASSWORD_RESET_ERROR = AUTH_PASSWORD_RESET + ERROR;
 
     public static final String HOME = INDEX;
 
