@@ -1,5 +1,7 @@
 package ibs124.gundi.service.sample.impl;
 
+import static ibs124.gundi.service.sample.impl.Config.USERNAME_DELIMITER;
+
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
@@ -12,8 +14,6 @@ import ibs124.gundi.repository.UserRepository;
 
 @Component
 public class UserSeeder {
-
-    private final String USERNAME_DELIMITER = "_";
 
     private final PasswordEncoder passwordEncoder;
     private final AuthoritySeeder authoritySeeder;
@@ -32,7 +32,13 @@ public class UserSeeder {
     }
 
     public List<UserEntity> seedUsers() {
-        List<UserEntity> users = this.createUsers();
+        List<UserEntity> users = this.userRepository.findAll();
+
+        if (!users.isEmpty()) {
+            return users;
+        }
+
+        users = this.createUsers();
 
         this.authoritySeeder.seedAuthorities(users);
 

@@ -5,6 +5,8 @@ import ibs124.gundi.model.dto.auth.AuthorityContract;
 
 abstract class Config {
 
+    public static final String USERNAME_DELIMITER = "_";
+
     public static final String PRIMARY_EMAIL_SUFFIX = "@gmail.com";
 
     public static final String DEFAULT_USER_PASSWORD = "aaaaaa";
