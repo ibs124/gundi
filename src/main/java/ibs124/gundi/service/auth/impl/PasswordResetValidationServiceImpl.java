@@ -20,6 +20,10 @@ class PasswordResetValidationServiceImpl implements PasswordResetValidationServi
 
     @Override
     public boolean isPasswordResetTokenValid(String token) {
+        if (token == null) {
+            return false;
+        }
+
         return this.passwordResetTokenRepository
                 .findBySecret(token)
                 .filter(x -> x != null && this.validator.validate(x).isEmpty())
