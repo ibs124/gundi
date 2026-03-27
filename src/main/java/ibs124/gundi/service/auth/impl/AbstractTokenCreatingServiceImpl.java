@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.config.PropertyConfig;
+import ibs124.gundi.model.config.VerificationProperties;
+import ibs124.gundi.model.config.VerificationTokenProperties;
 import ibs124.gundi.model.dto.auth.TokenDto;
-import ibs124.gundi.model.dto.config.VerificationProperties;
-import ibs124.gundi.model.dto.config.VerificationTokenProperties;
 import ibs124.gundi.repository.AbstractTokenRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;

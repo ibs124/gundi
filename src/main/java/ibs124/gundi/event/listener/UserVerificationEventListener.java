@@ -9,9 +9,9 @@ import static ibs124.gundi.constant.ThymeleafEnv.URL;
 
 import ibs124.gundi.model.dto.auth.EmailSendDto;
 import ibs124.gundi.model.dto.auth.TemplateCompileDto;
-import ibs124.gundi.model.dto.config.VerificationEmailProperties;
-import ibs124.gundi.model.dto.config.VerificationProperties;
-import ibs124.gundi.model.dto.config.VerificationTokenProperties;
+import ibs124.gundi.model.config.VerificationEmailProperties;
+import ibs124.gundi.model.config.VerificationProperties;
+import ibs124.gundi.model.config.VerificationTokenProperties;
 import ibs124.gundi.service.message.EmailSendingService;
 import ibs124.gundi.service.message.TemplateCompilingService;
 import ibs124.gundi.util.TestUtils;
