@@ -7,4 +7,8 @@ import jakarta.persistence.Table;
 @Table(name = "verification_tokens")
 public class VerificationTokenEntity extends AbstractTokenEntity {
 
+    public VerificationTokenEntity(UserEntity user) {
+        //TODO Auto-generated constructor stub
+    }
+
 }

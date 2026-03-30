@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.exception.ResourceReadingException;
 import ibs124.gundi.model.dto.auth.TokenDto;
+import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
@@ -19,7 +20,7 @@ import jakarta.validation.Validator;
 @Service
 class VerificationTokenIssuingServiceImpl implements VerificationTokenIssuingService {
 
-    private final VerificationTokenCreatingService tokenConfiguringService;
+    private final VerificationTokenCreatingService tokenCreatingService;
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
     private final Validator validator;
@@ -29,61 +30,60 @@ class VerificationTokenIssuingServiceImpl implements VerificationTokenIssuingSer
             VerificationTokenRepository tokenRepository,
             UserRepository userRepository,
             Validator validator) {
-        this.tokenConfiguringService = tokenConfiguringService;
+        this.tokenCreatingService = tokenConfiguringService;
         this.tokenRepository = tokenRepository;
         this.userRepository = userRepository;
         this.validator = validator;
     }
 
     @Override
-    public TokenDto issueByUsername(String username) {
-        Optional<@Valid VerificationTokenEntity> cache = this.tokenRepository
-                .findByUserUsernameOrUserPrimaryEmail(username, username);
-
-        TokenDto tokenDto = this.checkChache(cache);
-
-        if (tokenDto != null) {
-            return tokenDto;
-        }
-
-        UserEntity user = this.userRepository
-                .findByUsernameOrPrimaryEmail(username, username)
-                .orElseThrow(() -> new ResourceReadingException());
-
-        return this.createNew(user);
+    public TokenDto issueById(Long id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public TokenDto issueById(Long id) {
-        Optional<@Valid VerificationTokenEntity> cache = this.tokenRepository
-                .findByUserId(id);
+    public TokenDto issueByUsername(String username) {
+        VerificationTokenEntity cache = this.tokenRepository
+                .findByUserUsernameOrUserPrimaryEmail(username, username)
+                .orElse(null);
 
-        TokenDto tokenDto = this.checkChache(cache);
-
-        if (tokenDto != null) {
-            return tokenDto;
+        if (cache == null) {
+            return this.createNewToken(username);
         }
 
-        return this.createNew(this.userRepository
-                .getReferenceById(id));
+        boolean cacheIsValid = this.validator.validate(cache).isEmpty();
+
+        return cacheIsValid ? this.mapValidEntityToDto(cache) : this.refreshToken(cache);
     }
 
-    private TokenDto checkChache(Optional<VerificationTokenEntity> cache) {
-        return cache
-                .filter(x -> x != null && this.validator.validate(x).isEmpty())
-                .map(x -> new TokenDto(x.getSecret(), x.getExpiresAt()))
+    private TokenDto createNewToken(String username) {
+        UserEntity user = this.userRepository
+                .findByUsernameOrPrimaryEmail(username, username)
                 .orElse(null);
+
+        if (user == null) {
+            return null;
+        }
+
+        VerificationTokenEntity newToken = new VerificationTokenEntity(user);
+
+        return this.refreshToken(newToken);
     }
 
-    private TokenDto createNew(UserEntity user) {
-        TokenDto tokenDto = this.tokenConfiguringService
-                .createVerificationToken();
+    private TokenDto refreshToken(VerificationTokenEntity token) {
+        TokenDto tokenDto = this.tokenCreatingService.createVerificationToken();
 
-        VerificationTokenEntity token = TestUtils.createBy(user, tokenDto);
+        token.setSecret(tokenDto.secret());
+        token.setExpiresAt(tokenDto.expiresAt());
 
         token = this.tokenRepository.save(token);
 
-        return new TokenDto(token.getSecret(), token.getExpiresAt());
+        return this.mapValidEntityToDto(token);
     }
 
+    private TokenDto mapValidEntityToDto(AbstractTokenEntity x) {
+        return new TokenDto(
+                x.getUser().getPrimaryEmail(), x.getSecret(), x.getExpiresAt());
+    }
 }
