@@ -14,18 +14,18 @@ import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.security.UserDetailsImpl;
-import ibs124.gundi.service.auth.VerificationTokenIssuingService;
+import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 class VerificationController {
 
-    private final VerificationTokenIssuingService verificationTokenCreatingService;
+    private final VerificationTokenCreatingService verificationTokenCreatingService;
     private final ApplicationEventPublisher eventPublisher;
 
     public VerificationController(
-            VerificationTokenIssuingService verificationTokenCreatingService,
+            VerificationTokenCreatingService verificationTokenCreatingService,
             ApplicationEventPublisher eventPublisher) {
         this.verificationTokenCreatingService = verificationTokenCreatingService;
         this.eventPublisher = eventPublisher;
@@ -43,7 +43,7 @@ class VerificationController {
             @AuthenticationPrincipal UserDetailsImpl principal) {
 
         String secret = this.verificationTokenCreatingService
-                .issueById(principal.getId())
+                .createById(principal.getId())
                 .secret();
 
         String appUrl = RouteUtils.getAppUrl(request);

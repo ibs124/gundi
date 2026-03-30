@@ -4,6 +4,8 @@ import ibs124.gundi.model.dto.auth.TokenDto;
 
 public interface VerificationTokenCreatingService {
 
-    TokenDto createVerificationToken();
+    TokenDto createById(Long id);
+
+    TokenDto createByUsername(String username);
 
 }

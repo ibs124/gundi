@@ -12,7 +12,7 @@ import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserPasswordResetEvent;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.presentation.PasswordResetRequest;
-import ibs124.gundi.service.auth.PasswordResetTokenIssuingService;
+import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;
 import ibs124.gundi.service.auth.PasswordResetValidationService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,12 +26,12 @@ class PasswordResetController {
 
     private static final int STATUS_CODE_EMAIL_SENT = 2;
 
-    private final PasswordResetTokenIssuingService tokenIssuingService;
+    private final PasswordResetTokenCreatingService tokenIssuingService;
     private final ApplicationEventPublisher eventPublisher;
     private final PasswordResetValidationService passwordResetValidationService;
 
     public PasswordResetController(
-            PasswordResetTokenIssuingService tokenIssuingService,
+            PasswordResetTokenCreatingService tokenIssuingService,
             ApplicationEventPublisher eventPublisher,
             PasswordResetValidationService passwordResetValidationService) {
         this.tokenIssuingService = tokenIssuingService;

@@ -15,20 +15,20 @@ import ibs124.gundi.model.config.VerificationTokenProperties;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.repository.AbstractTokenRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;
-import ibs124.gundi.service.auth.VerificationTokenCreatingService;
+import ibs124.gundi.service.auth.PasswordResetTokenConfiguringService;
+import ibs124.gundi.service.auth.VerificationTokenConfiguringService;
 
 @Service
-public class AbstractTokenCreatingServiceImpl implements
-        VerificationTokenCreatingService,
-        PasswordResetTokenCreatingService {
+public class AbstractTokenConfiguringServiceImpl implements
+        VerificationTokenConfiguringService,
+        PasswordResetTokenConfiguringService {
 
     private final PropertyConfig config;
     private final SecureRandom secureRandom;
     private final VerificationTokenRepository verificationTokenRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
 
-    public AbstractTokenCreatingServiceImpl(
+    public AbstractTokenConfiguringServiceImpl(
             PropertyConfig config,
             SecureRandom secureRandom,
             VerificationTokenRepository verificationTokenRepository,
@@ -40,13 +40,13 @@ public class AbstractTokenCreatingServiceImpl implements
     }
 
     @Override
-    public TokenDto createPasswordResetToken() {
+    public TokenDto configurePasswordResetToken() {
         return this.prepareToken(
                 this.config.passwordReset(), this.passwordResetTokenRepository);
     }
 
     @Override
-    public TokenDto createVerificationToken() {
+    public TokenDto configureVerificationToken() {
         return this.prepareToken(
                 this.config.verification(), this.verificationTokenRepository);
     }

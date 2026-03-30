@@ -11,22 +11,22 @@ import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
+import ibs124.gundi.service.auth.VerificationTokenConfiguringService;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
-import ibs124.gundi.service.auth.VerificationTokenIssuingService;
 import ibs124.gundi.util.TestUtils;
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 
 @Service
-class VerificationTokenIssuingServiceImpl implements VerificationTokenIssuingService {
+class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingService {
 
-    private final VerificationTokenCreatingService tokenCreatingService;
+    private final VerificationTokenConfiguringService tokenCreatingService;
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
     private final Validator validator;
 
-    public VerificationTokenIssuingServiceImpl(
-            VerificationTokenCreatingService tokenConfiguringService,
+    public VerificationTokenCreatingServiceImpl(
+            VerificationTokenConfiguringService tokenConfiguringService,
             VerificationTokenRepository tokenRepository,
             UserRepository userRepository,
             Validator validator) {
@@ -37,13 +37,13 @@ class VerificationTokenIssuingServiceImpl implements VerificationTokenIssuingSer
     }
 
     @Override
-    public TokenDto issueById(Long id) {
+    public TokenDto createById(Long id) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public TokenDto issueByUsername(String username) {
+    public TokenDto createByUsername(String username) {
         VerificationTokenEntity cache = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);
@@ -72,7 +72,7 @@ class VerificationTokenIssuingServiceImpl implements VerificationTokenIssuingSer
     }
 
     private TokenDto refreshToken(VerificationTokenEntity token) {
-        TokenDto tokenDto = this.tokenCreatingService.createVerificationToken();
+        TokenDto tokenDto = this.tokenCreatingService.configureVerificationToken();
 
         token.setSecret(tokenDto.secret());
         token.setExpiresAt(tokenDto.expiresAt());

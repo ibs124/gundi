@@ -8,22 +8,22 @@ import ibs124.gundi.model.entity.PasswordResetTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
 import ibs124.gundi.repository.UserRepository;
+import ibs124.gundi.service.auth.PasswordResetTokenConfiguringService;
 import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;
-import ibs124.gundi.service.auth.PasswordResetTokenIssuingService;
 import jakarta.validation.Validator;
 
 @Service
-class PasswordResetTokenIssuingServiceImpl implements PasswordResetTokenIssuingService {
+class PasswordResetTokenCreatingServiceImpl implements PasswordResetTokenCreatingService {
 
     private final Validator validator;
     private final PasswordResetTokenRepository tokenRepository;
-    private final PasswordResetTokenCreatingService tokenCreatingService;
+    private final PasswordResetTokenConfiguringService tokenCreatingService;
     private final UserRepository userRepository;
 
-    public PasswordResetTokenIssuingServiceImpl(
+    public PasswordResetTokenCreatingServiceImpl(
             Validator validator,
             PasswordResetTokenRepository tokenRepository,
-            PasswordResetTokenCreatingService tokenCreatingService,
+            PasswordResetTokenConfiguringService tokenCreatingService,
             UserRepository userRepository) {
         this.validator = validator;
         this.tokenRepository = tokenRepository;
@@ -61,7 +61,7 @@ class PasswordResetTokenIssuingServiceImpl implements PasswordResetTokenIssuingS
     }
 
     private TokenDto refreshToken(PasswordResetTokenEntity token) {
-        TokenDto tokenDto = this.tokenCreatingService.createPasswordResetToken();
+        TokenDto tokenDto = this.tokenCreatingService.configurePasswordResetToken();
 
         token.setSecret(tokenDto.secret());
         token.setExpiresAt(tokenDto.expiresAt());
