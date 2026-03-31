@@ -4,6 +4,6 @@ import ibs124.gundi.model.dto.auth.TokenDto;
 
 public interface PasswordResetTokenCreatingService {
 
-    TokenDto issueByUsername(String username);
+    TokenDto createByUsername(String username);
 
 }

@@ -53,7 +53,7 @@ class PasswordResetController {
         redirectAttributes.addFlashAttribute(STATUS_CODE, STATUS_CODE_EMAIL_SENT);
 
         TokenDto token = this.tokenIssuingService
-                .issueByUsername(email);
+                .createByUsername(email);
 
         if (token != null) {
             String appUrl = RouteUtils.getAppUrl(request);

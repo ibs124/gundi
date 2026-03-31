@@ -32,7 +32,7 @@ class PasswordResetTokenCreatingServiceImpl implements PasswordResetTokenCreatin
     }
 
     @Override
-    public TokenDto issueByUsername(String username) {
+    public TokenDto createByUsername(String username) {
         PasswordResetTokenEntity cache = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);
