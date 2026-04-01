@@ -10,13 +10,13 @@ import ibs124.gundi.service.auth.LoginDetailsReadingService;
 import ibs124.gundi.service.auth.ValidationService;
 
 @Service
-class AbstractUserReadingServiceImpl implements ValidationService, LoginDetailsReadingService {
+class AdvancedUserReadingServiceImpl implements ValidationService, LoginDetailsReadingService {
 
     private final UserRepository userRepository;
     private final EmailRepository emailRepository;
     private final UserMapper userMapper;
 
-    public AbstractUserReadingServiceImpl(
+    public AdvancedUserReadingServiceImpl(
             UserRepository userRepository,
             EmailRepository emailRepository,
             UserMapper userMapper) {
