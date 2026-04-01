@@ -1,23 +1,20 @@
-package ibs124.gundi.service.message.impl;
+package ibs124.gundi.common.template_compiler;
 
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import ibs124.gundi.model.dto.auth.TemplateCompileDto;
-import ibs124.gundi.service.message.TemplateCompilingService;
-
 @Service
-class TemplateCompilingServiceImpl implements TemplateCompilingService {
+class TemplateCompilerImpl implements TemplateCompiler {
 
     private final SpringTemplateEngine templateEngine;
 
-    public TemplateCompilingServiceImpl(SpringTemplateEngine templateEngine) {
+    public TemplateCompilerImpl(SpringTemplateEngine templateEngine) {
         this.templateEngine = templateEngine;
     }
 
     @Override
-    public String compileHtml(TemplateCompileDto request) {
+    public String compileHtml(TemplateCompileRequest request) {
         Context context = new Context();
 
         context.setVariables(request.variables());

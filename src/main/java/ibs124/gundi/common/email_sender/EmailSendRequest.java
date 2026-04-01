@@ -1,9 +1,9 @@
-package ibs124.gundi.model.dto.auth;
+package ibs124.gundi.common.email_sender;
 
 import jakarta.validation.constraints.NotNull;
 
 @NotNull
-public record EmailSendDto(
+public record EmailSendRequest(
         String from,
         String displayName,
         String[] to,
@@ -11,7 +11,7 @@ public record EmailSendDto(
         String text,
         boolean isHtml) {
 
-    public EmailSendDto {
+    public EmailSendRequest {
         if (displayName == null || displayName.isBlank()) {
             displayName = "";
         }
@@ -37,8 +37,8 @@ public record EmailSendDto(
         private Builder() {
         }
 
-        public EmailSendDto build() {
-            return new EmailSendDto(
+        public EmailSendRequest build() {
+            return new EmailSendRequest(
                     this.from,
                     this.displayName,
                     this.to,

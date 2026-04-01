@@ -10,10 +10,6 @@ import static ibs124.gundi.constant.ThymeleafEnv.URL;
 import ibs124.gundi.model.config.VerificationEmailProperties;
 import ibs124.gundi.model.config.VerificationProperties;
 import ibs124.gundi.model.config.VerificationTokenProperties;
-import ibs124.gundi.model.dto.auth.EmailSendDto;
-import ibs124.gundi.model.dto.auth.TemplateCompileDto;
-import ibs124.gundi.service.message.EmailSendingService;
-import ibs124.gundi.service.message.TemplateCompilingService;
 import ibs124.gundi.util.TestUtils;
 
 import org.springframework.context.ApplicationListener;
@@ -22,6 +18,10 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import ibs124.gundi.common.email_sender.EmailSendRequest;
+import ibs124.gundi.common.email_sender.EmailSender;
+import ibs124.gundi.common.template_compiler.TemplateCompileRequest;
+import ibs124.gundi.common.template_compiler.TemplateCompiler;
 import ibs124.gundi.config.PropertyConfig;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.event.UserPasswordResetEvent;
@@ -30,13 +30,13 @@ import ibs124.gundi.event.UserPasswordResetEvent;
 class UserVerificationEventListener
         implements ApplicationListener<UserPasswordResetEvent> {
 
-    private final TemplateCompilingService templateCompileService;
-    private final EmailSendingService emailSendingService;
+    private final TemplateCompiler templateCompileService;
+    private final EmailSender emailSendingService;
     private final PropertyConfig config;
 
     public UserVerificationEventListener(
-            TemplateCompilingService templateCompileService,
-            EmailSendingService emailSendingService,
+            TemplateCompiler templateCompileService,
+            EmailSender emailSendingService,
             PropertyConfig config) {
         this.templateCompileService = templateCompileService;
         this.emailSendingService = emailSendingService;
@@ -59,7 +59,7 @@ class UserVerificationEventListener
             return;
         }
 
-        TemplateCompileDto templateRequest = new TemplateCompileDto(
+        TemplateCompileRequest templateRequest = new TemplateCompileRequest(
                 AUTH_VERIFICATION_EMAIL)
                 .addVariable(URL, GUNDI_LOGO_URL)
                 .addVariable(TOKEN, event.getSecret())
@@ -69,7 +69,7 @@ class UserVerificationEventListener
 
         VerificationEmailProperties mailConfig = config.mail();
 
-        EmailSendDto emailRequest = EmailSendDto
+        EmailSendRequest emailRequest = EmailSendRequest
                 .builder()
                 .from(mailConfig.from())
                 .displayName(mailConfig.displayName())

@@ -1,4 +1,4 @@
-package ibs124.gundi.model.dto.auth;
+package ibs124.gundi.common.template_compiler;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -6,26 +6,26 @@ import java.util.Map;
 import jakarta.validation.constraints.NotNull;
 
 @NotNull
-public record TemplateCompileDto(
+public record TemplateCompileRequest(
         String template,
         Map<String, Object> variables) {
 
-    public TemplateCompileDto {
+    public TemplateCompileRequest {
         if (variables == null) {
             variables = new LinkedHashMap<>();
         }
     }
 
-    public TemplateCompileDto(String template) {
+    public TemplateCompileRequest(String template) {
         this(template, new LinkedHashMap<>());
     }
 
-    public TemplateCompileDto addVariable(String key, Object value) {
+    public TemplateCompileRequest addVariable(String key, Object value) {
         this.variables.put(key, value);
         return this;
     }
 
-    public TemplateCompileDto removeVariable(Object value) {
+    public TemplateCompileRequest removeVariable(Object value) {
         this.variables.remove(value);
         return this;
     }

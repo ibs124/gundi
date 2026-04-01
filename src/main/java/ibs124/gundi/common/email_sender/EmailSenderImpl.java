@@ -1,4 +1,4 @@
-package ibs124.gundi.service.message.impl;
+package ibs124.gundi.common.email_sender;
 
 import java.io.UnsupportedEncodingException;
 
@@ -6,22 +6,20 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.model.dto.auth.EmailSendDto;
-import ibs124.gundi.service.message.EmailSendingService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
 @Service
-class EmailSendingServiceImpl implements EmailSendingService {
+class EmailSenderImpl implements EmailSender {
 
     private final JavaMailSender javaMailSender;
 
-    public EmailSendingServiceImpl(JavaMailSender javaMailSender) {
+    public EmailSenderImpl(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
 
     @Override
-    public void sendEmail(EmailSendDto dto) {
+    public void sendEmail(EmailSendRequest dto) {
         MimeMessage message = this.javaMailSender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(message);
