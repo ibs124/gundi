@@ -18,4 +18,6 @@ public class Templates {
     public static final String USERS_SELF_ACCOUNT = USERS + "/account";
     public static final String USERS_ADMINISTRATION = USERS + "/administration";
 
+    public static final String AUTH_PASSWORD_RESET_EMAIL = null;
+
 }
