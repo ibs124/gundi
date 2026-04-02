@@ -3,10 +3,11 @@ package ibs124.gundi.common.token_generator;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import ibs124.gundi.common.token_generator.config.TokenGeneratorConiguration;
 import ibs124.gundi.common.token_generator.model.TokenGenerateRequest;
 import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
 
@@ -20,20 +21,37 @@ public class TokenGeneratorImpl implements TokenGenerator {
             "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
     private final SecureRandom secureRandom;
-    private final TokenGeneratorConiguration config;
+    private final Map<String, TokenGenerateRequest> requests;
 
     public TokenGeneratorImpl(
             SecureRandom secureRandom,
-            TokenGeneratorConiguration config) {
+            Map<String, TokenGenerateRequest> requests) {
+
+        if (requests == null) {
+            requests = new HashMap<>();
+        }
+
         this.secureRandom = secureRandom;
-        this.config = config;
+        this.requests = requests;
     }
 
+    @Override
+    public TokenGenerateResponse generateBySecret(String secret) {
+
+        if (secret == null) {
+            return this.generateDefault();
+        }
+
+        TokenGenerateRequest request = this.requests.get(secret);
+
+        return this.generate(request);
+    }
+
+    @Override
     public TokenGenerateResponse generate(TokenGenerateRequest request) {
+
         if (request == null) {
-            String secret = this.generateOtpSecret(DEFAULT_LENGTH, DEFAULT_CHARS);
-            Instant expiresAt = this.generateExpiration(DEFAULT_EXPIRATION);
-            return TokenGenerateResponse.of(secret, expiresAt);
+            return this.generateDefault();
         }
 
         String secret = request.isDeliveredAsLink()
@@ -46,8 +64,10 @@ public class TokenGeneratorImpl implements TokenGenerator {
         return TokenGenerateResponse.of(secret, expiresAt);
     }
 
-    public TokenGeneratorConiguration getConfiguration() {
-        return this.config;
+    private TokenGenerateResponse generateDefault() {
+        return TokenGenerateResponse.of(
+                this.generateOtpSecret(DEFAULT_LENGTH, DEFAULT_CHARS),
+                this.generateExpiration(DEFAULT_EXPIRATION));
     }
 
     private String generateOtpSecret(int length, String[] chars) {
@@ -74,7 +94,7 @@ public class TokenGeneratorImpl implements TokenGenerator {
     }
 
     private Instant generateExpiration(Duration duration) {
-        if (duration == null || duration.compareTo(DEFAULT_EXPIRATION) <= 0) {
+        if (duration == null || duration.toMinutes() < DEFAULT_EXPIRATION.toMinutes()) {
             duration = DEFAULT_EXPIRATION;
         }
 

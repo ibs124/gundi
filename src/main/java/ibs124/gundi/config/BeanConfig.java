@@ -1,6 +1,8 @@
 package ibs124.gundi.config;
 
 import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -10,14 +12,18 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import ibs124.gundi.common.token_generator.TokenGenerator;
 import ibs124.gundi.common.token_generator.TokenGeneratorImpl;
+import ibs124.gundi.common.token_generator.model.TokenGenerateRequest;
 import ibs124.gundi.constant.Env;
 
 @Configuration
 public class BeanConfig {
 
     @Bean
-    TokenGenerator tokenGenerator(SecureRandom random, PropertyConfig appConfig) {
-        return new TokenGeneratorImpl(random, appConfig);
+    TokenGenerator tokenGenerator(SecureRandom random, PropertyConfig config) {
+        Map<String, TokenGenerateRequest> requests = new HashMap<>();
+        requests.put(Env.REQUEST_KEY_VERIFICATION, config.verification().token());
+        requests.put(Env.REQUEST_KEY_PASSWORD_RESET, config.passwordReset().token());
+        return new TokenGeneratorImpl(random, requests);
     }
 
     @Bean

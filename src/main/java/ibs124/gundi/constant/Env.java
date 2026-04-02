@@ -28,4 +28,8 @@ public abstract class Env {
 
     public static final String MESSAGE_SOURCE_DEFAULT_ENCODING = "UTF-8";
 
+    public static final String REQUEST_KEY_VERIFICATION = "request_key_verification";
+
+    public static final String REQUEST_KEY_PASSWORD_RESET = "request_key_password_reset";
+
 }
