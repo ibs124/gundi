@@ -2,12 +2,14 @@ package ibs124.gundi.service.auth.impl;
 
 import org.springframework.stereotype.Service;
 
+import ibs124.gundi.common.token_generator.TokenGenerator;
+import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
+import ibs124.gundi.constant.Env;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.VerificationTokenGeneratingService;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import jakarta.validation.Validator;
 
@@ -16,19 +18,18 @@ class VerificationTokenCreatingServiceImpl
         extends AbstractTokenCreatingService<VerificationTokenEntity>
         implements VerificationTokenCreatingService {
 
-    private final VerificationTokenGeneratingService tokenCreatingService;
+    private final TokenGenerator tokenGenerator;
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
 
     public VerificationTokenCreatingServiceImpl(
-            VerificationTokenGeneratingService tokenConfiguringService,
             VerificationTokenRepository tokenRepository,
             UserRepository userRepository,
-            Validator validator) {
+            Validator validator,
+            TokenGenerator tokenGenerator) {
 
         super(validator, tokenRepository);
-
-        this.tokenCreatingService = tokenConfiguringService;
+        this.tokenGenerator = tokenGenerator;
         this.tokenRepository = tokenRepository;
         this.userRepository = userRepository;
     }
@@ -40,7 +41,9 @@ class VerificationTokenCreatingServiceImpl
 
     @Override
     TokenDto generateToken() {
-        return this.tokenCreatingService.generateVerificationToken();
+        TokenGenerateResponse response = this.tokenGenerator
+                .generateBySecret(Env.REQUEST_KEY_VERIFICATION);
+        return new TokenDto(response.getSecret(), response.getExpiresAt());
     }
 
     @Override

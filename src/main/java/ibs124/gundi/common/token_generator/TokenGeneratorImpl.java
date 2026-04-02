@@ -13,7 +13,7 @@ import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
 
 public class TokenGeneratorImpl implements TokenGenerator {
 
-    static final int DEFAULT_LENGTH = 15;
+    static final int DEFAULT_LENGTH = 6;
 
     static final Duration DEFAULT_EXPIRATION = Duration.ofMinutes(DEFAULT_LENGTH);
 
