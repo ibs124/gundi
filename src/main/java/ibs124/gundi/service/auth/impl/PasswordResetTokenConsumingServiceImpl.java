@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.dto.auth.PasswordResetDto;
+import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.PasswordResetTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
@@ -16,7 +17,6 @@ class PasswordResetTokenConsumingServiceImpl
         extends AbstractTokenConsumingService<PasswordResetTokenEntity>
         implements PasswordResetTokenConsumingService {
 
-    private final Validator validator;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
@@ -28,41 +28,30 @@ class PasswordResetTokenConsumingServiceImpl
 
         super(passwordResetTokenRepository, validator);
 
-        this.validator = validator;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
 
     @Override
-    public boolean consume(PasswordResetDto request) {
+    public TokenDto consume(PasswordResetDto request) {
 
-        if (!this.requestIsValid(request)) {
-            return false;
-        }
-
-        PasswordResetTokenEntity token = super.consumeTokenBySecret(request.secret());
+        PasswordResetTokenEntity token = super.consumeAbstract(request);
 
         if (token == null) {
-            return false;
+            return null;
         }
 
         UserEntity user = token.getUser();
 
-        if (user.getPassword().equals(request.password())) {
-            return true;
+        if (user.getPassword().equals(request.password()) == false) {
+            String encodedPassword = this.passwordEncoder.encode(request.password());
+
+            user.setPassword(encodedPassword);
+
+            user = this.userRepository.save(user);
         }
 
-        String encodedPassword = this.passwordEncoder.encode(request.password());
-
-        user.setPassword(encodedPassword);
-
-        user = this.userRepository.save(user);
-
-        return true;
-    }
-
-    private boolean requestIsValid(PasswordResetDto dto) {
-        return dto != null && this.validator.validate(dto).isEmpty();
+        return super.mapToDto(token, user.getPrimaryEmail());
     }
 
 }

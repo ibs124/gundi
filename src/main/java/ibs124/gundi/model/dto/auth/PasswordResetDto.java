@@ -7,5 +7,10 @@ import jakarta.validation.constraints.NotNull;
 @NotNull
 public record PasswordResetDto(
         @NotBlank String secret,
-        @ValidPassword String password) {
+        @ValidPassword String password) implements TokenConsumeRequest {
+
+    @Override
+    public String getSecret() {
+        return this.secret;
+    }
 }

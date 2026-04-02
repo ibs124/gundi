@@ -1,5 +1,7 @@
 package ibs124.gundi.service.auth.impl;
 
+import ibs124.gundi.model.dto.auth.TokenConsumeRequest;
+import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.repository.AbstractTokenRepository;
 import jakarta.validation.Validator;
@@ -17,9 +19,14 @@ public abstract class AbstractTokenConsumingService<T extends AbstractTokenEntit
         this.validator = validator;
     }
 
-    protected T consumeTokenBySecret(String secret) {
+    protected T consumeAbstract(TokenConsumeRequest request) {
+
+        if (this.requestIsValid(request) == false) {
+            return null;
+        }
+
         T token = this.tokenRepository
-                .findBySecret(secret)
+                .findBySecret(request.getSecret())
                 .orElse(null);
 
         if (token == null) {
@@ -35,6 +42,16 @@ public abstract class AbstractTokenConsumingService<T extends AbstractTokenEntit
         this.tokenRepository.delete(token);
 
         return token;
+    }
+
+    protected TokenDto mapToDto(T token, String username) {
+        return new TokenDto(username, token.getSecret(), token.getExpiresAt());
+    }
+
+    private boolean requestIsValid(TokenConsumeRequest request) {
+        return request != null
+                && request.getSecret() != null
+                && this.validator.validate(request).isEmpty();
     }
 
 }

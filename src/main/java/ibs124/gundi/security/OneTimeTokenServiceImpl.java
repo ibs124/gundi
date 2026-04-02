@@ -28,7 +28,7 @@ public class OneTimeTokenServiceImpl implements OneTimeTokenService {
     @Override
     public @Nullable OneTimeToken consume(OneTimeTokenAuthenticationToken authToken) {
         TokenDto token = this.verificationService
-                .consume(authToken.getTokenValue());
+                .consume(() -> authToken.getTokenValue());
 
         return this.map(token);
     }

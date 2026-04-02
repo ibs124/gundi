@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import org.springframework.stereotype.Service;
 
+import ibs124.gundi.model.dto.auth.TokenConsumeRequest;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.EmailEntity;
 import ibs124.gundi.model.entity.UserEntity;
@@ -31,10 +32,10 @@ class VerificationTokenConsumingServiceImpl
         this.emailRepository = emailRepository;
     }
 
-    @Override
     @Transactional
-    public TokenDto consume(String request) {
-        VerificationTokenEntity token = this.consumeTokenBySecret(request);
+    @Override
+    public TokenDto consume(TokenConsumeRequest request) {
+        VerificationTokenEntity token = super.consumeAbstract(request);
 
         if (token == null) {
             return null;
@@ -47,8 +48,7 @@ class VerificationTokenConsumingServiceImpl
             this.verifyNewUser(user);
         }
 
-        return new TokenDto(
-                token.getUser().getUsername(), token.getSecret(), token.getExpiresAt());
+        return super.mapToDto(token, user.getPrimaryEmail());
     }
 
     private void verifyNewUser(UserEntity user) {
