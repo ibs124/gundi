@@ -8,10 +8,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import ibs124.gundi.common.token_generator.TokenGenerator;
+import ibs124.gundi.common.token_generator.TokenGeneratorImpl;
 import ibs124.gundi.constant.Env;
 
 @Configuration
 public class BeanConfig {
+
+    @Bean
+    TokenGenerator tokenGenerator(SecureRandom random, PropertyConfig appConfig) {
+        return new TokenGeneratorImpl(random, appConfig);
+    }
 
     @Bean
     LocalValidatorFactoryBean localValidatorFactoryBean() {

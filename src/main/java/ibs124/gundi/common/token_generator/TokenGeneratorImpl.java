@@ -1,0 +1,84 @@
+package ibs124.gundi.common.token_generator;
+
+import java.security.SecureRandom;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import ibs124.gundi.common.token_generator.config.TokenGeneratorConiguration;
+import ibs124.gundi.common.token_generator.model.TokenGenerateRequest;
+import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
+
+public class TokenGeneratorImpl implements TokenGenerator {
+
+    static final int DEFAULT_LENGTH = 15;
+
+    static final Duration DEFAULT_EXPIRATION = Duration.ofMinutes(DEFAULT_LENGTH);
+
+    static final String[] DEFAULT_CHARS = {
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+    private final SecureRandom secureRandom;
+    private final TokenGeneratorConiguration config;
+
+    public TokenGeneratorImpl(
+            SecureRandom secureRandom,
+            TokenGeneratorConiguration config) {
+        this.secureRandom = secureRandom;
+        this.config = config;
+    }
+
+    public TokenGenerateResponse generate(TokenGenerateRequest request) {
+        if (request == null) {
+            String secret = this.generateOtpSecret(DEFAULT_LENGTH, DEFAULT_CHARS);
+            Instant expiresAt = this.generateExpiration(DEFAULT_EXPIRATION);
+            return TokenGenerateResponse.of(secret, expiresAt);
+        }
+
+        String secret = request.isDeliveredAsLink()
+                ? this.generateLinkSecret()
+                : this.generateOtpSecret(
+                        request.getLength(), request.getAllowedCharacters());
+
+        Instant expiresAt = this.generateExpiration(request.getExpiration());
+
+        return TokenGenerateResponse.of(secret, expiresAt);
+    }
+
+    public TokenGeneratorConiguration getConfiguration() {
+        return this.config;
+    }
+
+    private String generateOtpSecret(int length, String[] chars) {
+        if (length < DEFAULT_LENGTH) {
+            length = DEFAULT_LENGTH;
+        }
+
+        String[] safeChars;
+
+        if (chars == null || chars.length < DEFAULT_CHARS.length) {
+            safeChars = DEFAULT_CHARS;
+        } else {
+            safeChars = chars;
+        }
+
+        return this.secureRandom
+                .ints(length, 0, safeChars.length)
+                .mapToObj(x -> safeChars[x])
+                .collect(Collectors.joining());
+    }
+
+    private String generateLinkSecret() {
+        return UUID.randomUUID().toString();
+    }
+
+    private Instant generateExpiration(Duration duration) {
+        if (duration == null || duration.compareTo(DEFAULT_EXPIRATION) <= 0) {
+            duration = DEFAULT_EXPIRATION;
+        }
+
+        return Instant.now().plus(duration);
+    }
+
+}
