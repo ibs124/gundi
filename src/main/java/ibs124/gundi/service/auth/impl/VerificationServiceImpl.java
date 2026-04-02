@@ -15,18 +15,19 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Validator;
 
 @Service
-class VerificationServiceImpl implements VerificationService {
+class VerificationServiceImpl
+        extends AbstractTokenConsumingService<VerificationTokenEntity>
+        implements VerificationService {
 
-    private final Validator validator;
-    private final VerificationTokenRepository tokenRepository;
     private final EmailRepository emailRepository;
 
     public VerificationServiceImpl(
-            Validator validator,
             VerificationTokenRepository tokenRepository,
+            Validator validator,
             EmailRepository emailRepository) {
-        this.validator = validator;
-        this.tokenRepository = tokenRepository;
+
+        super(tokenRepository, validator);
+
         this.emailRepository = emailRepository;
     }
 
@@ -48,26 +49,6 @@ class VerificationServiceImpl implements VerificationService {
 
         return new TokenDto(
                 token.getUser().getUsername(), token.getSecret(), token.getExpiresAt());
-    }
-
-    private VerificationTokenEntity consumeTokenBySecret(String secret) {
-        VerificationTokenEntity token = this.tokenRepository
-                .findBySecret(secret)
-                .orElse(null);
-
-        if (token == null) {
-            return null;
-        }
-
-        boolean isTokenValid = this.validator.validate(token).isEmpty();
-
-        if (!isTokenValid) {
-            return null;
-        }
-
-        this.tokenRepository.delete(token);
-
-        return token;
     }
 
     private void verifyNewUser(UserEntity user) {

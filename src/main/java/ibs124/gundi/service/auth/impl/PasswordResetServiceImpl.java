@@ -12,9 +12,10 @@ import ibs124.gundi.service.auth.PasswordResetService;
 import jakarta.validation.Validator;
 
 @Service
-class PasswordResetServiceImpl implements PasswordResetService {
+class PasswordResetServiceImpl
+        extends AbstractTokenConsumingService<PasswordResetTokenEntity>
+        implements PasswordResetService {
 
-    private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final Validator validator;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
@@ -24,7 +25,9 @@ class PasswordResetServiceImpl implements PasswordResetService {
             Validator validator,
             PasswordEncoder passwordEncoder,
             UserRepository userRepository) {
-        this.passwordResetTokenRepository = passwordResetTokenRepository;
+
+        super(passwordResetTokenRepository, validator);
+
         this.validator = validator;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
@@ -32,19 +35,16 @@ class PasswordResetServiceImpl implements PasswordResetService {
 
     @Override
     public boolean resetPassword(PasswordResetDto request) {
-        if (!this.isValid(request)) {
+
+        if (!this.requestIsValid(request)) {
             return false;
         }
 
-        PasswordResetTokenEntity token = this.passwordResetTokenRepository
-                .findBySecret(request.secret())
-                .orElse(null);
+        PasswordResetTokenEntity token = super.consumeTokenBySecret(request.secret());
 
-        if (this.isValid(token)) {
+        if (token == null) {
             return false;
         }
-
-        this.passwordResetTokenRepository.delete(token);
 
         UserEntity user = token.getUser();
 
@@ -61,11 +61,7 @@ class PasswordResetServiceImpl implements PasswordResetService {
         return true;
     }
 
-    private boolean isValid(PasswordResetTokenEntity token) {
-        return token != null && this.validator.validate(token).isEmpty();
-    }
-
-    private boolean isValid(PasswordResetDto dto) {
+    private boolean requestIsValid(PasswordResetDto dto) {
         return dto != null && this.validator.validate(dto).isEmpty();
     }
 
