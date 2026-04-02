@@ -7,4 +7,13 @@ import jakarta.persistence.Table;
 @Table(name = "password_reset_tokens")
 public class PasswordResetTokenEntity extends AbstractTokenEntity {
 
+    public PasswordResetTokenEntity() {
+        super();
+    }
+
+    public PasswordResetTokenEntity(UserEntity user) {
+        super();
+        this.setUser(user);
+    }
+
 }

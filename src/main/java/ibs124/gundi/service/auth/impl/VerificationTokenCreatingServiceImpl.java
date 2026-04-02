@@ -1,45 +1,65 @@
 package ibs124.gundi.service.auth.impl;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
-import ibs124.gundi.exception.ResourceReadingException;
 import ibs124.gundi.model.dto.auth.TokenDto;
-import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
 import ibs124.gundi.service.auth.VerificationTokenGeneratingService;
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
-import ibs124.gundi.util.TestUtils;
-import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 
 @Service
-class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingService {
+class VerificationTokenCreatingServiceImpl
+        extends AbstractTokenCreatingService<VerificationTokenEntity>
+        implements VerificationTokenCreatingService {
 
     private final VerificationTokenGeneratingService tokenCreatingService;
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
-    private final Validator validator;
 
     public VerificationTokenCreatingServiceImpl(
             VerificationTokenGeneratingService tokenConfiguringService,
             VerificationTokenRepository tokenRepository,
             UserRepository userRepository,
             Validator validator) {
+
+        super(validator, tokenRepository);
+
         this.tokenCreatingService = tokenConfiguringService;
         this.tokenRepository = tokenRepository;
         this.userRepository = userRepository;
-        this.validator = validator;
+    }
+
+    @Override
+    VerificationTokenEntity construct(UserEntity user) {
+        return new VerificationTokenEntity(user);
+    }
+
+    @Override
+    TokenDto generateToken() {
+        return this.tokenCreatingService.generateVerificationToken();
     }
 
     @Override
     public TokenDto createById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        VerificationTokenEntity token = this.tokenRepository
+                .findById(id)
+                .orElse(null);
+
+        if (token != null) {
+            return super.respondWithTokenRepair(token);
+        }
+
+        try {
+            UserEntity user = this.userRepository.getReferenceById(id);
+            token = super.createNewToken(user);
+            return super.mapToDto(token, null);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
@@ -48,44 +68,14 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);
 
-        if (token == null) {
-            return this.createNewToken(username);
+        if (token != null) {
+            return super.respondWithTokenRepair(token);
         }
 
-        boolean cacheIsValid = this.validator.validate(token).isEmpty();
-
-        return cacheIsValid ? this.mapValidEntityToDto(token) : this.refreshToken(token);
-    }
-
-    private TokenDto createNewToken(String username) {
         UserEntity user = this.userRepository
                 .findByUsernameOrPrimaryEmail(username, username)
                 .orElse(null);
 
-        if (user == null) {
-            return null;
-        }
-
-        VerificationTokenEntity token = new VerificationTokenEntity();
-
-        token.setUser(user);
-
-        return this.refreshToken(token);
-    }
-
-    private TokenDto refreshToken(VerificationTokenEntity token) {
-        TokenDto tokenDto = this.tokenCreatingService.generateVerificationToken();
-
-        token.setSecret(tokenDto.secret());
-        token.setExpiresAt(tokenDto.expiresAt());
-
-        token = this.tokenRepository.save(token);
-
-        return this.mapValidEntityToDto(token);
-    }
-
-    private TokenDto mapValidEntityToDto(AbstractTokenEntity x) {
-        return new TokenDto(
-                x.getUser().getPrimaryEmail(), x.getSecret(), x.getExpiresAt());
+        return super.respondWithNewToken(user);
     }
 }

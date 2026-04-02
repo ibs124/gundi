@@ -3,7 +3,6 @@ package ibs124.gundi.service.auth.impl;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.dto.auth.TokenDto;
-import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.model.entity.PasswordResetTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
@@ -13,9 +12,10 @@ import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;
 import jakarta.validation.Validator;
 
 @Service
-class PasswordResetTokenCreatingServiceImpl implements PasswordResetTokenCreatingService {
+class PasswordResetTokenCreatingServiceImpl
+        extends AbstractTokenCreatingService<PasswordResetTokenEntity>
+        implements PasswordResetTokenCreatingService {
 
-    private final Validator validator;
     private final PasswordResetTokenRepository tokenRepository;
     private final PasswordResetTokenGeneratingService tokenCreatingService;
     private final UserRepository userRepository;
@@ -25,10 +25,22 @@ class PasswordResetTokenCreatingServiceImpl implements PasswordResetTokenCreatin
             PasswordResetTokenRepository tokenRepository,
             PasswordResetTokenGeneratingService tokenCreatingService,
             UserRepository userRepository) {
-        this.validator = validator;
+
+        super(validator, tokenRepository);
+
         this.tokenRepository = tokenRepository;
         this.tokenCreatingService = tokenCreatingService;
         this.userRepository = userRepository;
+    }
+
+    @Override
+    PasswordResetTokenEntity construct(UserEntity user) {
+        return new PasswordResetTokenEntity(user);
+    }
+
+    @Override
+    TokenDto generateToken() {
+        return this.tokenCreatingService.generatePasswordResetToken();
     }
 
     @Override
@@ -37,45 +49,15 @@ class PasswordResetTokenCreatingServiceImpl implements PasswordResetTokenCreatin
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);
 
-        if (token == null) {
-            return this.createNewToken(username);
+        if (token != null) {
+            return super.respondWithTokenRepair(token);
         }
 
-        boolean cacheIsValid = this.validator.validate(token).isEmpty();
-
-        return cacheIsValid ? this.mapValidEntityToDto(token) : this.refreshToken(token);
-    }
-
-    private TokenDto createNewToken(String username) {
         UserEntity user = this.userRepository
                 .findByUsernameOrPrimaryEmail(username, username)
                 .orElse(null);
 
-        if (user == null) {
-            return null;
-        }
-
-        PasswordResetTokenEntity token = new PasswordResetTokenEntity();
-
-        token.setUser(user);
-
-        return this.refreshToken(token);
-    }
-
-    private TokenDto refreshToken(PasswordResetTokenEntity token) {
-        TokenDto tokenDto = this.tokenCreatingService.generatePasswordResetToken();
-
-        token.setSecret(tokenDto.secret());
-        token.setExpiresAt(tokenDto.expiresAt());
-
-        token = this.tokenRepository.save(token);
-
-        return this.mapValidEntityToDto(token);
-    }
-
-    private TokenDto mapValidEntityToDto(AbstractTokenEntity x) {
-        return new TokenDto(
-                x.getUser().getPrimaryEmail(), x.getSecret(), x.getExpiresAt());
+        return super.respondWithNewToken(user);
     }
 
 }

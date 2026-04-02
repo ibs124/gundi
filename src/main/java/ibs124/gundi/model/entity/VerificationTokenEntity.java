@@ -7,4 +7,13 @@ import jakarta.persistence.Table;
 @Table(name = "verification_tokens")
 public class VerificationTokenEntity extends AbstractTokenEntity {
 
+    public VerificationTokenEntity() {
+        super();
+    }
+
+    public VerificationTokenEntity(UserEntity user) {
+        super();
+        this.setUser(user);
+    }
+
 }
