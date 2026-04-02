@@ -1,10 +1,8 @@
 package ibs124.gundi.common.template_compiler;
 
-import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-@Service
 class TemplateCompilerImpl implements TemplateCompiler {
 
     private final SpringTemplateEngine templateEngine;

@@ -9,7 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import ibs124.gundi.common.template_compiler.TemplateCompiler;
+import ibs124.gundi.common.template_compiler.TemplateCompilerFactory;
 import ibs124.gundi.common.token_generator.TokenGenerator;
 import ibs124.gundi.common.token_generator.TokenGeneratorImpl;
 import ibs124.gundi.common.token_generator.model.TokenGenerateRequest;
@@ -17,6 +20,11 @@ import ibs124.gundi.constant.Env;
 
 @Configuration
 public class BeanConfig {
+
+    @Bean
+    TemplateCompiler templateCompiler(SpringTemplateEngine templateEngine) {
+        return TemplateCompilerFactory.build(templateEngine);
+    }
 
     @Bean
     TokenGenerator tokenGenerator(SecureRandom random, PropertyConfig config) {
