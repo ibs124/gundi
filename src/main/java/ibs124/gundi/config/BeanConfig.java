@@ -6,9 +6,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import ibs124.gundi.common.email_sender.EmailSender;
+import ibs124.gundi.common.email_sender.EmailSenderFactory;
 import ibs124.gundi.common.template_compiler.TemplateCompiler;
 import ibs124.gundi.common.template_compiler.TemplateCompilerFactory;
 import ibs124.gundi.common.token_generator.TokenGenerator;
@@ -17,6 +20,11 @@ import ibs124.gundi.constant.Env;
 
 @Configuration
 public class BeanConfig {
+
+    @Bean
+    EmailSender emailSender(JavaMailSender javaMailSender) {
+        return EmailSenderFactory.build(javaMailSender);
+    }
 
     @Bean
     TemplateCompiler templateCompiler(SpringTemplateEngine templateEngine) {
