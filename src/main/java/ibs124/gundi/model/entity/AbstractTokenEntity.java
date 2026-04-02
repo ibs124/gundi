@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @MappedSuperclass
-public class AbstractTokenEntity extends AbstractEntity {
+public abstract class AbstractTokenEntity extends AbstractEntity {
 
     private UserEntity user;
     private Instant expiresAt;
@@ -20,17 +20,6 @@ public class AbstractTokenEntity extends AbstractEntity {
 
     public AbstractTokenEntity() {
         super();
-    }
-
-    public AbstractTokenEntity(UserEntity user) {
-        this(user, null, null);
-    }
-
-    public AbstractTokenEntity(UserEntity user, Instant expiresAt, String secret) {
-        this();
-        this.setUser(user);
-        this.setExpiresAt(expiresAt);
-        this.setSecret(secret);
     }
 
     @Valid

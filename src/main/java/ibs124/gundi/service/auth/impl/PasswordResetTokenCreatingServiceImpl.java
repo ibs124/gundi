@@ -33,17 +33,17 @@ class PasswordResetTokenCreatingServiceImpl implements PasswordResetTokenCreatin
 
     @Override
     public TokenDto createByUsername(String username) {
-        PasswordResetTokenEntity cache = this.tokenRepository
+        PasswordResetTokenEntity token = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);
 
-        if (cache == null) {
+        if (token == null) {
             return this.createNewToken(username);
         }
 
-        boolean cacheIsValid = this.validator.validate(cache).isEmpty();
+        boolean cacheIsValid = this.validator.validate(token).isEmpty();
 
-        return cacheIsValid ? this.mapValidEntityToDto(cache) : this.refreshToken(cache);
+        return cacheIsValid ? this.mapValidEntityToDto(token) : this.refreshToken(token);
     }
 
     private TokenDto createNewToken(String username) {
@@ -55,9 +55,11 @@ class PasswordResetTokenCreatingServiceImpl implements PasswordResetTokenCreatin
             return null;
         }
 
-        PasswordResetTokenEntity newToken = new PasswordResetTokenEntity(user);
+        PasswordResetTokenEntity token = new PasswordResetTokenEntity();
 
-        return this.refreshToken(newToken);
+        token.setUser(user);
+
+        return this.refreshToken(token);
     }
 
     private TokenDto refreshToken(PasswordResetTokenEntity token) {

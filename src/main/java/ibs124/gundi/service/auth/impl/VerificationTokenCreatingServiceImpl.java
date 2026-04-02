@@ -44,17 +44,17 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
 
     @Override
     public TokenDto createByUsername(String username) {
-        VerificationTokenEntity cache = this.tokenRepository
+        VerificationTokenEntity token = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);
 
-        if (cache == null) {
+        if (token == null) {
             return this.createNewToken(username);
         }
 
-        boolean cacheIsValid = this.validator.validate(cache).isEmpty();
+        boolean cacheIsValid = this.validator.validate(token).isEmpty();
 
-        return cacheIsValid ? this.mapValidEntityToDto(cache) : this.refreshToken(cache);
+        return cacheIsValid ? this.mapValidEntityToDto(token) : this.refreshToken(token);
     }
 
     private TokenDto createNewToken(String username) {
@@ -66,9 +66,11 @@ class VerificationTokenCreatingServiceImpl implements VerificationTokenCreatingS
             return null;
         }
 
-        VerificationTokenEntity newToken = new VerificationTokenEntity(user);
+        VerificationTokenEntity token = new VerificationTokenEntity();
 
-        return this.refreshToken(newToken);
+        token.setUser(user);
+
+        return this.refreshToken(token);
     }
 
     private TokenDto refreshToken(VerificationTokenEntity token) {
