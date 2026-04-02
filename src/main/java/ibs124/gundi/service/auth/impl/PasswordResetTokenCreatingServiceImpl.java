@@ -48,7 +48,7 @@ class PasswordResetTokenCreatingServiceImpl
     }
 
     @Override
-    public TokenDto createByUsername(String username) {
+    public TokenDto create(String username) {
         PasswordResetTokenEntity token = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);

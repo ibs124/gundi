@@ -66,7 +66,7 @@ class VerificationTokenCreatingServiceImpl
     }
 
     @Override
-    public TokenDto createByUsername(String username) {
+    public TokenDto create(String username) {
         VerificationTokenEntity token = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);

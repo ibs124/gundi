@@ -10,18 +10,18 @@ import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.VerificationService;
+import ibs124.gundi.service.auth.VerificationTokenConsumingService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Validator;
 
 @Service
-class VerificationServiceImpl
+class VerificationTokenConsumingServiceImpl
         extends AbstractTokenConsumingService<VerificationTokenEntity>
-        implements VerificationService {
+        implements VerificationTokenConsumingService {
 
     private final EmailRepository emailRepository;
 
-    public VerificationServiceImpl(
+    public VerificationTokenConsumingServiceImpl(
             VerificationTokenRepository tokenRepository,
             Validator validator,
             EmailRepository emailRepository) {
@@ -33,7 +33,7 @@ class VerificationServiceImpl
 
     @Override
     @Transactional
-    public TokenDto verifyBySecret(String request) {
+    public TokenDto consume(String request) {
         VerificationTokenEntity token = this.consumeTokenBySecret(request);
 
         if (token == null) {

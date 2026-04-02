@@ -6,6 +6,6 @@ public interface VerificationTokenCreatingService {
 
     TokenDto createById(Long id);
 
-    TokenDto createByUsername(String username);
+    TokenDto create(String username);
 
 }
