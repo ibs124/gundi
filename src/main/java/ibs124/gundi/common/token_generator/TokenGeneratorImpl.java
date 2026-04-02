@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import ibs124.gundi.common.token_generator.model.TokenGenerateRequest;
 import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
 
-public class TokenGeneratorImpl implements TokenGenerator {
+class TokenGeneratorImpl implements TokenGenerator {
 
     static final int DEFAULT_LENGTH = 6;
 

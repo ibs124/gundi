@@ -1,8 +1,6 @@
 package ibs124.gundi.config;
 
 import java.security.SecureRandom;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +12,7 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import ibs124.gundi.common.template_compiler.TemplateCompiler;
 import ibs124.gundi.common.template_compiler.TemplateCompilerFactory;
 import ibs124.gundi.common.token_generator.TokenGenerator;
-import ibs124.gundi.common.token_generator.TokenGeneratorImpl;
-import ibs124.gundi.common.token_generator.model.TokenGenerateRequest;
+import ibs124.gundi.common.token_generator.TokenGeneratorFactory;
 import ibs124.gundi.constant.Env;
 
 @Configuration
@@ -28,10 +25,12 @@ public class BeanConfig {
 
     @Bean
     TokenGenerator tokenGenerator(SecureRandom random, PropertyConfig config) {
-        Map<String, TokenGenerateRequest> requests = new HashMap<>();
-        requests.put(Env.REQUEST_KEY_VERIFICATION, config.verification().token());
-        requests.put(Env.REQUEST_KEY_PASSWORD_RESET, config.passwordReset().token());
-        return new TokenGeneratorImpl(random, requests);
+        return TokenGeneratorFactory
+                .getInstance()
+                .addSecureRandom(random)
+                .addRequest(Env.REQUEST_KEY_VERIFICATION, config.verification().token())
+                .addRequest(Env.REQUEST_KEY_PASSWORD_RESET, config.passwordReset().token())
+                .build();
     }
 
     @Bean
