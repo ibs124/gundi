@@ -13,7 +13,7 @@ import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.TokenCreateRequest;
 import ibs124.gundi.model.presentation.PasswordResetRequest;
 import ibs124.gundi.service.auth.token.AbstractTokenCreatingService;
-import ibs124.gundi.service.auth.user.PasswordResetValidationService;
+import ibs124.gundi.service.auth.token.PasswordResetValidationService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
