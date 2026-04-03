@@ -2,6 +2,7 @@ package ibs124.gundi.service.auth.impl;
 
 import ibs124.gundi.common.token_generator.TokenGenerator;
 import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
+import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
@@ -28,7 +29,7 @@ abstract class AbstractTokenCreatingService<T extends AbstractTokenEntity> {
 
     abstract T getNewToken(UserEntity user);
 
-    protected TokenDto respondWithTokenRepair(T token) {
+    protected TokenContract respondWithTokenRepair(T token) {
         if (token == null) {
             return null;
         }
@@ -42,7 +43,7 @@ abstract class AbstractTokenCreatingService<T extends AbstractTokenEntity> {
         return this.mapToDto(token, token.getUser().getPrimaryEmail());
     }
 
-    protected TokenDto respondWithNewToken(UserEntity user) {
+    protected TokenContract respondWithNewToken(UserEntity user) {
         return this.mapToDto(
                 this.createNewToken(user),
                 user.getPrimaryEmail());
@@ -79,7 +80,7 @@ abstract class AbstractTokenCreatingService<T extends AbstractTokenEntity> {
         return token;
     }
 
-    protected TokenDto mapToDto(T token, String username) {
+    protected TokenContract mapToDto(T token, String username) {
         return new TokenDto(username, token.getSecret(), token.getExpiresAt());
     }
 

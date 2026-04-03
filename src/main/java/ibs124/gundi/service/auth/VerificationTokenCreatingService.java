@@ -1,11 +1,11 @@
 package ibs124.gundi.service.auth;
 
-import ibs124.gundi.model.dto.auth.TokenDto;
+import ibs124.gundi.model.dto.auth.TokenContract;
 
 public interface VerificationTokenCreatingService {
 
-    TokenDto createById(Long id);
+    TokenContract createById(Long id);
 
-    TokenDto create(String username);
+    TokenContract create(String username);
 
 }

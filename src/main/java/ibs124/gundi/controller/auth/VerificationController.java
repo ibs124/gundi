@@ -44,7 +44,7 @@ class VerificationController {
 
         String secret = this.verificationTokenCreatingService
                 .createById(principal.getId())
-                .secret();
+                .getSecret();
 
         String appUrl = RouteUtils.getAppUrl(request);
 

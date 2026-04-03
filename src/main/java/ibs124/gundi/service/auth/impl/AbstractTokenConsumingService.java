@@ -1,6 +1,7 @@
 package ibs124.gundi.service.auth.impl;
 
 import ibs124.gundi.model.dto.auth.TokenConsumeRequest;
+import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.repository.AbstractTokenRepository;
@@ -44,7 +45,7 @@ public abstract class AbstractTokenConsumingService<T extends AbstractTokenEntit
         return token;
     }
 
-    protected TokenDto mapToDto(T token, String username) {
+    protected TokenContract mapToDto(T token, String username) {
         return new TokenDto(username, token.getSecret(), token.getExpiresAt());
     }
 

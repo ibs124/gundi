@@ -1,9 +1,9 @@
 package ibs124.gundi.service.auth;
 
-import ibs124.gundi.model.dto.auth.TokenDto;
+import ibs124.gundi.model.dto.auth.TokenContract;
 
 public interface PasswordResetTokenCreatingService {
 
-    TokenDto create(String username);
+    TokenContract create(String username);
 
 }

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.common.token_generator.TokenGenerator;
 import ibs124.gundi.constant.Env;
-import ibs124.gundi.model.dto.auth.TokenDto;
+import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
@@ -43,7 +43,7 @@ class VerificationTokenCreatingServiceImpl
     }
 
     @Override
-    public TokenDto createById(Long id) {
+    public TokenContract createById(Long id) {
         VerificationTokenEntity token = this.tokenRepository
                 .findById(id)
                 .orElse(null);
@@ -62,7 +62,7 @@ class VerificationTokenCreatingServiceImpl
     }
 
     @Override
-    public TokenDto create(String username) {
+    public TokenContract create(String username) {
         VerificationTokenEntity token = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);

@@ -4,7 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.model.dto.auth.PasswordResetDto;
-import ibs124.gundi.model.dto.auth.TokenDto;
+import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.entity.PasswordResetTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
@@ -33,7 +33,7 @@ class PasswordResetTokenConsumingServiceImpl
     }
 
     @Override
-    public TokenDto consume(PasswordResetDto request) {
+    public TokenContract consume(PasswordResetDto request) {
 
         PasswordResetTokenEntity token = super.consumeAbstract(request);
 

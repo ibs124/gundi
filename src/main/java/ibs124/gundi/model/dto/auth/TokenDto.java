@@ -10,10 +10,15 @@ import jakarta.validation.constraints.NotNull;
 public record TokenDto(
         String username,
         @NotBlank String secret,
-        @NotNull Instant expiresAt) implements TokenGenerateResponse {
+        @NotNull Instant expiresAt) implements TokenGenerateResponse, TokenContract {
 
     public TokenDto(String secret, Instant expiresAt) {
         this(null, secret, expiresAt);
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username();
     }
 
     @Override

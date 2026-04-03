@@ -10,7 +10,7 @@ import org.springframework.security.authentication.ott.OneTimeTokenService;
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
-import ibs124.gundi.model.dto.auth.TokenDto;
+import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.service.auth.VerificationTokenConsumingService;
 
 @Component
@@ -27,7 +27,7 @@ public class OneTimeTokenServiceImpl implements OneTimeTokenService {
 
     @Override
     public @Nullable OneTimeToken consume(OneTimeTokenAuthenticationToken authToken) {
-        TokenDto token = this.verificationService
+        TokenContract token = this.verificationService
                 .consume(() -> authToken.getTokenValue());
 
         return this.map(token);
@@ -35,30 +35,30 @@ public class OneTimeTokenServiceImpl implements OneTimeTokenService {
 
     @Override
     public OneTimeToken generate(GenerateOneTimeTokenRequest request) {
-        TokenDto token = this.tokenCreatingService
+        TokenContract token = this.tokenCreatingService
                 .create(request.getUsername());
 
         return this.map(token);
     }
 
-    private OneTimeToken map(TokenDto dto) {
+    private OneTimeToken map(TokenContract dto) {
         if (dto == null) {
             return null;
         }
         return new OneTimeToken() {
             @Override
             public String getUsername() {
-                return dto.username();
+                return dto.getUsername();
             }
 
             @Override
             public String getTokenValue() {
-                return dto.secret();
+                return dto.getSecret();
             }
 
             @Override
             public Instant getExpiresAt() {
-                return dto.expiresAt();
+                return dto.getExpiresAt();
             }
         };
     }

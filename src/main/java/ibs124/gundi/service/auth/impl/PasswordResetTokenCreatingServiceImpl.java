@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import ibs124.gundi.common.token_generator.TokenGenerator;
 import ibs124.gundi.constant.Env;
-import ibs124.gundi.model.dto.auth.TokenDto;
+import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.entity.PasswordResetTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
@@ -43,7 +43,7 @@ class PasswordResetTokenCreatingServiceImpl
     }
 
     @Override
-    public TokenDto create(String username) {
+    public TokenContract create(String username) {
         PasswordResetTokenEntity token = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);
