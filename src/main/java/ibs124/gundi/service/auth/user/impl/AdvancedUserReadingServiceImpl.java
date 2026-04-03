@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.user.impl;
 
 import org.springframework.stereotype.Service;
 
@@ -6,8 +6,8 @@ import ibs124.gundi.mapper.UserMapper;
 import ibs124.gundi.model.dto.auth.UserLoginDetailsDto;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.UserRepository;
-import ibs124.gundi.service.auth.LoginDetailsReadingService;
-import ibs124.gundi.service.auth.ValidationService;
+import ibs124.gundi.service.auth.user.LoginDetailsReadingService;
+import ibs124.gundi.service.auth.user.ValidationService;
 
 @Service
 class AdvancedUserReadingServiceImpl implements ValidationService, LoginDetailsReadingService {

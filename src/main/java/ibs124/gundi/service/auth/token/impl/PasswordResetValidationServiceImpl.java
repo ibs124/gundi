@@ -1,9 +1,9 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.token.impl;
 
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.repository.PasswordResetTokenRepository;
-import ibs124.gundi.service.auth.PasswordResetValidationService;
+import ibs124.gundi.service.auth.user.PasswordResetValidationService;
 import jakarta.validation.Validator;
 
 @Service

@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.user.impl;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,7 +11,7 @@ import ibs124.gundi.mapper.AuthorityMapper;
 import ibs124.gundi.model.dto.auth.AuthorityContract;
 import ibs124.gundi.model.entity.AuthorityEntity;
 import ibs124.gundi.repository.AuthorityRepository;
-import ibs124.gundi.service.auth.AuthorityCreatingService;
+import ibs124.gundi.service.auth.user.AuthorityCreatingService;
 
 @Service
 class AuthorityServiceImpl implements AuthorityCreatingService {

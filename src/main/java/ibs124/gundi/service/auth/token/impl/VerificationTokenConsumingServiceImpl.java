@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.token.impl;
 
 import java.time.Instant;
 

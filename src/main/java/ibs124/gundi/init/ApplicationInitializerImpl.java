@@ -3,7 +3,7 @@ package ibs124.gundi.init;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import ibs124.gundi.service.auth.AuthorityCreatingService;
+import ibs124.gundi.service.auth.user.AuthorityCreatingService;
 import ibs124.gundi.service.sample.SampleDataSeedingService;
 
 @Component

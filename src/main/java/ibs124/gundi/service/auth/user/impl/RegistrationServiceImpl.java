@@ -1,4 +1,4 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.user.impl;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import ibs124.gundi.model.entity.AuthorityEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.AuthorityRepository;
 import ibs124.gundi.repository.UserRepository;
-import ibs124.gundi.service.auth.RegistrationService;
+import ibs124.gundi.service.auth.user.RegistrationService;
 
 @Service
 class RegistrationServiceImpl implements RegistrationService {

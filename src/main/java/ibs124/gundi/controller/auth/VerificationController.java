@@ -15,7 +15,7 @@ import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.model.dto.auth.VerificationTokenCreateRequest;
 import ibs124.gundi.security.UserDetailsImpl;
-import ibs124.gundi.service.auth.AbstractTokenCreatingService;
+import ibs124.gundi.service.auth.token.AbstractTokenCreatingService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 

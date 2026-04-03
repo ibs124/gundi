@@ -1,11 +1,11 @@
-package ibs124.gundi.service.auth.impl;
+package ibs124.gundi.service.auth.token.impl;
 
 import ibs124.gundi.model.dto.auth.TokenConsumeRequest;
 import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.repository.AbstractTokenRepository;
-import ibs124.gundi.service.auth.AbstractTokenConsumingService;
+import ibs124.gundi.service.auth.token.AbstractTokenConsumingService;
 import jakarta.validation.Validator;
 
 public abstract class AbstractTokenConsumingServiceImpl<T extends AbstractTokenEntity, R extends TokenConsumeRequest>

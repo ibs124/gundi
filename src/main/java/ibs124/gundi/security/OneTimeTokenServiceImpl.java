@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import ibs124.gundi.model.dto.auth.TokenConsumeRequest;
 import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.VerificationTokenCreateRequest;
-import ibs124.gundi.service.auth.AbstractTokenConsumingService;
-import ibs124.gundi.service.auth.AbstractTokenCreatingService;
+import ibs124.gundi.service.auth.token.AbstractTokenConsumingService;
+import ibs124.gundi.service.auth.token.AbstractTokenCreatingService;
 
 @Component
 public class OneTimeTokenServiceImpl implements OneTimeTokenService {
