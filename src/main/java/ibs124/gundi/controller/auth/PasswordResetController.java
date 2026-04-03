@@ -10,8 +10,9 @@ import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserPasswordResetEvent;
 import ibs124.gundi.model.dto.auth.TokenContract;
+import ibs124.gundi.model.dto.auth.TokenCreateRequest;
 import ibs124.gundi.model.presentation.PasswordResetRequest;
-import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;
+import ibs124.gundi.service.auth.AbstractTokenCreatingService;
 import ibs124.gundi.service.auth.PasswordResetValidationService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,15 +26,15 @@ class PasswordResetController {
 
     private static final int STATUS_CODE_EMAIL_SENT = 2;
 
-    private final PasswordResetTokenCreatingService tokenIssuingService;
+    private final AbstractTokenCreatingService<TokenCreateRequest> tokenCreator;
     private final ApplicationEventPublisher eventPublisher;
     private final PasswordResetValidationService passwordResetValidationService;
 
     public PasswordResetController(
-            PasswordResetTokenCreatingService tokenIssuingService,
+            AbstractTokenCreatingService<TokenCreateRequest> tokenIssuingService,
             ApplicationEventPublisher eventPublisher,
             PasswordResetValidationService passwordResetValidationService) {
-        this.tokenIssuingService = tokenIssuingService;
+        this.tokenCreator = tokenIssuingService;
         this.eventPublisher = eventPublisher;
         this.passwordResetValidationService = passwordResetValidationService;
     }
@@ -51,8 +52,8 @@ class PasswordResetController {
 
         redirectAttributes.addFlashAttribute(STATUS_CODE, STATUS_CODE_EMAIL_SENT);
 
-        TokenContract token = this.tokenIssuingService
-                .create(email);
+        TokenContract token = this.tokenCreator
+                .create(() -> email);
 
         if (token != null) {
             String appUrl = RouteUtils.getAppUrl(request);

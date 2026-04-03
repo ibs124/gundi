@@ -5,17 +5,16 @@ import org.springframework.stereotype.Service;
 import ibs124.gundi.common.token_generator.TokenGenerator;
 import ibs124.gundi.constant.Env;
 import ibs124.gundi.model.dto.auth.TokenContract;
+import ibs124.gundi.model.dto.auth.VerificationTokenCreateRequest;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
-import ibs124.gundi.service.auth.VerificationTokenCreatingService;
 import jakarta.validation.Validator;
 
 @Service
-class VerificationTokenCreatingServiceImpl
-        extends AbstractTokenCreatingService<VerificationTokenEntity>
-        implements VerificationTokenCreatingService {
+class VerificationTokenCreatingServiceImpl extends
+        AbstractTokenCreatingServiceImpl<VerificationTokenEntity, VerificationTokenCreateRequest> {
 
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
@@ -43,7 +42,29 @@ class VerificationTokenCreatingServiceImpl
     }
 
     @Override
-    public TokenContract createById(Long id) {
+    public TokenContract create(VerificationTokenCreateRequest request) {
+        if (request.userId() > 0) {
+            return this.createByUserReference(request.userId());
+        }
+
+        String username = request.getUsername();
+
+        VerificationTokenEntity token = this.tokenRepository
+                .findByUserUsernameOrUserPrimaryEmail(username, username)
+                .orElse(null);
+
+        if (token != null) {
+            return super.respondWithTokenRepair(token);
+        }
+
+        UserEntity user = this.userRepository
+                .findByUsernameOrPrimaryEmail(username, username)
+                .orElse(null);
+
+        return super.respondWithNewToken(user);
+    }
+
+    private TokenContract createByUserReference(Long id) {
         VerificationTokenEntity token = this.tokenRepository
                 .findById(id)
                 .orElse(null);
@@ -61,20 +82,4 @@ class VerificationTokenCreatingServiceImpl
         }
     }
 
-    @Override
-    public TokenContract create(String username) {
-        VerificationTokenEntity token = this.tokenRepository
-                .findByUserUsernameOrUserPrimaryEmail(username, username)
-                .orElse(null);
-
-        if (token != null) {
-            return super.respondWithTokenRepair(token);
-        }
-
-        UserEntity user = this.userRepository
-                .findByUsernameOrPrimaryEmail(username, username)
-                .orElse(null);
-
-        return super.respondWithNewToken(user);
-    }
 }

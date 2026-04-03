@@ -5,17 +5,16 @@ import org.springframework.stereotype.Service;
 import ibs124.gundi.common.token_generator.TokenGenerator;
 import ibs124.gundi.constant.Env;
 import ibs124.gundi.model.dto.auth.TokenContract;
+import ibs124.gundi.model.dto.auth.TokenCreateRequest;
 import ibs124.gundi.model.entity.PasswordResetTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
 import ibs124.gundi.repository.UserRepository;
-import ibs124.gundi.service.auth.PasswordResetTokenCreatingService;
 import jakarta.validation.Validator;
 
 @Service
-class PasswordResetTokenCreatingServiceImpl
-        extends AbstractTokenCreatingService<PasswordResetTokenEntity>
-        implements PasswordResetTokenCreatingService {
+class PasswordResetTokenCreatingServiceImpl extends
+        AbstractTokenCreatingServiceImpl<PasswordResetTokenEntity, TokenCreateRequest> {
 
     private final PasswordResetTokenRepository tokenRepository;
     private final UserRepository userRepository;
@@ -43,7 +42,9 @@ class PasswordResetTokenCreatingServiceImpl
     }
 
     @Override
-    public TokenContract create(String username) {
+    public TokenContract create(TokenCreateRequest request) {
+        String username = request.getUsername();
+
         PasswordResetTokenEntity token = this.tokenRepository
                 .findByUserUsernameOrUserPrimaryEmail(username, username)
                 .orElse(null);
