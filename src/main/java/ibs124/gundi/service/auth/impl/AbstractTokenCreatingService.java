@@ -1,5 +1,7 @@
 package ibs124.gundi.service.auth.impl;
 
+import ibs124.gundi.common.token_generator.TokenGenerator;
+import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
@@ -9,18 +11,22 @@ import jakarta.validation.Validator;
 abstract class AbstractTokenCreatingService<T extends AbstractTokenEntity> {
 
     private final Validator validator;
+    TokenGenerator tokenGenerator;
     private final AbstractTokenRepository<T> tokenRepository;
 
     public AbstractTokenCreatingService(
             Validator validator,
+            TokenGenerator tokenGenerator,
             AbstractTokenRepository<T> tokenRepository) {
+
         this.validator = validator;
+        this.tokenGenerator = tokenGenerator;
         this.tokenRepository = tokenRepository;
     }
 
-    abstract TokenDto generateToken();
+    abstract String getTokenGenerationSecret();
 
-    abstract T construct(UserEntity user);
+    abstract T getNewToken(UserEntity user);
 
     protected TokenDto respondWithTokenRepair(T token) {
         if (token == null) {
@@ -47,7 +53,7 @@ abstract class AbstractTokenCreatingService<T extends AbstractTokenEntity> {
             return null;
         }
 
-        T token = this.construct(user);
+        T token = this.getNewToken(user);
 
         token.setUser(user);
 
@@ -57,10 +63,16 @@ abstract class AbstractTokenCreatingService<T extends AbstractTokenEntity> {
     }
 
     protected T refreshToken(T token) {
-        TokenDto tokenDto = this.generateToken();
+        String secret = this.getTokenGenerationSecret();
 
-        token.setSecret(tokenDto.secret());
-        token.setExpiresAt(tokenDto.expiresAt());
+        TokenGenerateResponse response = this.tokenGenerator.generateBySecret(secret);
+
+        while (this.tokenRepository.existsBySecret(secret)) {
+            response = this.tokenGenerator.generateBySecret(secret);
+        }
+
+        token.setSecret(response.getSecret());
+        token.setExpiresAt(response.getExpiresAt());
 
         token = this.tokenRepository.save(token);
 

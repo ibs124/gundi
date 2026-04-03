@@ -3,7 +3,6 @@ package ibs124.gundi.service.auth.impl;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.common.token_generator.TokenGenerator;
-import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
 import ibs124.gundi.constant.Env;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.UserEntity;
@@ -18,7 +17,6 @@ class VerificationTokenCreatingServiceImpl
         extends AbstractTokenCreatingService<VerificationTokenEntity>
         implements VerificationTokenCreatingService {
 
-    private final TokenGenerator tokenGenerator;
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;
 
@@ -28,22 +26,20 @@ class VerificationTokenCreatingServiceImpl
             Validator validator,
             TokenGenerator tokenGenerator) {
 
-        super(validator, tokenRepository);
-        this.tokenGenerator = tokenGenerator;
+        super(validator, tokenGenerator, tokenRepository);
+
         this.tokenRepository = tokenRepository;
         this.userRepository = userRepository;
     }
 
     @Override
-    VerificationTokenEntity construct(UserEntity user) {
+    VerificationTokenEntity getNewToken(UserEntity user) {
         return new VerificationTokenEntity(user);
     }
 
     @Override
-    TokenDto generateToken() {
-        TokenGenerateResponse response = this.tokenGenerator
-                .generateBySecret(Env.REQUEST_KEY_VERIFICATION);
-        return new TokenDto(response.getSecret(), response.getExpiresAt());
+    String getTokenGenerationSecret() {
+        return Env.REQUEST_KEY_VERIFICATION;
     }
 
     @Override

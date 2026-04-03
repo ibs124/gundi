@@ -3,7 +3,6 @@ package ibs124.gundi.service.auth.impl;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.common.token_generator.TokenGenerator;
-import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
 import ibs124.gundi.constant.Env;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.PasswordResetTokenEntity;
@@ -20,7 +19,6 @@ class PasswordResetTokenCreatingServiceImpl
 
     private final PasswordResetTokenRepository tokenRepository;
     private final UserRepository userRepository;
-    private final TokenGenerator tokenGenerator;
 
     public PasswordResetTokenCreatingServiceImpl(
             Validator validator,
@@ -28,23 +26,20 @@ class PasswordResetTokenCreatingServiceImpl
             UserRepository userRepository,
             TokenGenerator tokenGenerator) {
 
-        super(validator, tokenRepository);
+        super(validator, tokenGenerator, tokenRepository);
 
         this.tokenRepository = tokenRepository;
         this.userRepository = userRepository;
-        this.tokenGenerator = tokenGenerator;
     }
 
     @Override
-    PasswordResetTokenEntity construct(UserEntity user) {
+    PasswordResetTokenEntity getNewToken(UserEntity user) {
         return new PasswordResetTokenEntity(user);
     }
 
     @Override
-    TokenDto generateToken() {
-        TokenGenerateResponse response = this.tokenGenerator
-                .generateBySecret(Env.REQUEST_KEY_PASSWORD_RESET);
-        return new TokenDto(response.getSecret(), response.getExpiresAt());
+    String getTokenGenerationSecret() {
+        return Env.REQUEST_KEY_PASSWORD_RESET;
     }
 
     @Override
