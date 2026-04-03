@@ -10,24 +10,26 @@ import org.springframework.security.authentication.ott.OneTimeTokenService;
 import org.springframework.stereotype.Component;
 
 import ibs124.gundi.service.auth.VerificationTokenCreatingService;
+import ibs124.gundi.model.dto.auth.TokenConsumeRequest;
 import ibs124.gundi.model.dto.auth.TokenContract;
-import ibs124.gundi.service.auth.VerificationTokenConsumingService;
+import ibs124.gundi.service.auth.AbstractTokenConsumingService;
 
 @Component
 public class OneTimeTokenServiceImpl implements OneTimeTokenService {
 
-    private final VerificationTokenConsumingService verificationService;
-    private final VerificationTokenCreatingService tokenCreatingService;
+    private final AbstractTokenConsumingService<TokenConsumeRequest> consumator;
+    private final VerificationTokenCreatingService gnerator;
 
-    public OneTimeTokenServiceImpl(VerificationTokenConsumingService verificationService,
-            VerificationTokenCreatingService tokenCreatingService) {
-        this.verificationService = verificationService;
-        this.tokenCreatingService = tokenCreatingService;
+    public OneTimeTokenServiceImpl(
+            AbstractTokenConsumingService<TokenConsumeRequest> consumator,
+            VerificationTokenCreatingService gnerator) {
+        this.consumator = consumator;
+        this.gnerator = gnerator;
     }
 
     @Override
     public @Nullable OneTimeToken consume(OneTimeTokenAuthenticationToken authToken) {
-        TokenContract token = this.verificationService
+        TokenContract token = this.consumator
                 .consume(() -> authToken.getTokenValue());
 
         return this.map(token);
@@ -35,7 +37,7 @@ public class OneTimeTokenServiceImpl implements OneTimeTokenService {
 
     @Override
     public OneTimeToken generate(GenerateOneTimeTokenRequest request) {
-        TokenContract token = this.tokenCreatingService
+        TokenContract token = this.gnerator
                 .create(request.getUsername());
 
         return this.map(token);

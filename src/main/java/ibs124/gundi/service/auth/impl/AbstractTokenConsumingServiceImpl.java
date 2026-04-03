@@ -5,14 +5,16 @@ import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.repository.AbstractTokenRepository;
+import ibs124.gundi.service.auth.AbstractTokenConsumingService;
 import jakarta.validation.Validator;
 
-public abstract class AbstractTokenConsumingService<T extends AbstractTokenEntity> {
+public abstract class AbstractTokenConsumingServiceImpl<T extends AbstractTokenEntity, R extends TokenConsumeRequest>
+        implements AbstractTokenConsumingService<R> {
 
     private final AbstractTokenRepository<T> tokenRepository;
     private final Validator validator;
 
-    public AbstractTokenConsumingService(
+    public AbstractTokenConsumingServiceImpl(
             AbstractTokenRepository<T> tokenRepository,
             Validator validator) {
 

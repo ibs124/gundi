@@ -3,7 +3,7 @@ package ibs124.gundi.service.auth;
 import ibs124.gundi.model.dto.auth.TokenConsumeRequest;
 import ibs124.gundi.model.dto.auth.TokenContract;
 
-public interface VerificationTokenConsumingService {
+public interface AbstractTokenConsumingService<T extends TokenConsumeRequest> {
 
-    TokenContract consume(TokenConsumeRequest request);
+    TokenContract consume(T request);
 }
