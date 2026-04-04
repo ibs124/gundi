@@ -12,18 +12,18 @@ import org.springframework.stereotype.Component;
 import ibs124.gundi.model.dto.auth.TokenConsumeRequest;
 import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.VerificationTokenCreateRequest;
-import ibs124.gundi.service.auth.token.AbstractTokenConsumingService;
-import ibs124.gundi.service.auth.token.AbstractTokenCreatingService;
+import ibs124.gundi.service.auth.token.TokenConsumptionPoviderService;
+import ibs124.gundi.service.auth.token.TokenCreationProviderService;
 
 @Component
 public class OneTimeTokenServiceImpl implements OneTimeTokenService {
 
-    private final AbstractTokenConsumingService<TokenConsumeRequest> consumator;
-    private final AbstractTokenCreatingService<VerificationTokenCreateRequest> gnerator;
+    private final TokenConsumptionPoviderService<TokenConsumeRequest> consumator;
+    private final TokenCreationProviderService<VerificationTokenCreateRequest> gnerator;
 
     public OneTimeTokenServiceImpl(
-            AbstractTokenConsumingService<TokenConsumeRequest> consumator,
-            AbstractTokenCreatingService<VerificationTokenCreateRequest> gnerator) {
+            TokenConsumptionPoviderService<TokenConsumeRequest> consumator,
+            TokenCreationProviderService<VerificationTokenCreateRequest> gnerator) {
         this.consumator = consumator;
         this.gnerator = gnerator;
     }

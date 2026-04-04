@@ -3,16 +3,16 @@ package ibs124.gundi.service.auth.token.impl;
 import org.springframework.stereotype.Service;
 
 import ibs124.gundi.repository.PasswordResetTokenRepository;
-import ibs124.gundi.service.auth.token.PasswordResetValidationService;
+import ibs124.gundi.service.auth.token.TokenValidationService;
 import jakarta.validation.Validator;
 
 @Service
-class PasswordResetValidationServiceImpl implements PasswordResetValidationService {
+class TokenValidationServiceImpl implements TokenValidationService {
 
     private final Validator validator;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
 
-    public PasswordResetValidationServiceImpl(Validator validator,
+    public TokenValidationServiceImpl(Validator validator,
             PasswordResetTokenRepository passwordResetTokenRepository) {
         this.validator = validator;
         this.passwordResetTokenRepository = passwordResetTokenRepository;

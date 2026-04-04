@@ -10,11 +10,13 @@ import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.UserRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
+import ibs124.gundi.service.auth.token.TokenCreationProviderService;
 import jakarta.validation.Validator;
 
 @Service
-class VerificationTokenCreatingServiceImpl extends
-        AbstractTokenCreatingServiceImpl<VerificationTokenEntity, VerificationTokenCreateRequest> {
+class VerificationTokenCreatingServiceImpl
+        extends AbstractTokenCreatingService<VerificationTokenEntity>
+        implements TokenCreationProviderService<VerificationTokenCreateRequest> {
 
     private final VerificationTokenRepository tokenRepository;
     private final UserRepository userRepository;

@@ -9,11 +9,13 @@ import ibs124.gundi.model.entity.PasswordResetTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
 import ibs124.gundi.repository.UserRepository;
+import ibs124.gundi.service.auth.token.TokenConsumptionPoviderService;
 import jakarta.validation.Validator;
 
 @Service
 class PasswordResetTokenConsumingServiceImpl
-        extends AbstractTokenConsumingServiceImpl<PasswordResetTokenEntity, PasswordResetDto> {
+        extends AbstractTokenConsumingService<PasswordResetTokenEntity>
+        implements TokenConsumptionPoviderService<PasswordResetDto> {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;

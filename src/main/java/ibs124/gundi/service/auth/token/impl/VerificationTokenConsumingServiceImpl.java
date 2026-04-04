@@ -11,12 +11,14 @@ import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.model.entity.VerificationTokenEntity;
 import ibs124.gundi.repository.EmailRepository;
 import ibs124.gundi.repository.VerificationTokenRepository;
+import ibs124.gundi.service.auth.token.TokenConsumptionPoviderService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Validator;
 
 @Service
 class VerificationTokenConsumingServiceImpl
-        extends AbstractTokenConsumingServiceImpl<VerificationTokenEntity, TokenConsumeRequest> {
+        extends AbstractTokenConsumingService<VerificationTokenEntity>
+        implements TokenConsumptionPoviderService<TokenConsumeRequest> {
 
     private final EmailRepository emailRepository;
 

@@ -12,8 +12,8 @@ import ibs124.gundi.event.UserPasswordResetEvent;
 import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.TokenCreateRequest;
 import ibs124.gundi.model.presentation.PasswordResetRequest;
-import ibs124.gundi.service.auth.token.AbstractTokenCreatingService;
-import ibs124.gundi.service.auth.token.PasswordResetValidationService;
+import ibs124.gundi.service.auth.token.TokenCreationProviderService;
+import ibs124.gundi.service.auth.token.TokenValidationService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -26,14 +26,14 @@ class PasswordResetController {
 
     private static final int STATUS_CODE_EMAIL_SENT = 2;
 
-    private final AbstractTokenCreatingService<TokenCreateRequest> tokenCreator;
+    private final TokenCreationProviderService<TokenCreateRequest> tokenCreator;
     private final ApplicationEventPublisher eventPublisher;
-    private final PasswordResetValidationService passwordResetValidationService;
+    private final TokenValidationService passwordResetValidationService;
 
     public PasswordResetController(
-            AbstractTokenCreatingService<TokenCreateRequest> tokenIssuingService,
+            TokenCreationProviderService<TokenCreateRequest> tokenIssuingService,
             ApplicationEventPublisher eventPublisher,
-            PasswordResetValidationService passwordResetValidationService) {
+            TokenValidationService passwordResetValidationService) {
         this.tokenCreator = tokenIssuingService;
         this.eventPublisher = eventPublisher;
         this.passwordResetValidationService = passwordResetValidationService;

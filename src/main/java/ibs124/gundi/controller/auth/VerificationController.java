@@ -15,7 +15,7 @@ import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.model.dto.auth.VerificationTokenCreateRequest;
 import ibs124.gundi.security.UserDetailsImpl;
-import ibs124.gundi.service.auth.token.AbstractTokenCreatingService;
+import ibs124.gundi.service.auth.token.TokenCreationProviderService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -23,10 +23,10 @@ import jakarta.servlet.http.HttpServletRequest;
 class VerificationController {
 
     private final ApplicationEventPublisher eventPublisher;
-    private final AbstractTokenCreatingService<VerificationTokenCreateRequest> tokenCreator;
+    private final TokenCreationProviderService<VerificationTokenCreateRequest> tokenCreator;
 
     public VerificationController(ApplicationEventPublisher eventPublisher,
-            AbstractTokenCreatingService<VerificationTokenCreateRequest> tokenCreator) {
+            TokenCreationProviderService<VerificationTokenCreateRequest> tokenCreator) {
         this.eventPublisher = eventPublisher;
         this.tokenCreator = tokenCreator;
     }

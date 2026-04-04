@@ -3,22 +3,19 @@ package ibs124.gundi.service.auth.token.impl;
 import ibs124.gundi.common.token_generator.TokenGenerator;
 import ibs124.gundi.common.token_generator.model.TokenGenerateResponse;
 import ibs124.gundi.model.dto.auth.TokenContract;
-import ibs124.gundi.model.dto.auth.TokenCreateRequest;
 import ibs124.gundi.model.dto.auth.TokenDto;
 import ibs124.gundi.model.entity.AbstractTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.AbstractTokenRepository;
-import ibs124.gundi.service.auth.token.AbstractTokenCreatingService;
 import jakarta.validation.Validator;
 
-abstract class AbstractTokenCreatingServiceImpl<T extends AbstractTokenEntity, R extends TokenCreateRequest>
-        implements AbstractTokenCreatingService<R> {
+public abstract class AbstractTokenCreatingService<T extends AbstractTokenEntity> {
 
     private final Validator validator;
     TokenGenerator tokenGenerator;
     private final AbstractTokenRepository<T> tokenRepository;
 
-    public AbstractTokenCreatingServiceImpl(
+    public AbstractTokenCreatingService(
             Validator validator,
             TokenGenerator tokenGenerator,
             AbstractTokenRepository<T> tokenRepository) {

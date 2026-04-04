@@ -10,11 +10,13 @@ import ibs124.gundi.model.entity.PasswordResetTokenEntity;
 import ibs124.gundi.model.entity.UserEntity;
 import ibs124.gundi.repository.PasswordResetTokenRepository;
 import ibs124.gundi.repository.UserRepository;
+import ibs124.gundi.service.auth.token.TokenCreationProviderService;
 import jakarta.validation.Validator;
 
 @Service
-class PasswordResetTokenCreatingServiceImpl extends
-        AbstractTokenCreatingServiceImpl<PasswordResetTokenEntity, TokenCreateRequest> {
+class PasswordResetTokenCreatingServiceImpl
+        extends AbstractTokenCreatingService<PasswordResetTokenEntity>
+        implements TokenCreationProviderService<TokenCreateRequest> {
 
     private final PasswordResetTokenRepository tokenRepository;
     private final UserRepository userRepository;
