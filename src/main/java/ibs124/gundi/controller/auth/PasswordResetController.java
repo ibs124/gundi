@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserPasswordResetEvent;
+import ibs124.gundi.model.dto.auth.PasswordResetDto;
 import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.TokenCreateRequest;
 import ibs124.gundi.model.presentation.PasswordResetRequest;
 import ibs124.gundi.service.auth.token.TokenCreationProviderService;
-import ibs124.gundi.service.auth.token.TokenValidationService;
+import ibs124.gundi.service.auth.token.TokenValidationProviderService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -28,15 +29,14 @@ class PasswordResetController {
 
     private final TokenCreationProviderService<TokenCreateRequest> tokenCreator;
     private final ApplicationEventPublisher eventPublisher;
-    private final TokenValidationService passwordResetValidationService;
+    private final TokenValidationProviderService<PasswordResetDto> validationProvider;
 
-    public PasswordResetController(
-            TokenCreationProviderService<TokenCreateRequest> tokenIssuingService,
+    public PasswordResetController(TokenCreationProviderService<TokenCreateRequest> tokenCreator,
             ApplicationEventPublisher eventPublisher,
-            TokenValidationService passwordResetValidationService) {
-        this.tokenCreator = tokenIssuingService;
+            TokenValidationProviderService<PasswordResetDto> validationProvider) {
+        this.tokenCreator = tokenCreator;
         this.eventPublisher = eventPublisher;
-        this.passwordResetValidationService = passwordResetValidationService;
+        this.validationProvider = validationProvider;
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESET)
@@ -67,8 +67,9 @@ class PasswordResetController {
     @GetMapping(Routes.AUTH_PASSWORD_RESSET_SUBMIT)
     public String getSubmit(PasswordResetRequest request) {
 
-        boolean tokenIsValid = this.passwordResetValidationService
-                .isPasswordResetTokenValid(request.token());
+        boolean tokenIsValid = this.validationProvider
+                .isTokenValid(PasswordResetDto
+                        .tokenValidateRequest(request.token()));
 
         return RouteUtils.getRedirectUrl(Routes.AUTH_LOGIN);
     }

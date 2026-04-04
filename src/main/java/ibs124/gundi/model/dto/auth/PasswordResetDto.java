@@ -9,6 +9,10 @@ public record PasswordResetDto(
         @NotBlank String secret,
         @ValidPassword String password) implements TokenConsumeRequest {
 
+    public static PasswordResetDto tokenValidateRequest(String secret) {
+        return new PasswordResetDto(secret, null);
+    }
+
     @Override
     public String getSecret() {
         return this.secret;
