@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
+import ibs124.gundi.controller.AbstractController;
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.model.dto.auth.VerificationTokenCreateRequest;
-import ibs124.gundi.model.presentation.StatusCode;
+import ibs124.gundi.model.presentation.Alert;
 import ibs124.gundi.security.UserDetailsImpl;
 import ibs124.gundi.service.auth.token.TokenCreationProviderService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-class VerificationController {
+class VerificationController extends AbstractController {
 
     private final ApplicationEventPublisher eventPublisher;
     private final TokenCreationProviderService<VerificationTokenCreateRequest> tokenCreator;
@@ -53,19 +54,20 @@ class VerificationController {
 
         this.eventPublisher.publishEvent(event);
 
-        model.addAttribute(StatusCode.custom(2));
+        super.alert(model, Alert.info("auth.verification.sent"));
+
         return Templates.AUTH_VERIFICATION;
     }
 
     @GetMapping(Routes.AUTH_VERIFICATION_SUCCESS)
     public String success(Model model, Authentication authentication) {
-        model.addAttribute(StatusCode.success());
+        super.alert(model, Alert.success("auth.verification.success"));
         return Templates.AUTH_VERIFICATION;
     }
 
     @GetMapping(Routes.AUTH_VERIFICATION_FAIL)
     public String error(Model model, Authentication authentication) {
-        model.addAttribute(StatusCode.failure());
+        super.alert(model, Alert.danger("auth.verification.incorrect"));
         return Templates.AUTH_VERIFICATION;
     }
 

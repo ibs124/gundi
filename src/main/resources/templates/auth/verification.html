@@ -4,17 +4,9 @@
 <th:block sec:authorize="isAuthenticated()" th:insert="~{fragments/app}" th:with="
     title='Verification',
     content=~{this::.section},
-    alert=~{this::.alert},
     username=${#authentication.principal.getUsername() ?: 'username'},
     email=${#authentication.principal.getPrimaryEmail() ?: 'email'}
 ">
-    <th:block th:switch="${statusCode.getCode()}" class="alert">
-        <p th:case="0" th:text="#{auth.verification.success}" class="alert alert__success"></p>
-        <p th:case="1" th:text="#{auth.verification.incorrect}" class="alert alert__danger"></p>
-        <p th:case="2" th:text="#{auth.verification.sent}" class="alert alert__info"></p>
-        <th:block th:case="*"></th:block>
-    </th:block>
-
     <section class="section">
         <header class="section__header">
             <div class="logo logo--l">
