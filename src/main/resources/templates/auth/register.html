@@ -5,7 +5,7 @@
     title='Sign Up', 
     content=~{this::.section},
     alert=~{this::.alert},
-    isSuccess=${statusCode != null && statusCode == 0}
+    isSuccess=${statusCode.getCode() == 0}
 ">
     <th:block th:if="${isSuccess}" class="alert">
         <p th:text="#{auth.register.success}" class="alert alert__success"></p>

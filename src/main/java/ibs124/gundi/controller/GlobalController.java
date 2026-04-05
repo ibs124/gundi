@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.ThymeleafEnv;
+import ibs124.gundi.model.presentation.StatusCode;
 import ibs124.gundi.util.AppUtils;
 
 @ControllerAdvice
@@ -18,5 +19,10 @@ class GlobalController {
     @ModelAttribute(ThymeleafEnv.ROUTES)
     public Map<String, String> globalRoutes() {
         return this.routes;
+    }
+
+    @ModelAttribute
+    public StatusCode statusCode() {
+        return StatusCode.undefined();
     }
 }

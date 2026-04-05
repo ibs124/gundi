@@ -1,7 +1,6 @@
 package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.Routes.AUTH_VERIFICATION_SEND;
-import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
@@ -14,6 +13,7 @@ import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserVerificationEvent;
 import ibs124.gundi.model.dto.auth.VerificationTokenCreateRequest;
+import ibs124.gundi.model.presentation.StatusCode;
 import ibs124.gundi.security.UserDetailsImpl;
 import ibs124.gundi.service.auth.token.TokenCreationProviderService;
 import ibs124.gundi.util.RouteUtils;
@@ -53,19 +53,19 @@ class VerificationController {
 
         this.eventPublisher.publishEvent(event);
 
-        model.addAttribute(STATUS_CODE, 1);
+        model.addAttribute(StatusCode.custom(2));
         return Templates.AUTH_VERIFICATION;
     }
 
     @GetMapping(Routes.AUTH_VERIFICATION_SUCCESS)
     public String success(Model model, Authentication authentication) {
-        model.addAttribute(STATUS_CODE, 0);
+        model.addAttribute(StatusCode.success());
         return Templates.AUTH_VERIFICATION;
     }
 
     @GetMapping(Routes.AUTH_VERIFICATION_FAIL)
     public String error(Model model, Authentication authentication) {
-        model.addAttribute(STATUS_CODE, 2);
+        model.addAttribute(StatusCode.failure());
         return Templates.AUTH_VERIFICATION;
     }
 

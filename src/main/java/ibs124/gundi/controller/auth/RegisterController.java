@@ -4,7 +4,6 @@ import static ibs124.gundi.constant.Routes.AUTH_REGISTER;
 import static ibs124.gundi.constant.Routes.AUTH_REGISTER_SUCCESS;
 import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
 import static ibs124.gundi.constant.ThymeleafEnv.BINDING_RESULT;
-import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.model.dto.auth.UserRegisterDto;
+import ibs124.gundi.model.presentation.StatusCode;
 import ibs124.gundi.service.auth.user.RegistrationService;
 import ibs124.gundi.util.RouteUtils;
 import jakarta.validation.Valid;
@@ -60,7 +60,7 @@ public class RegisterController {
 
     @GetMapping(AUTH_REGISTER_SUCCESS)
     public String registerSuccess(Model model) {
-        model.addAttribute(STATUS_CODE, 0);
+        model.addAttribute(StatusCode.success());
         return Templates.AUTH_REGISTER;
     }
 

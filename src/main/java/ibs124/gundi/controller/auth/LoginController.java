@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.constant.ThymeleafEnv;
+import ibs124.gundi.model.presentation.StatusCode;
 
 @Controller
 @RequestMapping(Routes.AUTH_LOGIN)
@@ -26,7 +27,7 @@ class LoginController {
             Model model) {
         model
                 .addAttribute(ThymeleafEnv.USERNAME, username)
-                .addAttribute(ThymeleafEnv.STATUS_CODE, 1);
+                .addAttribute(StatusCode.failure());
 
         return Templates.AUTH_LOGIN;
     }
