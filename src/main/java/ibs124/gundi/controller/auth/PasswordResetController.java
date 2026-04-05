@@ -1,9 +1,13 @@
 package ibs124.gundi.controller.auth;
 
+import static ibs124.gundi.constant.ThymeleafEnv.ROUTES;
 import static ibs124.gundi.constant.ThymeleafEnv.STATUS_CODE;
+
+import java.io.ObjectInputFilter.Status;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import ibs124.gundi.constant.Routes;
@@ -13,6 +17,7 @@ import ibs124.gundi.model.dto.auth.PasswordResetDto;
 import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.TokenCreateRequest;
 import ibs124.gundi.model.presentation.PasswordResetRequest;
+import ibs124.gundi.model.presentation.StatusCode;
 import ibs124.gundi.service.auth.token.TokenCreationProviderService;
 import ibs124.gundi.service.auth.token.TokenValidationProviderService;
 import ibs124.gundi.util.RouteUtils;
@@ -50,7 +55,7 @@ class PasswordResetController {
             HttpServletRequest request,
             RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addFlashAttribute(STATUS_CODE, STATUS_CODE_EMAIL_SENT);
+        redirectAttributes.addFlashAttribute(StatusCode.custom(STATUS_CODE_EMAIL_SENT));
 
         TokenContract token = this.tokenCreator
                 .create(() -> email);
@@ -75,12 +80,14 @@ class PasswordResetController {
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESET_SUCCESS)
-    public String getSuccess(@RequestParam String param) {
-        return new String();
+    public String getSuccess(Model model) {
+        model.addAttribute(StatusCode.success());
+        return RouteUtils.getRedirectUrl(Routes.AUTH_LOGIN);
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESET_ERROR)
-    public String getError(@RequestParam String param) {
-        return new String();
+    public String getError(Model model) {
+        model.addAttribute(StatusCode.failure());
+        return Templates.AUTH_PASSWORD_RESET;
     }
 }
