@@ -1,12 +1,22 @@
 package ibs124.gundi.util;
 
-import static ibs124.gundi.constant.Formats.*;
+import static ibs124.gundi.constant.Formats.FORWARD_URL;
+import static ibs124.gundi.constant.Formats.REDIRECT_URL;
 
+import java.util.Arrays;
+
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import ibs124.gundi.model.presentation.Alert;
 import jakarta.servlet.http.HttpServletRequest;
 
 public abstract class PresentationUtils {
+
+    public static Model alert(Model model, Alert... alerts) {
+        model.addAttribute("alerts", Arrays.asList(alerts));
+        return model;
+    }
 
     public static final String getAppUrl(HttpServletRequest request) {
         return ServletUriComponentsBuilder
