@@ -50,12 +50,12 @@ public class RegisterController {
             redirectAttributes
                     .addFlashAttribute(API_RESPONSE, bindingModel)
                     .addFlashAttribute(BINDING_RESULT, bindingResult);
-            return PresentationUtils.getRedirectUrl(REGISTER);
+            return PresentationUtils.redirect(REGISTER);
         }
 
         this.registerService.register(bindingModel);
 
-        return PresentationUtils.getRedirectUrl(Routes.REGISTER_SUCCESS);
+        return PresentationUtils.redirect(Routes.REGISTER_SUCCESS);
     }
 
     @GetMapping(REGISTER_SUCCESS)

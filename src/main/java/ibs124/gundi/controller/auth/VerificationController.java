@@ -34,7 +34,7 @@ class VerificationController {
 
     @GetMapping(Routes.VERIFICATION)
     public String index() {
-        return PresentationUtils.getForwardUrl(VERIFICATION_SEND);
+        return PresentationUtils.forward(VERIFICATION_SEND);
     }
 
     @GetMapping(Routes.VERIFICATION_SEND)
@@ -50,7 +50,7 @@ class VerificationController {
         UserVerificationEvent event = new UserVerificationEvent(
                 principal.getPrimaryEmail(),
                 secret,
-                PresentationUtils.getAppUrl(request));
+                PresentationUtils.appUrlBy(request));
 
         this.eventPublisher.publishEvent(event);
 

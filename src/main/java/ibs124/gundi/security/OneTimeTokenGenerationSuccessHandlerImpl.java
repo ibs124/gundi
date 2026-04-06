@@ -39,7 +39,7 @@ public class OneTimeTokenGenerationSuccessHandlerImpl implements
         UserVerificationEvent event = new UserVerificationEvent(
                 oneTimeToken.getUsername(),
                 oneTimeToken.getTokenValue(),
-                PresentationUtils.getAppUrl(request));
+                PresentationUtils.appUrlBy(request));
 
         this.eventPublisher.publishEvent(event);
 

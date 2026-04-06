@@ -59,7 +59,7 @@ class PasswordResetController {
                 .create(() -> email);
 
         if (token != null) {
-            String appUrl = PresentationUtils.getAppUrl(request);
+            String appUrl = PresentationUtils.appUrlBy(request);
             this.eventPublisher.publishEvent(
                     new UserPasswordResetEvent(token.getUsername(), token.getSecret(), appUrl));
         }
@@ -67,7 +67,7 @@ class PasswordResetController {
         PresentationUtils
                 .alert(redirectAttributes, Alert.info(Messages.PASSWORD_RESET_SENT));
 
-        return PresentationUtils.getRedirectUrl(Routes.LOGIN);
+        return PresentationUtils.redirect(Routes.LOGIN);
 
     }
 
@@ -78,13 +78,13 @@ class PasswordResetController {
                 .isTokenValid(PasswordResetDto
                         .tokenValidateRequest(request.token()));
 
-        return PresentationUtils.getRedirectUrl(Routes.LOGIN);
+        return PresentationUtils.redirect(Routes.LOGIN);
     }
 
     @GetMapping(Routes.PASSWORD_RESET_SUCCESS)
     public String getSuccess(Model model) {
         PresentationUtils.alert(model, Alert.success(Messages.PASSWORD_RESET_SUCCESS));
-        return PresentationUtils.getRedirectUrl(Routes.LOGIN);
+        return PresentationUtils.redirect(Routes.LOGIN);
     }
 
     @GetMapping(Routes.PASSWORD_RESET_ERROR)
