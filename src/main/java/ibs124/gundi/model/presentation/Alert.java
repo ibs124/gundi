@@ -32,4 +32,16 @@ public record Alert(String message, String cssClass) {
         return this.cssClass();
     }
 
+    public String getPlainMessageKey() {
+        if (message == null) {
+            return null;
+        }
+
+        if (message.startsWith("{") && message.endsWith("}")) {
+            return message.substring(1, message.length() - 1);
+        }
+
+        return message;
+    }
+
 }

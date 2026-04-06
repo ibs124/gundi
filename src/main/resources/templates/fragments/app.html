@@ -30,7 +30,7 @@
         <main class="app__workspace">
             <div th:if="${alerts != null and !#lists.isEmpty(alerts)}">
                 <div th:each="alert : ${alerts}" th:classappend="' ' + ${alert.cssClass}">
-                    <p th:text="#{${alert.message}}"></p>
+                    <p th:text="#{${alert.getPlainMessageKey()}}"></p>
                 </div>
             </div>
             <th:block th:if="${content != null}">
