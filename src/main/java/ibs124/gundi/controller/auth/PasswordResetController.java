@@ -77,14 +77,15 @@ class PasswordResetController {
     }
 
     @GetMapping(Routes.PASSWORD_RESET_VERIFY)
-    public String verify(Model model, PasswordResetRequest request) {
+    public String verify(
+            Model model,
+            @RequestParam(name = Routes.VAR_TOKEN, required = false) String token) {
 
         boolean tokenIsValid = this.validationService
-                .isTokenValid(PasswordResetDto
-                        .tokenValidateRequest(request.token()));
+                .isTokenValid(PasswordResetDto.tokenValidateRequest(token));
 
         if (tokenIsValid) {
-            model.addAttribute(API_RESPONSE, request);
+            model.addAttribute(API_RESPONSE, new PasswordResetRequest(token));
             return Templates.PASSWORD_RESET_SUBMIT;
         }
 
