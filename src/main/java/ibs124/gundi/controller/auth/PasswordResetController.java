@@ -10,12 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import ibs124.gundi.constant.Messages;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserPasswordResetEvent;
 import ibs124.gundi.model.dto.auth.PasswordResetDto;
 import ibs124.gundi.model.dto.auth.TokenContract;
 import ibs124.gundi.model.dto.auth.TokenCreateRequest;
+import ibs124.gundi.model.presentation.Alert;
 import ibs124.gundi.model.presentation.PasswordResetRequest;
 import ibs124.gundi.model.presentation.StatusCode;
 import ibs124.gundi.service.auth.token.TokenCreationProviderService;
@@ -29,8 +31,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 class PasswordResetController {
-
-    private static final int STATUS_CODE_EMAIL_SENT = 2;
 
     private final TokenCreationProviderService<TokenCreateRequest> tokenCreator;
     private final ApplicationEventPublisher eventPublisher;
@@ -55,8 +55,6 @@ class PasswordResetController {
             HttpServletRequest request,
             RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addFlashAttribute(StatusCode.custom(STATUS_CODE_EMAIL_SENT));
-
         TokenContract token = this.tokenCreator
                 .create(() -> email);
 
@@ -66,7 +64,11 @@ class PasswordResetController {
                     new UserPasswordResetEvent(token.getUsername(), token.getSecret(), appUrl));
         }
 
+        PresentationUtils
+                .alert(redirectAttributes, Alert.info(Messages.PASSWORD_RESET_SENT));
+
         return PresentationUtils.getRedirectUrl(Routes.AUTH_LOGIN);
+
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESSET_SUBMIT)
@@ -81,13 +83,13 @@ class PasswordResetController {
 
     @GetMapping(Routes.AUTH_PASSWORD_RESET_SUCCESS)
     public String getSuccess(Model model) {
-        model.addAttribute(StatusCode.success());
+        PresentationUtils.alert(model, Alert.success(Messages.PASSWORD_RESET_SUCCESS));
         return PresentationUtils.getRedirectUrl(Routes.AUTH_LOGIN);
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESET_ERROR)
     public String getError(Model model) {
-        model.addAttribute(StatusCode.failure());
+        PresentationUtils.alert(model, Alert.danger(Messages.PASSWORD_RESET_ERROR));
         return Templates.AUTH_PASSWORD_RESET;
     }
 }

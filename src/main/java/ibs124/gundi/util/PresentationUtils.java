@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public abstract class PresentationUtils {
 
-    public static Model alert(RedirectAttributes model, Alert... alerts) {
+    public static RedirectAttributes alert(RedirectAttributes model, Alert... alerts) {
         model.addFlashAttribute(ThymeleafEnv.ALERTS, Arrays.asList(alerts));
         return model;
     }
