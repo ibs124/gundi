@@ -54,7 +54,7 @@ class AbstractVerificationEventListener {
         this.sendEmail(
                 event,
                 config.passwordReset(),
-                Routes.PASSWORD_RESET,
+                Routes.PASSWORD_RESET_VERIFY,
                 Templates.PASSWORD_RESET_EMAIL);
     }
 

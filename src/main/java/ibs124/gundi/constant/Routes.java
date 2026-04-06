@@ -28,6 +28,7 @@ public abstract class Routes {
     public static final String PASSWORD_RESSET_SUBMIT = PASSWORD_RESET + SUBMIT;
     public static final String PASSWORD_RESET_SUCCESS = PASSWORD_RESET + SUCCESS;
     public static final String PASSWORD_RESET_ERROR = PASSWORD_RESET + ERROR;
+    public static final String PASSWORD_RESET_VERIFY = PASSWORD_RESET + "/verify";
 
     public static final String HOME = INDEX;
 

@@ -46,7 +46,7 @@ class SecurityConfig {
 
     private Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>
 
-        .AuthorizationManagerRequestMatcherRegistry> getAuthzHttpRequestsConfigurer() {
+    .AuthorizationManagerRequestMatcherRegistry> getAuthzHttpRequestsConfigurer() {
 
         var password = this.getAuthzManagerFactoryByFactors(PASSWORD_AUTHORITY);
 
@@ -57,10 +57,8 @@ class SecurityConfig {
                 .permitAll()
 
                 .requestMatchers(
-                        INDEX, LOGIN, LOGIN_ERROR, REGISTER,
-                        REGISTER_SUCCESS,
-                        PASSWORD_RESET,
-                        PASSWORD_RESSET_SUBMIT)
+                        INDEX, LOGIN, LOGIN_ERROR, REGISTER, REGISTER_SUCCESS,
+                        PASSWORD_RESET + SUBROUTE_MATCHER)
                 .access(password.permitAll())
 
                 .requestMatchers(VERIFICATION + SUBROUTE_MATCHER)
