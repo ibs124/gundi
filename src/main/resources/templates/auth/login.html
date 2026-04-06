@@ -28,7 +28,7 @@
                 <a th:href="@{${routes.auth_password_reset}}" class="link">
                     Forgot your password?
                 </a>
-                <p class="form__error" th:if="${statusCode.getCode() == 1}" th:text="#{auth.login.error}"></p>
+                <p class="form__error" th:if="${statusCode.getCode() == 1}" th:text="#{login.error}"></p>
                 <button class="btn form__submit-btn" type="submit">
                     <div class="btn__label">Sign in</div>
                 </button>

@@ -8,7 +8,7 @@
     isSuccess=${statusCode.getCode() == 0}
 ">
     <th:block th:if="${isSuccess}" class="alert">
-        <p th:text="#{auth.register.success}" class="alert alert__success"></p>
+        <p th:text="#{register.success}" class="alert alert__success"></p>
     </th:block>
 
     <div class="section" th:if="${isSuccess == false}">
