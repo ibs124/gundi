@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 @NotBlank(message = Messages.BLANK_FIELD)
-@Pattern(regexp = Regexes.USERNAME, message = Messages.USERNAME_FORMAT_ERROR)
+@Pattern(regexp = Regexes.USERNAME, message = Messages.USERNAME_ERROR)
 @Documented
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.TYPE_PARAMETER,
         ElementType.PARAMETER })
@@ -22,7 +22,7 @@ import jakarta.validation.constraints.Pattern;
 @Constraint(validatedBy = {})
 public @interface ValidUsername {
 
-    String message() default Messages.USERNAME_FORMAT_ERROR;
+    String message() default Messages.USERNAME_ERROR;
 
     Class<?>[] groups() default {};
 

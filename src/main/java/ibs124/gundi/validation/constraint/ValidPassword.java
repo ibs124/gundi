@@ -13,13 +13,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @NotBlank(message = Messages.BLANK_FIELD)
-@Size(min = 6, message = Messages.PASSWORD_FORMAT_ERROR)
+@Size(min = 6, message = Messages.PASSWORD_ERROR)
 @Documented
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.TYPE, ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
 public @interface ValidPassword {
-    String message() default Messages.PASSWORD_FORMAT_ERROR;
+    String message() default Messages.PASSWORD_ERROR;
 
     Class<?>[] groups() default {};
 

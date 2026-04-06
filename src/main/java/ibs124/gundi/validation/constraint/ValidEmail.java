@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 @NotBlank(message = Messages.BLANK_FIELD)
-@Pattern(regexp = Regexes.EMAIL, message = Messages.EMAIL_FORMAT_ERROR)
+@Pattern(regexp = Regexes.EMAIL, message = Messages.EMAIL_ERROR)
 @Documented
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.TYPE_PARAMETER,
         ElementType.PARAMETER })
@@ -22,7 +22,7 @@ import jakarta.validation.constraints.Pattern;
 @Constraint(validatedBy = {})
 public @interface ValidEmail {
 
-    String message() default Messages.EMAIL_FORMAT_ERROR;
+    String message() default Messages.EMAIL_ERROR;
 
     Class<?>[] groups() default {};
 

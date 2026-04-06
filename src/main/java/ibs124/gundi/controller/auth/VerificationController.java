@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import ibs124.gundi.constant.Messages;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.event.UserVerificationEvent;
@@ -46,27 +47,27 @@ class VerificationController {
                 .create(new VerificationTokenCreateRequest(null, principal.getId()))
                 .getSecret();
 
-        String appUrl = PresentationUtils.getAppUrl(request);
-
         UserVerificationEvent event = new UserVerificationEvent(
-                principal.getPrimaryEmail(), secret, appUrl);
+                principal.getPrimaryEmail(),
+                secret,
+                PresentationUtils.getAppUrl(request));
 
         this.eventPublisher.publishEvent(event);
 
-        PresentationUtils.alert(model, Alert.info("auth.verification.sent"));
+        PresentationUtils.alert(model, Alert.info(Messages.VERIFICATION_SENT));
 
         return Templates.AUTH_VERIFICATION;
     }
 
     @GetMapping(Routes.AUTH_VERIFICATION_SUCCESS)
     public String success(Model model, Authentication authentication) {
-        PresentationUtils.alert(model, Alert.success("auth.verification.success"));
+        PresentationUtils.alert(model, Alert.success(Messages.VERIFICATION_SUCCESS));
         return Templates.AUTH_VERIFICATION;
     }
 
     @GetMapping(Routes.AUTH_VERIFICATION_FAIL)
     public String error(Model model, Authentication authentication) {
-        PresentationUtils.alert(model, Alert.danger("auth.verification.incorrect"));
+        PresentationUtils.alert(model, Alert.danger(Messages.VERIFICATION_ERROR));
         return Templates.AUTH_VERIFICATION;
     }
 
