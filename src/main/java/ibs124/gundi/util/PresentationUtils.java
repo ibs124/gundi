@@ -6,7 +6,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public abstract class RouteUtils {
+public abstract class PresentationUtils {
 
     public static final String getAppUrl(HttpServletRequest request) {
         return ServletUriComponentsBuilder

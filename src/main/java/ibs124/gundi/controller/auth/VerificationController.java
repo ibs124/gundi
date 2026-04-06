@@ -17,7 +17,7 @@ import ibs124.gundi.model.dto.auth.VerificationTokenCreateRequest;
 import ibs124.gundi.model.presentation.Alert;
 import ibs124.gundi.security.UserDetailsImpl;
 import ibs124.gundi.service.auth.token.TokenCreationProviderService;
-import ibs124.gundi.util.RouteUtils;
+import ibs124.gundi.util.PresentationUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -34,7 +34,7 @@ class VerificationController extends AbstractController {
 
     @GetMapping(Routes.AUTH_VERIFICATION)
     public String index() {
-        return RouteUtils.getForwardUrl(AUTH_VERIFICATION_SEND);
+        return PresentationUtils.getForwardUrl(AUTH_VERIFICATION_SEND);
     }
 
     @GetMapping(Routes.AUTH_VERIFICATION_SEND)
@@ -47,7 +47,7 @@ class VerificationController extends AbstractController {
                 .create(new VerificationTokenCreateRequest(null, principal.getId()))
                 .getSecret();
 
-        String appUrl = RouteUtils.getAppUrl(request);
+        String appUrl = PresentationUtils.getAppUrl(request);
 
         UserVerificationEvent event = new UserVerificationEvent(
                 principal.getPrimaryEmail(), secret, appUrl);

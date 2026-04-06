@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.event.UserVerificationEvent;
-import ibs124.gundi.util.RouteUtils;
+import ibs124.gundi.util.PresentationUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,7 +39,7 @@ public class OneTimeTokenGenerationSuccessHandlerImpl implements
         UserVerificationEvent event = new UserVerificationEvent(
                 oneTimeToken.getUsername(),
                 oneTimeToken.getTokenValue(),
-                RouteUtils.getAppUrl(request));
+                PresentationUtils.getAppUrl(request));
 
         this.eventPublisher.publishEvent(event);
 

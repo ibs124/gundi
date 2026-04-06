@@ -20,7 +20,7 @@ import ibs124.gundi.model.presentation.PasswordResetRequest;
 import ibs124.gundi.model.presentation.StatusCode;
 import ibs124.gundi.service.auth.token.TokenCreationProviderService;
 import ibs124.gundi.service.auth.token.TokenValidationProviderService;
-import ibs124.gundi.util.RouteUtils;
+import ibs124.gundi.util.PresentationUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,12 +61,12 @@ class PasswordResetController {
                 .create(() -> email);
 
         if (token != null) {
-            String appUrl = RouteUtils.getAppUrl(request);
+            String appUrl = PresentationUtils.getAppUrl(request);
             this.eventPublisher.publishEvent(
                     new UserPasswordResetEvent(token.getUsername(), token.getSecret(), appUrl));
         }
 
-        return RouteUtils.getRedirectUrl(Routes.AUTH_LOGIN);
+        return PresentationUtils.getRedirectUrl(Routes.AUTH_LOGIN);
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESSET_SUBMIT)
@@ -76,13 +76,13 @@ class PasswordResetController {
                 .isTokenValid(PasswordResetDto
                         .tokenValidateRequest(request.token()));
 
-        return RouteUtils.getRedirectUrl(Routes.AUTH_LOGIN);
+        return PresentationUtils.getRedirectUrl(Routes.AUTH_LOGIN);
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESET_SUCCESS)
     public String getSuccess(Model model) {
         model.addAttribute(StatusCode.success());
-        return RouteUtils.getRedirectUrl(Routes.AUTH_LOGIN);
+        return PresentationUtils.getRedirectUrl(Routes.AUTH_LOGIN);
     }
 
     @GetMapping(Routes.AUTH_PASSWORD_RESET_ERROR)

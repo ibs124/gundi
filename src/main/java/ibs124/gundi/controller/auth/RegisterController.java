@@ -16,7 +16,7 @@ import ibs124.gundi.constant.Templates;
 import ibs124.gundi.model.dto.auth.UserRegisterDto;
 import ibs124.gundi.model.presentation.StatusCode;
 import ibs124.gundi.service.auth.user.RegistrationService;
-import ibs124.gundi.util.RouteUtils;
+import ibs124.gundi.util.PresentationUtils;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,12 +50,12 @@ public class RegisterController {
             redirectAttributes
                     .addFlashAttribute(API_RESPONSE, bindingModel)
                     .addFlashAttribute(BINDING_RESULT, bindingResult);
-            return RouteUtils.getRedirectUrl(AUTH_REGISTER);
+            return PresentationUtils.getRedirectUrl(AUTH_REGISTER);
         }
 
         this.registerService.register(bindingModel);
 
-        return RouteUtils.getRedirectUrl(Routes.AUTH_REGISTER_SUCCESS);
+        return PresentationUtils.getRedirectUrl(Routes.AUTH_REGISTER_SUCCESS);
     }
 
     @GetMapping(AUTH_REGISTER_SUCCESS)
