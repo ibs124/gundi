@@ -18,7 +18,7 @@ class LoginController {
 
     @GetMapping
     public String getMethodName() {
-        return Templates.AUTH_LOGIN;
+        return Templates.LOGIN;
     }
 
     @PostMapping(Routes.ERROR)
@@ -29,7 +29,7 @@ class LoginController {
                 .addAttribute(ThymeleafEnv.USERNAME, username)
                 .addAttribute(StatusCode.failure());
 
-        return Templates.AUTH_LOGIN;
+        return Templates.LOGIN;
     }
 
 }

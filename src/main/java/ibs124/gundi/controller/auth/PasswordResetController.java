@@ -46,7 +46,7 @@ class PasswordResetController {
 
     @GetMapping(Routes.PASSWORD_RESET)
     public String index() {
-        return Templates.AUTH_PASSWORD_RESET;
+        return Templates.PASSWORD_RESET;
     }
 
     @PostMapping(Routes.PASSWORD_RESET)
@@ -90,6 +90,6 @@ class PasswordResetController {
     @GetMapping(Routes.PASSWORD_RESET_ERROR)
     public String getError(Model model) {
         PresentationUtils.alert(model, Alert.danger(Messages.PASSWORD_RESET_ERROR));
-        return Templates.AUTH_PASSWORD_RESET;
+        return Templates.PASSWORD_RESET;
     }
 }

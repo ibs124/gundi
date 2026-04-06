@@ -56,19 +56,19 @@ class VerificationController {
 
         PresentationUtils.alert(model, Alert.info(Messages.VERIFICATION_SENT));
 
-        return Templates.AUTH_VERIFICATION;
+        return Templates.VERIFICATION;
     }
 
     @GetMapping(Routes.VERIFICATION_SUCCESS)
     public String success(Model model, Authentication authentication) {
         PresentationUtils.alert(model, Alert.success(Messages.VERIFICATION_SUCCESS));
-        return Templates.AUTH_VERIFICATION;
+        return Templates.VERIFICATION;
     }
 
     @GetMapping(Routes.VERIFICATION_ERROR)
     public String error(Model model, Authentication authentication) {
         PresentationUtils.alert(model, Alert.danger(Messages.VERIFICATION_ERROR));
-        return Templates.AUTH_VERIFICATION;
+        return Templates.VERIFICATION;
     }
 
 }

@@ -46,7 +46,7 @@ class AbstractVerificationEventListener {
                 event,
                 config.verification(),
                 Routes.VERIFICATION,
-                Templates.AUTH_VERIFICATION_EMAIL);
+                Templates.VERIFICATION_EMAIL);
     }
 
     @EventListener
@@ -55,7 +55,7 @@ class AbstractVerificationEventListener {
                 event,
                 config.passwordReset(),
                 Routes.PASSWORD_RESET,
-                Templates.AUTH_PASSWORD_RESET_EMAIL);
+                Templates.PASSWORD_RESET_EMAIL);
     }
 
     private void sendEmail(
