@@ -57,13 +57,13 @@ class SecurityConfig {
                 .permitAll()
 
                 .requestMatchers(
-                        INDEX, AUTH_LOGIN, AUTH_LOGIN_ERROR, AUTH_REGISTER,
-                        AUTH_REGISTER_SUCCESS,
-                        AUTH_PASSWORD_RESET,
-                        AUTH_PASSWORD_RESSET_SUBMIT)
+                        INDEX, LOGIN, LOGIN_ERROR, REGISTER,
+                        REGISTER_SUCCESS,
+                        PASSWORD_RESET,
+                        PASSWORD_RESSET_SUBMIT)
                 .access(password.permitAll())
 
-                .requestMatchers(AUTH_VERIFICATION + SUBROUTE_MATCHER)
+                .requestMatchers(VERIFICATION + SUBROUTE_MATCHER)
                 .access(password.authenticated())
 
                 .requestMatchers(ROOT + SUBROUTE_MATCHER)
@@ -88,22 +88,22 @@ class SecurityConfig {
 
     public Customizer<FormLoginConfigurer<HttpSecurity>> getFormLoginConfigurer() {
         return x -> x
-                .loginPage(AUTH_LOGIN)
+                .loginPage(LOGIN)
                 .defaultSuccessUrl(HOME)
-                .failureForwardUrl(AUTH_LOGIN_ERROR);
+                .failureForwardUrl(LOGIN_ERROR);
     }
 
     public Customizer<OneTimeTokenLoginConfigurer<HttpSecurity>> getOttConfigurer() {
         return x -> x
-                .loginPage(AUTH_VERIFICATION_SEND)
-                .failureUrl(AUTH_VERIFICATION_FAIL)
+                .loginPage(VERIFICATION_SEND)
+                .failureUrl(VERIFICATION_ERROR)
                 .showDefaultSubmitPage(false)
                 .defaultSuccessUrl(HOME);
     }
 
     public Customizer<LogoutConfigurer<HttpSecurity>> getLogoutConfigurer() {
         return x -> x
-                .logoutUrl(AUTH_LOGOUT)
+                .logoutUrl(LOGOUT)
                 .logoutSuccessUrl(INDEX)
                 .invalidateHttpSession(true)
                 .deleteCookies(Env.JSESSIONID);

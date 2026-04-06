@@ -44,12 +44,12 @@ class PasswordResetController {
         this.validationProvider = validationProvider;
     }
 
-    @GetMapping(Routes.AUTH_PASSWORD_RESET)
+    @GetMapping(Routes.PASSWORD_RESET)
     public String index() {
         return Templates.AUTH_PASSWORD_RESET;
     }
 
-    @PostMapping(Routes.AUTH_PASSWORD_RESET)
+    @PostMapping(Routes.PASSWORD_RESET)
     public String sent(
             @RequestParam String email,
             HttpServletRequest request,
@@ -67,27 +67,27 @@ class PasswordResetController {
         PresentationUtils
                 .alert(redirectAttributes, Alert.info(Messages.PASSWORD_RESET_SENT));
 
-        return PresentationUtils.getRedirectUrl(Routes.AUTH_LOGIN);
+        return PresentationUtils.getRedirectUrl(Routes.LOGIN);
 
     }
 
-    @GetMapping(Routes.AUTH_PASSWORD_RESSET_SUBMIT)
+    @GetMapping(Routes.PASSWORD_RESSET_SUBMIT)
     public String getSubmit(PasswordResetRequest request) {
 
         boolean tokenIsValid = this.validationProvider
                 .isTokenValid(PasswordResetDto
                         .tokenValidateRequest(request.token()));
 
-        return PresentationUtils.getRedirectUrl(Routes.AUTH_LOGIN);
+        return PresentationUtils.getRedirectUrl(Routes.LOGIN);
     }
 
-    @GetMapping(Routes.AUTH_PASSWORD_RESET_SUCCESS)
+    @GetMapping(Routes.PASSWORD_RESET_SUCCESS)
     public String getSuccess(Model model) {
         PresentationUtils.alert(model, Alert.success(Messages.PASSWORD_RESET_SUCCESS));
-        return PresentationUtils.getRedirectUrl(Routes.AUTH_LOGIN);
+        return PresentationUtils.getRedirectUrl(Routes.LOGIN);
     }
 
-    @GetMapping(Routes.AUTH_PASSWORD_RESET_ERROR)
+    @GetMapping(Routes.PASSWORD_RESET_ERROR)
     public String getError(Model model) {
         PresentationUtils.alert(model, Alert.danger(Messages.PASSWORD_RESET_ERROR));
         return Templates.AUTH_PASSWORD_RESET;

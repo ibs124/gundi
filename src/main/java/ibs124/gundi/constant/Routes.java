@@ -14,21 +14,20 @@ public abstract class Routes {
     public static final String INDEX = CONVENTIONAL_INDEX;
 
     public static final String AUTH = INDEX + "auth";
-    public static final String AUTH_REGISTER = AUTH + "/sign-up";
-    public static final String AUTH_REGISTER_SUCCESS = AUTH_REGISTER + SUCCESS;
-    public static final String AUTH_LOGIN = AUTH + "/sign-in";
-    public static final String AUTH_LOGIN_ERROR = AUTH_LOGIN + ERROR;
-    public static final String AUTH_LOGOUT = AUTH + "/sign-out";
-    public static final String AUTH_VERIFICATION = AUTH + "/verification";
-    public static final String AUTH_VERIFICATION_SEND = AUTH_VERIFICATION + SEND;
-    public static final String AUTH_VERIFICATION_SUBMIT = AUTH_VERIFICATION + SUBMIT;
-    public static final String AUTH_VERIFICATION_SUCCESS = AUTH_VERIFICATION + SUCCESS;
-    public static final String AUTH_VERIFICATION_FAIL = AUTH_VERIFICATION + ERROR;
-    public static final String AUTH_PASSWORD_RESET = AUTH + "/password-reset";
-    public static final String AUTH_PASSWORD_RESSET_SUBMIT = AUTH_PASSWORD_RESET
-            + SUBMIT;
-    public static final String AUTH_PASSWORD_RESET_SUCCESS = AUTH_PASSWORD_RESET + SUCCESS;
-    public static final String AUTH_PASSWORD_RESET_ERROR = AUTH_PASSWORD_RESET + ERROR;
+    public static final String REGISTER = AUTH + "/sign-up";
+    public static final String REGISTER_SUCCESS = REGISTER + SUCCESS;
+    public static final String LOGIN = AUTH + "/sign-in";
+    public static final String LOGIN_ERROR = LOGIN + ERROR;
+    public static final String LOGOUT = AUTH + "/sign-out";
+    public static final String VERIFICATION = AUTH + "/verification";
+    public static final String VERIFICATION_SEND = VERIFICATION + SEND;
+    public static final String VERIFICATION_SUBMIT = VERIFICATION + SUBMIT;
+    public static final String VERIFICATION_SUCCESS = VERIFICATION + SUCCESS;
+    public static final String VERIFICATION_ERROR = VERIFICATION + ERROR;
+    public static final String PASSWORD_RESET = AUTH + "/password-reset";
+    public static final String PASSWORD_RESSET_SUBMIT = PASSWORD_RESET + SUBMIT;
+    public static final String PASSWORD_RESET_SUCCESS = PASSWORD_RESET + SUCCESS;
+    public static final String PASSWORD_RESET_ERROR = PASSWORD_RESET + ERROR;
 
     public static final String HOME = INDEX;
 

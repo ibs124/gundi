@@ -1,6 +1,6 @@
 package ibs124.gundi.controller.auth;
 
-import static ibs124.gundi.constant.Routes.AUTH_VERIFICATION_SEND;
+import static ibs124.gundi.constant.Routes.VERIFICATION_SEND;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
@@ -32,12 +32,12 @@ class VerificationController {
         this.tokenCreator = tokenCreator;
     }
 
-    @GetMapping(Routes.AUTH_VERIFICATION)
+    @GetMapping(Routes.VERIFICATION)
     public String index() {
-        return PresentationUtils.getForwardUrl(AUTH_VERIFICATION_SEND);
+        return PresentationUtils.getForwardUrl(VERIFICATION_SEND);
     }
 
-    @GetMapping(Routes.AUTH_VERIFICATION_SEND)
+    @GetMapping(Routes.VERIFICATION_SEND)
     public String send(
             Model model,
             HttpServletRequest request,
@@ -59,13 +59,13 @@ class VerificationController {
         return Templates.AUTH_VERIFICATION;
     }
 
-    @GetMapping(Routes.AUTH_VERIFICATION_SUCCESS)
+    @GetMapping(Routes.VERIFICATION_SUCCESS)
     public String success(Model model, Authentication authentication) {
         PresentationUtils.alert(model, Alert.success(Messages.VERIFICATION_SUCCESS));
         return Templates.AUTH_VERIFICATION;
     }
 
-    @GetMapping(Routes.AUTH_VERIFICATION_FAIL)
+    @GetMapping(Routes.VERIFICATION_ERROR)
     public String error(Model model, Authentication authentication) {
         PresentationUtils.alert(model, Alert.danger(Messages.VERIFICATION_ERROR));
         return Templates.AUTH_VERIFICATION;

@@ -15,7 +15,7 @@
             <h1>Sign In</h1>
         </div>
         <div class="section__main">
-            <form class="form" th:action="@{${routes.auth_login}}" method="POST">
+            <form class="form" th:action="@{${routes.login}}" method="POST">
                 <div class="form__group">
                     <label class="form__label" for="username">Email or Username</label>
                     <input class="form__input" type="text" placeholder="Email or Username" name="username"
@@ -25,7 +25,7 @@
                     <label class="form__label" for="password">Password</label>
                     <input class="form__input" type="password" placeholder="Password" name="password">
                 </div>
-                <a th:href="@{${routes.auth_password_reset}}" class="link">
+                <a th:href="@{${routes.password_reset}}" class="link">
                     Forgot your password?
                 </a>
                 <p class="form__error" th:if="${statusCode.getCode() == 1}" th:text="#{login.error}"></p>

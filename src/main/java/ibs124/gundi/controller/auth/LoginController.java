@@ -13,7 +13,7 @@ import ibs124.gundi.constant.ThymeleafEnv;
 import ibs124.gundi.model.presentation.StatusCode;
 
 @Controller
-@RequestMapping(Routes.AUTH_LOGIN)
+@RequestMapping(Routes.LOGIN)
 class LoginController {
 
     @GetMapping

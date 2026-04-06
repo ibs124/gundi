@@ -27,7 +27,7 @@ public class OneTimeTokenGenerationSuccessHandlerImpl implements
 
         this.eventPublisher = eventPublisher;
         this.redirectHandler = new RedirectOneTimeTokenGenerationSuccessHandler(
-                Routes.AUTH_VERIFICATION_SEND);
+                Routes.VERIFICATION_SEND);
     }
 
     @Override

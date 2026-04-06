@@ -45,7 +45,7 @@ class AbstractVerificationEventListener {
         this.sendEmail(
                 event,
                 config.verification(),
-                Routes.AUTH_VERIFICATION,
+                Routes.VERIFICATION,
                 Templates.AUTH_VERIFICATION_EMAIL);
     }
 
@@ -54,7 +54,7 @@ class AbstractVerificationEventListener {
         this.sendEmail(
                 event,
                 config.passwordReset(),
-                Routes.AUTH_PASSWORD_RESET,
+                Routes.PASSWORD_RESET,
                 Templates.AUTH_PASSWORD_RESET_EMAIL);
     }
 
