@@ -13,6 +13,8 @@ public abstract class ThymeleafEnv {
 
     public static final String ROUTES = "routes";
 
+    public static final String ALERTS = "alerts";
+
     public static final String TOKEN = "token";
 
     public static final String EXPIRATION = "expiration";
