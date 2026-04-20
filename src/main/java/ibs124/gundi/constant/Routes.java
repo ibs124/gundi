@@ -25,7 +25,7 @@ public abstract class Routes {
     public static final String VERIFICATION_SUCCESS = VERIFICATION + SUCCESS;
     public static final String VERIFICATION_ERROR = VERIFICATION + ERROR;
     public static final String PASSWORD_RESET = AUTH + "/password-reset";
-    public static final String PASSWORD_RESSET_SUBMIT = PASSWORD_RESET + SUBMIT;
+    public static final String PASSWORD_RESET_SUBMIT = PASSWORD_RESET + SUBMIT;
     public static final String PASSWORD_RESET_SUCCESS = PASSWORD_RESET + SUCCESS;
     public static final String PASSWORD_RESET_ERROR = PASSWORD_RESET + ERROR;
     public static final String PASSWORD_RESET_VERIFY = PASSWORD_RESET + "/verify";

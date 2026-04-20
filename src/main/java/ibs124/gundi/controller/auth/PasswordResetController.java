@@ -2,7 +2,7 @@ package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.Routes.PASSWORD_RESET_ERROR;
 import static ibs124.gundi.constant.Routes.PASSWORD_RESET_SUCCESS;
-import static ibs124.gundi.constant.Routes.PASSWORD_RESSET_SUBMIT;
+import static ibs124.gundi.constant.Routes.PASSWORD_RESET_SUBMIT;
 import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
 import static ibs124.gundi.util.PresentationUtils.*;
 
@@ -92,7 +92,7 @@ class PasswordResetController {
         return redirect(PASSWORD_RESET_ERROR);
     }
 
-    @GetMapping(PASSWORD_RESSET_SUBMIT)
+    @GetMapping(PASSWORD_RESET_SUBMIT)
     public String getSubmit(Model model) {
 
         if (!model.containsAttribute(API_RESPONSE)) {
@@ -102,7 +102,7 @@ class PasswordResetController {
         return Templates.PASSWORD_RESET_SUBMIT;
     }
 
-    @PostMapping(PASSWORD_RESSET_SUBMIT)
+    @PostMapping(PASSWORD_RESET_SUBMIT)
     public String registerPost(
             @Valid @ModelAttribute(API_RESPONSE) PasswordResetRequest bindingModel,
             BindingResult bindingResult,
@@ -112,7 +112,7 @@ class PasswordResetController {
             redirectAttributes
                     .addFlashAttribute(API_RESPONSE, bindingModel)
                     .addFlashAttribute(ThymeleafEnv.BINDING_RESULT, bindingResult);
-            return redirect(PASSWORD_RESSET_SUBMIT);
+            return redirect(PASSWORD_RESET_SUBMIT);
         }
 
         this.consumptionService
