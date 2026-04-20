@@ -1,59 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<th:block th:insert="~{fragments/app}" th:with="
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
     title='Sign Up', 
-    content=~{this::.section},
-    alert=~{this::.alert},
-    isSuccess=${statusCode.getCode() == 0}
+    content=~{this::.section}
 ">
-    <th:block th:if="${isSuccess}" class="alert">
-        <p th:text="#{register.success}" class="alert alert__success"></p>
-    </th:block>
 
-    <div class="section" th:if="${isSuccess == false}">
-        <div class="section__header">
-            <h1 class="section__headline">Sign Up</h1>
-        </div>
-        <div class="section__main">
-            <form class="form" th:action="@{${routes.REGISTER}}" method="POST" th:object="${apiResponse}">
-                <div class="form__group">
-                    <label class="form__label" for="email">Email address</label>
-                    <input class="form__input" type="text" placeholder="Email address" name="email" th:field="*{email}">
-                    <small class="form__error" th:if="${#fields.hasErrors('email')}">
-                        <pre th:errors="*{email}"></pre>
-                    </small>
-                </div>
-                <div class="form__group">
-                    <label class="form__label" for="password">Password</label>
-                    <input class="form__input" type="password" placeholder="Password" name="password"
-                        th:field="*{password}">
-                    <small class="form__error" th:if="${#fields.hasErrors('password')}">
-                        <pre th:errors="*{password}"></pre>
-                    </small>
-                </div>
-                <div class="form__group">
-                    <label class="form__label" for="fullname">Full name</label>
-                    <input class="form__input" type="text" placeholder="Full name" name="fullName"
-                        th:field="*{fullName}">
-                    <small class="form__error" th:if="${#fields.hasErrors('fullName')}">
-                        <pre th:errors="*{fullName}"></pre>
-                    </small>
-                </div>
-                <div class="form__group">
-                    <label class="from__label" for="username">Username</label>
-                    <input class="form__input" type="text" placeholder="Username" name="username"
-                        th:field="*{username}">
-                    <small class="form__error" th:if="${#fields.hasErrors('username')}">
-                        <pre th:errors="*{username}"></pre>
-                    </small>
-                </div>
-                <button class="btn form__submit-btn" type="submit">
-                    <div class="btn__label">Sign up</div>
-                </button>
-            </form>
-        </div>
+<div class="section">
+    <div class="section__header">
+        <h1 class="section__headline">Sign Up</h1>
     </div>
-</th:block>
+    <div class="section__main">
+        <form class="form" th:action="@{${routes.REGISTER}}" method="POST" th:object="${apiResponse}">
+            <div class="form__group">
+                <label class="form__label" for="email">Email address</label>
+                <input class="form__input" type="text" placeholder="Email address" name="email" th:field="*{email}">
+                <small class="form__error" th:if="${#fields.hasErrors('email')}">
+                    <pre th:errors="*{email}"></pre>
+                </small>
+            </div>
+            <div class="form__group">
+                <label class="form__label" for="password">Password</label>
+                <input class="form__input" type="password" placeholder="Password" name="password"
+                    th:field="*{password}">
+                <small class="form__error" th:if="${#fields.hasErrors('password')}">
+                    <pre th:errors="*{password}"></pre>
+                </small>
+            </div>
+            <div class="form__group">
+                <label class="form__label" for="fullname">Full name</label>
+                <input class="form__input" type="text" placeholder="Full name" name="fullName" th:field="*{fullName}">
+                <small class="form__error" th:if="${#fields.hasErrors('fullName')}">
+                    <pre th:errors="*{fullName}"></pre>
+                </small>
+            </div>
+            <div class="form__group">
+                <label class="from__label" for="username">Username</label>
+                <input class="form__input" type="text" placeholder="Username" name="username" th:field="*{username}">
+                <small class="form__error" th:if="${#fields.hasErrors('username')}">
+                    <pre th:errors="*{username}"></pre>
+                </small>
+            </div>
+            <button class="btn form__submit-btn" type="submit">
+                <div class="btn__label">Sign up</div>
+            </button>
+        </form>
+    </div>
+</div>
 
 </html>

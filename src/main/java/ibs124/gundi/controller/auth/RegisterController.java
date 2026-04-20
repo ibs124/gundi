@@ -1,9 +1,10 @@
 package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.Routes.REGISTER;
-import static ibs124.gundi.constant.Routes.REGISTER_SUCCESS;
 import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
 import static ibs124.gundi.constant.ThymeleafEnv.BINDING_RESULT;
+import static ibs124.gundi.util.PresentationUtils.alert;
+import static ibs124.gundi.util.PresentationUtils.redirect;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +12,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import ibs124.gundi.constant.Messages;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
 import ibs124.gundi.model.dto.auth.UserRegisterDto;
-import ibs124.gundi.model.presentation.StatusCode;
+import ibs124.gundi.model.presentation.Alert;
 import ibs124.gundi.service.auth.user.RegistrationService;
-import ibs124.gundi.util.PresentationUtils;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,18 +51,13 @@ public class RegisterController {
             redirectAttributes
                     .addFlashAttribute(API_RESPONSE, bindingModel)
                     .addFlashAttribute(BINDING_RESULT, bindingResult);
-            return PresentationUtils.redirect(REGISTER);
+            return redirect(REGISTER);
         }
 
         this.registerService.register(bindingModel);
 
-        return PresentationUtils.redirect(Routes.REGISTER_SUCCESS);
-    }
+        alert(redirectAttributes, Alert.success(Messages.REGISTER_SUCCESS));
 
-    @GetMapping(REGISTER_SUCCESS)
-    public String registerSuccess(Model model) {
-        model.addAttribute(StatusCode.success());
-        return Templates.REGISTER;
+        return redirect(Routes.LOGIN);
     }
-
 }
