@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<th:block th:insert="~{fragments/app}" th:with="
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
     title='Account Settings',
     content=~{this::.app__main-content}
 ">
-    <div class="app__main-content">
-        <h2>Account Settings</h2>
-    </div>
-</th:block>
+
+<div class="app__main-content">
+    <h2>Account Settings</h2>
+</div>
 
 </html>

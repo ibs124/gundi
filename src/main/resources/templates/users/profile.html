@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<th:block th:insert="~{fragments/app}" th:with="
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{fragments/app}" th:with="
     title='My Profile',
-    content=~{this::.app__main-content},
+    content=~{this::.app__main-content}
 ">
-    <div class="app__main-content">
-        <div class="card" th:object="${#authentication.principal}">
-            <p th:text="*{getUsername()}"></p>
-            <p th:text="*{getFullName()}"></p>
-            <p th:text="*{getPrimaryEmail()}"></p>
-        </div>
+
+<div class="app__main-content">
+    <div class="card" th:object="${#authentication.principal}">
+        <p th:text="*{getUsername()}"></p>
+        <p th:text="*{getFullName()}"></p>
+        <p th:text="*{getPrimaryEmail()}"></p>
     </div>
-</th:block>
+</div>
 
 </html>
