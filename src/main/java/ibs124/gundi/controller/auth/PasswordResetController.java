@@ -1,7 +1,6 @@
 package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.Routes.PASSWORD_RESET_ERROR;
-import static ibs124.gundi.constant.Routes.PASSWORD_RESET_SUCCESS;
 import static ibs124.gundi.constant.Routes.PASSWORD_RESET_SUBMIT;
 import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
 import static ibs124.gundi.util.PresentationUtils.*;
@@ -115,22 +114,16 @@ class PasswordResetController {
             return redirect(PASSWORD_RESET_SUBMIT);
         }
 
-        this.consumptionService
+        TokenContract result = this.consumptionService
                 .consume(new PasswordResetDto(
                         bindingModel.token(), bindingModel.password()));
 
-        return redirect(PASSWORD_RESET_SUCCESS);
-    }
+        if (result == null) {
+            alert(redirectAttributes, Alert.danger(Messages.PASSWORD_RESET_ERROR));
+            return redirect(Routes.PASSWORD_RESET);
+        }
 
-    @GetMapping(PASSWORD_RESET_SUCCESS)
-    public String getSuccess(Model model) {
-        alert(model, Alert.success(Messages.PASSWORD_RESET_SUCCESS));
+        alert(redirectAttributes, Alert.success(Messages.PASSWORD_RESET_SUCCESS));
         return redirect(Routes.LOGIN);
-    }
-
-    @GetMapping(PASSWORD_RESET_ERROR)
-    public String getError(Model model) {
-        alert(model, Alert.danger(Messages.PASSWORD_RESET_ERROR));
-        return Templates.PASSWORD_RESET;
     }
 }
