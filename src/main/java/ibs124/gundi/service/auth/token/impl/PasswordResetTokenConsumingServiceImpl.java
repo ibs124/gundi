@@ -43,7 +43,10 @@ class PasswordResetTokenConsumingServiceImpl
 
         UserEntity user = token.getUser();
 
-        if (user.getPassword().equals(request.password()) == false) {
+        boolean updateIsNeeded = !this.passwordEncoder
+                .matches(request.password(), user.getPassword());
+
+        if (updateIsNeeded) {
             String encodedPassword = this.passwordEncoder.encode(request.password());
 
             user.setPassword(encodedPassword);
