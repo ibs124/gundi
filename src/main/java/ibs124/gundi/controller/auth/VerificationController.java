@@ -1,7 +1,5 @@
 package ibs124.gundi.controller.auth;
 
-import static ibs124.gundi.constant.Routes.VERIFICATION_SEND;
-
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,11 +28,6 @@ class VerificationController {
             TokenCreationProviderService<VerificationTokenCreateRequest> tokenCreator) {
         this.eventPublisher = eventPublisher;
         this.tokenCreator = tokenCreator;
-    }
-
-    @GetMapping(Routes.VERIFICATION)
-    public String index() {
-        return PresentationUtils.forward(VERIFICATION_SEND);
     }
 
     @GetMapping(Routes.VERIFICATION_SEND)
