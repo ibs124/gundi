@@ -22,8 +22,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import ibs124.gundi.constant.Env;
-
 @EnableMultiFactorAuthentication(authorities = {})
 @EnableWebSecurity
 @Configuration
@@ -102,8 +100,6 @@ class SecurityConfig {
     public Customizer<LogoutConfigurer<HttpSecurity>> getLogoutConfigurer() {
         return x -> x
                 .logoutUrl(LOGOUT)
-                .logoutSuccessUrl(INDEX)
-                .invalidateHttpSession(true)
-                .deleteCookies(Env.JSESSIONID);
+                .logoutSuccessUrl(INDEX);
     }
 }
