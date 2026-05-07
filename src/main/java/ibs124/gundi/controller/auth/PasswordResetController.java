@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import ibs124.gundi.constant.Messages;
 import ibs124.gundi.constant.Routes;
 import ibs124.gundi.constant.Templates;
-import ibs124.gundi.constant.ThymeleafEnv;
 import ibs124.gundi.event.UserPasswordResetEvent;
 import ibs124.gundi.model.dto.auth.PasswordResetDto;
 import ibs124.gundi.model.dto.auth.TokenContract;
@@ -107,10 +106,7 @@ class PasswordResetController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()) {
-            redirectAttributes
-                    .addFlashAttribute(API_RESPONSE, bindingModel)
-                    .addFlashAttribute(ThymeleafEnv.BINDING_RESULT, bindingResult);
+        if (bindingModelHasErrors(bindingModel, bindingResult, redirectAttributes)) {
             return redirect(PASSWORD_RESET_SUBMIT);
         }
 

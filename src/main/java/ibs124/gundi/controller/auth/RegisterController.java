@@ -2,9 +2,9 @@ package ibs124.gundi.controller.auth;
 
 import static ibs124.gundi.constant.Routes.REGISTER;
 import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
-import static ibs124.gundi.constant.ThymeleafEnv.BINDING_RESULT;
 import static ibs124.gundi.util.PresentationUtils.alert;
 import static ibs124.gundi.util.PresentationUtils.redirect;
+import static ibs124.gundi.util.PresentationUtils.bindingModelHasErrors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,10 +47,7 @@ public class RegisterController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()) {
-            redirectAttributes
-                    .addFlashAttribute(API_RESPONSE, bindingModel)
-                    .addFlashAttribute(BINDING_RESULT, bindingResult);
+        if (bindingModelHasErrors(bindingModel, bindingResult, redirectAttributes)) {
             return redirect(REGISTER);
         }
 

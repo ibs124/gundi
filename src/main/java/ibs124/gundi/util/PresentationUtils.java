@@ -1,8 +1,11 @@
 package ibs124.gundi.util;
 
+import static ibs124.gundi.constant.ThymeleafEnv.API_RESPONSE;
+
 import java.util.Arrays;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,6 +26,21 @@ public abstract class PresentationUtils {
     public static Model alert(Model model, Alert... alerts) {
         model.addAttribute(ThymeleafEnv.ALERTS, Arrays.asList(alerts));
         return model;
+    }
+
+    public static final <T> boolean bindingModelHasErrors(
+            T request,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
+
+        if (!bindingResult.hasErrors()) {
+            return false;
+        }
+
+        redirectAttributes
+                .addFlashAttribute(API_RESPONSE, request)
+                .addFlashAttribute(ThymeleafEnv.BINDING_RESULT, bindingResult);
+        return true;
     }
 
     public static final String appUrlBy(HttpServletRequest request) {
