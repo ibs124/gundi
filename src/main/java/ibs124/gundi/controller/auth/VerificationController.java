@@ -59,12 +59,6 @@ class VerificationController {
         return Templates.VERIFICATION;
     }
 
-    @GetMapping(Routes.VERIFICATION_SUCCESS)
-    public String success(Model model, Authentication authentication) {
-        PresentationUtils.alert(model, Alert.success(Messages.VERIFICATION_SUCCESS));
-        return Templates.VERIFICATION;
-    }
-
     @GetMapping(Routes.VERIFICATION_ERROR)
     public String error(Model model, Authentication authentication) {
         PresentationUtils.alert(model, Alert.danger(Messages.VERIFICATION_ERROR));
