@@ -46,9 +46,8 @@ class SecurityConfig {
 
     .AuthorizationManagerRequestMatcherRegistry> getAuthzHttpRequestsConfigurer() {
 
-        var password = this.getAuthzManagerFactoryByFactors(PASSWORD_AUTHORITY);
-
-        var mfa = this.getAuthzManagerFactoryByFactors(PASSWORD_AUTHORITY, OTT_AUTHORITY);
+        DefaultAuthorizationManagerFactory<Object> mfa = this
+                .getAuthzManagerFactoryByFactors(PASSWORD_AUTHORITY, OTT_AUTHORITY);
 
         return x -> x
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
@@ -57,10 +56,10 @@ class SecurityConfig {
                 .requestMatchers(
                         INDEX, LOGIN, LOGIN_ERROR, REGISTER, REGISTER_SUCCESS,
                         PASSWORD_RESET + SUBROUTE_MATCHER)
-                .access(password.permitAll())
+                .permitAll()
 
                 .requestMatchers(VERIFICATION + SUBROUTE_MATCHER)
-                .access(password.authenticated())
+                .authenticated()
 
                 .requestMatchers(ROOT + SUBROUTE_MATCHER)
                 .access(mfa.hasAuthority(AuthorityConfig.ROLE_ROOT.getAuthority()))
