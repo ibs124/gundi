@@ -1,36 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="
-
     routes=${T(ibs124.gundi.constant.Routes)}
-
-">
+ ">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title th:text="${title} ?: 'Gundi'"></title>
-
     <link rel="stylesheet" th:href="@{/css/components.css}">
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/sidebar.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
-
     <script th:src="@{/js/main.js}" defer></script>
-
     <th:block th:if="${headExtra != null}">
         <th:block th:replace="${headExtra}"></th:block>
     </th:block>
 </head>
 
 <body>
-    <div id="icons" style="display: none;" th:insert="~{fragments/icons}"></div>
-
     <div class="app app--dark-mode app--sidebar-expanded">
+        <div class="app__lib">
+            <div th:replace="~{fragments/icons}"></div>
+        </div>
         <div th:insert="~{fragments/header}" class="app__header"></div>
-
         <div th:insert="~{fragments/sidebar}" class="app__sidebar"></div>
-
         <main class="app__workspace">
             <div th:if="${alerts != null and !#lists.isEmpty(alerts)}">
                 <div th:each="alert : ${alerts}" th:classappend="' ' + ${alert.cssClass}">
@@ -44,7 +37,6 @@
                 <h1>Error, content not available!</h1>
             </th:block>
         </main>
-
     </div>
 </body>
 

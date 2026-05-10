@@ -49,6 +49,10 @@
     grid-template-columns: var(--sidebar-width) 1fr;
 }
 
+.app__lib {
+    display: none;
+}
+
 .app__header {
     grid-area: header;
     overflow: hidden auto;
