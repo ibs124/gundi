@@ -63,22 +63,6 @@ function updateSidebar(app) {
     classes.remove(expanded);
 }
 
-// Old icons injection function. Now icons are injected using a Thymeleaf fragment.
-function injectIcons() {
-    fetch("../images/icons.svg")
-        .then(res => res.text())
-        .then(data => {
-            const div = document.createElement("div");
-            div.id = "icons";
-            div.style.display = "none";
-            div.innerHTML = data;
-            document.body.insertAdjacentElement("afterbegin", div);
-        })
-        .catch(err => {
-            console.error("Failed to load icons.svg:", err);
-        });
-}
-
 function setClassToggleButtonFor(clazz, hostElemetSelector, buttonSelector) {
     document.querySelectorAll(buttonSelector)
         .forEach(button => button.addEventListener(CLICK, () =>
