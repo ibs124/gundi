@@ -9,6 +9,8 @@ public abstract class Messages {
     private static final String REQUIRED = ".required}";
     private static final String SENT = ".sent}";
 
+    public static final String COMMON_GREETING = "{common.greeting}";
+
     public static final String BLANK_FIELD = "{blank_field}";
 
     private static final String USERNAME = "{" + Env.USERNAME;
